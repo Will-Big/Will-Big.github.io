@@ -55,20 +55,18 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
         </div>
       </div>
     </div>
-    <p style="margin:30px 0 0;font-size:17px;line-height:1.8;max-width:74ch;text-wrap:pretty;color:rgba(32,30,29,.85)">네 번째로 만든 자체 엔진입니다. <strong>ECS로 바꾸고, 메인 루프에서 게임 실행과 에디터 실행을 떼어냈습니다</strong>. 그 위에 기획과 아트가 컴파일 없이 씬을 구성할 수 있는 에디터를 올렸습니다. 컴포넌트를 새로 만들어도 에디터 코드는 건드릴 일이 없습니다. 등록부에 메타데이터 한 블록만 적어 두면 인스펙터가 그려집니다.</p>
+    <p style="margin:30px 0 0;font-size:17px;line-height:1.8;max-width:74ch;text-wrap:pretty;color:rgba(32,30,29,.85)">네 번째로 만든 자체 엔진입니다. <strong>ECS로 바꾸고, 코어 하나를 공유하는 실행 파일 두 개로 게임과 에디터를 나눴습니다</strong>. 그 위에 기획과 아트가 컴파일 없이 씬을 구성할 수 있는 에디터를 올렸습니다. 컴포넌트를 새로 만들어도 에디터 코드는 건드릴 일이 없습니다. 등록부에 메타데이터 한 블록만 적어 두면 인스펙터가 그려집니다.</p>
   </section>
 
   <!-- 2. 하이라이트 -->
   <section style="padding:48px 0 0">
     <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;color:var(--color-accent);padding-bottom:10px">하이라이트</div>
     <div style="border-top:2px solid var(--color-text);border-bottom:2px solid var(--color-text);display:grid;grid-template-columns:1fr 1fr;gap:0 40px">
-      <a href="#f1" style="display:flex;gap:14px;padding:15px 0;border-bottom:1px solid rgba(32,30,29,.14);color:var(--color-text);border-top:none;text-decoration:none"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--color-accent);padding-top:4px">에디터</span><span style="font-size:15px;line-height:1.6;font-weight:500">🔗 컴포넌트를 추가해도 에디터 코드는 0줄, 인스펙터가 자동으로 생깁니다</span></a>
-      <a href="#f2" style="display:flex;gap:14px;padding:15px 0;border-bottom:1px solid rgba(32,30,29,.14);color:var(--color-text);text-decoration:none"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--color-accent);padding-top:4px">에디터</span><span style="font-size:15px;line-height:1.6;font-weight:500">🔗 한 번 만든 오브젝트를 파일로 남겨 레벨 어디서든 다시 씁니다</span></a>
-      <a href="#f3" style="display:flex;gap:14px;padding:15px 0;border-bottom:1px solid rgba(32,30,29,.14);color:var(--color-text);text-decoration:none"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--color-accent);padding-top:4px">컨텐츠</span><span style="font-size:15px;line-height:1.6;font-weight:500">🔗 조작감을 위해 물리 법칙을 일부러 어긴 캐릭터 컨트롤러</span></a>
-      <a href="#f4" style="display:flex;gap:14px;padding:15px 0;border-bottom:1px solid rgba(32,30,29,.14);color:var(--color-text);text-decoration:none"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--color-accent);padding-top:4px">컨텐츠</span><span style="font-size:15px;line-height:1.6;font-weight:500">🔗 열 개 레이어를 한 번에 훑어서 무엇을 집었는지 가려냅니다</span></a>
-      <a href="#engine" style="display:flex;gap:14px;padding:15px 0;color:var(--color-text);text-decoration:none"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--color-accent);padding-top:4px">엔진</span><span style="font-size:15px;line-height:1.6;font-weight:500">🔗 충돌 레이어를 이름으로 다루게 만든 추상화 (엔진 페이지)</span></a>
-      <a href="#engine" style="display:flex;gap:14px;padding:15px 0;color:var(--color-text);text-decoration:none"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--color-accent);padding-top:4px">엔진</span><span style="font-size:15px;line-height:1.6;font-weight:500">🔗 렌더러에서 떼어낸 메인 루프 (지난 엔진과의 비교)</span></a>
-    </div>
+      <a href="#f1" style="display:flex;gap:14px;padding:15px 0;border-bottom:1px solid rgba(32,30,29,.14);color:var(--color-text);border-top:none;text-decoration:none"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--color-accent);padding-top:4px">에디터</span><span style="font-size:15px;line-height:1.6;font-weight:500">🔗 에디터 코드 수정 없이 생성되는 인스펙터</span></a>
+      <a href="#f2" style="display:flex;gap:14px;padding:15px 0;border-bottom:1px solid rgba(32,30,29,.14);color:var(--color-text);text-decoration:none"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--color-accent);padding-top:4px">에디터</span><span style="font-size:15px;line-height:1.6;font-weight:500">🔗 파일로 저장해 여러 레벨에서 재사용하는 프리팹</span></a>
+      <a href="#f3" style="display:flex;gap:14px;padding:15px 0;border-bottom:1px solid rgba(32,30,29,.14);color:var(--color-text);text-decoration:none"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--color-accent);padding-top:4px">컨텐츠</span><span style="font-size:15px;line-height:1.6;font-weight:500">🔗 조작감을 위해 물리 법칙을 의도적으로 어긴 캐릭터 컨트롤러</span></a>
+      <a href="#f4" style="display:flex;gap:14px;padding:15px 0;border-bottom:1px solid rgba(32,30,29,.14);color:var(--color-text);text-decoration:none"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--color-accent);padding-top:4px">컨텐츠</span><span style="font-size:15px;line-height:1.6;font-weight:500">🔗 열 종류 레이어를 한 번의 레이캐스트로 가려내는 상호작용</span></a>
+      <a href="#engine" style="display:flex;gap:14px;padding:15px 0;color:var(--color-text);text-decoration:none"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--color-accent);padding-top:4px">엔진</span><span style="font-size:15px;line-height:1.6;font-weight:500">🔗 충돌 레이어를 이름으로 다루는 추상화</span></a>    </div>
   </section>
 
   <!-- 3. 엔진 -->
@@ -121,7 +119,7 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
       </div>
       <div style="border:1px solid rgba(32,30,29,.3);padding:18px 20px">
         <div style="font-size:14px;font-weight:600;margin-bottom:5px"><a href="engine/" style="color:inherit;border-bottom:1px solid rgba(32,30,29,.45)">🔗 엔진 아키텍처의 의도 자세히 보기</a></div>
-        <div style="font-size:12.5px;color:rgba(32,30,29,.6);line-height:1.65;margin-bottom:12px">충돌 레이어 추상화 · 메인 루프 설계 · 지난 엔진과의 비교 — 6분</div>
+        <div style="font-size:12.5px;color:rgba(32,30,29,.6);line-height:1.65;margin-bottom:12px">실행 파일 두 개와 코어 하나 · 리플렉션 메타 허브 · 에디터 코어 — 6분</div>
       </div>
     </div>
   </section>
