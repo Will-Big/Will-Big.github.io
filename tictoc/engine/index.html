@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="utf-8">
+<title>엔진 아키텍처 — TicToc Guardians | 임상학 Portfolio</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="../../support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="../../_ds/modernist-ae998351-d810-43b9-b194-f261b8babc31/styles.css">
+<script src="../../_ds/modernist-ae998351-d810-43b9-b194-f261b8babc31/_ds_bundle.js"></script>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&amp;family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:var(--color-bg);color:var(--color-text);font-family:'IBM Plex Sans KR','Archivo',system-ui,sans-serif;-webkit-font-smoothing:antialiased;word-break:keep-all;overflow-wrap:break-word}
+a{color:#c22a10;text-decoration:none;border-bottom:1px solid rgba(194,42,16,.35)}
+a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
+</style>
+</helmet>
+<div style="max-width:1180px;margin:0 auto;padding:0 40px 140px">
+
+  <div style="padding:34px 0 14px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;color:rgba(32,30,29,.5);display:flex;justify-content:space-between;align-items:center;gap:20px;border-bottom:1px solid rgba(32,30,29,.18)">
+    <span><a href="/" style="color:rgba(32,30,29,.5);border:none">↑ Portfolio</a> &nbsp;/&nbsp; <a href="../" style="color:rgba(32,30,29,.5);border:none">TicToc Guardians</a> &nbsp;/&nbsp; <span style="color:var(--color-text)">엔진 아키텍처</span></span>
+    <span>L2 · 마지막 층</span>
+  </div>
+
+  <section data-screen-label="표제" style="padding:44px 0 0">
+    <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:48px;align-items:end;border-bottom:2px solid var(--color-text);padding-bottom:26px">
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;color:var(--color-accent);margin-bottom:12px">TICTOC ENGINE · EDITOR — 설계 의도</div>
+        <h1 style="margin:0;font-size:52px;line-height:1.1;letter-spacing:-.035em;font-weight:700;text-wrap:pretty">수치 하나를 고치려고<br>컴파일하지 않는다</h1>
+      </div>
+      <p style="margin:0;font-size:14.5px;line-height:1.85;color:rgba(32,30,29,.78);text-wrap:pretty">세 번째로 만든 자체 엔진입니다. 이번에 새로 붙인 건 <b>에디터</b>였고, 그걸 만들려고 직렬화와 리플렉션을 처음 공부했습니다. 코어 구조도 거기에 맞춰 다시 잡았습니다. 지난 엔진에서 뭐가 불편했고 어디를 고쳤는지를 다이어그램으로 정리했습니다.</p>
+    </div>
+
+    <div style="padding:34px 0 0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.12fr);gap:48px;align-items:start">
+      <div style="border-left:2px solid var(--color-accent);padding:4px 0 4px 20px">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;color:var(--color-accent);margin-bottom:12px">설계 원칙</div>
+        <div style="font-size:29px;line-height:1.35;font-weight:700;letter-spacing:-.02em;text-wrap:pretty">게임의 값은 코드가 아니라<br>씬 파일에 있어야 한다</div>
+      </div>
+      <div style="font-size:15px;line-height:1.9;color:rgba(32,30,29,.82);text-wrap:pretty">
+        <p style="margin:0 0 14px">지난 팀 프로젝트를 하면서 정한 원칙입니다. 그때는 에디터가 없어서 <b>오브젝트 위치도, 데미지 수치도 전부 코드 안의 숫자</b>였습니다. 한 칸 옮기려고 값을 고치고, 컴파일을 기다리고, 게임을 처음부터 다시 켰습니다. 원하는 자리가 나올 때까지 이 과정을 여러 번 반복했습니다.</p>
+        <p style="margin:0">이번에는 그 반복을 없애는 게 목표였습니다. 값을 코드에서 꺼내 파일에 담으려면 <b>직렬화</b>가 있어야 했고, 어떤 타입이든 화면에 필드로 띄우려면 <b>리플렉션</b>이 있어야 했습니다. 아래는 이 두 가지를 어떻게 만들어 에디터에 붙였는지입니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="01 왕복 제거" style="padding:56px 0 0">
+    <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:6px">
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-accent)">01</span>
+      <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">수치 하나 고치는 데 걸리던 시간</h2>
+    </div>
+    <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);max-width:78ch;text-wrap:pretty">지난 엔진에서는 값 하나를 확인하려고 여섯 단계를 거쳤습니다. 그중 다섯은 그냥 기다리는 시간이었습니다. 이번에는 <b>고치는 곳과 확인하는 곳이 같은 화면</b>입니다.</p>
+
+    <div data-om-raster="true" style="border:2px solid var(--color-text);background:#fff;padding:20px 22px">
+      <svg sc-camel-view-box="0 0 1100 400" style="width:100%;height:auto;display:block" role="img" aria-label="이전 엔진과 이번 엔진의 작업 흐름 비교">
+        <defs>
+          <marker id="t1a" sc-camel-view-box="0 0 10 10" sc-camel-ref-x="9" sc-camel-ref-y="5" sc-camel-marker-width="7" sc-camel-marker-height="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#201e1d"></path></marker>
+          <marker id="t1r" sc-camel-view-box="0 0 10 10" sc-camel-ref-x="9" sc-camel-ref-y="5" sc-camel-marker-width="7" sc-camel-marker-height="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#ec3013"></path></marker>
+        </defs>
+        <text x="14" y="22" font-family="'IBM Plex Mono',monospace" font-size="11" fill="#8a8580" letter-spacing="1.4">2ND · FATE WEAVER — 에디터 없음</text>
+        <rect x="14" y="38" width="176" height="52" fill="#fff" stroke="#201e1d" stroke-width="1.5"></rect>
+        <text x="30" y="62" font-family="'IBM Plex Mono',monospace" font-size="12" fill="#201e1d">코드의 숫자 수정</text>
+        <text x="30" y="80" font-family="'IBM Plex Sans KR',sans-serif" font-size="11" fill="#8a8580">위치 · 데미지 · 간격</text>
+        <line x1="190" y1="64" x2="216" y2="64" stroke="#201e1d" stroke-width="1.5" marker-end="url(#t1a)"></line>
+        <rect x="218" y="38" width="176" height="52" fill="#fbe9e6" stroke="#ec3013" stroke-width="1.5"></rect>
+        <text x="234" y="62" font-family="'IBM Plex Mono',monospace" font-size="12" fill="#ec3013">전체 재컴파일</text>
+        <text x="234" y="80" font-family="'IBM Plex Sans KR',sans-serif" font-size="11" fill="#6b6663"></text>
+        <line x1="394" y1="64" x2="420" y2="64" stroke="#201e1d" stroke-width="1.5" marker-end="url(#t1a)"></line>
+        <rect x="422" y="38" width="176" height="52" fill="#fff" stroke="#201e1d" stroke-width="1.5"></rect>
+        <text x="438" y="62" font-family="'IBM Plex Mono',monospace" font-size="12" fill="#201e1d">게임 실행</text>
+        <text x="438" y="80" font-family="'IBM Plex Sans KR',sans-serif" font-size="11" fill="#8a8580">첫 화면부터</text>
+        <line x1="598" y1="64" x2="624" y2="64" stroke="#201e1d" stroke-width="1.5" marker-end="url(#t1a)"></line>
+        <rect x="626" y="38" width="176" height="52" fill="#fff" stroke="#201e1d" stroke-width="1.5"></rect>
+        <text x="642" y="62" font-family="'IBM Plex Mono',monospace" font-size="12" fill="#201e1d">해당 구간까지 플레이</text>
+        <text x="642" y="80" font-family="'IBM Plex Sans KR',sans-serif" font-size="11" fill="#8a8580">확인하려면 도달해야 한다</text>
+        <line x1="802" y1="64" x2="828" y2="64" stroke="#201e1d" stroke-width="1.5" marker-end="url(#t1a)"></line>
+        <rect x="830" y="38" width="176" height="52" fill="#fff" stroke="#201e1d" stroke-width="1.5"></rect>
+        <text x="846" y="62" font-family="'IBM Plex Mono',monospace" font-size="12" fill="#201e1d">눈으로 확인</text>
+        <text x="846" y="80" font-family="'IBM Plex Sans KR',sans-serif" font-size="11" fill="#8a8580"></text>
+        <path d="M 918,90 V 126 H 102 V 92" stroke="#ec3013" stroke-width="1.5" fill="none" stroke-dasharray="6 4" marker-end="url(#t1r)"></path>
+        <text x="430" y="118" font-family="'IBM Plex Sans KR',sans-serif" font-size="12" fill="#ec3013">값 하나를 맞출 때까지 이 여섯 칸을 반복</text>
+        <line x1="14" y1="156" x2="1086" y2="156" stroke="#201e1d" stroke-width="2"></line>
+        <text x="14" y="186" font-family="'IBM Plex Mono',monospace" font-size="11" fill="#ec3013" letter-spacing="1.4">3RD · TICTOC — 에디터 도입</text>
+        <rect x="14" y="202" width="240" height="76" fill="#fff" stroke="#201e1d" stroke-width="1.5"></rect>
+        <text x="30" y="228" font-family="'IBM Plex Mono',monospace" font-size="12" fill="#201e1d">인스펙터에서 값 드래그</text>
+        <text x="30" y="250" font-family="'IBM Plex Sans KR',sans-serif" font-size="11.5" fill="#6b6663">리플렉션이 멤버를 그대로</text>
+        <text x="30" y="266" font-family="'IBM Plex Sans KR',sans-serif" font-size="11.5" fill="#6b6663">위젯으로 띄운다</text>
+        <line x1="254" y1="240" x2="280" y2="240" stroke="#201e1d" stroke-width="1.5" marker-end="url(#t1a)"></line>
+        <rect x="282" y="202" width="240" height="76" fill="#fff" stroke="#201e1d" stroke-width="1.5"></rect>
+        <text x="298" y="228" font-family="'IBM Plex Mono',monospace" font-size="12" fill="#201e1d">뷰포트에서 즉시 확인</text>
+        <text x="298" y="250" font-family="'IBM Plex Sans KR',sans-serif" font-size="11.5" fill="#6b6663">기즈모로 배치 · 스냅 값으로</text>
+        <text x="298" y="266" font-family="'IBM Plex Sans KR',sans-serif" font-size="11.5" fill="#6b6663">격자에 맞춘다</text>
+        <line x1="522" y1="240" x2="548" y2="240" stroke="#201e1d" stroke-width="1.5" marker-end="url(#t1a)"></line>
+        <rect x="550" y="202" width="240" height="76" fill="#fbe9e6" stroke="#ec3013" stroke-width="2"></rect>
+        <text x="566" y="228" font-family="'IBM Plex Mono',monospace" font-size="12" fill="#ec3013">Play — 그 자리에서 실행</text>
+        <text x="566" y="250" font-family="'IBM Plex Sans KR',sans-serif" font-size="11.5" fill="#6b6663">Stop 하면 편집 상태로</text>
+        <text x="566" y="266" font-family="'IBM Plex Sans KR',sans-serif" font-size="11.5" fill="#6b6663">되돌아온다</text>
+        <line x1="790" y1="240" x2="816" y2="240" stroke="#201e1d" stroke-width="1.5" marker-end="url(#t1a)"></line>
+        <rect x="818" y="202" width="268" height="76" fill="#fff" stroke="#201e1d" stroke-width="1.5"></rect>
+        <text x="834" y="228" font-family="'IBM Plex Mono',monospace" font-size="12" fill="#201e1d">.scene 으로 저장</text>
+        <text x="834" y="250" font-family="'IBM Plex Sans KR',sans-serif" font-size="11.5" fill="#6b6663">런처는 이 파일만 읽는다.</text>
+        <text x="834" y="266" font-family="'IBM Plex Sans KR',sans-serif" font-size="11.5" fill="#6b6663">값이 코드 밖으로 나왔다</text>
+        <path d="M 134,278 V 312 H 670 V 282" stroke="#ec3013" stroke-width="1.5" fill="none" stroke-dasharray="6 4" marker-end="url(#t1r)"></path>
+        <text x="150" y="304" font-family="'IBM Plex Sans KR',sans-serif" font-size="12" fill="#ec3013">반복은 남지만 컴파일과 재실행이 빠진다</text>
+        <line x1="14" y1="340" x2="1086" y2="340" stroke="#201e1d" stroke-width="1" opacity=".18"></line>
+        <text x="14" y="368" font-family="'IBM Plex Sans KR',sans-serif" font-size="12" fill="#8a8580">기획·아트가 값을 직접 조절하기 위한 필요 기능</text>
+        <text x="14" y="388" font-family="'IBM Plex Mono',monospace" font-size="12" fill="#201e1d">① 직렬화: 씬의 상태를 파일로 내보내고 되읽는 경로 &nbsp;&nbsp;② 리플렉션: 타입을 몰라도 멤버를 읽고 쓰는 경로</text>
+      </svg>
+    </div>
+  </section>
+
+  <section data-screen-label="02 모듈 경계" style="padding:56px 0 0">
+    <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:6px">
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-accent)">02</span>
+      <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">에디터와 런처가 같은 게임 코드를 쓴다</h2>
+    </div>
+    <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);max-width:78ch;text-wrap:pretty">Play 버튼이 제 역할을 하려면 에디터가 게임을 <b>직접 돌릴 수 있어야</b> 했습니다. 그래서 게임 프로젝트를 라이브러리로 만들고, 에디터와 런처가 각자 그걸 상속하게 했습니다. <code style="font-family:'IBM Plex Mono',monospace;font-size:12.5px">EditorProcess</code>에서 새로 쓴 건 <code style="font-family:'IBM Plex Mono',monospace;font-size:12.5px">OnImGuiRender()</code>와 편집 모드용 <code style="font-family:'IBM Plex Mono',monospace;font-size:12.5px">Update()</code> 두 개뿐입니다.</p>
+
+    <div data-om-raster="true" style="border:2px solid var(--color-text);background:#fff;padding:20px 22px">
+      <svg sc-camel-view-box="0 0 1100 520" style="width:100%;height:auto;display:block" role="img" aria-label="모듈 경계 다이어그램">
+        <defs>
+          <marker id="t2a" sc-camel-view-box="0 0 10 10" sc-camel-ref-x="9" sc-camel-ref-y="5" sc-camel-marker-width="7" sc-camel-marker-height="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#201e1d"></path></marker>
+          <marker id="t2m" sc-camel-view-box="0 0 10 10" sc-camel-ref-x="9" sc-camel-ref-y="5" sc-camel-marker-width="7" sc-camel-marker-height="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#8a8580"></path></marker>
+        </defs>
+        <rect x="60" y="14" width="340" height="62" fill="#fff" stroke="#201e1d" stroke-width="1.5"></rect>
+        <text x="78" y="42" font-family="'IBM Plex Mono',monospace" font-size="15" fill="#201e1d">Editor.exe</text>
+        <text x="78" y="63" font-family="'IBM Plex Sans KR',sans-serif" font-size="12.5" fill="#6b6663">씬을 편집한다</text>
+        <rect x="700" y="14" width="340" height="62" fill="#fff" stroke="#201e1d" stroke-width="1.5"></rect>
+        <text x="718" y="42" font-family="'IBM Plex Mono',monospace" font-size="15" fill="#201e1d">Launcher.exe</text>
+        <text x="718" y="63" font-family="'IBM Plex Sans KR',sans-serif" font-size="12.5" fill="#6b6663">씬을 재생한다</text>
+        <line x1="230" y1="76" x2="230" y2="110" stroke="#201e1d" stroke-width="1.5" marker-end="url(#t2a)"></line>
+        <line x1="870" y1="76" x2="870" y2="110" stroke="#201e1d" stroke-width="1.5" marker-end="url(#t2a)"></line>
+        <rect x="60" y="112" width="340" height="82" fill="#fff" stroke="#ec3013" stroke-width="2"></rect>
+        <text x="78" y="140" font-family="'IBM Plex Mono',monospace" font-size="14.5" fill="#ec3013">EditorProcess</text>
+        <text x="78" y="162" font-family="'IBM Plex Sans KR',sans-serif" font-size="12" fill="#6b6663">OnImGuiRender() — 윈도우 스택을 그린다</text>
+        <text x="78" y="182" font-family="'IBM Plex Sans KR',sans-serif" font-size="12" fill="#6b6663">Update() — 재생 중이 아니면 변환만 갱신</text>
+        <rect x="700" y="112" width="340" height="82" fill="#fff" stroke="#201e1d" stroke-width="1.5"></rect>
+        <text x="718" y="140" font-family="'IBM Plex Mono',monospace" font-size="14.5" fill="#201e1d">LauncherTTG</text>
+        <text x="718" y="162" font-family="'IBM Plex Sans KR',sans-serif" font-size="12" fill="#6b6663">추가 구현 없음 — 생성자와 Loop() 만</text>
+        <text x="718" y="182" font-family="'IBM Plex Sans KR',sans-serif" font-size="12" fill="#6b6663">ImGui 초기화 플래그를 false 로 넘긴다</text>
+        <line x1="230" y1="194" x2="230" y2="228" stroke="#201e1d" stroke-width="1.5" marker-end="url(#t2a)"></line>
+        <line x1="870" y1="194" x2="870" y2="228" stroke="#201e1d" stroke-width="1.5" marker-end="url(#t2a)"></line>
+        <rect x="60" y="230" width="980" height="72" fill="#fff" stroke="#201e1d" stroke-width="1.5"></rect>
+        <text x="78" y="258" font-family="'IBM Plex Mono',monospace" font-size="14.5" fill="#201e1d">TickTockGuardians &nbsp;— 게임 프로젝트 (LIB)</text>
+        <text x="78" y="284" font-family="'IBM Plex Sans KR',sans-serif" font-size="12.5" fill="#6b6663">게임 컴포넌트와 시스템 · 태그 정의 — 두 실행 파일이 같은 이 층을 상속한다</text>
+        <line x1="550" y1="302" x2="550" y2="334" stroke="#201e1d" stroke-width="1.5" marker-end="url(#t2a)"></line>
+        <rect x="60" y="336" width="980" height="104" fill="#fbe9e6" stroke="#201e1d" stroke-width="2"></rect>
+        <text x="78" y="364" font-family="'IBM Plex Mono',monospace" font-size="15" fill="#201e1d">GameProcess &nbsp;— 엔진 코어 (LIB)</text>
+        <text x="78" y="390" font-family="'IBM Plex Mono',monospace" font-size="11.5" fill="#4a4644">CreateWindow(에디터/런처 두 갈래) · TimeManager · GameObjectManager · ComponentPoolManager · SystemManager</text>
+        <text x="78" y="412" font-family="'IBM Plex Mono',monospace" font-size="11.5" fill="#4a4644">Loop() { Update(); EventManager::Update(); Render(); OnImGuiRender(); }</text>
+        <text x="78" y="432" font-family="'IBM Plex Mono',monospace" font-size="11.5" fill="#ec3013">virtual Update · Render · OnImGuiRender &nbsp;← 에디터가 갈아끼우는 세 칸</text>
+        <line x1="295" y1="478" x2="295" y2="444" stroke="#8a8580" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#t2m)"></line>
+        <line x1="805" y1="478" x2="805" y2="444" stroke="#8a8580" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#t2m)"></line>
+        <rect x="60" y="480" width="470" height="34" fill="#fff" stroke="#8a8580" stroke-width="1.5" stroke-dasharray="5 4"></rect>
+        <text x="78" y="502" font-family="'IBM Plex Mono',monospace" font-size="12" fill="#8a8580">Reflection — TypeInfo · Property (소스 코드로 포함)</text>
+        <rect x="570" y="480" width="470" height="34" fill="#fff" stroke="#8a8580" stroke-width="1.5" stroke-dasharray="5 4"></rect>
+        <text x="588" y="502" font-family="'IBM Plex Mono',monospace" font-size="12" fill="#8a8580">ABGraphics · PhysX · SoundEngine — 이 페이지 범위 밖</text>
+      </svg>
+    </div>
+
+    <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:36px;margin-top:22px;align-items:start">
+      <p style="margin:0;font-size:13.5px;line-height:1.8;color:rgba(32,30,29,.78)">그래서 에디터의 Play는 별도의 미리보기가 아니라 <b>런처와 똑같은 코드</b>를 돌립니다. 런처가 매 프레임 부르는 <code style="font-family:'IBM Plex Mono',monospace;font-size:12px">Update()</code>를 그대로 부르고, 편집 중일 때만 변환 갱신과 입력 처리로 바꿔 끼웁니다.</p>
+      <div style="border-left:2px solid var(--color-accent);padding:2px 0 2px 16px">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;color:var(--color-accent);margin-bottom:6px">대가</div>
+        <p style="margin:0;font-size:13.5px;line-height:1.7;color:rgba(32,30,29,.75)">창 생성부터 에디터 이벤트 구독까지 코어가 다 떠맡아서 <b>GameProcess가 계속 커졌습니다</b>. 실행 방식만 비워 두는 구조는 다음 엔진에서야 정리했습니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="03 리플렉션" style="padding:56px 0 0">
+    <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:6px">
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-accent)">03</span>
+      <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">리플렉션 — 등록은 미리, 조회는 이름으로</h2>
+    </div>
+    <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);max-width:78ch;text-wrap:pretty">인스펙터가 어떤 컴포넌트든 그려내려면 <b>멤버 이름과 타입, 그 멤버까지 닿는 길</b>이 실행 중에도 남아 있어야 합니다. 매크로 두 줄이 클래스에 등록 코드를 심어 두고, 프로그램이 로드될 때 <code style="font-family:'IBM Plex Mono',monospace;font-size:12.5px">TypeInfo</code>가 채워지게 했습니다.</p>
+
+    <div data-om-raster="true" style="border:2px solid var(--color-text);background:#fff;padding:20px 22px">
+      <svg sc-camel-view-box="0 0 1100 430" style="width:100%;height:auto;display:block" role="img" aria-label="리플렉션 등록과 소비 다이어그램">
+        <defs>
+          <marker id="t3a" sc-camel-view-box="0 0 10 10" sc-camel-ref-x="9" sc-camel-ref-y="5" sc-camel-marker-width="7" sc-camel-marker-height="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#201e1d"></path></marker>
+          <marker id="t3r" sc-camel-view-box="0 0 10 10" sc-camel-ref-x="9" sc-camel-ref-y="5" sc-camel-marker-width="7" sc-camel-marker-height="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#ec3013"></path></marker>
+        </defs>
+        <rect x="230" y="8" width="640" height="96" fill="#fff" stroke="#201e1d" stroke-width="1.5"></rect>
+        <text x="248" y="34" font-family="'IBM Plex Mono',monospace" font-size="12.5" fill="#201e1d">GENERATE_CLASS_TYPE_INFO(T) &nbsp;→&nbsp; StaticTypeInfo() · Super 추론</text>
+        <text x="248" y="56" font-family="'IBM Plex Mono',monospace" font-size="12.5" fill="#ec3013">PROPERTY(Member) &nbsp;→&nbsp; 멤버 포인터를 캡슐화한 핸들러를 등록</text>
+        <text x="248" y="80" font-family="'IBM Plex Sans KR',sans-serif" font-size="12" fill="#6b6663">게임 코드 안의 컴포넌트 선언부 — 사람이 고치는 곳은 여기뿐</text>
+        <text x="248" y="98" font-family="'IBM Plex Sans KR',sans-serif" font-size="11.5" fill="#8a8580">인라인 정적 멤버의 초기화가 등록을 대신한다. 별도 등록 함수 호출이 없다</text>
+        <line x1="550" y1="104" x2="550" y2="116" stroke="#ec3013" stroke-width="1.5" marker-end="url(#t3r)"></line>
+        <rect x="150" y="118" width="800" height="112" fill="#fbe9e6" stroke="#201e1d" stroke-width="2"></rect>
+        <text x="168" y="146" font-family="'IBM Plex Mono',monospace" font-size="14" fill="#201e1d">TypeInfo — 타입마다 하나, 정적 저장소에 함께 등록</text>
+        <text x="168" y="174" font-family="'IBM Plex Mono',monospace" font-size="11.5" fill="#4a4644">m_properties : vector&lt;Property*&gt; &nbsp;·&nbsp; m_typeHash &nbsp;·&nbsp; m_super</text>
+        <text x="168" y="196" font-family="'IBM Plex Mono',monospace" font-size="11.5" fill="#4a4644">static ComponentTypes : map&lt;name, const Component*&gt; &nbsp;— 이름 → 기본 인스턴스</text>
+        <text x="168" y="218" font-family="'IBM Plex Mono',monospace" font-size="11.5" fill="#4a4644">static SystemGenerators : map&lt;name, ISystemGenerator&gt; &nbsp;— 이름 → 시스템 생성</text>
+        <path d="M 550,230 V 258" stroke="#201e1d" stroke-width="1.5" fill="none"></path>
+        <path d="M 210,258 H 890" stroke="#201e1d" stroke-width="1.5" fill="none"></path>
+        <line x1="210" y1="258" x2="210" y2="290" stroke="#201e1d" stroke-width="1.5" marker-end="url(#t3a)"></line>
+        <line x1="550" y1="258" x2="550" y2="290" stroke="#201e1d" stroke-width="1.5" marker-end="url(#t3a)"></line>
+        <line x1="890" y1="258" x2="890" y2="290" stroke="#201e1d" stroke-width="1.5" marker-end="url(#t3a)"></line>
+        <rect x="60" y="292" width="300" height="112" fill="#fff" stroke="#201e1d" stroke-width="1.5"></rect>
+        <text x="76" y="318" font-family="'IBM Plex Mono',monospace" font-size="12.5" fill="#201e1d">Inspector</text>
+        <text x="76" y="342" font-family="'IBM Plex Sans KR',sans-serif" font-size="11.5" fill="#4a4644">Property 목록을 순회하며</text>
+        <text x="76" y="360" font-family="'IBM Plex Sans KR',sans-serif" font-size="11.5" fill="#4a4644">타입에 맞는 위젯을 만들고 Get/Set</text>
+        <text x="76" y="386" font-family="'IBM Plex Mono',monospace" font-size="11" fill="#8a8580">ComponentTypes → Add Component 목록</text>
+        <rect x="400" y="292" width="300" height="112" fill="#fff" stroke="#201e1d" stroke-width="1.5"></rect>
+        <text x="416" y="318" font-family="'IBM Plex Mono',monospace" font-size="12.5" fill="#201e1d">SerializeSystem</text>
+        <text x="416" y="342" font-family="'IBM Plex Sans KR',sans-serif" font-size="11.5" fill="#4a4644">등록된 컴포넌트 전체를 순회해</text>
+        <text x="416" y="360" font-family="'IBM Plex Sans KR',sans-serif" font-size="11.5" fill="#4a4644">타입 이름을 키로 json 에 담는다</text>
+        <text x="416" y="386" font-family="'IBM Plex Mono',monospace" font-size="11" fill="#8a8580">.scene 과 .prefab 이 같은 등록부를 읽는다</text>
+        <rect x="740" y="292" width="300" height="112" fill="#fff" stroke="#201e1d" stroke-width="1.5"></rect>
+        <text x="756" y="318" font-family="'IBM Plex Mono',monospace" font-size="12.5" fill="#201e1d">System Factory</text>
+        <text x="756" y="342" font-family="'IBM Plex Sans KR',sans-serif" font-size="11.5" fill="#4a4644">GenerateSystem(name) 으로</text>
+        <text x="756" y="360" font-family="'IBM Plex Sans KR',sans-serif" font-size="11.5" fill="#4a4644">문자열로 시스템을 만든다</text>
+        <text x="756" y="386" font-family="'IBM Plex Mono',monospace" font-size="11" fill="#8a8580">씬 파일이 시스템 구성을 들고 다니게 한다</text>
+        <text x="60" y="426" font-family="'IBM Plex Sans KR',sans-serif" font-size="11.5" fill="#8a8580">세 소비자는 서로를 모른다. 컴포넌트를 추가할 때 고치는 파일은 그 컴포넌트 헤더 하나다</text>
+      </svg>
+    </div>
+
+    <div style="display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:36px;margin-top:26px;align-items:start">
+      <sc-if value="{{ showCode }}" hint-placeholder-val="{{ true }}">
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;color:rgba(32,30,29,.5);margin-bottom:10px">핵심 코드 — 멤버 포인터를 들고 있는 핸들러</div>
+        <pre style="margin:0;background:var(--color-text);color:#e8e6e3;font-family:'IBM Plex Mono',monospace;font-size:11.5px;line-height:1.75;padding:16px 18px;overflow-x:auto">struct Transform : public Component
+{
+  GENERATE_CLASS_TYPE_INFO(Transform)   <span style="color:#8a8580">// 타입 등록</span>
+
+  VSM::Vector3 LocalPosition;
+  PROPERTY(LocalPosition)               <span style="color:#ff6a4d">// 멤버 등록</span>
+};
+
+<span style="color:#8a8580">// 핸들러가 멤버 포인터를 캡슐화한다 — 이름 조회 후엔 직접 참조</span>
+template &lt;typename TClass, typename T&gt;
+ElementType&amp; PropertyHandler&lt;TClass, T&gt;::Get(void* object) const
+{
+  return static_cast&lt;TClass*&gt;(object)-&gt;*m_ptr;
+}</pre>
+      </div>
+      </sc-if>
+      <div>
+        <div style="border-left:2px solid var(--color-accent);padding:2px 0 2px 16px;margin-bottom:16px">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;color:var(--color-accent);margin-bottom:6px">왜 정적 등록인가</div>
+          <p style="margin:0;font-size:13.5px;line-height:1.7;color:rgba(32,30,29,.75)">C++에는 실행 중에 타입을 훑을 방법이 없습니다. 그래서 <b>클래스가 로드될 때 등록을 다 끝내 두고</b>, 실행 중에는 이름으로 찾아 캐스팅만 합니다. 비용이 찾는 순간에만 생깁니다.</p>
+        </div>
+        <div style="border:1px solid rgba(32,30,29,.25);padding:16px 18px">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;color:rgba(32,30,29,.5);margin-bottom:8px">부수 효과</div>
+          <div style="font-size:13px;line-height:1.75;color:rgba(32,30,29,.75)">매크로를 누락해도 <b>컴파일은 그냥 통과합니다</b>. 실행해서 인스펙터를 열어 봐야 필드가 없다는 걸 알게 됩니다. 매크로에 의존하는 게 이 구조의 제일 큰 약점이었습니다.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="04 인스펙터" style="padding:56px 0 0">
+    <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:6px">
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-accent)">04</span>
+      <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">인스펙터 — 타입을 보고 위젯을 고른다</h2>
+    </div>
+    <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);max-width:78ch;text-wrap:pretty">인스펙터 코드에는 컴포넌트 이름이 한 번도 나오지 않습니다. 선택한 오브젝트에 붙은 컴포넌트를 훑고, 각 <code style="font-family:'IBM Plex Mono',monospace;font-size:12.5px">Property</code>의 타입 해시를 보고 위젯을 고릅니다. 앞에서 말한 반복을 실제로 없앤 화면이 여기입니다.</p>
+
+    <div data-om-raster="true" style="border:2px solid var(--color-text);background:#fff;padding:20px 22px">
+      <svg sc-camel-view-box="0 0 1100 340" style="width:100%;height:auto;display:block" role="img" aria-label="인스펙터 렌더링 경로 다이어그램">
+        <defs>
+          <marker id="t4a" sc-camel-view-box="0 0 10 10" sc-camel-ref-x="9" sc-camel-ref-y="5" sc-camel-marker-width="7" sc-camel-marker-height="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#201e1d"></path></marker>
+          <marker id="t4r" sc-camel-view-box="0 0 10 10" sc-camel-ref-x="9" sc-camel-ref-y="5" sc-camel-marker-width="7" sc-camel-marker-height="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#ec3013"></path></marker>
+        </defs>
+        <rect x="14" y="30" width="212" height="86" fill="#fff" stroke="#201e1d" stroke-width="1.5"></rect>
+        <text x="30" y="56" font-family="'IBM Plex Mono',monospace" font-size="12" fill="#201e1d">SelectedNumber</text>
+        <text x="30" y="78" font-family="'IBM Plex Sans KR',sans-serif" font-size="11.5" fill="#6b6663">하이어라키가 고른 엔티티 id</text>
+        <text x="30" y="100" font-family="'IBM Plex Sans KR',sans-serif" font-size="11.5" fill="#6b6663">패널 간 공유는 이 값 하나</text>
+        <line x1="226" y1="73" x2="252" y2="73" stroke="#201e1d" stroke-width="1.5" marker-end="url(#t4a)"></line>
+        <rect x="254" y="30" width="230" height="86" fill="#fff" stroke="#201e1d" stroke-width="1.5"></rect>
+        <text x="270" y="56" font-family="'IBM Plex Mono',monospace" font-size="12" fill="#201e1d">GetAttachedComponents</text>
+        <text x="270" y="78" font-family="'IBM Plex Mono',monospace" font-size="11" fill="#6b6663">map&lt;Uid, Component*&gt;</text>
+        <text x="270" y="100" font-family="'IBM Plex Sans KR',sans-serif" font-size="11.5" fill="#6b6663">붙어 있는 것만 순회한다</text>
+        <line x1="484" y1="73" x2="510" y2="73" stroke="#201e1d" stroke-width="1.5" marker-end="url(#t4a)"></line>
+        <rect x="512" y="30" width="230" height="86" fill="#fff" stroke="#201e1d" stroke-width="1.5"></rect>
+        <text x="528" y="56" font-family="'IBM Plex Mono',monospace" font-size="12" fill="#201e1d">GetTypeInfo().GetProperties()</text>
+        <text x="528" y="78" font-family="'IBM Plex Sans KR',sans-serif" font-size="11.5" fill="#6b6663">이름 · 타입 · 핸들러</text>
+        <text x="528" y="100" font-family="'IBM Plex Sans KR',sans-serif" font-size="11.5" fill="#6b6663">TreeNode 로 접히는 한 그룹</text>
+        <line x1="742" y1="73" x2="768" y2="73" stroke="#ec3013" stroke-width="1.5" marker-end="url(#t4r)"></line>
+        <rect x="770" y="30" width="316" height="86" fill="#fbe9e6" stroke="#ec3013" stroke-width="2"></rect>
+        <text x="786" y="56" font-family="'IBM Plex Mono',monospace" font-size="12.5" fill="#ec3013">typeHash 로 위젯 선택</text>
+        <text x="786" y="78" font-family="'IBM Plex Mono',monospace" font-size="11" fill="#6b6663">Vector3 → DragFloat3 · bool → Checkbox</text>
+        <text x="786" y="100" font-family="'IBM Plex Mono',monospace" font-size="11" fill="#6b6663">enum → Combo · Quaternion → 오일러 3칸</text>
+        <path d="M 928,116 V 148 H 640" stroke="#ec3013" stroke-width="1.5" fill="none" marker-end="url(#t4r)"></path>
+        <text x="700" y="140" font-family="'IBM Plex Sans KR',sans-serif" font-size="11.5" fill="#ec3013">참조를 그대로 넘기므로 위젯 조작이 곧 멤버 대입</text>
+        <line x1="14" y1="176" x2="1086" y2="176" stroke="#201e1d" stroke-width="1" opacity=".18"></line>
+        <text x="14" y="206" font-family="'IBM Plex Mono',monospace" font-size="11" fill="#8a8580" letter-spacing="1.4">같은 등록부를 쓰는 두 조작</text>
+        <rect x="14" y="222" width="524" height="94" fill="#fff" stroke="#201e1d" stroke-width="1.5"></rect>
+        <text x="30" y="248" font-family="'IBM Plex Mono',monospace" font-size="12.5" fill="#201e1d">Add Component</text>
+        <text x="30" y="272" font-family="'IBM Plex Sans KR',sans-serif" font-size="11.5" fill="#4a4644">ComponentTypes 를 그대로 버튼으로 깔고, 검색어로 걸러낸다</text>
+        <text x="30" y="296" font-family="'IBM Plex Mono',monospace" font-size="11" fill="#8a8580">component-&gt;AddThis(goManager, objectId) — 타입을 모른 채 붙인다</text>
+        <rect x="562" y="222" width="524" height="94" fill="#fff" stroke="#201e1d" stroke-width="1.5"></rect>
+        <text x="578" y="248" font-family="'IBM Plex Mono',monospace" font-size="12.5" fill="#201e1d">Save Prefab</text>
+        <text x="578" y="272" font-family="'IBM Plex Sans KR',sans-serif" font-size="11.5" fill="#4a4644">선택한 오브젝트를 자식 계층까지 파일 하나로 내보낸다</text>
+        <text x="578" y="296" font-family="'IBM Plex Mono',monospace" font-size="11" fill="#8a8580">SerializePrefab(objectId, "../Data/Prefab/이름.prefab")</text>
+      </svg>
+    </div>
+
+    <div style="display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:36px;margin-top:26px;align-items:start">
+      <sc-if value="{{ showCode }}" hint-placeholder-val="{{ true }}">
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;color:rgba(32,30,29,.5);margin-bottom:10px">핵심 코드 — 타입 하나에 위젯 하나</div>
+        <pre style="margin:0;background:var(--color-text);color:#e8e6e3;font-family:'IBM Plex Mono',monospace;font-size:11.5px;line-height:1.75;padding:16px 18px;overflow-x:auto">template &lt;typename T&gt;
+void MatchGuiByType(const Property* property, Component* component)
+{
+  const auto name = property-&gt;GetName();
+  T&amp; val = property-&gt;Get&lt;T&gt;(component);   <span style="color:#8a8580">// 참조를 받는다</span>
+
+  if constexpr (std::is_same_v&lt;T, VSM::Vector3&gt;)
+    ImGui::DragFloat3(name, &amp;val.x);
+  else if constexpr (std::is_same_v&lt;T, VSM::Quaternion&gt;) {
+    Vector3 euler = val.ToEuler() / (XM_PI / 180.f);
+    ImGui::DragFloat3(name, &amp;euler.x);   <span style="color:#ff6a4d">// 사람은 각도로 본다</span>
+    val = Quaternion::CreateFromYawPitchRoll(euler * (XM_PI / 180.f));
+  }
+  <span style="color:#ff6a4d">// ... bool · float · string · enum 들</span>
+}</pre>
+      </div>
+      </sc-if>
+      <div>
+        <div style="border-left:2px solid var(--color-accent);padding:2px 0 2px 16px;margin-bottom:16px">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;color:var(--color-accent);margin-bottom:6px">막혔던 지점</div>
+          <p style="margin:0;font-size:13.5px;line-height:1.7;color:rgba(32,30,29,.75)">타입과 위젯을 잇는 걸 결국 <b>손으로 쓴 분기문</b>으로 해결했습니다. 타입이 하나 늘 때마다 인스펙터를 다시 열어야 했고, 처리해 두지 않은 타입은 <code style="font-family:'IBM Plex Mono',monospace;font-size:12px">Unreflected Type</code>이라는 글자만 남았습니다. 애니메이션 클립 같은 건 결국 파일 이름을 손으로 타이핑해서 넣었습니다.</p>
+        </div>
+        <div style="border:1px solid rgba(32,30,29,.25);padding:16px 18px">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;color:rgba(32,30,29,.5);margin-bottom:8px">그래서 다음 엔진에서는</div>
+          <div style="font-size:13px;line-height:1.75;color:rgba(32,30,29,.75)">타입 정보에 <b>범위와 설명, 기본 함수까지 같이 등록</b>해 두고, 모르는 타입은 구조체로 보고 재귀로 내려가게 바꿨습니다 → <a href="../../mc/engine/">Midnight Cleanup의 메타 허브</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="05 직렬화" style="padding:56px 0 0">
+    <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:6px">
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-accent)">05</span>
+      <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">직렬화 — 씬과 프리팹, 그리고 되돌리기</h2>
+    </div>
+    <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);max-width:78ch;text-wrap:pretty">저장 단위를 두 개로 나눴습니다. 씬은 <b>컴포넌트 풀을 통째로</b> 타입 이름 아래에 쓰고, 프리팹은 <b>오브젝트 하나와 그 자식들만</b> 재귀로 씁니다. 이 차이 때문에 컴포넌트마다 <code style="font-family:'IBM Plex Mono',monospace;font-size:12.5px">SerializePool</code>과 <code style="font-family:'IBM Plex Mono',monospace;font-size:12.5px">SerializeThis</code>를 따로 뒀습니다.</p>
+
+    <div data-om-raster="true" style="border:2px solid var(--color-text);background:#fff;padding:20px 22px">
+      <svg sc-camel-view-box="0 0 1100 360" style="width:100%;height:auto;display:block" role="img" aria-label="씬과 프리팹 직렬화 다이어그램">
+        <defs>
+          <marker id="t5a" sc-camel-view-box="0 0 10 10" sc-camel-ref-x="9" sc-camel-ref-y="5" sc-camel-marker-width="7" sc-camel-marker-height="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#201e1d"></path></marker>
+          <marker id="t5r" sc-camel-view-box="0 0 10 10" sc-camel-ref-x="9" sc-camel-ref-y="5" sc-camel-marker-width="7" sc-camel-marker-height="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#ec3013"></path></marker>
+        </defs>
+        <rect x="14" y="14" width="300" height="128" fill="#fff" stroke="#201e1d" stroke-width="1.5"></rect>
+        <text x="30" y="40" font-family="'IBM Plex Mono',monospace" font-size="12.5" fill="#201e1d">씬 저장 — SerializePool</text>
+        <text x="30" y="66" font-family="'IBM Plex Sans KR',sans-serif" font-size="11.5" fill="#4a4644">GameObjects 목록 +</text>
+        <text x="30" y="84" font-family="'IBM Plex Sans KR',sans-serif" font-size="11.5" fill="#4a4644">등록된 컴포넌트 타입 전체를 순회</text>
+        <text x="30" y="110" font-family="'IBM Plex Mono',monospace" font-size="11" fill="#8a8580">비어 있는 타입은 건너뛴다</text>
+        <text x="30" y="130" font-family="'IBM Plex Mono',monospace" font-size="11" fill="#8a8580">→ Components[타입이름] = [...]</text>
+        <line x1="314" y1="78" x2="352" y2="78" stroke="#201e1d" stroke-width="1.5" marker-end="url(#t5a)"></line>
+        <rect x="354" y="44" width="196" height="68" fill="#fbe9e6" stroke="#ec3013" stroke-width="2"></rect>
+        <text x="370" y="74" font-family="'IBM Plex Mono',monospace" font-size="14" fill="#ec3013">*.scene (json)</text>
+        <text x="370" y="98" font-family="'IBM Plex Sans KR',sans-serif" font-size="11.5" fill="#6b6663">런처가 읽는 유일한 입력</text>
+        <line x1="550" y1="78" x2="588" y2="78" stroke="#201e1d" stroke-width="1.5" marker-end="url(#t5a)"></line>
+        <rect x="590" y="14" width="496" height="128" fill="#fff" stroke="#201e1d" stroke-width="1.5"></rect>
+        <text x="606" y="40" font-family="'IBM Plex Mono',monospace" font-size="12.5" fill="#201e1d">씬 로드 — 순서가 정해져 있다</text>
+        <text x="606" y="66" font-family="'IBM Plex Mono',monospace" font-size="11.5" fill="#4a4644">① GameObjectManager::Reset() &nbsp;② 모든 컴포넌트 풀 ResetPool()</text>
+        <text x="606" y="88" font-family="'IBM Plex Mono',monospace" font-size="11.5" fill="#4a4644">③ Systems 이름 → GenerateSystem &nbsp;④ GameObjects &nbsp;⑤ Components</text>
+        <text x="606" y="112" font-family="'IBM Plex Sans KR',sans-serif" font-size="11.5" fill="#6b6663">파일에 없는 타입은 무시한다 — 컴포넌트를 지워도 옛 씬이 열린다</text>
+        <text x="606" y="132" font-family="'IBM Plex Sans KR',sans-serif" font-size="11.5" fill="#6b6663">다음 엔티티 id 는 파일의 최대값 + 1 로 되돌린다</text>
+        <line x1="14" y1="170" x2="1086" y2="170" stroke="#201e1d" stroke-width="1" opacity=".18"></line>
+        <rect x="14" y="196" width="300" height="128" fill="#fff" stroke="#201e1d" stroke-width="1.5"></rect>
+        <text x="30" y="222" font-family="'IBM Plex Mono',monospace" font-size="12.5" fill="#201e1d">프리팹 저장 — SerializeThis</text>
+        <text x="30" y="248" font-family="'IBM Plex Sans KR',sans-serif" font-size="11.5" fill="#4a4644">루트의 Parent 는 빼고 시작해</text>
+        <text x="30" y="266" font-family="'IBM Plex Sans KR',sans-serif" font-size="11.5" fill="#4a4644">Children 을 따라 재귀로 내려간다</text>
+        <text x="30" y="292" font-family="'IBM Plex Mono',monospace" font-size="11" fill="#8a8580">한 오브젝트 = json 한 항목</text>
+        <text x="30" y="312" font-family="'IBM Plex Mono',monospace" font-size="11" fill="#8a8580">이름 · id · Components</text>
+        <line x1="314" y1="260" x2="352" y2="260" stroke="#201e1d" stroke-width="1.5" marker-end="url(#t5a)"></line>
+        <rect x="354" y="226" width="196" height="68" fill="#fbe9e6" stroke="#ec3013" stroke-width="2"></rect>
+        <text x="370" y="256" font-family="'IBM Plex Mono',monospace" font-size="14" fill="#ec3013">*.prefab (json)</text>
+        <text x="370" y="280" font-family="'IBM Plex Sans KR',sans-serif" font-size="11.5" fill="#6b6663">에셋 창에서 클릭 한 번</text>
+        <line x1="550" y1="260" x2="588" y2="260" stroke="#201e1d" stroke-width="1.5" marker-end="url(#t5a)"></line>
+        <rect x="590" y="196" width="496" height="128" fill="#fff" stroke="#201e1d" stroke-width="1.5"></rect>
+        <text x="606" y="222" font-family="'IBM Plex Mono',monospace" font-size="12.5" fill="#201e1d">프리팹 로드 — id 를 밀어서 붙인다</text>
+        <text x="606" y="248" font-family="'IBM Plex Sans KR',sans-serif" font-size="11.5" fill="#4a4644">파일의 id 는 저장 당시의 번호다. 현재 씬의 다음 번호를 더해</text>
+        <text x="606" y="266" font-family="'IBM Plex Sans KR',sans-serif" font-size="11.5" fill="#4a4644">Parent · Children 참조까지 같이 보정한다</text>
+        <text x="606" y="292" font-family="'IBM Plex Mono',monospace" font-size="11.5" fill="#ec3013">Instantiate(...) — 같은 경로를 런타임에서 재사용</text>
+        <text x="606" y="312" font-family="'IBM Plex Sans KR',sans-serif" font-size="11.5" fill="#6b6663">게임 코드의 오브젝트 생성이 에디터의 프리팹과 같은 코드가 된다</text>
+      </svg>
+    </div>
+
+    <div style="margin-top:26px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;color:var(--color-accent);margin-bottom:10px">Play · Stop — 되돌리기를 직렬화로 해결했다</div>
+      <p style="margin:0 0 16px;font-size:14px;line-height:1.75;color:rgba(32,30,29,.75);max-width:80ch">에디터에서 게임을 한 번 돌리면 씬 상태가 망가집니다. 편집 상태를 복제하는 코드를 새로 쓰는 대신, <b>이미 만들어 둔 씬 저장·로드를 되돌리기로 썼습니다</b>. Stop은 임시 파일을 다시 여는 것뿐입니다. 창을 켜 둔 채로 값을 고치고 바로 돌려 보게 된 게 이 지점입니다.</p>
+      <div data-om-raster="true" style="border:2px solid var(--color-text);background:#fff;padding:20px 22px">
+        <svg sc-camel-view-box="0 0 1100 290" style="width:100%;height:auto;display:block" role="img" aria-label="재생 정지 사이클 다이어그램">
+          <defs>
+            <marker id="t6a" sc-camel-view-box="0 0 10 10" sc-camel-ref-x="9" sc-camel-ref-y="5" sc-camel-marker-width="7" sc-camel-marker-height="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#201e1d"></path></marker>
+            <marker id="t6r" sc-camel-view-box="0 0 10 10" sc-camel-ref-x="9" sc-camel-ref-y="5" sc-camel-marker-width="7" sc-camel-marker-height="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#ec3013"></path></marker>
+          </defs>
+          <rect x="40" y="20" width="230" height="76" fill="#fff" stroke="#201e1d" stroke-width="1.5"></rect>
+          <text x="56" y="42" font-family="'IBM Plex Mono',monospace" font-size="10.5" fill="#8a8580">01 편집</text>
+          <text x="56" y="66" font-family="'IBM Plex Mono',monospace" font-size="12.5" fill="#201e1d">IsPlaying = false</text>
+          <text x="56" y="86" font-family="'IBM Plex Sans KR',sans-serif" font-size="11.5" fill="#6b6663">변환 갱신과 입력만 돈다</text>
+          <line x1="270" y1="58" x2="296" y2="58" stroke="#201e1d" stroke-width="1.5" marker-end="url(#t6a)"></line>
+          <rect x="300" y="20" width="230" height="76" fill="#fff" stroke="#ec3013" stroke-width="1.5"></rect>
+          <text x="316" y="42" font-family="'IBM Plex Mono',monospace" font-size="10.5" fill="#ec3013">02 ▶ Play</text>
+          <text x="316" y="66" font-family="'IBM Plex Mono',monospace" font-size="12" fill="#201e1d">SerializeScene(temp)</text>
+          <text x="316" y="86" font-family="'IBM Plex Mono',monospace" font-size="12" fill="#201e1d">→ 카메라 행렬 보관</text>
+          <line x1="530" y1="58" x2="556" y2="58" stroke="#201e1d" stroke-width="1.5" marker-end="url(#t6a)"></line>
+          <rect x="560" y="20" width="230" height="76" fill="#fff" stroke="#201e1d" stroke-width="1.5"></rect>
+          <text x="576" y="42" font-family="'IBM Plex Mono',monospace" font-size="10.5" fill="#8a8580">03 실행</text>
+          <text x="576" y="66" font-family="'IBM Plex Mono',monospace" font-size="12.5" fill="#201e1d">Update · Fixed · Render</text>
+          <text x="576" y="86" font-family="'IBM Plex Sans KR',sans-serif" font-size="11.5" fill="#6b6663">런처와 완전히 같은 경로</text>
+          <line x1="790" y1="58" x2="816" y2="58" stroke="#201e1d" stroke-width="1.5" marker-end="url(#t6a)"></line>
+          <rect x="820" y="20" width="230" height="76" fill="#fff" stroke="#ec3013" stroke-width="1.5"></rect>
+          <text x="836" y="42" font-family="'IBM Plex Mono',monospace" font-size="10.5" fill="#ec3013">04 ■ Stop</text>
+          <text x="836" y="66" font-family="'IBM Plex Mono',monospace" font-size="12" fill="#201e1d">ResetSystem().Reset()</text>
+          <text x="836" y="86" font-family="'IBM Plex Mono',monospace" font-size="12" fill="#201e1d">→ DeserializeScene(temp)</text>
+          <path d="M 415,96 V 176 H 466" stroke="#ec3013" stroke-width="1.5" fill="none" marker-end="url(#t6r)"></path>
+          <text x="424" y="126" font-family="'IBM Plex Sans KR',sans-serif" font-size="11" fill="#ec3013">쓰기</text>
+          <rect x="468" y="150" width="200" height="52" fill="#fbe9e6" stroke="#ec3013" stroke-width="1.5"></rect>
+          <text x="484" y="182" font-family="'IBM Plex Mono',monospace" font-size="13" fill="#ec3013">temp.scene</text>
+          <path d="M 668,176 H 935 V 100" stroke="#ec3013" stroke-width="1.5" fill="none" marker-end="url(#t6r)"></path>
+          <text x="900" y="126" font-family="'IBM Plex Sans KR',sans-serif" font-size="11" fill="#ec3013">읽기</text>
+          <text x="468" y="226" font-family="'IBM Plex Sans KR',sans-serif" font-size="11.5" fill="#8a8580">Pause 는 게임 갱신만 멈춘다 — 그리기와 편집 조작은 계속 돈다</text>
+          <path d="M 1050,58 H 1076 V 264 H 24 V 58 H 34" stroke="#201e1d" stroke-width="1.5" fill="none" marker-end="url(#t6a)"></path>
+          <text x="120" y="256" font-family="'IBM Plex Sans KR',sans-serif" font-size="11.5" fill="#4a4644">정지 시 편집 상태로 복구 · 복원 경로는 씬 로드 하나</text>
+        </svg>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:36px;margin-top:18px;align-items:start">
+        <p style="margin:0;font-size:13.5px;line-height:1.75;color:rgba(32,30,29,.78)">직렬화를 먼저 만들어 둔 덕에 <b>Play·Stop·프리팹·씬 저장이 다 같은 코드</b>를 씁니다. 에디터 때문에 코어에 새로 넣은 건 시간 배율과 리셋 정도입니다.</p>
+        <div style="border-left:2px solid var(--color-accent);padding:2px 0 2px 16px">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;color:var(--color-accent);margin-bottom:6px">대가</div>
+          <p style="margin:0;font-size:13.5px;line-height:1.7;color:rgba(32,30,29,.75)">저장되지 않는 런타임 상태는 Stop과 함께 날아갑니다. 리셋과 로드 사이에 풀이 다시 만들어지니, 들고 있던 <code style="font-family:'IBM Plex Mono',monospace;font-size:12px">Component*</code>는 그 순간 전부 버려야 했습니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="06 에디터 구조" style="padding:56px 0 0">
+    <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:6px">
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-accent)">06</span>
+      <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">창 다섯 개와 이벤트 하나</h2>
+    </div>
+    <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);max-width:78ch;text-wrap:pretty">창은 <code style="font-family:'IBM Plex Mono',monospace;font-size:12.5px">IWindow::OnImGuiRender()</code> 하나만 구현하면 목록에 들어갑니다. 창이 코어에 부탁할 일은 <b>문자열 키 이벤트</b>로 보냈습니다. 삭제처럼 순서가 중요한 건 지연 이벤트로 넘겼는데, 그리는 도중에 대상이 사라져서 터진 적이 있었기 때문입니다.</p>
+
+    <div data-om-raster="true" style="border:2px solid var(--color-text);background:#fff;padding:20px 22px">
+      <svg sc-camel-view-box="0 0 1100 300" style="width:100%;height:auto;display:block" role="img" aria-label="에디터 윈도우와 이벤트 버스 다이어그램">
+        <defs>
+          <marker id="t7a" sc-camel-view-box="0 0 10 10" sc-camel-ref-x="9" sc-camel-ref-y="5" sc-camel-marker-width="7" sc-camel-marker-height="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#ec3013"></path></marker>
+          <marker id="t7b" sc-camel-view-box="0 0 10 10" sc-camel-ref-x="9" sc-camel-ref-y="5" sc-camel-marker-width="7" sc-camel-marker-height="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#201e1d"></path></marker>
+        </defs>
+        <rect x="40" y="14" width="188" height="58" fill="#fff" stroke="#201e1d" stroke-width="1.5"></rect>
+        <text x="56" y="38" font-family="'IBM Plex Mono',monospace" font-size="12" fill="#201e1d">MenuBar</text>
+        <text x="56" y="58" font-family="'IBM Plex Sans KR',sans-serif" font-size="10.5" fill="#8a8580">저장 · 열기 · Play/Stop</text>
+        <rect x="240" y="14" width="188" height="58" fill="#fff" stroke="#201e1d" stroke-width="1.5"></rect>
+        <text x="256" y="38" font-family="'IBM Plex Mono',monospace" font-size="12" fill="#201e1d">Hierarchy</text>
+        <text x="256" y="58" font-family="'IBM Plex Sans KR',sans-serif" font-size="10.5" fill="#8a8580">드래그로 부모 바꾸기</text>
+        <rect x="440" y="14" width="188" height="58" fill="#fff" stroke="#201e1d" stroke-width="1.5"></rect>
+        <text x="456" y="38" font-family="'IBM Plex Mono',monospace" font-size="12" fill="#201e1d">Inspector</text>
+        <text x="456" y="58" font-family="'IBM Plex Sans KR',sans-serif" font-size="10.5" fill="#8a8580">값 편집 · 프리팹 저장</text>
+        <rect x="640" y="14" width="188" height="58" fill="#fff" stroke="#201e1d" stroke-width="1.5"></rect>
+        <text x="656" y="38" font-family="'IBM Plex Mono',monospace" font-size="12" fill="#201e1d">Viewport</text>
+        <text x="656" y="58" font-family="'IBM Plex Sans KR',sans-serif" font-size="10.5" fill="#8a8580">기즈모 · 스냅 · 카메라</text>
+        <rect x="840" y="14" width="188" height="58" fill="#fff" stroke="#201e1d" stroke-width="1.5"></rect>
+        <text x="856" y="38" font-family="'IBM Plex Mono',monospace" font-size="12" fill="#201e1d">Asset</text>
+        <text x="856" y="58" font-family="'IBM Plex Sans KR',sans-serif" font-size="10.5" fill="#8a8580">폴더 트리 · 클릭 로드</text>
+        <line x1="134" y1="74" x2="134" y2="124" stroke="#ec3013" stroke-width="1.5" marker-start="url(#t7a)" marker-end="url(#t7a)"></line>
+        <line x1="334" y1="74" x2="334" y2="124" stroke="#ec3013" stroke-width="1.5" marker-start="url(#t7a)" marker-end="url(#t7a)"></line>
+        <line x1="534" y1="74" x2="534" y2="124" stroke="#ec3013" stroke-width="1.5" marker-start="url(#t7a)" marker-end="url(#t7a)"></line>
+        <line x1="734" y1="74" x2="734" y2="124" stroke="#ec3013" stroke-width="1.5" marker-start="url(#t7a)" marker-end="url(#t7a)"></line>
+        <line x1="934" y1="74" x2="934" y2="124" stroke="#ec3013" stroke-width="1.5" marker-start="url(#t7a)" marker-end="url(#t7a)"></line>
+        <rect x="40" y="126" width="1020" height="46" fill="#fbe9e6" stroke="#ec3013" stroke-width="2"></rect>
+        <text x="58" y="155" font-family="'IBM Plex Mono',monospace" font-size="13" fill="#ec3013">EventManager — 문자열 키 이벤트 버스 (즉시 실행 · 지연 실행 두 큐)</text>
+        <line x1="550" y1="172" x2="550" y2="204" stroke="#201e1d" stroke-width="1.5" marker-end="url(#t7b)"></line>
+        <rect x="370" y="206" width="360" height="62" fill="#fff" stroke="#201e1d" stroke-width="1.5"></rect>
+        <text x="386" y="232" font-family="'IBM Plex Mono',monospace" font-size="12.5" fill="#201e1d">GameProcess · SystemManager</text>
+        <text x="386" y="254" font-family="'IBM Plex Sans KR',sans-serif" font-size="11.5" fill="#6b6663">구독자로 등록해 두고 받는다</text>
+        <text x="40" y="228" font-family="'IBM Plex Sans KR',sans-serif" font-size="11.5" fill="#8a8580">창끼리 직접 호출하지 않는다</text>
+        <text x="40" y="246" font-family="'IBM Plex Sans KR',sans-serif" font-size="11.5" fill="#8a8580">선택 상태만 정적 값으로 공유</text>
+        <text x="770" y="228" font-family="'IBM Plex Sans KR',sans-serif" font-size="11.5" fill="#8a8580">키가 문자열이라 컴파일러가 오타를</text>
+        <text x="770" y="246" font-family="'IBM Plex Sans KR',sans-serif" font-size="11.5" fill="#8a8580">잡아주지 못한다 — 이 구조의 약점</text>
+      </svg>
+    </div>
+
+    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:16px;align-items:center">
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;color:rgba(32,30,29,.5);margin-right:6px">버스에 흐르는 것</span>
+      <span style="border:1px solid rgba(32,30,29,.28);font-family:'IBM Plex Mono',monospace;font-size:11px;padding:4px 8px">OnPlayButton</span>
+      <span style="border:1px solid rgba(32,30,29,.28);font-family:'IBM Plex Mono',monospace;font-size:11px;padding:4px 8px">OnStopButton</span>
+      <span style="border:1px solid rgba(32,30,29,.28);font-family:'IBM Plex Mono',monospace;font-size:11px;padding:4px 8px">OnLoadScene</span>
+      <span style="border:1px solid rgba(32,30,29,.28);font-family:'IBM Plex Mono',monospace;font-size:11px;padding:4px 8px">OnStart</span>
+      <span style="border:1px dashed var(--color-accent);font-family:'IBM Plex Mono',monospace;font-size:11px;padding:4px 8px;color:var(--color-accent)">OnDeleteGameObject / OnDeleteComponent — 지연</span>
+      <span style="border:1px solid rgba(32,30,29,.28);font-family:'IBM Plex Mono',monospace;font-size:11px;padding:4px 8px">OnSetSpeedWeight</span>
+    </div>
+  </section>
+
+  <section data-screen-label="07 정리" style="padding:56px 0 0">
+    <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:6px">
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-accent)">07</span>
+      <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">남은 것과 넘긴 것</h2>
+    </div>
+    <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);max-width:78ch;text-wrap:pretty">컴파일 왕복은 없앴지만, 대신 <b>에디터 코드를 고치는 왕복</b>이 생겼습니다. 타입이 늘면 인스펙터 분기를, 멤버가 늘면 등록 매크로를 사람이 챙겨야 했습니다. 아래 목록이 다음 엔진에서 먼저 손본 부분입니다.</p>
+
+    <div style="border-top:2px solid var(--color-text);font-size:13.5px">
+      <div style="display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr) minmax(0,1.1fr);gap:20px;padding:12px 0;border-bottom:1px solid rgba(32,30,29,.14);font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;color:rgba(32,30,29,.5)"><span>남은 문제</span><span>이번 엔진에서는</span><span>다음 엔진에서는</span></div>
+      <div style="display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr) minmax(0,1.1fr);gap:20px;padding:13px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-weight:600">등록 누락</span><span style="color:rgba(32,30,29,.75)">매크로를 누락해도 컴파일은 통과, 실행 후 발견</span><span style="color:rgba(32,30,29,.75)">등록부를 한 파일로 모으고 기본 함수까지 매크로가 함께 심는다</span></div>
+      <div style="display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr) minmax(0,1.1fr);gap:20px;padding:13px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-weight:600">타입 분기</span><span style="color:rgba(32,30,29,.75)">타입 해시를 손으로 나열, 모르는 타입은 표시 불가</span><span style="color:rgba(32,30,29,.75)">모르는 타입은 구조체로 보아 재귀 · 범위와 설명을 메타에서 읽는다</span></div>
+      <div style="display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr) minmax(0,1.1fr);gap:20px;padding:13px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-weight:600">프로세스 비대화</span><span style="color:rgba(32,30,29,.75)">코어가 창 · 이벤트 · 실행 방식을 한곳에서 처리</span><span style="color:rgba(32,30,29,.75)">코어는 초기화만, 실행 방식은 순수 가상으로 비워 둔다</span></div>
+      <div style="display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr) minmax(0,1.1fr);gap:20px;padding:13px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-weight:600">참조 안정성</span><span style="color:rgba(32,30,29,.75)">풀의 swap-pop 후 엔티티 맵의 포인터를 손으로 보정</span><span style="color:rgba(32,30,29,.75)">검증된 ECS 라이브러리로 옮기고 핸들로 접근한다</span></div>
+      <div style="display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr) minmax(0,1.1fr);gap:20px;padding:13px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-weight:600">이벤트 키</span><span style="color:rgba(32,30,29,.75)">문자열 키 — 오타를 컴파일러가 잡지 못한다</span><span style="color:rgba(32,30,29,.75)">타입으로 구분되는 디스패처, 툴 전용 버스를 코어와 분리</span></div>
+    </div>
+
+    <div style="margin-top:20px;border-left:2px solid var(--color-accent);padding:4px 0 4px 18px">
+      <p style="margin:0;font-size:14px;line-height:1.8;color:rgba(32,30,29,.8);max-width:80ch;text-wrap:pretty">그래도 이 엔진에서 얻은 건 분명합니다. <b>기획과 아트가 값을 직접 만진 첫 엔진</b>이었고, 이후에 만든 도구는 전부 직렬화와 리플렉션 위에 올라갔습니다. 툴을 처음 접한 동료가 사용하기 쉽도록&nbsp;<b><a href="../manual/" target="_blank" rel="noopener">에디터 설명서</a>를 따로 써서</b> 같이 넘겼습니다.</p>
+    </div>
+
+    <sc-if value="{{ showRefTable }}" hint-placeholder-val="{{ true }}">
+    <div style="margin-top:30px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;color:rgba(32,30,29,.5);margin-bottom:10px">참조 코드</div>
+      <div style="border-top:2px solid var(--color-text);font-size:13.5px">
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:20px;padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px"><a href="https://github.com/Will-Big/TicToc-Guardians/blob/main/Reflection/TypeInfo.h">Reflection/TypeInfo.h</a> · <a href="https://github.com/Will-Big/TicToc-Guardians/blob/main/Reflection/TypeInfoMacro.h">TypeInfoMacro.h</a></span><span style="color:rgba(32,30,29,.75)">타입 등록과 정적 저장소, 시스템 생성기</span></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:20px;padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px"><a href="https://github.com/Will-Big/TicToc-Guardians/blob/main/Reflection/Property.h">Reflection/Property.h</a> · <a href="https://github.com/Will-Big/TicToc-Guardians/blob/main/Reflection/PropertyMacro.h">PropertyMacro.h</a></span><span style="color:rgba(32,30,29,.75)">멤버 포인터 핸들러와 타입 안전한 Get/Set</span></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:20px;padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px"><a href="https://github.com/Will-Big/TicToc-Guardians/blob/main/Editor/Inspector.cpp">Editor/Inspector.cpp</a></span><span style="color:rgba(32,30,29,.75)">프로퍼티 순회와 타입별 위젯, Add Component</span></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:20px;padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px"><a href="https://github.com/Will-Big/TicToc-Guardians/blob/main/GameEngine/SerializeSystem.cpp">GameEngine/SerializeSystem.cpp</a></span><span style="color:rgba(32,30,29,.75)">씬 · 프리팹 직렬화와 id 보정, Instantiate</span></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:20px;padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px"><a href="https://github.com/Will-Big/TicToc-Guardians/blob/main/Editor/MenuBar.cpp">Editor/MenuBar.cpp</a> · <a href="https://github.com/Will-Big/TicToc-Guardians/blob/main/Editor/EditorProcess.cpp">EditorProcess.cpp</a></span><span style="color:rgba(32,30,29,.75)">Play/Stop과 임시 씬, 윈도우 스택과 편집 모드 루프</span></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:20px;padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px"><a href="https://github.com/Will-Big/TicToc-Guardians/blob/main/GameEngine/ComponentPoolManager.h">GameEngine/ComponentPoolManager.h</a> · <a href="https://github.com/Will-Big/TicToc-Guardians/blob/main/GameEngine/GameObjectManager.h">GameObjectManager.h</a></span><span style="color:rgba(32,30,29,.75)">타입별 멀티 풀과 엔티티 → 컴포넌트 색인</span></div>
+      </div>
+    </div>
+    </sc-if>
+
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:24px">
+      <a href="https://github.com/Will-Big/TicToc-Guardians" style="border:2px solid var(--color-text);padding:12px 18px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-text);border-bottom:2px solid var(--color-text)">GitHub — TicToc-Guardians</a>
+      <a href="../" style="border:2px solid var(--color-text);padding:12px 18px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-text);border-bottom:2px solid var(--color-text)">← 프로젝트 상세로</a>
+      
+    </div>
+  </section>
+
+  <div style="margin-top:44px;border-top:2px solid var(--color-text);padding-top:16px;display:flex;justify-content:space-between;gap:20px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:rgba(32,30,29,.55)">
+    <span>L2 · 엔진 아키텍처의 의도</span>
+    <span>TicToc Engine · Editor — 2024</span>
+  </div>
+
+  
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script="" data-props="{&quot;showCode&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;페이지 구성&quot;},&quot;showRefTable&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;페이지 구성&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      showCode: this.props.showCode ?? true,
+      showRefTable: this.props.showRefTable ?? true,
+    };
+  }
+}
+</script>
+
+
+</body></html>
