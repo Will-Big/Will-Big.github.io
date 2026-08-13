@@ -4,6 +4,25 @@
 <title>엔진 아키텍처 — Midnight Cleanup | 임상학 Portfolio</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="../../support.js"></script>
+<script>
+// 본문은 support.js 가 나중에 그리므로, 해시가 붙은 주소로 들어오면 브라우저의
+// 기본 이동이 빈 문서에서 일어나 무시됩니다. 그려진 뒤 다시 해당 위치로 옮깁니다.
+// (사용자가 먼저 스크롤하면 즉시 손을 뗍니다.)
+(function () {
+  if (!location.hash) return;
+  var stop = false, until = Date.now() + 2500;
+  ['wheel', 'touchstart', 'keydown'].forEach(function (e) {
+    addEventListener(e, function () { stop = true; }, { once: true, passive: true });
+  });
+  var timer = setInterval(function () {
+    var el = document.querySelector(location.hash);
+    if (stop || Date.now() > until) return clearInterval(timer);
+    if (!el) return;
+    var top = el.getBoundingClientRect().top;
+    if (top < -2 || top > 40) el.scrollIntoView();
+  }, 80);
+})();
+</script>
 </head>
 <body>
 <x-dc>
@@ -22,7 +41,6 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
 
   <div style="padding:34px 0 14px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;color:rgba(32,30,29,.5);display:flex;justify-content:space-between;align-items:center;gap:20px;border-bottom:1px solid rgba(32,30,29,.18)">
     <span><a href="/" style="color:rgba(32,30,29,.5);border:none">↑ Portfolio</a> &nbsp;/&nbsp; <a href="../" style="color:rgba(32,30,29,.5);border:none">Midnight Cleanup</a> &nbsp;/&nbsp; <span style="color:var(--color-text)">엔진 아키텍처</span></span>
-    <span>L2 · 마지막 층</span>
   </div>
 
   <section data-screen-label="표제" style="padding:44px 0 0">
@@ -230,7 +248,7 @@ void Scene::RegisterSystem()
     </div>
   </section>
 
-  <section data-screen-label="03 메타 허브" style="padding:56px 0 0">
+  <section id="meta-hub" data-screen-label="03 메타 허브" style="padding:56px 0 0;scroll-margin-top:20px">
     <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:6px">
       <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-accent)">03</span>
       <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">리플렉션 — 한 번 등록하면 세 곳이 같이 쓴다</h2>
@@ -450,23 +468,23 @@ for (auto&amp;&amp; [id, type] : entt::resolve(global::componentMetaCtx))
     <div style="margin-top:26px">
       <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;color:rgba(32,30,29,.5);margin-bottom:10px">참조 코드</div>
       <div style="border-top:2px solid var(--color-text);font-size:13.5px">
-        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:20px;padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px"><a href="https://github.com/Will-Big/midnight-cleanup/blob/main/Animacore/CoreProcess.h">Animacore/CoreProcess.h</a></span><span style="color:rgba(32,30,29,.75)">창 · 렌더러 · 설정 · 메타 등록, 그리고 비워 둔 Loop()</span></div>
-        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:20px;padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px"><a href="https://github.com/Will-Big/midnight-cleanup/blob/main/Animacore/Scene.h">Animacore/Scene.h</a> · <a href="https://github.com/Will-Big/midnight-cleanup/blob/main/Animacore/Scene.cpp">.cpp</a></span><span style="color:rgba(32,30,29,.75)">시스템 자동 등록 · 프레임 순서 · 씬/프리팹 직렬화</span></div>
-        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:20px;padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px"><a href="https://github.com/Will-Big/midnight-cleanup/blob/main/Animacore/SystemInterface.h">Animacore/SystemInterface.h</a></span><span style="color:rgba(32,30,29,.75)">8개 실행 단계 인터페이스와 고정 시간 간격</span></div>
-        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:20px;padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px"><a href="https://github.com/Will-Big/midnight-cleanup/blob/main/Animacore/MetaHelpers.h">Animacore/MetaHelpers.h</a> · <a href="https://github.com/Will-Big/midnight-cleanup/blob/main/Animacore/MetaCtxs.h">MetaCtxs.h</a></span><span style="color:rgba(32,30,29,.75)">등록 매크로와 8개 메타 컨텍스트</span></div>
-        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:20px;padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px"><a href="https://github.com/Will-Big/midnight-cleanup/blob/main/Animatool/Panel.h">Animatool/Panel.h</a> · <a href="https://github.com/Will-Big/midnight-cleanup/blob/main/Animatool/ToolProcess.cpp">ToolProcess.cpp</a></span><span style="color:rgba(32,30,29,.75)">패널 추상, 툴 루프, 재생/정지와 자동 저장</span></div>
-        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:20px;padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px"><a href="https://github.com/Will-Big/midnight-cleanup/blob/main/Animatool/ComponentDataPanel.cpp">Animatool/ComponentDataPanel.cpp</a></span><span style="color:rgba(32,30,29,.75)">메타데이터를 위젯으로 옮기는 재귀 렌더러</span></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:20px;padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px"><a href="https://github.com/Will-Big/midnight-cleanup/blob/main/Animacore/CoreProcess.h" target="_blank" rel="noopener">Animacore/CoreProcess.h</a></span><span style="color:rgba(32,30,29,.75)">창 · 렌더러 · 설정 · 메타 등록, 그리고 비워 둔 Loop()</span></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:20px;padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px"><a href="https://github.com/Will-Big/midnight-cleanup/blob/main/Animacore/Scene.h" target="_blank" rel="noopener">Animacore/Scene.h</a> · <a href="https://github.com/Will-Big/midnight-cleanup/blob/main/Animacore/Scene.cpp" target="_blank" rel="noopener">.cpp</a></span><span style="color:rgba(32,30,29,.75)">시스템 자동 등록 · 프레임 순서 · 씬/프리팹 직렬화</span></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:20px;padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px"><a href="https://github.com/Will-Big/midnight-cleanup/blob/main/Animacore/SystemInterface.h" target="_blank" rel="noopener">Animacore/SystemInterface.h</a></span><span style="color:rgba(32,30,29,.75)">8개 실행 단계 인터페이스와 고정 시간 간격</span></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:20px;padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px"><a href="https://github.com/Will-Big/midnight-cleanup/blob/main/Animacore/MetaHelpers.h" target="_blank" rel="noopener">Animacore/MetaHelpers.h</a> · <a href="https://github.com/Will-Big/midnight-cleanup/blob/main/Animacore/MetaCtxs.h" target="_blank" rel="noopener">MetaCtxs.h</a></span><span style="color:rgba(32,30,29,.75)">등록 매크로와 8개 메타 컨텍스트</span></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:20px;padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px"><a href="https://github.com/Will-Big/midnight-cleanup/blob/main/Animatool/Panel.h" target="_blank" rel="noopener">Animatool/Panel.h</a> · <a href="https://github.com/Will-Big/midnight-cleanup/blob/main/Animatool/ToolProcess.cpp" target="_blank" rel="noopener">ToolProcess.cpp</a></span><span style="color:rgba(32,30,29,.75)">패널 추상, 툴 루프, 재생/정지와 자동 저장</span></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:20px;padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px"><a href="https://github.com/Will-Big/midnight-cleanup/blob/main/Animatool/ComponentDataPanel.cpp" target="_blank" rel="noopener">Animatool/ComponentDataPanel.cpp</a></span><span style="color:rgba(32,30,29,.75)">메타데이터를 위젯으로 옮기는 재귀 렌더러</span></div>
       </div>
     </div>
 
     <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:24px">
-      <a href="https://github.com/Will-Big/midnight-cleanup" style="border:2px solid var(--color-text);padding:12px 18px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-text);border-bottom:2px solid var(--color-text)">GitHub — midnight-cleanup</a>
+      <a href="https://github.com/Will-Big/midnight-cleanup" target="_blank" rel="noopener" style="border:2px solid var(--color-text);padding:12px 18px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-text);border-bottom:2px solid var(--color-text)">GitHub — midnight-cleanup</a>
       <a href="../" style="border:2px solid var(--color-text);padding:12px 18px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-text);border-bottom:2px solid var(--color-text)">← 프로젝트 상세로</a>
     </div>
   </section>
 
   <div style="margin-top:44px;border-top:2px solid var(--color-text);padding-top:16px;display:flex;justify-content:space-between;gap:20px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:rgba(32,30,29,.55)">
-    <span>L2 · 엔진 아키텍처의 의도</span>
+    <span>엔진 아키텍처의 의도</span>
     <span>Animacore · Animatool — 2024</span>
   </div>
 
@@ -474,6 +492,5 @@ for (auto&amp;&amp; [id, type] : entt::resolve(global::componentMetaCtx))
 
 </div>
 </x-dc>
-
 
 </body></html>

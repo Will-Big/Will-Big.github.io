@@ -22,7 +22,6 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
 
   <div style="padding:34px 0 14px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;color:rgba(32,30,29,.5);display:flex;justify-content:space-between;align-items:center;gap:20px;border-bottom:1px solid rgba(32,30,29,.18)">
     <span><a href="/" style="color:rgba(32,30,29,.5);border:none">↑ Portfolio</a> &nbsp;/&nbsp; <a href="../" style="color:rgba(32,30,29,.5);border:none">TicToc Guardians</a> &nbsp;/&nbsp; <span style="color:var(--color-text)">엔진 아키텍처</span></span>
-    <span>L2 · 마지막 층</span>
   </div>
 
   <section data-screen-label="표제" style="padding:44px 0 0">
@@ -325,7 +324,7 @@ void MatchGuiByType(const Property* property, Component* component)
         </div>
         <div style="border:1px solid rgba(32,30,29,.25);padding:16px 18px">
           <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;color:rgba(32,30,29,.5);margin-bottom:8px">그래서 다음 엔진에서는</div>
-          <div style="font-size:13px;line-height:1.75;color:rgba(32,30,29,.75)">타입 정보에 <b>범위와 설명, 기본 함수까지 같이 등록</b>해 두고, 모르는 타입은 구조체로 보고 재귀로 내려가게 바꿨습니다 → <a href="../../mc/engine/">Midnight Cleanup의 메타 허브</a></div>
+          <div style="font-size:13px;line-height:1.75;color:rgba(32,30,29,.75)">타입 정보에 <b>범위와 설명, 기본 함수까지 같이 등록</b>해 두고, 모르는 타입은 구조체로 보고 재귀로 내려가게 바꿨습니다 → <a href="../../mc/engine/#meta-hub">Midnight Cleanup의 메타 허브</a></div>
         </div>
       </div>
     </div>
@@ -512,25 +511,25 @@ void MatchGuiByType(const Property* property, Component* component)
     <div style="margin-top:30px">
       <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;color:rgba(32,30,29,.5);margin-bottom:10px">참조 코드</div>
       <div style="border-top:2px solid var(--color-text);font-size:13.5px">
-        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:20px;padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px"><a href="https://github.com/Will-Big/TicToc-Guardians/blob/main/Reflection/TypeInfo.h">Reflection/TypeInfo.h</a> · <a href="https://github.com/Will-Big/TicToc-Guardians/blob/main/Reflection/TypeInfoMacro.h">TypeInfoMacro.h</a></span><span style="color:rgba(32,30,29,.75)">타입 등록과 정적 저장소, 시스템 생성기</span></div>
-        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:20px;padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px"><a href="https://github.com/Will-Big/TicToc-Guardians/blob/main/Reflection/Property.h">Reflection/Property.h</a> · <a href="https://github.com/Will-Big/TicToc-Guardians/blob/main/Reflection/PropertyMacro.h">PropertyMacro.h</a></span><span style="color:rgba(32,30,29,.75)">멤버 포인터 핸들러와 타입 안전한 Get/Set</span></div>
-        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:20px;padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px"><a href="https://github.com/Will-Big/TicToc-Guardians/blob/main/Editor/Inspector.cpp">Editor/Inspector.cpp</a></span><span style="color:rgba(32,30,29,.75)">프로퍼티 순회와 타입별 위젯, Add Component</span></div>
-        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:20px;padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px"><a href="https://github.com/Will-Big/TicToc-Guardians/blob/main/GameEngine/SerializeSystem.cpp">GameEngine/SerializeSystem.cpp</a></span><span style="color:rgba(32,30,29,.75)">씬 · 프리팹 직렬화와 id 보정, Instantiate</span></div>
-        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:20px;padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px"><a href="https://github.com/Will-Big/TicToc-Guardians/blob/main/Editor/MenuBar.cpp">Editor/MenuBar.cpp</a> · <a href="https://github.com/Will-Big/TicToc-Guardians/blob/main/Editor/EditorProcess.cpp">EditorProcess.cpp</a></span><span style="color:rgba(32,30,29,.75)">Play/Stop과 임시 씬, 윈도우 스택과 편집 모드 루프</span></div>
-        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:20px;padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px"><a href="https://github.com/Will-Big/TicToc-Guardians/blob/main/GameEngine/ComponentPoolManager.h">GameEngine/ComponentPoolManager.h</a> · <a href="https://github.com/Will-Big/TicToc-Guardians/blob/main/GameEngine/GameObjectManager.h">GameObjectManager.h</a></span><span style="color:rgba(32,30,29,.75)">타입별 멀티 풀과 엔티티 → 컴포넌트 색인</span></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:20px;padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px"><a href="https://github.com/Will-Big/TicToc-Guardians/blob/main/Reflection/TypeInfo.h" target="_blank" rel="noopener">Reflection/TypeInfo.h</a> · <a href="https://github.com/Will-Big/TicToc-Guardians/blob/main/Reflection/TypeInfoMacro.h" target="_blank" rel="noopener">TypeInfoMacro.h</a></span><span style="color:rgba(32,30,29,.75)">타입 등록과 정적 저장소, 시스템 생성기</span></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:20px;padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px"><a href="https://github.com/Will-Big/TicToc-Guardians/blob/main/Reflection/Property.h" target="_blank" rel="noopener">Reflection/Property.h</a> · <a href="https://github.com/Will-Big/TicToc-Guardians/blob/main/Reflection/PropertyMacro.h" target="_blank" rel="noopener">PropertyMacro.h</a></span><span style="color:rgba(32,30,29,.75)">멤버 포인터 핸들러와 타입 안전한 Get/Set</span></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:20px;padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px"><a href="https://github.com/Will-Big/TicToc-Guardians/blob/main/Editor/Inspector.cpp" target="_blank" rel="noopener">Editor/Inspector.cpp</a></span><span style="color:rgba(32,30,29,.75)">프로퍼티 순회와 타입별 위젯, Add Component</span></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:20px;padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px"><a href="https://github.com/Will-Big/TicToc-Guardians/blob/main/GameEngine/SerializeSystem.cpp" target="_blank" rel="noopener">GameEngine/SerializeSystem.cpp</a></span><span style="color:rgba(32,30,29,.75)">씬 · 프리팹 직렬화와 id 보정, Instantiate</span></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:20px;padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px"><a href="https://github.com/Will-Big/TicToc-Guardians/blob/main/Editor/MenuBar.cpp" target="_blank" rel="noopener">Editor/MenuBar.cpp</a> · <a href="https://github.com/Will-Big/TicToc-Guardians/blob/main/Editor/EditorProcess.cpp" target="_blank" rel="noopener">EditorProcess.cpp</a></span><span style="color:rgba(32,30,29,.75)">Play/Stop과 임시 씬, 윈도우 스택과 편집 모드 루프</span></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:20px;padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px"><a href="https://github.com/Will-Big/TicToc-Guardians/blob/main/GameEngine/ComponentPoolManager.h" target="_blank" rel="noopener">GameEngine/ComponentPoolManager.h</a> · <a href="https://github.com/Will-Big/TicToc-Guardians/blob/main/GameEngine/GameObjectManager.h" target="_blank" rel="noopener">GameObjectManager.h</a></span><span style="color:rgba(32,30,29,.75)">타입별 멀티 풀과 엔티티 → 컴포넌트 색인</span></div>
       </div>
     </div>
     </sc-if>
 
     <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:24px">
-      <a href="https://github.com/Will-Big/TicToc-Guardians" style="border:2px solid var(--color-text);padding:12px 18px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-text);border-bottom:2px solid var(--color-text)">GitHub — TicToc-Guardians</a>
+      <a href="https://github.com/Will-Big/TicToc-Guardians" target="_blank" rel="noopener" style="border:2px solid var(--color-text);padding:12px 18px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-text);border-bottom:2px solid var(--color-text)">GitHub — TicToc-Guardians</a>
       <a href="../" style="border:2px solid var(--color-text);padding:12px 18px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-text);border-bottom:2px solid var(--color-text)">← 프로젝트 상세로</a>
       
     </div>
   </section>
 
   <div style="margin-top:44px;border-top:2px solid var(--color-text);padding-top:16px;display:flex;justify-content:space-between;gap:20px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:rgba(32,30,29,.55)">
-    <span>L2 · 엔진 아키텍처의 의도</span>
+    <span>엔진 아키텍처의 의도</span>
     <span>TicToc Engine · Editor — 2024</span>
   </div>
 
