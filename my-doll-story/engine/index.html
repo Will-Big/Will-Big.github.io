@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>엔진 아키텍처 — 나의 인형 이야기 | 임상학 Portfolio</title>
+<meta name="description" content="첫 자체 엔진의 설계 의도 — 매니저 · 씬 · 오브젝트 계층과 이벤트로 잇는 구조">
+<script src="../../support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="../../_ds/modernist-ae998351-d810-43b9-b194-f261b8babc31/styles.css">
+<script src="../../_ds/modernist-ae998351-d810-43b9-b194-f261b8babc31/_ds_bundle.js"></script>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&amp;family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:var(--color-bg);color:var(--color-text);font-family:'IBM Plex Sans KR','Archivo',system-ui,sans-serif;-webkit-font-smoothing:antialiased;word-break:keep-all;overflow-wrap:break-word}
+a{color:#c22a10;text-decoration:none;border-bottom:1px solid rgba(194,42,16,.35)}
+a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
+</style>
+</helmet>
+<div style="max-width:1180px;margin:0 auto;padding:0 40px 140px">
+
+  <div style="padding:34px 0 14px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;color:rgba(32,30,29,.5);display:flex;justify-content:space-between;align-items:center;gap:20px;border-bottom:1px solid rgba(32,30,29,.18)">
+    <span><a href="/" style="color:rgba(32,30,29,.5);border:none">↑ Portfolio</a> &nbsp;/&nbsp; <a href="../" style="color:rgba(32,30,29,.5);border:none">나의 인형 이야기</a> &nbsp;/&nbsp; <span style="color:var(--color-text)">엔진 아키텍처</span></span>
+  </div>
+
+  <section data-screen-label="표제" style="padding:44px 0 0">
+    <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:48px;align-items:end;border-bottom:2px solid var(--color-text);padding-bottom:26px">
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;color:var(--color-accent);margin-bottom:12px">1ST ENGINE · C++11 · WINAPI — 설계 의도</div>
+        <h1 style="margin:0;font-size:52px;line-height:1.1;letter-spacing:-.035em;font-weight:700;text-wrap:pretty">서로를 직접 부르지 않고<br>이벤트로 잇는다</h1>
+      </div>
+      <p style="margin:0;font-size:14.5px;line-height:1.85;color:rgba(32,30,29,.78);text-wrap:pretty">처음 만든 자체 엔진입니다. 오브젝트 관리 · 씬 전환 · 컴포넌트 · 이벤트를 설계하고 구현했습니다. 이 페이지는 그 네 갈래를 어떻게 나눴고 왜 그렇게 나눴는지를 다이어그램으로 정리했습니다.</p>
+    </div>
+
+    <div style="padding:34px 0 0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.12fr);gap:48px;align-items:start">
+      <div style="border-left:2px solid var(--color-accent);padding:4px 0 4px 20px">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;color:var(--color-accent);margin-bottom:12px">설계 원칙</div>
+        <div style="font-size:29px;line-height:1.35;font-weight:700;letter-spacing:-.02em;text-wrap:pretty">커플링을 줄이고<br>실행 흐름을 만든다</div>
+      </div>
+      <div style="font-size:15px;line-height:1.9;color:rgba(32,30,29,.82);text-wrap:pretty">
+        
+        <p style="margin:0">직전에 만든 콘솔창 미니게임에서 서로를 들고 있는 클래스가 만드는 크래시를 겪었습니다. 그래서 기능부터 쓰지 않고 <b>일반적인 게임 엔진의 설계를 먼저 확인한 뒤</b>, 참조가 어려운 곳은 이벤트로 잇는 구조를 골랐습니다.</p>
+      </div>
+    </div>
+
+    
+  </section>
+
+  <section data-screen-label="01 아키텍처" style="padding:56px 0 0">
+    <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:6px">
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-accent)">01</span>
+      <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">아키텍처 — 호출은 아래로, 요청은 이벤트로</h2>
+    </div>
+    <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);max-width:78ch;text-wrap:pretty">매니저는 씬을, 씬은 오브젝트를 부릅니다. 반대 방향은 직접 부르지 않고 이벤트 매니저를 거칩니다.</p>
+
+    <div data-om-raster="true" style="border:2px solid var(--color-text);background:#fff;padding:22px 24px">
+      <svg sc-camel-view-box="0 0 1100 400" style="width:100%;height:auto;display:block" role="img" aria-label="씬매니저에서 씬, 오브젝트로 내려가는 호출과 이벤트 매니저로 올라가는 요청">
+        <defs>
+          <marker id="q1d" sc-camel-view-box="0 0 10 10" sc-camel-ref-x="9" sc-camel-ref-y="5" sc-camel-marker-width="7" sc-camel-marker-height="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#201e1d"></path></marker>
+          <marker id="q1u" sc-camel-view-box="0 0 10 10" sc-camel-ref-x="9" sc-camel-ref-y="5" sc-camel-marker-width="7" sc-camel-marker-height="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#ec3013"></path></marker>
+        </defs>
+        <rect x="14" y="20" width="790" height="94" fill="#fff" stroke="#201e1d" stroke-width="2"></rect>
+        <text x="34" y="50" font-family="'IBM Plex Mono',monospace" font-size="15" fill="#ec3013" letter-spacing="1.2">SCENE MANAGER</text>
+        <text x="34" y="80" font-family="'IBM Plex Sans KR',sans-serif" font-size="17" fill="#201e1d">모든 씬을 들고, 현재 씬을 정한다</text>
+        <text x="34" y="102" font-family="'IBM Plex Sans KR',sans-serif" font-size="15" fill="#8a8580">전환 경로는 하나 — 이전 씬 Exit → 다음 씬 Enter</text>
+
+        <rect x="14" y="150" width="790" height="94" fill="#fff" stroke="#201e1d" stroke-width="2"></rect>
+        <text x="34" y="180" font-family="'IBM Plex Mono',monospace" font-size="15" fill="#ec3013" letter-spacing="1.2">SCENE</text>
+        <text x="34" y="210" font-family="'IBM Plex Sans KR',sans-serif" font-size="17" fill="#201e1d">오브젝트를 그룹별로 담고, 진입 · 퇴장을 담당한다</text>
+        <text x="34" y="232" font-family="'IBM Plex Sans KR',sans-serif" font-size="15" fill="#8a8580">BACK · BLOCK · WALL · ITEM · PLAYER · UI — 그룹 순서 = 업데이트 · 렌더 순서</text>
+
+        <rect x="14" y="280" width="790" height="102" fill="#fff" stroke="#201e1d" stroke-width="2"></rect>
+        <text x="34" y="310" font-family="'IBM Plex Mono',monospace" font-size="15" fill="#ec3013" letter-spacing="1.2">OBJECT</text>
+        <text x="34" y="340" font-family="'IBM Plex Sans KR',sans-serif" font-size="17" fill="#201e1d">위치 · 크기를 갖고, 붙인 컴포넌트를 실행한다</text>
+        <text x="34" y="366" font-family="'IBM Plex Sans KR',sans-serif" font-size="15" fill="#8a8580">Init → Update → FinalUpdate → Render</text>
+
+        <line x1="409" y1="114" x2="409" y2="146" stroke="#201e1d" stroke-width="2" marker-end="url(#q1d)"></line>
+        <line x1="409" y1="244" x2="409" y2="276" stroke="#201e1d" stroke-width="2" marker-end="url(#q1d)"></line>
+        <text x="425" y="138" font-family="'IBM Plex Sans KR',sans-serif" font-size="15" fill="#6b6663">현재 씬만</text>
+        <text x="425" y="268" font-family="'IBM Plex Sans KR',sans-serif" font-size="15" fill="#6b6663">그룹 순서대로</text>
+
+        <rect x="880" y="150" width="206" height="102" fill="#fbe9e6" stroke="#ec3013" stroke-width="2"></rect>
+        <text x="900" y="182" font-family="'IBM Plex Mono',monospace" font-size="15" fill="#ec3013" letter-spacing="1.2">EVENT MANAGER</text>
+        <text x="900" y="212" font-family="'IBM Plex Sans KR',sans-serif" font-size="17" fill="#201e1d">오브젝트 생성 · 삭제</text>
+        <text x="900" y="236" font-family="'IBM Plex Sans KR',sans-serif" font-size="17" fill="#201e1d">씬 전환</text>
+
+        <path d="M 804,330 H 842 V 216 H 876" stroke="#ec3013" stroke-width="2" fill="none" stroke-dasharray="7 5" marker-end="url(#q1u)"></path>
+        <path d="M 880,180 H 842 V 66 H 808" stroke="#ec3013" stroke-width="2" fill="none" stroke-dasharray="7 5" marker-end="url(#q1u)"></path>
+        <text x="856" y="292" font-family="'IBM Plex Sans KR',sans-serif" font-size="16" fill="#ec3013">요청</text>
+        <text x="856" y="124" font-family="'IBM Plex Sans KR',sans-serif" font-size="16" fill="#ec3013">실행</text>
+      </svg>
+    </div>
+  </section>
+
+  <section data-screen-label="02 컴포넌트" style="padding:56px 0 0">
+    <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:6px">
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-accent)">02</span>
+      <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">컴포넌트 — 기능은 붙인 오브젝트만 갖는다</h2>
+    </div>
+    <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);max-width:78ch;text-wrap:pretty">충돌과 애니메이션을 부모 클래스에 넣으면 필요 없는 오브젝트까지 그 코드를 갖습니다. 기능을 떼어 두고 <b>필요한 오브젝트만 붙이게</b> 했습니다.</p>
+
+    <div data-om-raster="true" style="border:2px solid var(--color-text);background:#fff;padding:22px 24px">
+      <svg sc-camel-view-box="0 0 1100 292" style="width:100%;height:auto;display:block" role="img" aria-label="공통 라이프사이클과 오브젝트에 컴포넌트를 붙이는 구조">
+        <defs>
+          <marker id="q2a" sc-camel-view-box="0 0 10 10" sc-camel-ref-x="9" sc-camel-ref-y="5" sc-camel-marker-width="7" sc-camel-marker-height="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#201e1d"></path></marker>
+        </defs>
+        
+        <rect x="14" y="40" width="234" height="52" fill="#fff" stroke="#201e1d" stroke-width="1.5"></rect>
+        <text x="34" y="74" font-family="'IBM Plex Mono',monospace" font-size="17" fill="#201e1d">Init</text>
+        <text x="14" y="24" font-family="'IBM Plex Mono',monospace" font-size="15" fill="#8a8580" letter-spacing="1.4">공통 라이프사이클 — 모든 오브젝트가 같은 순서로 돈다</text>
+        <rect x="274" y="40" width="234" height="52" fill="#fff" stroke="#201e1d" stroke-width="1.5"></rect>
+        <text x="294" y="74" font-family="'IBM Plex Mono',monospace" font-size="17" fill="#201e1d">Update</text>
+        <line x1="508" y1="66" x2="532" y2="66" stroke="#201e1d" stroke-width="1.5" marker-end="url(#q2a)"></line>
+        <rect x="534" y="40" width="234" height="52" fill="#fff" stroke="#201e1d" stroke-width="1.5"></rect>
+        <text x="554" y="74" font-family="'IBM Plex Mono',monospace" font-size="17" fill="#201e1d">FinalUpdate</text>
+        <line x1="768" y1="66" x2="792" y2="66" stroke="#201e1d" stroke-width="1.5" marker-end="url(#q2a)"></line>
+        <rect x="794" y="40" width="234" height="52" fill="#fff" stroke="#201e1d" stroke-width="1.5"></rect>
+        <text x="814" y="74" font-family="'IBM Plex Mono',monospace" font-size="17" fill="#201e1d">Render</text>
+
+        <line x1="14" y1="118" x2="1086" y2="118" stroke="#201e1d" stroke-width="2"></line>
+        <text x="14" y="148" font-family="'IBM Plex Mono',monospace" font-size="15" fill="#ec3013" letter-spacing="1.4">기능은 붙이는 쪽만 갖는다</text>
+
+        <line x1="248" y1="66" x2="272" y2="66" stroke="#201e1d" stroke-width="1.5" marker-end="url(#q2a)"></line>
+
+        <rect x="14" y="166" width="300" height="120" fill="#fbe9e6" stroke="#ec3013" stroke-width="2"></rect>
+        <text x="36" y="204" font-family="'IBM Plex Mono',monospace" font-size="16" fill="#ec3013">OBJECT</text>
+        <text x="36" y="242" font-family="'IBM Plex Sans KR',sans-serif" font-size="17" fill="#201e1d">위치 · 크기 · 생존 여부</text>
+
+        <line x1="314" y1="194" x2="366" y2="194" stroke="#201e1d" stroke-width="1.5" marker-end="url(#q2a)"></line>
+        <line x1="314" y1="256" x2="366" y2="256" stroke="#201e1d" stroke-width="1.5" marker-end="url(#q2a)"></line>
+
+        <rect x="368" y="166" width="290" height="58" fill="#fff" stroke="#201e1d" stroke-width="1.5"></rect>
+        <text x="388" y="192" font-family="'IBM Plex Mono',monospace" font-size="16" fill="#201e1d">Collider</text>
+        <text x="388" y="214" font-family="'IBM Plex Sans KR',sans-serif" font-size="15" fill="#8a8580">충돌 판정이 필요한 것만</text>
+        <rect x="368" y="228" width="290" height="58" fill="#fff" stroke="#201e1d" stroke-width="1.5"></rect>
+        <text x="388" y="254" font-family="'IBM Plex Mono',monospace" font-size="16" fill="#201e1d">Animator</text>
+        <text x="388" y="276" font-family="'IBM Plex Sans KR',sans-serif" font-size="15" fill="#8a8580">스프라이트가 필요한 것만</text>
+
+        <rect x="700" y="166" width="386" height="120" fill="#fff" stroke="#201e1d" stroke-width="1.5" stroke-dasharray="7 5"></rect>
+        <text x="722" y="196" font-family="'IBM Plex Sans KR',sans-serif" font-size="17" fill="#201e1d">플레이어 — 둘 다</text>
+        <text x="722" y="228" font-family="'IBM Plex Sans KR',sans-serif" font-size="17" fill="#201e1d">인형 파츠 — 애니메이터</text>
+        <text x="722" y="260" font-family="'IBM Plex Sans KR',sans-serif" font-size="17" fill="#201e1d">배경 · 벽 — 없음</text>
+      </svg>
+    </div>
+
+    <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;margin-top:26px;align-items:start">
+      <div style="border-top:2px solid var(--color-text);font-size:14px;line-height:1.7">
+        <div style="padding:12px 0;border-bottom:1px solid rgba(32,30,29,.14)">새 오브젝트는 <b>Update와 Render</b>만 채우면 씬에 올라간다</div>
+        <div style="padding:12px 0;border-bottom:1px solid rgba(32,30,29,.14)">기능은 필요할 때 <code style="font-family:'IBM Plex Mono',monospace;font-size:12.5px">CreateCollider()</code> · <code style="font-family:'IBM Plex Mono',monospace;font-size:12.5px">CreateAnimator()</code> 한 줄로</div>
+        <div style="padding:12px 0">오브젝트를 새로 추가해도 기존 오브젝트의 코드를 건드릴 일이 없었다</div>
+      </div>
+      <div style="border-left:2px solid var(--color-accent);padding:2px 0 2px 16px">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;color:var(--color-accent);margin-bottom:6px">한계</div>
+        <p style="margin:0;font-size:13.5px;line-height:1.7;color:rgba(32,30,29,.75)">컴포넌트를 늘리려면 Object 클래스를 직접 고쳐야 했습니다. 붙이는 방식만 조합이고, <b>종류를 늘리는 일은 여전히 컴파일 타임</b>에 묶여 있었습니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="03 정리" style="padding:56px 0 0">
+    <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:6px">
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-accent)">03</span>
+      <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">한계와 다음 엔진</h2>
+    </div>
+    <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);max-width:78ch;text-wrap:pretty">2주짜리 첫 엔진의 한계입니다. 여기서 적어 둔 것이 다음 엔진의 우선순위가 됐습니다.</p>
+    <div style="border-top:2px solid var(--color-text);border-bottom:2px solid var(--color-text)">
+      <div style="display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.3fr) minmax(0,1.3fr);gap:28px;padding:14px 0 10px;border-bottom:1px solid rgba(32,30,29,.2);font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;color:rgba(32,30,29,.5)">
+        <span></span><span>한계</span><span style="color:var(--color-accent)">다음 엔진에서</span>
+      </div>
+      <div style="display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.3fr) minmax(0,1.3fr);gap:28px;padding:18px 0;border-bottom:1px solid rgba(32,30,29,.14);align-items:start">
+        <span style="font-size:16px;font-weight:600;line-height:1.5">컴포넌트</span>
+        <span style="font-size:14.5px;line-height:1.75;color:rgba(32,30,29,.8)">종류를 늘리려면 Object를 고쳐야 했고, 원시 포인터라 소유권이 코드에 드러나지 않았습니다.</span>
+        <span style="font-size:14.5px;line-height:1.75;color:rgba(32,30,29,.8)">부모를 고치지 않고 기능을 늘리는 구조로. <a href="../../fate-weaver/events/">Fate Weaver</a>에서 컴포넌트를 다시 잡았습니다.</span>
+      </div>
+      <div style="display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.3fr) minmax(0,1.3fr);gap:28px;padding:18px 0;border-bottom:1px solid rgba(32,30,29,.14);align-items:start">
+        <span style="font-size:16px;font-weight:600;line-height:1.5">싱글턴과 이벤트</span>
+        <span style="font-size:14.5px;line-height:1.75;color:rgba(32,30,29,.8)">매니저를 계속 늘려 한 클래스가 여러 책임을 졌고, 이벤트 페이로드는 타입 검사를 받지 못했습니다.</span>
+        <span style="font-size:14.5px;line-height:1.75;color:rgba(32,30,29,.8)">전역 상태는 최소로, 통신은 타입이 보장되는 방식으로 바꿨습니다.</span>
+      </div>
+      <div style="display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.3fr) minmax(0,1.3fr);gap:28px;padding:18px 0;align-items:start">
+        <span style="font-size:16px;font-weight:600;line-height:1.5">하드코딩</span>
+        <span style="font-size:14.5px;line-height:1.75;color:rgba(32,30,29,.8)">씬과 오브젝트 배치가 코드 안에 있어, 수치 하나를 바꾸는 데도 재컴파일이 필요했습니다.</span>
+        <span style="font-size:14.5px;line-height:1.75;color:rgba(32,30,29,.8)">코드와 데이터의 분리. 3rd <a href="../../tictoc/engine/">TicToc</a>에서 직렬화와 에디터로 정리했습니다.</span>
+      </div>
+    </div>
+
+    <div style="margin-top:26px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;color:rgba(32,30,29,.5);margin-bottom:10px">참조 코드</div>
+      <div style="border-top:2px solid var(--color-text);font-size:13.5px">
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:20px;padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px"><a href="https://github.com/Will-Big/my_doll_story/blob/master/My_Doll_Story/Object.h">My_Doll_Story/Object.h</a></span><span style="color:rgba(32,30,29,.75)">공통 라이프사이클과 컴포넌트 생성 지점</span></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:20px;padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px"><a href="https://github.com/Will-Big/my_doll_story/blob/master/My_Doll_Story/Scene.h">Scene.h</a> · <a href="https://github.com/Will-Big/my_doll_story/blob/master/My_Doll_Story/SceneManager.h">SceneManager.h</a></span><span style="color:rgba(32,30,29,.75)">그룹별 오브젝트 관리와 씬 전환</span></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:20px;padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px"><a href="https://github.com/Will-Big/my_doll_story/blob/master/My_Doll_Story/EventManager.cpp">EventManager.cpp</a> · <a href="https://github.com/Will-Big/my_doll_story/blob/master/My_Doll_Story/EventManager.h">EventManager.h</a></span><span style="color:rgba(32,30,29,.75)">이벤트 큐와 지연 삭제</span></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:20px;padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px"><a href="https://github.com/Will-Big/my_doll_story/blob/master/My_Doll_Story/Animator.h">Animator.h</a> · <a href="https://github.com/Will-Big/my_doll_story/blob/master/My_Doll_Story/Collider.h">Collider.h</a></span><span style="color:rgba(32,30,29,.75)">붙여 쓰는 컴포넌트 두 종</span></div>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:24px">
+      <a href="https://github.com/Will-Big/my_doll_story" style="border:2px solid var(--color-text);padding:12px 18px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-text);border-bottom:2px solid var(--color-text)">GitHub — my_doll_story</a>
+      <a href="../" style="border:2px solid var(--color-text);padding:12px 18px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-text);border-bottom:2px solid var(--color-text)">← 프로젝트 상세로</a>
+    </div>
+  </section>
+
+  <div style="margin-top:44px;border-top:2px solid var(--color-text);padding-top:16px;display:flex;justify-content:space-between;gap:20px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:rgba(32,30,29,.55)">
+    <span>엔진 아키텍처의 의도</span>
+    <span>My Doll Story Engine — 2023</span>
+  </div>
+
+  
+
+</div>
+</x-dc>
+</body>
+</html>
