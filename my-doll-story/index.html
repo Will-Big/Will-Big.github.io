@@ -28,7 +28,8 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
     <span>프로젝트 상세</span>
   </div>
 
-  <section data-screen-label="요약" style="padding:40px 0 0">
+  <!-- 1. 대표 GIF + 요약 -->
+  <section style="padding:40px 0 0">
     <div style="display:grid;grid-template-columns:1.35fr 1fr;gap:40px;align-items:start">
       <div>
         <div style="border:1px solid rgba(32,30,29,.25);aspect-ratio:16/9;overflow:hidden;background:#111"><img src="../assets/md-1.gif" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></div>
@@ -50,21 +51,23 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
           <span style="border:1px solid rgba(32,30,29,.3);font-family:'IBM Plex Mono',monospace;font-size:11px;padding:3px 8px">Git</span>
         </div>
         <div style="margin-top:16px;font-size:13.5px;line-height:1.8">
-          <a href="https://github.com/Will-Big/my_doll_story">GitHub 저장소</a> · <a href="{{ youtubeUrl }}">플레이 영상</a> · <a href="https://store.onstove.com/ko/games/2398">STOVE 스토어</a>
+          <a href="https://github.com/Will-Big/my_doll_story" target="_blank" rel="noopener">GitHub 저장소</a> · <a href="{{ youtubeUrl }}" target="_blank" rel="noopener">플레이 영상</a> · <a href="https://store.onstove.com/ko/games/2398" target="_blank" rel="noopener">STOVE 스토어</a>
         </div>
       </div>
     </div>
     <p style="margin:30px 0 0;font-size:17px;line-height:1.8;max-width:74ch;text-wrap:pretty;color:rgba(32,30,29,.85)">처음 만든 자체 엔진입니다. 그래픽 API도 물리 엔진도 없이 <strong>Windows API와 GDI만 가지고</strong>, 게임 루프·씬·오브젝트·이벤트를 직접 짜서 2주 안에 게임 하나를 끝까지 돌렸습니다. 게임 쪽에서는 이 퍼즐의 목표이자 클리어 조건인 <strong>흩어진 인형 파츠 합치기</strong>를 맡았습니다.</p>
   </section>
 
-  <section data-screen-label="하이라이트" style="padding:48px 0 0">
+  <!-- 2. 하이라이트 -->
+  <section style="padding:48px 0 0">
     <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;color:var(--color-accent);padding-bottom:10px">하이라이트</div>
-    <div style="border-top:2px solid var(--color-text);border-bottom:2px solid var(--color-text)">
-      <a href="#doll" style="display:flex;gap:14px;padding:15px 0;color:var(--color-text);text-decoration:none"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--color-accent);padding-top:4px">컨텐츠</span><span style="font-size:15px;line-height:1.6;font-weight:500">🔗 흩어진 파츠를 밀어 붙이면 하나의 인형이 되는 규칙</span></a>
+    <div style="border-top:2px solid var(--color-text);border-bottom:2px solid var(--color-text);display:grid;grid-template-columns:1fr 1fr;gap:0 40px">
+      <a href="#f1" style="display:flex;gap:14px;padding:15px 0;color:var(--color-text);text-decoration:none"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--color-accent);padding-top:4px">컨텐츠</span><span style="font-size:15px;line-height:1.6;font-weight:500">🔗 흩어진 파츠를 밀어 붙이면 하나의 인형이 되는 규칙</span></a>
     </div>
   </section>
 
-  <section data-screen-label="01 엔진" id="engine" style="padding:52px 0 0;scroll-margin-top:20px">
+  <!-- 3. 엔진 설계 -->
+  <section id="engine" style="padding:52px 0 0;scroll-margin-top:20px">
     <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:6px">
       <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-accent)">01</span>
       <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">엔진 설계</h2>
@@ -112,28 +115,28 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
           <div style="display:grid;grid-template-columns:1fr 1.4fr;gap:12px;padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="color:rgba(32,30,29,.55)">4th · Midnight</span><span>EnTT 전환 · 메인 루프 분리</span></div>
         </div>
       </div>
-      <div style="border-left:2px solid var(--color-accent);padding:4px 0 4px 20px">
-        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;color:var(--color-accent);margin-bottom:10px">엔진 설계 의도 — L2</div>
-        <p style="margin:0 0 14px;font-size:14.5px;line-height:1.8;color:rgba(32,30,29,.82);text-wrap:pretty">한 프레임을 어떤 순서로 돌렸는지, 오브젝트 삭제를 왜 프레임 끝으로 미뤘는지, GDI로 화면을 어떻게 그렸는지를 다이어그램으로 정리했습니다.</p>
-        <a href="engine/" style="display:inline-block;border:2px solid var(--color-text);padding:12px 18px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-text);border-bottom:2px solid var(--color-text)">엔진 아키텍처 자세히 보기 →</a>
+      <div style="border:1px solid rgba(32,30,29,.3);padding:18px 20px">
+        <div style="font-size:14px;font-weight:600;margin-bottom:5px"><a href="engine/" style="color:inherit;border-bottom:1px solid rgba(32,30,29,.45)">🔗 엔진 설계 의도 자세히 보기</a></div>
+        <div style="font-size:12.5px;color:rgba(32,30,29,.6);line-height:1.65;margin-bottom:12px">호출은 아래로 · 요청은 이벤트로 · 붙이는 컴포넌트 · 첫 엔진의 한계 — 3분</div>
       </div>
     </div>
   </section>
 
-  <section data-screen-label="02 게임 플레이" style="padding:52px 0 0">
+  <!-- 4. 게임 플레이 -->
+  <section style="padding:52px 0 0">
     <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:6px">
       <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-accent)">02</span>
       <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">게임 플레이</h2>
     </div>
     <p style="margin:0 0 24px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);max-width:78ch;text-wrap:pretty">이 게임에서 플레이어가 하는 일은 하나입니다 — <b>찢어져 흩어진 인형 파츠를 밀어서 한자리에 모으는 것</b>. 파츠가 합쳐지는 규칙이 곧 퍼즐의 목표이자 클리어 조건이었고, 제가 가장 오래 붙잡고 있던 부분이기도 합니다.</p>
 
-    <div id="doll" style="border:1px solid rgba(32,30,29,.22);background:#fff;padding:36px 44px 40px;scroll-margin-top:20px">
+    <div id="f1" style="border:1px solid rgba(32,30,29,.22);border-top:4px solid var(--color-accent);background:#fff;padding:36px 44px 40px;scroll-margin-top:20px">
       <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px">
         <span style="background:var(--color-accent);color:#fff;font-family:'IBM Plex Mono',monospace;font-size:10px;padding:4px 8px;letter-spacing:.08em">내가 한 일 · 설계 및 구현</span>
         <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:rgba(32,30,29,.5);letter-spacing:.1em">GAMEPLAY · CLEAR</span>
       </div>
       <h3 style="margin:0 0 18px;font-size:28px;font-weight:700;letter-spacing:-.02em">흩어진 인형 파츠 합치기</h3>
-      <div style="border-top:2px solid var(--color-text);border-bottom:1px solid rgba(32,30,29,.18);display:grid;grid-template-columns:repeat(3,1fr);margin-bottom:28px">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);border-top:2px solid var(--color-text);border-bottom:1px solid rgba(32,30,29,.18);margin-bottom:26px">
         <div style="padding:16px 20px 18px 0;border-right:1px solid rgba(32,30,29,.18)">
           <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:rgba(32,30,29,.5);letter-spacing:.1em;margin-bottom:6px">무엇을</div>
           <p style="margin:0;font-size:14.5px;line-height:1.6;font-weight:500">파츠마다 <strong>고유 번호와 자기가 가진 파츠 목록</strong>을 들려 두고, 밀어서 부딪히면 목록을 합친 뒤 밀린 쪽을 꺼서 하나의 오브젝트로 만듦</p>
@@ -183,7 +186,8 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
     </div>
   </section>
 
-  <section data-screen-label="03 회고" style="padding:52px 0 0">
+  <!-- 5. 회고 -->
+  <section style="padding:52px 0 0">
     <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:20px">
       <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-accent)">03</span>
       <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">회고</h2>
@@ -203,9 +207,9 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
       </div>
     </div>
     <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:24px">
-      <a href="https://github.com/Will-Big/my_doll_story" style="border:2px solid var(--color-text);padding:12px 18px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-text);border-bottom:2px solid var(--color-text)">GitHub — my_doll_story</a>
-      <a href="{{ youtubeUrl }}" style="border:2px solid var(--color-text);padding:12px 18px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-text);border-bottom:2px solid var(--color-text)">플레이 영상 — YouTube</a>
-      <a href="https://store.onstove.com/ko/games/2398" style="border:2px solid var(--color-text);padding:12px 18px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-text);border-bottom:2px solid var(--color-text)">STOVE 스토어 페이지</a>
+      <a href="https://github.com/Will-Big/my_doll_story" target="_blank" rel="noopener" style="border:2px solid var(--color-text);padding:12px 18px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-text);border-bottom:2px solid var(--color-text)">GitHub — my_doll_story</a>
+      <a href="{{ youtubeUrl }}" target="_blank" rel="noopener" style="border:2px solid var(--color-text);padding:12px 18px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-text);border-bottom:2px solid var(--color-text)">플레이 영상 — YouTube</a>
+      <a href="https://store.onstove.com/ko/games/2398" target="_blank" rel="noopener" style="border:2px solid var(--color-text);padding:12px 18px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-text);border-bottom:2px solid var(--color-text)">STOVE 스토어 페이지</a>
       
     </div>
   </section>
