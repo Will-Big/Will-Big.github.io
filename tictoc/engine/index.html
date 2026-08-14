@@ -168,9 +168,139 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
     </div>
   </section>
 
-  <section data-screen-label="03 리플렉션" style="padding:56px 0 0">
+  <section data-screen-label="03 컴포넌트 저장" style="padding:56px 0 0">
     <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:6px">
       <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-accent)">03</span>
+      <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">컴포넌트 저장 — 타입마다 풀, 풀은 목록으로</h2>
+    </div>
+    <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);max-width:78ch;text-wrap:pretty">컴포넌트를 어디에 둘지 정하는 일이 ECS의 출발점이었습니다. <b>타입마다 풀을 하나 두고, 풀이 차면 목록에 풀을 하나 더 붙이는</b> 방식으로 만들었습니다. 대신 지울 때 빈 자리를 메우느라 컴포넌트의 주소가 바뀌므로, 그 주소를 들고 있던 쪽을 찾아 고쳐 주어야 했습니다.</p>
+
+    <div data-om-raster="true" style="border:2px solid var(--color-text);background:#fff;padding:20px 22px">
+      <svg sc-camel-view-box="0 0 1100 196" style="width:100%;height:auto;display:block" role="img" aria-label="타입별 멀티 풀 구조 다이어그램">
+        <defs>
+          <marker id="p1a" sc-camel-view-box="0 0 10 10" sc-camel-ref-x="9" sc-camel-ref-y="5" sc-camel-marker-width="7" sc-camel-marker-height="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#201e1d"></path></marker>
+        </defs>
+        <text x="20" y="26" font-family="'IBM Plex Mono',monospace" font-size="14" fill="#201e1d">m_MultiPool&lt;Transform&gt; — std::list&lt;ComponentPool&lt;T&gt;&gt;</text>
+        <text x="1080" y="26" text-anchor="end" font-family="'IBM Plex Sans KR',sans-serif" font-size="12" fill="#6b6663">한 풀의 칸 수 N = 4096 / sizeof(T) — 4KB 블록 기준</text>
+
+        <rect x="20" y="56" width="310" height="120" fill="#fff" stroke="#201e1d" stroke-width="2"></rect>
+        <text x="34" y="80" font-family="'IBM Plex Mono',monospace" font-size="11.5" fill="#6b6663">ComponentPool #1 — std::array&lt;T, N&gt;</text>
+        <rect x="34" y="94" width="26" height="30" fill="#fbe9e6" stroke="#201e1d" stroke-width="1.2"></rect>
+        <rect x="64" y="94" width="26" height="30" fill="#fbe9e6" stroke="#201e1d" stroke-width="1.2"></rect>
+        <rect x="94" y="94" width="26" height="30" fill="#fbe9e6" stroke="#201e1d" stroke-width="1.2"></rect>
+        <rect x="124" y="94" width="26" height="30" fill="#fbe9e6" stroke="#201e1d" stroke-width="1.2"></rect>
+        <rect x="154" y="94" width="26" height="30" fill="#fbe9e6" stroke="#201e1d" stroke-width="1.2"></rect>
+        <rect x="184" y="94" width="26" height="30" fill="#fbe9e6" stroke="#201e1d" stroke-width="1.2"></rect>
+        <rect x="214" y="94" width="26" height="30" fill="#fbe9e6" stroke="#201e1d" stroke-width="1.2"></rect>
+        <rect x="244" y="94" width="26" height="30" fill="#fbe9e6" stroke="#201e1d" stroke-width="1.2"></rect>
+        <text x="34" y="148" font-family="'IBM Plex Sans KR',sans-serif" font-size="12" fill="#6b6663">가득 참 — ActivatedIndex = N</text>
+
+        <line x1="336" y1="116" x2="384" y2="116" stroke="#201e1d" stroke-width="1.5" marker-end="url(#p1a)"></line>
+
+        <rect x="390" y="56" width="310" height="120" fill="#fff" stroke="#201e1d" stroke-width="2"></rect>
+        <text x="404" y="80" font-family="'IBM Plex Mono',monospace" font-size="11.5" fill="#6b6663">ComponentPool #2</text>
+        <rect x="404" y="94" width="26" height="30" fill="#fbe9e6" stroke="#201e1d" stroke-width="1.2"></rect>
+        <rect x="434" y="94" width="26" height="30" fill="#fbe9e6" stroke="#201e1d" stroke-width="1.2"></rect>
+        <rect x="464" y="94" width="26" height="30" fill="#fbe9e6" stroke="#201e1d" stroke-width="1.2"></rect>
+        <rect x="494" y="94" width="26" height="30" fill="#f3f2f2" stroke="#c9c5c1" stroke-width="1.2"></rect>
+        <rect x="524" y="94" width="26" height="30" fill="#f3f2f2" stroke="#c9c5c1" stroke-width="1.2"></rect>
+        <rect x="554" y="94" width="26" height="30" fill="#f3f2f2" stroke="#c9c5c1" stroke-width="1.2"></rect>
+        <rect x="584" y="94" width="26" height="30" fill="#f3f2f2" stroke="#c9c5c1" stroke-width="1.2"></rect>
+        <rect x="614" y="94" width="26" height="30" fill="#f3f2f2" stroke="#c9c5c1" stroke-width="1.2"></rect>
+        <line x1="492" y1="88" x2="492" y2="130" stroke="#ec3013" stroke-width="2"></line>
+        <text x="404" y="148" font-family="'IBM Plex Sans KR',sans-serif" font-size="12" fill="#ec3013">ActivatedIndex — 여기까지가 사용 중</text>
+
+        <line x1="706" y1="116" x2="754" y2="116" stroke="#201e1d" stroke-width="1.5" marker-end="url(#p1a)"></line>
+
+        <rect x="760" y="56" width="310" height="120" fill="#fff" stroke="#8a8580" stroke-width="1.5" stroke-dasharray="5 4"></rect>
+        <text x="774" y="80" font-family="'IBM Plex Mono',monospace" font-size="11.5" fill="#8a8580">ComponentPool #3</text>
+        <text x="774" y="112" font-family="'IBM Plex Sans KR',sans-serif" font-size="13" fill="#6b6663">앞의 풀이 모두 차면</text>
+        <text x="774" y="132" font-family="'IBM Plex Mono',monospace" font-size="12" fill="#6b6663">m_MultiPool.emplace_back()</text>
+      </svg>
+    </div>
+
+    <div style="border-top:2px solid var(--color-text);font-size:13.5px;margin-top:26px">
+      <div style="display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr) minmax(0,1.1fr);gap:20px;padding:12px 0;border-bottom:1px solid rgba(32,30,29,.14);font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;color:rgba(32,30,29,.5)"><span>하는 일</span><span>맡은 자료 구조</span><span>동작</span></div>
+      <div style="display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr) minmax(0,1.1fr);gap:20px;padding:13px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-weight:600">저장</span><span style="color:rgba(32,30,29,.75)"><a href="https://github.com/Will-Big/TicToc-Guardians/blob/main/GameEngine/ComponentPool.h" target="_blank" rel="noopener"><code style="font-family:'IBM Plex Mono',monospace;font-size:12px">ComponentPool&lt;T, N&gt;</code></a> — 배열과 활성 경계</span><span style="color:rgba(32,30,29,.75)">경계 위치를 하나 늘리고 그 칸의 주소를 돌려준다</span></div>
+      <div style="display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr) minmax(0,1.1fr);gap:20px;padding:13px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-weight:600">검색</span><span style="color:rgba(32,30,29,.75)"><a href="https://github.com/Will-Big/TicToc-Guardians/blob/main/GameEngine/GameObjectManager.h" target="_blank" rel="noopener"><code style="font-family:'IBM Plex Mono',monospace;font-size:12px">map&lt;GameObjectId, map&lt;Uid, Component*&gt;&gt;</code></a></span><span style="color:rgba(32,30,29,.75)">오브젝트 번호로 한 번, 컴포넌트 번호로 한 번 조회한다 — 컴포넌트 번호는 타입 이름을 컴파일 타임에 접은 CRC32다</span></div>
+      <div style="display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr) minmax(0,1.1fr);gap:20px;padding:13px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-weight:600">삭제</span><span style="color:rgba(32,30,29,.75)"><a href="https://github.com/Will-Big/TicToc-Guardians/blob/main/GameEngine/ComponentPoolManager.h" target="_blank" rel="noopener"><code style="font-family:'IBM Plex Mono',monospace;font-size:12px">ComponentPoolManager::Release</code></a></span><span style="color:rgba(32,30,29,.75)">마지막 활성 원소를 빈 자리로 옮기고 경계를 되돌린다 — 그래서 빈 풀이 되면 목록에서 반납한다</span></div>
+      <div style="display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr) minmax(0,1.1fr);gap:20px;padding:13px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-weight:600">순회</span><span style="color:rgba(32,30,29,.75)"><a href="https://github.com/Will-Big/TicToc-Guardians/blob/main/GameEngine/System.h" target="_blank" rel="noopener"><code style="font-family:'IBM Plex Mono',monospace;font-size:12px">System::ComponentItr&lt;T&gt;</code></a></span><span style="color:rgba(32,30,29,.75)">풀마다 활성 구간만 모아 시스템에 넘긴다 — 시스템은 범위 기반 for 한 줄로 돈다</span></div>
+    </div>
+
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;color:rgba(32,30,29,.5);margin:30px 0 10px">삭제와 포인터 보정</div>
+    <div data-om-raster="true" style="border:2px solid var(--color-text);background:#fff;padding:20px 22px">
+      <svg sc-camel-view-box="0 0 1100 420" style="width:100%;height:auto;display:block" role="img" aria-label="컴포넌트 삭제 시 포인터 보정 3단계 다이어그램">
+        <defs>
+          <marker id="p2a" sc-camel-view-box="0 0 10 10" sc-camel-ref-x="9" sc-camel-ref-y="5" sc-camel-marker-width="7" sc-camel-marker-height="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#201e1d"></path></marker>
+          <marker id="p2r" sc-camel-view-box="0 0 10 10" sc-camel-ref-x="9" sc-camel-ref-y="5" sc-camel-marker-width="7" sc-camel-marker-height="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#ec3013"></path></marker>
+        </defs>
+
+        <text x="20" y="24" font-family="'IBM Plex Mono',monospace" font-size="11.5" fill="#6b6663">① 지우기 전 — 오브젝트 A 의 컴포넌트를 지운다</text>
+        <rect x="20" y="36" width="330" height="76" fill="#fff" stroke="#201e1d" stroke-width="1.5"></rect>
+        <text x="34" y="60" font-family="'IBM Plex Mono',monospace" font-size="12" fill="#201e1d">A → 2번 칸</text>
+        <text x="34" y="84" font-family="'IBM Plex Mono',monospace" font-size="12" fill="#201e1d">B → 5번 칸</text>
+        <text x="34" y="104" font-family="'IBM Plex Sans KR',sans-serif" font-size="11.5" fill="#8a8580">GameObjectManager 의 색인</text>
+        <rect x="430" y="46" width="60" height="40" fill="#fbe9e6" stroke="#201e1d" stroke-width="1.2"></rect>
+        <rect x="494" y="46" width="60" height="40" fill="#fbe9e6" stroke="#201e1d" stroke-width="1.2"></rect>
+        <rect x="558" y="46" width="60" height="40" fill="#fbe9e6" stroke="#201e1d" stroke-width="1.2"></rect>
+        <rect x="622" y="46" width="60" height="40" fill="#fbe9e6" stroke="#201e1d" stroke-width="1.2"></rect>
+        <rect x="686" y="46" width="60" height="40" fill="#fbe9e6" stroke="#201e1d" stroke-width="1.2"></rect>
+        <text x="460" y="72" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="12" fill="#201e1d">1</text>
+        <text x="524" y="72" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="12" fill="#201e1d">2</text>
+        <text x="588" y="72" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="12" fill="#201e1d">3</text>
+        <text x="652" y="72" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="12" fill="#201e1d">4</text>
+        <text x="716" y="72" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="12" fill="#201e1d">5</text>
+        <line x1="750" y1="40" x2="750" y2="92" stroke="#201e1d" stroke-width="2"></line>
+        <text x="762" y="72" font-family="'IBM Plex Sans KR',sans-serif" font-size="12" fill="#6b6663">활성 경계</text>
+
+        <text x="20" y="164" font-family="'IBM Plex Mono',monospace" font-size="11.5" fill="#6b6663">② 마지막 활성 원소를 빈 자리로 옮긴다 — swap-pop</text>
+        <rect x="20" y="176" width="330" height="76" fill="#fff" stroke="#201e1d" stroke-width="1.5"></rect>
+        <text x="34" y="200" font-family="'IBM Plex Mono',monospace" font-size="12" fill="#8a8580">A → 2번 칸</text>
+        <text x="34" y="224" font-family="'IBM Plex Mono',monospace" font-size="12" fill="#8a8580">B → 5번 칸</text>
+        <text x="34" y="244" font-family="'IBM Plex Sans KR',sans-serif" font-size="11.5" fill="#ec3013">B 의 색인이 빈 칸을 가리키게 되었다</text>
+        <rect x="430" y="186" width="60" height="40" fill="#fbe9e6" stroke="#201e1d" stroke-width="1.2"></rect>
+        <rect x="494" y="186" width="60" height="40" fill="#fff" stroke="#ec3013" stroke-width="2"></rect>
+        <rect x="558" y="186" width="60" height="40" fill="#fbe9e6" stroke="#201e1d" stroke-width="1.2"></rect>
+        <rect x="622" y="186" width="60" height="40" fill="#fbe9e6" stroke="#201e1d" stroke-width="1.2"></rect>
+        <rect x="686" y="186" width="60" height="40" fill="#f3f2f2" stroke="#c9c5c1" stroke-width="1.2" stroke-dasharray="4 3"></rect>
+        <text x="524" y="212" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="12" fill="#ec3013">B</text>
+        <text x="460" y="212" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="12" fill="#201e1d">1</text>
+        <text x="588" y="212" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="12" fill="#201e1d">3</text>
+        <text x="652" y="212" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="12" fill="#201e1d">4</text>
+        <text x="716" y="212" text-anchor="middle" font-family="'IBM Plex Sans KR',sans-serif" font-size="11" fill="#8a8580">빈 칸</text>
+        <path d="M716,180 C716,150 524,150 524,178" fill="none" stroke="#ec3013" stroke-width="1.8" marker-end="url(#p2r)"></path>
+        <line x1="686" y1="180" x2="686" y2="232" stroke="#201e1d" stroke-width="2"></line>
+        <text x="770" y="212" font-family="'IBM Plex Sans KR',sans-serif" font-size="12" fill="#6b6663">경계가 하나 줄어든다</text>
+
+        <text x="20" y="304" font-family="'IBM Plex Mono',monospace" font-size="11.5" fill="#ec3013">③ 이사 온 컴포넌트의 주인을 찾아 색인을 고친다</text>
+        <rect x="20" y="316" width="330" height="76" fill="#fbe9e6" stroke="#201e1d" stroke-width="2"></rect>
+        <text x="34" y="340" font-family="'IBM Plex Mono',monospace" font-size="12" fill="#8a8580">A — 색인에서 지움</text>
+        <text x="34" y="364" font-family="'IBM Plex Mono',monospace" font-size="12" fill="#ec3013">B → 2번 칸</text>
+        <text x="34" y="384" font-family="'IBM Plex Sans KR',sans-serif" font-size="11.5" fill="#6b6663">고칠 대상은 하나뿐이다</text>
+        <rect x="430" y="326" width="316" height="56" fill="#fff" stroke="#201e1d" stroke-width="1.5"></rect>
+        <text x="446" y="350" font-family="'IBM Plex Mono',monospace" font-size="12" fill="#201e1d">Release(ptr) → B 의 GameObjectId</text>
+        <text x="446" y="372" font-family="'IBM Plex Sans KR',sans-serif" font-size="11.5" fill="#6b6663">옮겨 온 컴포넌트가 누구 것인지 반환값으로 알려 준다</text>
+        <line x1="360" y1="354" x2="420" y2="354" stroke="#ec3013" stroke-width="1.8" marker-end="url(#p2r)"></line>
+        <text x="770" y="350" font-family="'IBM Plex Sans KR',sans-serif" font-size="12.5" fill="#201e1d">이 반환값이 없으면 색인은</text>
+        <text x="770" y="370" font-family="'IBM Plex Sans KR',sans-serif" font-size="12.5" fill="#201e1d">죽은 주소를 계속 가리킵니다</text>
+      </svg>
+    </div>
+
+    <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:36px;margin-top:26px;align-items:start">
+      <div style="border-left:2px solid var(--color-accent);padding:2px 0 2px 16px">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;color:var(--color-accent);margin-bottom:6px">왜 std::vector 대신 std::list 와 std::array 를 사용했나</div>
+        <p style="margin:0;font-size:13.5px;line-height:1.7;color:rgba(32,30,29,.75)"><b>vector 는 늘어날 때 재할당이 일어납니다.</b> 그 순간 이미 나눠 준 컴포넌트 포인터가 한꺼번에 무효가 됩니다. 대신 <b>array 로 같은 타입을 붙여 두어 순회 이점을 얻고</b>, 그 배열을 <b>list 로 이어 풀을 늘려도 앞선 풀의 주소가 그대로 남게</b> 했습니다.</p>
+      </div>
+      <div style="border:1px solid rgba(32,30,29,.25);padding:16px 18px">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;color:rgba(32,30,29,.5);margin-bottom:8px">막혔던 지점</div>
+        <div style="font-size:13px;line-height:1.75;color:rgba(32,30,29,.75)">컴포넌트를 가리키는 것이 <b>주소뿐</b>이어서, 그 주소가 풀의 몇 번째 칸인지 되짚을 수단이 없었습니다. 그래서 삭제할 때마다 풀을 앞에서부터 훑으며 활성 원소의 주소를 대조했고, <b>지우는 비용이 살아 있는 컴포넌트 수에 비례</b>했습니다. 그때 제가 한 일은 <code style="font-family:'IBM Plex Mono',monospace;font-size:11.5px">Release</code> 가 이사 온 컴포넌트의 주인 번호를 돌려주게 해서 <b>색인이 깨지는 것만 막은 것</b>이었고, 탐색 자체는 손대지 못했습니다.<br>원인은 다음 엔진에서 EnTT 의 저장 구조를 뜯어보고서야 정확히 짚었습니다. <b>번호에서 배열 위치로 가는 색인을 자료 구조가 함께 들고 있으면 훑을 일이 없다</b>는 것이었습니다. 빈 자리를 마지막 원소로 메우는 흐름은 제 구현과 같았고, 찾는 방법만 달랐습니다. 그래서 이후에는 컴포넌트를 주소로 들고 다니지 않고 <b>엔티티 번호로 다루도록</b> 바꿔, 조회를 제 코드가 아니라 자료 구조가 책임지게 했습니다.</div>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="04 리플렉션" style="padding:56px 0 0">
+    <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:6px">
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-accent)">04</span>
       <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">리플렉션 — 등록은 미리, 조회는 이름으로</h2>
     </div>
     <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);max-width:78ch;text-wrap:pretty">인스펙터가 어떤 컴포넌트든 그려내려면 <b>멤버 이름과 타입, 그 멤버까지 닿는 길</b>이 실행 중에도 남아 있어야 합니다. 매크로 두 줄이 클래스에 등록 코드를 심어 두고, 프로그램이 로드될 때 <code style="font-family:'IBM Plex Mono',monospace;font-size:12.5px">TypeInfo</code>가 채워지게 했습니다.</p>
@@ -249,9 +379,9 @@ ElementType&amp; PropertyHandler&lt;TClass, T&gt;::Get(void* object) const
     </div>
   </section>
 
-  <section data-screen-label="04 인스펙터" style="padding:56px 0 0">
+  <section data-screen-label="05 인스펙터" style="padding:56px 0 0">
     <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:6px">
-      <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-accent)">04</span>
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-accent)">05</span>
       <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">인스펙터 — 타입을 보고 위젯을 고른다</h2>
     </div>
     <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);max-width:78ch;text-wrap:pretty">인스펙터 코드에는 컴포넌트 이름이 한 번도 나오지 않습니다. 선택한 오브젝트에 붙은 컴포넌트를 훑고, 각 <code style="font-family:'IBM Plex Mono',monospace;font-size:12.5px">Property</code>의 타입 해시를 보고 위젯을 고릅니다. 앞에서 말한 반복을 실제로 없앤 화면이 여기입니다.</p>
@@ -330,9 +460,9 @@ void MatchGuiByType(const Property* property, Component* component)
     </div>
   </section>
 
-  <section data-screen-label="05 직렬화" style="padding:56px 0 0">
+  <section data-screen-label="06 직렬화" style="padding:56px 0 0">
     <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:6px">
-      <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-accent)">05</span>
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-accent)">06</span>
       <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">직렬화 — 씬과 프리팹, 그리고 되돌리기</h2>
     </div>
     <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);max-width:78ch;text-wrap:pretty">저장 단위를 두 개로 나눴습니다. 씬은 <b>컴포넌트 풀을 통째로</b> 타입 이름 아래에 쓰고, 프리팹은 <b>오브젝트 하나와 그 자식들만</b> 재귀로 씁니다. 이 차이 때문에 컴포넌트마다 <code style="font-family:'IBM Plex Mono',monospace;font-size:12.5px">SerializePool</code>과 <code style="font-family:'IBM Plex Mono',monospace;font-size:12.5px">SerializeThis</code>를 따로 뒀습니다.</p>
@@ -430,9 +560,9 @@ void MatchGuiByType(const Property* property, Component* component)
     </div>
   </section>
 
-  <section data-screen-label="06 에디터 구조" style="padding:56px 0 0">
+  <section data-screen-label="07 에디터 구조" style="padding:56px 0 0">
     <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:6px">
-      <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-accent)">06</span>
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-accent)">07</span>
       <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">창 다섯 개와 이벤트 하나</h2>
     </div>
     <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);max-width:78ch;text-wrap:pretty">창은 <code style="font-family:'IBM Plex Mono',monospace;font-size:12.5px">IWindow::OnImGuiRender()</code> 하나만 구현하면 목록에 들어갑니다. 창이 코어에 부탁할 일은 <b>문자열 키 이벤트</b>로 보냈습니다. 삭제처럼 순서가 중요한 건 지연 이벤트로 넘겼는데, 그리는 도중에 대상이 사라져서 터진 적이 있었기 때문입니다.</p>
@@ -487,9 +617,9 @@ void MatchGuiByType(const Property* property, Component* component)
     </div>
   </section>
 
-  <section data-screen-label="07 정리" style="padding:56px 0 0">
+  <section data-screen-label="08 정리" style="padding:56px 0 0">
     <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:6px">
-      <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-accent)">07</span>
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-accent)">08</span>
       <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">남은 것과 넘긴 것</h2>
     </div>
     <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);max-width:78ch;text-wrap:pretty">컴파일 왕복은 없앴지만, 대신 <b>에디터 코드를 고치는 왕복</b>이 생겼습니다. 타입이 늘면 인스펙터 분기를, 멤버가 늘면 등록 매크로를 사람이 챙겨야 했습니다. 아래 목록이 다음 엔진에서 먼저 손본 부분입니다.</p>
