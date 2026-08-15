@@ -292,7 +292,7 @@ public:
     </sc-if>
 
     <div style="margin-top:22px;border-left:2px solid var(--color-accent);padding:4px 0 4px 18px">
-      <p style="margin:0;font-size:14px;line-height:1.8;color:rgba(32,30,29,.8);max-width:80ch;text-wrap:pretty">이 구조가 남긴 아쉬움 — <b>문자열 이벤트 ID 와 <code style="font-family:'IBM Plex Mono',monospace;font-size:12.5px">std::any</code> 파라미터</b> — 는 이후 엔진에서 타입 기반으로 바뀌었습니다. 그 변화를 <a href="../events/">이벤트 식별의 변화</a>에서 따로 정리했습니다.</p>
+      <p style="margin:0;font-size:14px;line-height:1.8;color:rgba(32,30,29,.8);max-width:80ch;text-wrap:pretty">이 구조가 남긴 아쉬움 — <b>문자열 이벤트 ID 와 <code style="font-family:'IBM Plex Mono',monospace;font-size:12.5px">std::any</code> 파라미터</b> — 는 이후 엔진에서 타입 기반으로 바뀌었습니다. 그 변화를 <a href="#event-compare">이벤트 식별의 변화</a>에서 따로 정리했습니다.</p>
     </div>
   </section>
 
@@ -312,10 +312,10 @@ public:
         <span style="color:rgba(32,30,29,.75);line-height:1.7">폭은 작았지만 불필요한 호출을 <b>구조적으로 막는다</b>는 설계적 의미가 남았습니다. 상용 엔진이 같은 방식을 쓰는 이유를 체감했습니다.</span>
       </div>
 
-      <div style="display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr) minmax(0,1.2fr);gap:20px;padding:14px 0;border-bottom:1px solid rgba(32,30,29,.14)">
+      <div id="event-compare" style="display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr) minmax(0,1.2fr);gap:20px;padding:14px 0;border-bottom:1px solid rgba(32,30,29,.14);scroll-margin-top:86px">
         <span style="font-weight:600;color:var(--color-accent)">이벤트 시스템</span>
         <span style="color:rgba(32,30,29,.75);line-height:1.7"><code style="font-family:'IBM Plex Mono',monospace;font-size:12px">std::any</code> 는 유연했지만 수신측이 <b>정확한 타입을 알고 캐스팅해야</b> 했습니다. 식별자가 문자열이라 오타를 컴파일러가 잡지 못했고, <code style="font-family:'IBM Plex Mono',monospace;font-size:12px">EventHandler</code> 상속과 <code style="font-family:'IBM Plex Mono',monospace;font-size:12px">MakeListenerInfo</code> 사용이 강제되어 사용법이 복잡했습니다.</span>
-        <span style="color:rgba(32,30,29,.75);line-height:1.7"><b>컴파일 타임에 오류를 검출하는 설계</b>의 필요성을 절감했습니다. 이후 엔진에서 <code style="font-family:'IBM Plex Mono',monospace;font-size:12px">struct</code> 자체를 이벤트 ID 이자 파라미터로 쓰는 방식으로 바꿨습니다 — <a href="../events/">비교 보기</a></span>
+        <span style="color:rgba(32,30,29,.75);line-height:1.7"><b>컴파일 타임에 오류를 검출하는 설계</b>의 필요성을 절감했습니다. 이후 엔진에서 <code style="font-family:'IBM Plex Mono',monospace;font-size:12px">struct</code> 자체를 이벤트 ID 이자 파라미터로 쓰는 방식으로 바꿨습니다 — <a href="../events/" style="color:inherit;border-bottom:1px solid rgba(32,30,29,.45)">🔗 프로젝트별 이벤트 시스템의 구현 비교 자세히 보기</a></span>
       </div>
 
       <div style="display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr) minmax(0,1.2fr);gap:20px;padding:14px 0;border-bottom:1px solid rgba(32,30,29,.14)">
@@ -336,15 +336,10 @@ public:
     </div>
     </sc-if>
 
-    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:24px">
-      <a href="../" style="border:2px solid var(--color-text);padding:12px 18px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-text);border-bottom:2px solid var(--color-text)">← 프로젝트 상세로</a>
-      <a href="../events/" style="border:2px solid var(--color-text);padding:12px 18px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-text);border-bottom:2px solid var(--color-text)">이벤트 식별의 변화 →</a>
-      <a href="https://github.com/Will-Big/fate-weaver" target="_blank" rel="noopener" style="border:2px solid var(--color-text);padding:12px 18px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-text);border-bottom:2px solid var(--color-text)">GitHub — fate-weaver</a>
-    </div>
   </section>
 
   <div style="margin-top:44px;border-top:2px solid var(--color-text);padding-top:16px;display:flex;justify-content:space-between;gap:20px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:rgba(32,30,29,.55)">
-    <span>엔진 설계 의도</span>
+    <a href="../" style="color:var(--color-text);border:none">← 프로젝트 상세로</a>
     <span>Fate Weaver · 2023</span>
   </div>
 
