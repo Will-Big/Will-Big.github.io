@@ -1,39 +1,61 @@
-// 오른쪽 여백에 목차를 띄웁니다. 페이지의 h2 를 그대로 읽어 만들기 때문에
-// 이 파일을 불러오는 것 말고 페이지에서 따로 할 일은 없습니다.
+// 오른쪽 여백에 목차를 띄웁니다. 평소에는 짧은 막대만 보이고, 마우스를 올리면
+// 제목이 펼쳐집니다. 페이지의 h2 를 그대로 읽어 만들기 때문에 이 파일을 불러오는 것
+// 말고 페이지에서 따로 할 일은 없습니다.
 // 본문은 support.js 가 나중에 그리므로, 제목이 다 나타난 뒤에 한 번만 만듭니다.
 (function () {
   'use strict';
 
-  // 본문(1180px) 옆에 목차가 들어갈 수 있는 최소 폭입니다. 미디어 쿼리는 스크롤바를 뺀
-  // 폭을 보기 때문에, 1600px 창에서도 보이도록 1580 으로 잡았습니다.
-  // 1580 기준 본문 오른쪽 여백은 200px, 목차가 차지하는 폭은 184px 입니다.
-  var MIN_WIDTH = 1580;
+  // 접힌 막대는 폭을 거의 쓰지 않습니다. 본문(1180px) 양옆 여백이 30px 남는
+  // 1240px 부터 보여도 본문 글자와 겹치지 않습니다(컨테이너 안쪽 여백 40px).
+  var MIN_WIDTH = 1240;
   var GAP = 20; // 고정된 브레드크럼 아래로 띄울 여백
 
   var CSS = [
-    '.toc{position:fixed;right:20px;top:50%;transform:translateY(-50%);width:164px;z-index:15;',
-    'font-family:"IBM Plex Mono",monospace;font-size:10.5px;line-height:1.5;display:none}',
+    '.toc{position:fixed;right:18px;top:50%;transform:translateY(-50%);z-index:15;display:none;',
+    'font-family:"IBM Plex Sans KR","Archivo",system-ui,sans-serif}',
     '@media (min-width:' + MIN_WIDTH + 'px){.toc{display:block}}',
     '@media print{.toc{display:none}}',
-    '.toc-label{letter-spacing:.14em;color:rgba(32,30,29,.35);padding:0 0 8px 11px;',
-    'border-bottom:1px solid rgba(32,30,29,.18);margin-bottom:6px}',
-    '.toc a{display:flex;gap:8px;padding:5px 0 5px 9px;border-left:2px solid transparent;',
-    'color:rgba(32,30,29,.5);text-decoration:none;border-bottom:none}',
-    '.toc a:hover{color:var(--color-text);border-bottom:none}',
-    '.toc a[aria-current]{color:var(--color-accent);border-left-color:var(--color-accent)}',
-    '.toc-num{flex:none;color:rgba(32,30,29,.3)}',
-    '.toc a[aria-current] .toc-num{color:var(--color-accent)}',
-    '.toc-text{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}'
+
+    // 접힌 상태 — 막대만
+    '.toc-bars{display:flex;flex-direction:column;align-items:flex-end;gap:9px;padding:6px 2px;',
+    'transition:opacity .16s ease}',
+    '.toc-bar{display:block;width:22px;height:2px;background:rgba(32,30,29,.28);',
+    'transition:width .16s ease,background-color .16s ease}',
+    '.toc-bar.is-current{width:32px;background:var(--color-accent)}',
+
+    // 펼친 상태 — 제목 목록
+    '.toc-panel{position:absolute;right:0;top:50%;width:252px;max-height:70vh;overflow-y:auto;',
+    'transform:translateY(-50%) translateX(10px);background:var(--color-bg);',
+    'border:1px solid rgba(32,30,29,.25);border-left:2px solid var(--color-text);',
+    'box-shadow:0 2px 16px rgba(32,30,29,.10);padding:14px 16px 12px;',
+    'opacity:0;pointer-events:none;transition:opacity .16s ease,transform .16s ease}',
+    '.toc:hover .toc-panel,.toc:focus-within .toc-panel{opacity:1;pointer-events:auto;',
+    'transform:translateY(-50%) translateX(0)}',
+    '.toc:hover .toc-bars,.toc:focus-within .toc-bars{opacity:0}',
+
+    '.toc-title{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.14em;',
+    'color:rgba(32,30,29,.4);padding-bottom:8px;margin-bottom:4px;',
+    'border-bottom:1px solid rgba(32,30,29,.15)}',
+    '.toc-link{display:flex;align-items:baseline;gap:9px;padding:6px 0;font-size:12.5px;',
+    'line-height:1.55;color:rgba(32,30,29,.7);text-decoration:none;border-bottom:none}',
+    '.toc-link:hover{color:var(--color-text);border-bottom:none}',
+    '.toc-link[aria-current]{color:var(--color-accent)}',
+    '.toc-num{flex:none;font-family:"IBM Plex Mono",monospace;font-size:10.5px;',
+    'color:rgba(32,30,29,.35)}',
+    '.toc-link[aria-current] .toc-num{color:var(--color-accent)}',
+
+    // 스크롤바는 본문 톤에 맞춰 눈에 띄지 않게
+    '.toc-panel::-webkit-scrollbar{width:6px}',
+    '.toc-panel::-webkit-scrollbar-thumb{background:rgba(32,30,29,.2)}'
   ].join('');
 
-  // "씬 — 상속한 인터페이스가 실행 단계를 결정한다" 처럼 긴 제목은 앞부분만 씁니다.
-  function shortLabel(h) {
-    var t = (h.textContent || '').trim().replace(/\s+/g, ' ');
-    var dash = t.indexOf(' — ');
-    return dash > 0 ? t.slice(0, dash) : t;
+  // "씬 — 상속한 인터페이스가 실행 단계를 결정한다" 처럼 긴 제목은 그대로 두고
+  // 패널 안에서 줄바꿈시킵니다. 막대만 보이는 동안에는 어차피 글자가 없습니다.
+  function labelOf(h) {
+    return (h.textContent || '').trim().replace(/\s+/g, ' ');
   }
 
-  // 제목 옆에 01 · 02 같은 번호가 형제로 놓여 있으면 목차에도 함께 씁니다.
+  // 제목 옆에 형제로 놓인 01 · 02 번호가 있으면 목차에도 함께 씁니다.
   function numberOf(h) {
     var prev = h.previousElementSibling;
     if (prev && prev.tagName === 'SPAN' && /^\d{1,2}$/.test(prev.textContent.trim())) {
@@ -49,6 +71,7 @@
     // 브레드크럼이 상단에 고정된 페이지에서는 그 높이만큼 더 내려야 제목이 가리지 않습니다.
     var crumb = document.querySelector('.crumb');
     var offset = (crumb ? Math.round(crumb.getBoundingClientRect().height) : 0) + GAP;
+    var smooth = !matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     var style = document.createElement('style');
     style.textContent = CSS;
@@ -58,37 +81,70 @@
     nav.className = 'toc';
     nav.setAttribute('aria-label', '목차');
 
-    var label = document.createElement('div');
-    label.className = 'toc-label';
-    label.textContent = '목차';
-    nav.appendChild(label);
+    var bars = document.createElement('div');
+    bars.className = 'toc-bars';
+    bars.setAttribute('aria-hidden', 'true');
+
+    var panel = document.createElement('div');
+    panel.className = 'toc-panel';
+    var title = document.createElement('div');
+    title.className = 'toc-title';
+    title.textContent = '목차';
+    panel.appendChild(title);
 
     var items = heads.map(function (h, i) {
       var sec = h.closest('section') || h;
       if (!sec.id) sec.id = 'toc-' + (i + 1);
       if (!sec.style.scrollMarginTop) sec.style.scrollMarginTop = offset + 'px';
 
-      var a = document.createElement('a');
-      a.href = '#' + sec.id;
-      a.title = (h.textContent || '').trim();
+      var bar = document.createElement('span');
+      bar.className = 'toc-bar';
+      bars.appendChild(bar);
+
+      var link = document.createElement('a');
+      link.className = 'toc-link';
+      link.href = '#' + sec.id;
 
       var num = numberOf(h);
       if (num) {
         var n = document.createElement('span');
         n.className = 'toc-num';
         n.textContent = num;
-        a.appendChild(n);
+        link.appendChild(n);
       }
       var text = document.createElement('span');
-      text.className = 'toc-text';
-      text.textContent = shortLabel(h);
-      a.appendChild(text);
+      text.textContent = labelOf(h);
+      link.appendChild(text);
 
-      nav.appendChild(a);
-      return { section: sec, link: a };
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        var from = window.pageYOffset;
+        var y = sec.getBoundingClientRect().top + from - offset;
+        window.scrollTo({ top: y, behavior: smooth ? 'smooth' : 'auto' });
+        if (history.replaceState) history.replaceState(null, '', '#' + sec.id);
+        // 부드러운 이동이 동작하지 않는 환경에서는 그대로 옮깁니다. 이동이 시작됐다면
+        // 위치가 이미 달라져 있으므로 애니메이션을 끊지 않습니다.
+        setTimeout(function () {
+          if (window.pageYOffset === from && Math.abs(y - from) > 4) window.scrollTo(0, y);
+        }, 350);
+      });
+
+      panel.appendChild(link);
+      return { section: sec, bar: bar, link: link };
     });
 
+    nav.appendChild(bars);
+    nav.appendChild(panel);
     document.body.appendChild(nav);
+
+    // 펼칠 때 지금 보고 있는 항목이 패널 밖에 있으면 그 자리로 옮겨 둡니다.
+    nav.addEventListener('mouseenter', function () {
+      var current = panel.querySelector('.toc-link[aria-current]');
+      if (!current || panel.scrollHeight <= panel.clientHeight) return;
+      var top = current.offsetTop - panel.clientHeight / 2;
+      panel.scrollTop = top > 0 ? top : 0;
+    });
+
     follow(items, offset);
   }
 
@@ -102,12 +158,17 @@
         else break;
       }
       // 페이지 끝에 닿으면 마지막 섹션으로 둡니다.
-      if (window.innerHeight + window.scrollY >= document.body.scrollHeight - 2) {
+      if (window.innerHeight + window.pageYOffset >= document.body.scrollHeight - 2) {
         current = items.length - 1;
       }
       items.forEach(function (item, i) {
-        if (i === current) item.link.setAttribute('aria-current', 'true');
-        else item.link.removeAttribute('aria-current');
+        if (i === current) {
+          item.bar.classList.add('is-current');
+          item.link.setAttribute('aria-current', 'true');
+        } else {
+          item.bar.classList.remove('is-current');
+          item.link.removeAttribute('aria-current');
+        }
       });
     }
 
