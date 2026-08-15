@@ -2,7 +2,7 @@
 <html><head>
 <meta charset="utf-8">
 <title>이벤트 식별 — Fate Weaver | 임상학 Portfolio</title>
-<meta name="description" content="문자열 이벤트 ID 가 타입 식별자로 바뀌기까지 — 자체 엔진 세 세대의 이벤트 시스템 비교">
+<meta name="description" content="문자열 이벤트 ID 가 타입 식별자로 바뀌기까지 — Fate Weaver 와 Midnight Cleanup, 두 엔진의 이벤트 시스템 비교">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="../../support.js"></script>
 <script src="../../toc.js"></script>
@@ -34,7 +34,7 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
         <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;color:var(--color-accent);margin-bottom:12px">FATE WEAVER · 이벤트 시스템 — 회고 후속</div>
         <h1 style="margin:0;font-size:52px;line-height:1.1;letter-spacing:-.035em;font-weight:700;text-wrap:pretty">문자열로 부르던 이벤트를<br>타입으로 부르기까지</h1>
       </div>
-      <p style="margin:0;font-size:14.5px;line-height:1.85;color:rgba(32,30,29,.78);text-wrap:pretty">회고에 적은 아쉬운 점 가운데 <b>이벤트 ID</b> 하나만 다룹니다. 2세대 엔진의 이벤트 전달 경로와 그 방식이 남긴 비용, 두 세대 뒤에 이를 대체한 방식을 도식으로 정리했습니다.</p>
+      <p style="margin:0;font-size:14.5px;line-height:1.85;color:rgba(32,30,29,.78);text-wrap:pretty">회고에 적은 아쉬운 점 가운데 <b>이벤트 ID</b> 하나만 다룹니다. Fate Weaver 의 이벤트 전달 경로와 그 방식이 남긴 비용, 이후 Midnight Cleanup 에서 이를 대체한 방식을 도식으로 정리했습니다.</p>
     </div>
   </section>
 
@@ -63,12 +63,12 @@ EventSystem::GetInstance()-&gt;Subscribe(
   <section data-screen-label="02 경로 비교" style="padding:56px 0 0">
     <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:6px">
       <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-accent)">02</span>
-      <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">두 세대의 발행·수신 경로</h2>
+      <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">두 엔진의 발행·수신 경로</h2>
     </div>
-    <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);max-width:78ch;text-wrap:pretty">위가 2세대, 아래가 4세대입니다. 두 경로 모두 <b>발행 · 지연 · 대상 찾기 · 전달</b>을 거칩니다. 달라진 것은 대상을 찾는 기준과, 수신부가 타입을 복원해야 하는지 여부입니다.</p>
+    <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);max-width:78ch;text-wrap:pretty">위가 Fate Weaver, 아래가 Midnight Cleanup 입니다. 두 경로 모두 <b>발행 · 지연 · 대상 찾기 · 전달</b>을 거칩니다. 달라진 것은 대상을 찾는 기준과, 수신부가 타입을 복원해야 하는지 여부입니다.</p>
 
     <div data-om-raster="true" style="border:2px solid var(--color-text);background:#fff;padding:20px 22px">
-      <svg sc-camel-view-box="0 0 1100 470" style="width:100%;height:auto;display:block" role="img" aria-label="2세대와 4세대의 이벤트 전달 경로 비교">
+      <svg sc-camel-view-box="0 0 1100 470" style="width:100%;height:auto;display:block" role="img" aria-label="Fate Weaver 와 Midnight Cleanup 의 이벤트 전달 경로 비교">
         <defs>
           <marker id="f1a" sc-camel-view-box="0 0 10 10" sc-camel-ref-x="9" sc-camel-ref-y="5" sc-camel-marker-width="7" sc-camel-marker-height="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#201e1d"></path></marker>
           <marker id="f1r" sc-camel-view-box="0 0 10 10" sc-camel-ref-x="9" sc-camel-ref-y="5" sc-camel-marker-width="7" sc-camel-marker-height="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#ec3013"></path></marker>
@@ -153,7 +153,7 @@ EventSystem::GetInstance()-&gt;Subscribe(
         <text x="858" y="417" font-family="'IBM Plex Sans KR',sans-serif" font-size="11.5" fill="#ec3013">알 필요가 없다</text>
 
         <line x1="14" y1="444" x2="1086" y2="444" stroke="#201e1d" stroke-width="1" opacity=".18"></line>
-        <text x="14" y="464" font-family="'IBM Plex Sans KR',sans-serif" font-size="12" fill="#6b6663">2세대가 숫자(DelayedTime)로 표현하던 지연을, 4세대는 trigger 와 enqueue 두 함수로 분리했습니다</text>
+        <text x="14" y="464" font-family="'IBM Plex Sans KR',sans-serif" font-size="12" fill="#6b6663">Fate Weaver 가 숫자(DelayedTime)로 표현하던 지연을, Midnight Cleanup 은 trigger 와 enqueue 두 함수로 분리했습니다</text>
       </svg>
     </div>
 
@@ -190,7 +190,7 @@ _dispatcher.enqueue&lt;<span style="color:#ff6a4d">OnCreateEntity</span>&gt;(ent
       <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-accent)">03</span>
       <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">오류 검출 시점</h2>
     </div>
-    <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);max-width:78ch;text-wrap:pretty">이벤트 이름을 잘못 적었을 때, 2세대는 <b>실행 중에 아무 반응 없이 넘어가고</b>, 4세대는 <b>컴파일 단계에서 중단됩니다.</b></p>
+    <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);max-width:78ch;text-wrap:pretty">이벤트 이름을 잘못 적었을 때, Fate Weaver 는 <b>실행 중에 아무 반응 없이 넘어가고</b>, Midnight Cleanup 은 <b>컴파일 단계에서 중단됩니다.</b></p>
 
     <div data-om-raster="true" style="border:2px solid var(--color-text);background:#fff;padding:20px 22px">
       <svg sc-camel-view-box="0 0 1100 330" style="width:100%;height:auto;display:block" role="img" aria-label="오타가 걸리는 시점 비교">
@@ -207,7 +207,7 @@ _dispatcher.enqueue&lt;<span style="color:#ff6a4d">OnCreateEntity</span>&gt;(ent
         <line x1="624" y1="34" x2="624" y2="296" stroke="#201e1d" stroke-width="1" stroke-dasharray="4 5" opacity=".3"></line>
         <line x1="834" y1="34" x2="834" y2="296" stroke="#201e1d" stroke-width="1" stroke-dasharray="4 5" opacity=".3"></line>
 
-        <text x="20" y="62" font-family="'IBM Plex Mono',monospace" font-size="11" fill="#8a8580" letter-spacing="1.2">2ND — 문자열</text>
+        <text x="20" y="62" font-family="'IBM Plex Mono',monospace" font-size="11" fill="#8a8580" letter-spacing="1.2">FATE WEAVER — 문자열</text>
         <rect x="20" y="74" width="334" height="70" fill="#fff" stroke="#201e1d" stroke-width="1.5"></rect>
         <text x="36" y="102" font-family="'IBM Plex Mono',monospace" font-size="12" fill="#201e1d">PublishEvent(L"CREAT_OBJ", …)</text>
         <text x="36" y="126" font-family="'IBM Plex Sans KR',sans-serif" font-size="11.5" fill="#6b6663">글자 하나가 누락되었다</text>
@@ -222,7 +222,7 @@ _dispatcher.enqueue&lt;<span style="color:#ff6a4d">OnCreateEntity</span>&gt;(ent
 
         <line x1="20" y1="176" x2="1086" y2="176" stroke="#201e1d" stroke-width="1" opacity=".18"></line>
 
-        <text x="20" y="206" font-family="'IBM Plex Mono',monospace" font-size="11" fill="#ec3013" letter-spacing="1.2">4TH — 타입</text>
+        <text x="20" y="206" font-family="'IBM Plex Mono',monospace" font-size="11" fill="#ec3013" letter-spacing="1.2">MIDNIGHT CLEANUP — 타입</text>
         <rect x="20" y="218" width="334" height="70" fill="#fff" stroke="#201e1d" stroke-width="1.5"></rect>
         <text x="36" y="246" font-family="'IBM Plex Mono',monospace" font-size="12" fill="#201e1d">enqueue&lt;OnCreatEntity&gt;(…)</text>
         <text x="36" y="270" font-family="'IBM Plex Sans KR',sans-serif" font-size="11.5" fill="#6b6663">선언된 적이 없는 타입이다</text>
@@ -242,10 +242,10 @@ _dispatcher.enqueue&lt;<span style="color:#ff6a4d">OnCreateEntity</span>&gt;(ent
     <div>
       <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;color:rgba(32,30,29,.5);margin-bottom:10px">참조 코드</div>
       <div style="border-top:2px solid var(--color-text);font-size:13.5px">
-        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:20px;padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px"><a href="https://github.com/Will-Big/fate-weaver/blob/main/Engine/EventSystem.h" target="_blank" rel="noopener">Engine/EventSystem.h</a> · <a href="https://github.com/Will-Big/fate-weaver/blob/main/Engine/EventSystem.cpp" target="_blank" rel="noopener">EventSystem.cpp</a></span><span style="color:rgba(32,30,29,.75)">2세대 — 문자열 키 구독부와 지연 큐, DispatchEvent</span></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:20px;padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px"><a href="https://github.com/Will-Big/fate-weaver/blob/main/Engine/EventSystem.h" target="_blank" rel="noopener">Engine/EventSystem.h</a> · <a href="https://github.com/Will-Big/fate-weaver/blob/main/Engine/EventSystem.cpp" target="_blank" rel="noopener">EventSystem.cpp</a></span><span style="color:rgba(32,30,29,.75)">Fate Weaver — 문자열 키 구독부와 지연 큐, DispatchEvent</span></div>
         <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:20px;padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px"><a href="https://github.com/Will-Big/fate-weaver/blob/main/Engine/SceneSystem.cpp" target="_blank" rel="noopener">Engine/SceneSystem.cpp</a></span><span style="color:rgba(32,30,29,.75)">엔진 내부 동작(생성 · 삭제 · 씬 전환)의 문자열 구독</span></div>
         
-        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:20px;padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px"><a href="https://github.com/Will-Big/midnight-cleanup/blob/main/Animacore/CoreSystemEvents.h" target="_blank" rel="noopener">Animacore/CoreSystemEvents.h</a> · <a href="https://github.com/Will-Big/midnight-cleanup/blob/main/Animacore/AnimatorSystem.cpp" target="_blank" rel="noopener">AnimatorSystem.cpp</a></span><span style="color:rgba(32,30,29,.75)">4세대 — 구조체 이벤트 정의와 타입 구독</span></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:20px;padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px"><a href="https://github.com/Will-Big/midnight-cleanup/blob/main/Animacore/CoreSystemEvents.h" target="_blank" rel="noopener">Animacore/CoreSystemEvents.h</a> · <a href="https://github.com/Will-Big/midnight-cleanup/blob/main/Animacore/AnimatorSystem.cpp" target="_blank" rel="noopener">AnimatorSystem.cpp</a></span><span style="color:rgba(32,30,29,.75)">Midnight Cleanup — 구조체 이벤트 정의와 타입 구독</span></div>
       </div>
     </div>
     </sc-if>
