@@ -13,6 +13,61 @@
 <script src="./support.js"></script>
 <script src="./toc.js" defer></script>
 <script src="./lazy-img.js"></script>
+<script>
+// 프로젝트 페이지의 '← Portfolio 로 돌아가기' 는 ../#midnight-cleanup 처럼 어느 항목에서
+// 왔는지를 달고 옵니다. 그 자리까지 맨 위에서부터 부드럽게 내려가 줍니다.
+//
+// 본문은 support.js 가 나중에 그리므로, 브라우저가 해시를 처리할 시점에는 찾을 대상이
+// 없습니다. 그렇다고 두면 항목이 뒤늦게 나타났을 때 툭 건너뛰어 버립니다. 그래서 주소에서
+// 해시를 먼저 떼어 브라우저가 손대지 못하게 한 뒤, 다 그려지고 자리가 굳으면 그때
+// 직접 내려갑니다. 도착하면 해시를 되돌려 놓아 주소는 그대로 공유할 수 있습니다.
+(function () {
+  var id = decodeURIComponent((location.hash || '').slice(1));
+  if (!id) return;
+
+  history.replaceState(null, '', location.pathname + location.search);
+
+  var DEADLINE = Date.now() + 8000;
+  var quit = false;
+
+  // 기다리는 동안 사용자가 먼저 움직였다면 그 쪽을 존중하고 손을 뗍니다.
+  ['wheel', 'touchstart', 'keydown'].forEach(function (e) {
+    addEventListener(e, function () { quit = true; }, { once: true, passive: true });
+  });
+
+  // 글꼴이 늦게 들어오면 항목 위치가 밀립니다. 자리가 굳은 뒤에 재야 정확히 멈춥니다.
+  function settled() {
+    var fonts = (document.fonts && document.fonts.ready) || Promise.resolve();
+    return Promise.race([fonts, new Promise(function (done) { setTimeout(done, 1500); })]);
+  }
+
+  var timer = setInterval(function () {
+    if (quit || Date.now() > DEADLINE) return clearInterval(timer);
+    var el = document.getElementById(id);
+    // 아직 안 그려졌거나, 화면에 내보내기 전의 숨은 원본이면 더 기다립니다.
+    if (!el || !el.getBoundingClientRect().height) return;
+    clearInterval(timer);
+    settled().then(function () {
+      if (quit) return;
+      var smooth = !matchMedia('(prefers-reduced-motion: reduce)').matches;
+      // 멈추는 위치는 CSS 의 scroll-margin-top 이 정합니다. 그래야 우리가 내려보낸
+      // 위치와, 아래에서 해시를 되돌릴 때 브라우저가 잡는 위치가 어긋나지 않습니다.
+      el.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto', block: 'start' });
+
+      // 해시는 다 내려간 뒤에 되돌립니다. 내려가는 도중에 붙이면 아직 처리되지 않은
+      // 브라우저의 해시 이동이 깨어나 애니메이션을 끊고 툭 건너뜁니다.
+      var restore = function () { history.replaceState(null, '', '#' + id); };
+      if (!smooth) return restore();
+      if ('onscrollend' in window) {
+        addEventListener('scrollend', restore, { once: true });
+        setTimeout(restore, 3000);      // scrollend 가 오지 않는 경우의 대비
+      } else {
+        setTimeout(restore, 1200);
+      }
+    });
+  }, 60);
+})();
+</script>
 </head>
 <body>
 <x-dc>
@@ -87,7 +142,7 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
     </div>
 
     <!-- Midnight Cleanup -->
-    <article style="padding:30px 0 34px;border-bottom:2px solid var(--color-text);break-inside:avoid">
+    <article id="midnight-cleanup" style="padding:30px 0 34px;border-bottom:2px solid var(--color-text);break-inside:avoid;scroll-margin-top:20px">
       <div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap">
         <h3 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">Midnight Cleanup</h3>
         <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--color-accent);letter-spacing:.08em">2024 G-STAR 전시</span>
@@ -123,7 +178,7 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
     </article>
 
     <!-- TicToc Guardians -->
-    <article style="padding:30px 0 34px;border-bottom:2px solid var(--color-text);break-inside:avoid">
+    <article id="tictoc-guardians" style="padding:30px 0 34px;border-bottom:2px solid var(--color-text);break-inside:avoid;scroll-margin-top:20px">
       <div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap">
         <h3 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">TicToc Guardians</h3>
         <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--color-accent);letter-spacing:.08em">2024 TGS 전시</span>
@@ -159,7 +214,7 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
     </article>
 
     <!-- Fate Weaver -->
-    <article style="padding:30px 0 34px;border-bottom:2px solid var(--color-text);break-inside:avoid">
+    <article id="fate-weaver" style="padding:30px 0 34px;border-bottom:2px solid var(--color-text);break-inside:avoid;scroll-margin-top:20px">
       <div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap">
         <h3 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">Fate Weaver</h3>
         <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:rgba(32,30,29,.5);letter-spacing:.08em">두 번째 자체 엔진</span>
@@ -195,7 +250,7 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
     </article>
 
     <!-- 나의 인형 이야기 -->
-    <article style="padding:30px 0 34px;border-bottom:2px solid var(--color-text);break-inside:avoid">
+    <article id="my-doll-story" style="padding:30px 0 34px;border-bottom:2px solid var(--color-text);break-inside:avoid;scroll-margin-top:20px">
       <div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap">
         <h3 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">나의 인형 이야기</h3>
         <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--color-accent);letter-spacing:.08em">STOVE 스토어 등록</span>
@@ -238,7 +293,7 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
       <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">개인 프로젝트</h2>
       <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:rgba(32,30,29,.5);letter-spacing:.1em">2건</span>
     </div>
-    <article style="padding:30px 0 34px;border-bottom:2px solid var(--color-text);break-inside:avoid">
+    <article id="rogue-deck" style="padding:30px 0 34px;border-bottom:2px solid var(--color-text);break-inside:avoid;scroll-margin-top:20px">
       <div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap">
         <h3 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">Rogue-deck <span style="font-size:16px;font-weight:400;color:rgba(32,30,29,.5)">(가제)</span></h3>
         <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--color-accent);letter-spacing:.08em">진행 중</span>
@@ -268,7 +323,7 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
         </div>
       </div>
     </article>
-    <article style="padding:30px 0 34px;border-bottom:2px solid var(--color-text);break-inside:avoid">
+    <article id="abyssgen" style="padding:30px 0 34px;border-bottom:2px solid var(--color-text);break-inside:avoid;scroll-margin-top:20px">
       <div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap">
         <h3 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">AbyssGen</h3>
         <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:rgba(32,30,29,.5);letter-spacing:.08em">절차적 던전 생성기</span>
