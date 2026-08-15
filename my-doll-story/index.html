@@ -5,8 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>나의 인형 이야기 | 임상학 Portfolio</title>
 <meta name="description" content="Windows API · GDI 만으로 만든 첫 자체 엔진 · 인형 파츠 합치기 규칙 — 2주 제작 소코반 퍼즐 프로젝트 상세">
+<link rel="preconnect" href="https://unpkg.com" crossorigin>
+<link rel="preload" as="script" crossorigin href="https://unpkg.com/react@18.3.1/umd/react.production.min.js" integrity="sha384-DGyLxAyjq0f9SPpVevD6IgztCFlnMF6oW/XQGmfe+IsZ8TqEiDrcHkMLKI6fiB/Z">
+<link rel="preload" as="script" crossorigin href="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" integrity="sha384-gTGxhz21lVGYNMcdJOyq01Edg0jhn/c22nsx0kyqP0TxaV5WVdsSH1fSDUf5YJj1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <script src="../support.js"></script>
-<script src="../toc.js"></script>
+<script src="../toc.js" defer></script>
+<script src="../lazy-img.js"></script>
 </head>
 <body>
 <x-dc>
@@ -35,7 +41,7 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
   <section style="padding:40px 0 0">
     <div style="display:grid;grid-template-columns:1.35fr 1fr;gap:40px;align-items:start">
       <div>
-        <div style="border:1px solid rgba(32,30,29,.25);aspect-ratio:16/9;overflow:hidden;background:#111"><img src="../assets/md-1.gif" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+        <div style="border:1px solid rgba(32,30,29,.25);aspect-ratio:16/9;overflow:hidden;background:#111"><img src="../assets/md-1.webp" alt="" style="width:100%;height:100%;object-fit:cover;display:block" fetchpriority="high" decoding="async" width="400" height="225"></div>
         <div style="font-size:12.5px;color:rgba(32,30,29,.55);margin-top:8px">찢어진 인형 조각을 밀어 모으는 소코반 퍼즐. 처음 만든 자체 엔진 위에서 돌아갑니다.</div>
       </div>
       <div>
@@ -157,7 +163,7 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
 
       <div style="display:grid;grid-template-columns:1.1fr minmax(0,1fr);gap:28px 36px;align-items:start">
         <figure style="margin:0">
-          <div style="border:1px solid rgba(32,30,29,.25);background:#111;aspect-ratio:16/9;overflow:hidden"><img src="../assets/md-2.gif" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+          <div style="border:1px solid rgba(32,30,29,.25);background:#111;aspect-ratio:16/9;overflow:hidden"><img data-src="../assets/md-2.webp" alt="" style="width:100%;height:100%;object-fit:cover;display:block" loading="lazy" decoding="async" width="800" height="450"></div>
           <figcaption style="font-size:12.5px;line-height:1.6;color:rgba(32,30,29,.65);margin-top:8px">잡은 파츠를 다른 파츠에 밀어 붙이면 둘이 하나가 되고, 마지막 조각이 붙는 순간 완성된 인형으로 바뀝니다.</figcaption>
         </figure>
         <div style="min-width:0">
@@ -173,7 +179,7 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
 
         <div style="grid-column:1 / -1;display:grid;grid-template-columns:1.15fr minmax(0,1fr);gap:36px;align-items:start;margin-top:6px">
           <figure style="margin:0">
-            <div style="border:2px solid var(--color-text);background:#fff;aspect-ratio:5/3;overflow:hidden"><img src="../assets/md-parts-sheet.png" alt="꺼먼오리 파츠 시트" style="width:100%;height:100%;object-fit:contain;display:block"></div>
+            <div style="border:2px solid var(--color-text);background:#fff;aspect-ratio:5/3;overflow:hidden"><img data-src="../assets/md-parts-sheet.png" alt="꺼먼오리 파츠 시트" style="width:100%;height:100%;object-fit:contain;display:block" loading="lazy" decoding="async" width="1040" height="624"></div>
             <figcaption style="font-size:12.5px;line-height:1.6;color:rgba(32,30,29,.65);margin-top:8px">1스테이지 「꺼먼오리」의 실제 파츠 시트 — 가로 5칸 · 세로 3칸으로 잘라, 윗줄은 붙은 모습의 조각, 가운뎃줄은 맵에 흩어진 낱개, 아랫줄 첫 칸은 완성본으로 씁니다.</figcaption>
           </figure>
           <div>

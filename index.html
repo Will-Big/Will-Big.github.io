@@ -5,8 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>임상학 | Portfolio 2026 - Game Client / Engine Programmer</title>
 <meta name="description" content="자체 엔진 4회 · 2024 G-Star / TGS 전시 · C++ · DirectX11 · PhysX">
+<link rel="preconnect" href="https://unpkg.com" crossorigin>
+<link rel="preload" as="script" crossorigin href="https://unpkg.com/react@18.3.1/umd/react.production.min.js" integrity="sha384-DGyLxAyjq0f9SPpVevD6IgztCFlnMF6oW/XQGmfe+IsZ8TqEiDrcHkMLKI6fiB/Z">
+<link rel="preload" as="script" crossorigin href="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" integrity="sha384-gTGxhz21lVGYNMcdJOyq01Edg0jhn/c22nsx0kyqP0TxaV5WVdsSH1fSDUf5YJj1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <script src="./support.js"></script>
-<script src="./toc.js"></script>
+<script src="./toc.js" defer></script>
+<script src="./lazy-img.js"></script>
 </head>
 <body>
 <x-dc>
@@ -14,7 +20,6 @@
 <meta name="omelette-owns-print">
 <link rel="stylesheet" href="_ds/modernist-ae998351-d810-43b9-b194-f261b8babc31/styles.css">
 <script src="_ds/modernist-ae998351-d810-43b9-b194-f261b8babc31/_ds_bundle.js"></script>
-<script src="./image-slot.js"></script>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&amp;family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
 <style>
@@ -89,7 +94,7 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
       </div>
       <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:32px;margin-top:16px;align-items:start">
         <div>
-          <div style="border:1px solid rgba(32,30,29,.25);aspect-ratio:16/9;overflow:hidden;background:#111"><img src="assets/mc-gameplay.gif" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+          <div style="border:1px solid rgba(32,30,29,.25);aspect-ratio:16/9;overflow:hidden;background:#111"><img src="assets/mc-gameplay.webp" alt="" style="width:100%;height:100%;object-fit:cover;display:block" fetchpriority="high" decoding="async" width="400" height="225"></div>
           <div style="font-size:12px;color:rgba(32,30,29,.55);margin-top:7px">어두운 집에서 가구를 치우며 도구로 청소</div>
           <div style="border-top:1px solid rgba(32,30,29,.2);margin-top:16px;padding-top:14px;font-size:14.5px;line-height:1.8;color:rgba(32,30,29,.85)">
             <div><strong>역할&nbsp;—</strong> ECS 자체 엔진 · 에디터 전반 · 캐릭터/상호작용 시스템</div>
@@ -125,7 +130,7 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
       </div>
       <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:32px;margin-top:16px;align-items:start">
         <div>
-          <div style="border:1px solid rgba(32,30,29,.25);aspect-ratio:16/9;overflow:hidden;background:#111"><img src="assets/tt-1.gif" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+          <div style="border:1px solid rgba(32,30,29,.25);aspect-ratio:16/9;overflow:hidden;background:#111"><img data-src="assets/tt-1.webp" alt="" style="width:100%;height:100%;object-fit:cover;display:block" loading="lazy" decoding="async" width="400" height="225"></div>
           <div style="font-size:12px;color:rgba(32,30,29,.55);margin-top:7px">시간차를 두고 여러 캐릭터를 조작하며 퍼즐을 해결</div>
           <div style="border-top:1px solid rgba(32,30,29,.2);margin-top:16px;padding-top:14px;font-size:14.5px;line-height:1.8;color:rgba(32,30,29,.85)">
             <div><strong>역할&nbsp;—</strong> 세 번째 자체 엔진 · 에디터 · 게임 플레이</div>
@@ -161,7 +166,7 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
       </div>
       <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:32px;margin-top:16px;align-items:start">
         <div>
-          <div style="border:1px solid rgba(32,30,29,.25);aspect-ratio:16/9;overflow:hidden;background:#111"><img src="assets/fw-1.gif" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+          <div style="border:1px solid rgba(32,30,29,.25);aspect-ratio:16/9;overflow:hidden;background:#111"><img data-src="assets/fw-1.webp" alt="" style="width:100%;height:100%;object-fit:cover;display:block" loading="lazy" decoding="async" width="600" height="338"></div>
           <div style="font-size:12px;color:rgba(32,30,29,.55);margin-top:7px">카드를 사용해 순서를 밀고 당기며 유리한 상황을 도출</div>
           <div style="border-top:1px solid rgba(32,30,29,.2);margin-top:16px;padding-top:14px;font-size:14.5px;line-height:1.8;color:rgba(32,30,29,.85)">
             <div><strong>역할&nbsp;—</strong> 컴포넌트 기반 엔진 · 게임 플레이</div>
@@ -197,7 +202,7 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
       </div>
       <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:32px;margin-top:16px;align-items:start">
         <div>
-          <div style="border:1px solid rgba(32,30,29,.25);aspect-ratio:16/9;overflow:hidden;background:#111"><img src="assets/md-1.gif" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+          <div style="border:1px solid rgba(32,30,29,.25);aspect-ratio:16/9;overflow:hidden;background:#111"><img data-src="assets/md-1.webp" alt="" style="width:100%;height:100%;object-fit:cover;display:block" loading="lazy" decoding="async" width="400" height="225"></div>
           <div style="font-size:12px;color:rgba(32,30,29,.55);margin-top:7px">조각을 밀어 옮기는 소코반 퍼즐 플레이</div>
           <div style="border-top:1px solid rgba(32,30,29,.2);margin-top:16px;padding-top:14px;font-size:14.5px;line-height:1.8;color:rgba(32,30,29,.85)">
             <div><strong>역할&nbsp;—</strong> 첫 자체 엔진(Windows API) · 게임 플레이</div>
@@ -240,7 +245,7 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
       </div>
       <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:32px;margin-top:16px;align-items:start">
         <div>
-          <div style="border:1px solid rgba(32,30,29,.25);aspect-ratio:16/9;overflow:hidden;background:#111"><img src="assets/roguedeck-proto.png" alt="Rogue-deck 프로토타입 전투 화면" style="width:100%;height:100%;object-fit:contain;display:block"></div>
+          <div style="border:1px solid rgba(32,30,29,.25);aspect-ratio:16/9;overflow:hidden;background:#111"><img data-src="assets/roguedeck-proto.png" alt="Rogue-deck 프로토타입 전투 화면" style="width:100%;height:100%;object-fit:contain;display:block" loading="lazy" decoding="async" width="1342" height="1006"></div>
           <div style="font-size:12px;color:rgba(32,30,29,.55);margin-top:7px">프로토타입 전투 화면 — 아트 미적용</div>
           <div style="border-top:1px solid rgba(32,30,29,.2);margin-top:16px;padding-top:14px;font-size:14.5px;line-height:1.8;color:rgba(32,30,29,.85)">
             <div><strong>역할&nbsp;—</strong> 기획·밸런스부터 구현까지 전반</div>
@@ -270,7 +275,7 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
       </div>
       <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:32px;margin-top:16px;align-items:start">
         <div>
-          <div style="border:1px solid rgba(32,30,29,.25);aspect-ratio:16/9;overflow:hidden;background:#111"><img src="assets/ab-1.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+          <div style="border:1px solid rgba(32,30,29,.25);aspect-ratio:16/9;overflow:hidden;background:#111"><img data-src="assets/ab-1.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block" loading="lazy" decoding="async" width="1230" height="674"></div>
           <div style="font-size:12px;color:rgba(32,30,29,.55);margin-top:7px">생성 규칙에 따라 매번 다르게 조립되는 던전</div>
           <div style="border-top:1px solid rgba(32,30,29,.2);margin-top:16px;padding-top:14px;font-size:14.5px;line-height:1.8;color:rgba(32,30,29,.85)">
             <div><strong>역할&nbsp;—</strong> 전부 (생성 알고리즘 · 게임 플레이)</div>
@@ -354,13 +359,13 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
       <div>
         <h3 style="margin:0 0 8px;font-size:19px;font-weight:700">구현에서 멈추지 않았습니다</h3>
         <p style="margin:0 0 14px;font-size:14.5px;line-height:1.8;color:rgba(32,30,29,.8)">기획·아트가 겪는 불편을 모아 툴을 만들고, 거기서 끝내지 않고 <strong>설명서를 쓰고 예시를 보여주며</strong> 사후 관리했습니다. 쓰이지 않는 툴은 만들지 않은 것과 같다고 생각합니다.</p>
-        <div style="border:1px solid rgba(32,30,29,.25);aspect-ratio:16/10;background:#fff;overflow:hidden"><img src="assets/tool-manual.png" alt="에디터 설명서" style="width:100%;height:100%;object-fit:contain;display:block"></div>
+        <div style="border:1px solid rgba(32,30,29,.25);aspect-ratio:16/10;background:#fff;overflow:hidden"><img data-src="assets/tool-manual.png" alt="에디터 설명서" style="width:100%;height:100%;object-fit:contain;display:block" loading="lazy" decoding="async" width="1024" height="640"></div>
         <div style="font-size:12px;color:rgba(32,30,29,.55);margin-top:7px">직접 작성한 <a href="https://will-big.github.io/tictoc-guardians/manual" target="_blank" rel="noopener">TicToc Guardians 에디터 설명서</a> — 4주 안에 엔진과 에디터를 만들며, 기획·아트 6명이 저를 거치지 않고 씬을 만들 수 있도록 함께 넘겼습니다</div>
       </div>
       <div>
         <h3 style="margin:0 0 8px;font-size:19px;font-weight:700">작업 분담과 추적</h3>
         <p style="margin:0 0 14px;font-size:14.5px;line-height:1.8;color:rgba(32,30,29,.8)">노션 보드에 목표 기간·중요도·상태·종류·담당자를 나눠 작업을 분담하고 진행 상황을 추적했습니다.</p>
-        <div style="border:1px solid rgba(32,30,29,.25);aspect-ratio:16/10;background:#fff;overflow:hidden"><img src="assets/notion-board.png" alt="" style="width:100%;height:100%;object-fit:cover;object-position:left top;display:block"></div>
+        <div style="border:1px solid rgba(32,30,29,.25);aspect-ratio:16/10;background:#fff;overflow:hidden"><img data-src="assets/notion-board.png" alt="" style="width:100%;height:100%;object-fit:cover;object-position:left top;display:block" loading="lazy" decoding="async" width="1024" height="444"></div>
         <div style="font-size:12px;color:rgba(32,30,29,.55);margin-top:7px">Midnight Cleanup <a href="https://will-big.github.io/midnight-cleanup/board">작업 보드</a> — 기간·중요도·상태·담당자로 나눈 분담</div>
       </div>
     </div>

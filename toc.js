@@ -149,38 +149,69 @@
   }
 
   // 스크롤에 따라 지금 보고 있는 섹션을 표시합니다.
+  //
+  // 스크롤 중에는 브라우저에 아무것도 물어보지 않는 것이 중요합니다. 섹션마다
+  // getBoundingClientRect 를 부르면 그때마다 배치를 다시 계산하게 만들어, 손가락을
+  // 움직이는 내내 프레임이 밀립니다. 그래서 각 섹션의 위치를 한 번 재어 두고
+  // 스크롤 중에는 숫자만 비교합니다. 글꼴이나 이미지가 늦게 들어와 문서 길이가
+  // 바뀌면 그때만 다시 잽니다.
   function follow(items, offset) {
+    var tops = [];
+    var docHeight = -1;
+    var shown = -1;
+
+    function measure() {
+      var y = window.pageYOffset;
+      tops = items.map(function (item) {
+        return item.section.getBoundingClientRect().top + y;
+      });
+      docHeight = document.documentElement.scrollHeight;
+    }
+
+    function paint(current) {
+      if (current === shown) return; // 바뀐 게 없으면 손대지 않습니다
+      if (shown >= 0) {
+        items[shown].bar.classList.remove('is-current');
+        items[shown].link.removeAttribute('aria-current');
+      }
+      items[current].bar.classList.add('is-current');
+      items[current].link.setAttribute('aria-current', 'true');
+      shown = current;
+    }
+
     function update() {
-      var line = offset + 8;
+      // 문서 길이가 달라졌다면 위치를 다시 잽니다. 스크롤만 하는 동안에는
+      // 배치가 이미 최신이라 이 읽기에 비용이 들지 않습니다.
+      if (document.documentElement.scrollHeight !== docHeight) measure();
+
+      var line = window.pageYOffset + offset + 8;
       var current = 0;
-      for (var i = 0; i < items.length; i++) {
-        if (items[i].section.getBoundingClientRect().top <= line) current = i;
+      for (var i = 0; i < tops.length; i++) {
+        if (tops[i] <= line) current = i;
         else break;
       }
       // 페이지 끝에 닿으면 마지막 섹션으로 둡니다.
-      if (window.innerHeight + window.pageYOffset >= document.body.scrollHeight - 2) {
+      if (window.innerHeight + window.pageYOffset >= docHeight - 2) {
         current = items.length - 1;
       }
-      items.forEach(function (item, i) {
-        if (i === current) {
-          item.bar.classList.add('is-current');
-          item.link.setAttribute('aria-current', 'true');
-        } else {
-          item.bar.classList.remove('is-current');
-          item.link.removeAttribute('aria-current');
-        }
-      });
+      paint(current);
     }
 
-    // requestAnimationFrame 은 탭이 화면에 없으면 멈춰서 잠금이 풀리지 않습니다.
-    // 타이머로 묶어 두면 어떤 상태에서도 다음 갱신이 보장됩니다.
+    // 그리기 직전에 한 번만 갱신합니다. 화면에 없는 탭에서는 requestAnimationFrame
+    // 이 멈추므로, 그 사이 잠금이 걸린 채로 남지 않도록 다시 보일 때 풀어 줍니다.
     var waiting = false;
-    addEventListener('scroll', function () {
+    function schedule() {
       if (waiting) return;
       waiting = true;
-      setTimeout(function () { waiting = false; update(); }, 80);
-    }, { passive: true });
-    addEventListener('resize', update, { passive: true });
+      requestAnimationFrame(function () { waiting = false; update(); });
+    }
+
+    addEventListener('scroll', schedule, { passive: true });
+    addEventListener('resize', function () { measure(); schedule(); }, { passive: true });
+    addEventListener('visibilitychange', function () { waiting = false; schedule(); });
+    addEventListener('load', function () { measure(); schedule(); });
+
+    measure();
     update();
   }
 

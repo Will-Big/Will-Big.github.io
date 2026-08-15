@@ -33,14 +33,19 @@ im.willBig@gmail.com · [github.com/Will-Big](https://github.com/Will-Big)
 ```
 index.html          포트폴리오 본문 (이 파일 하나가 페이지 전체)
 support.js          렌더링 런타임 — 반드시 함께 둘 것
-image-slot.js       이미지 슬롯 컴포넌트
+lazy-img.js         아래쪽 이미지를 화면에 가까워질 때 불러오는 스크립트
+image-slot.js       이미지 슬롯 컴포넌트 (지금은 어느 페이지도 쓰지 않음)
 _ds/modernist-.../  디자인 토큰 stylesheet + 번들
-assets/             GIF · PNG 자료
+assets/             WebP · GIF · PNG 자료
 .nojekyll           Jekyll 비활성화 — _ds 가 밑줄로 시작해서 필수. 지우면 스타일이 전부 깨짐
 mc/ tictoc/ ...     프로젝트별 경로. 지금은 리다이렉트, 나중에 상세 페이지로 교체 예정
 ```
 
 상세 페이지를 추가할 때는 해당 폴더의 `index.html` 을 덮어쓰면 됩니다. 주소는 그대로
 유지됩니다. 포트폴리오를 PDF로 뽑으려면 브라우저에서 인쇄(Ctrl+P) → 대상을 PDF로 저장.
+
+이미지를 새로 넣을 때는 첫 화면에 보이는 한 장만 `src` 로 두고, 나머지는 `src` 대신
+`data-src` 로 적어 주세요. `lazy-img.js` 가 스크롤을 따라가며 채웁니다. `width` 와
+`height` 도 함께 적어야 그림이 늦게 채워져도 글이 밀리지 않습니다.
 
 </details>

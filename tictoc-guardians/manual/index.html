@@ -5,7 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>에디터 설명서 — TicToc Guardians | 임상학 Portfolio</title>
 <meta name="description" content="TicToc Guardians 자체 엔진 에디터 설명서 — 4주 프로젝트에서 엔진·에디터를 만들며 기획·아트 6명에게 함께 넘긴 8쪽 문서">
+<link rel="preconnect" href="https://unpkg.com" crossorigin>
+<link rel="preload" as="script" crossorigin href="https://unpkg.com/react@18.3.1/umd/react.production.min.js" integrity="sha384-DGyLxAyjq0f9SPpVevD6IgztCFlnMF6oW/XQGmfe+IsZ8TqEiDrcHkMLKI6fiB/Z">
+<link rel="preload" as="script" crossorigin href="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" integrity="sha384-gTGxhz21lVGYNMcdJOyq01Edg0jhn/c22nsx0kyqP0TxaV5WVdsSH1fSDUf5YJj1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <script src="../../support.js"></script>
+<script src="../../lazy-img.js"></script>
 </head>
 <body>
 <x-dc>
@@ -51,14 +57,14 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
   <section style="padding:44px 0 0">
     <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;color:rgba(32,30,29,.5);border-bottom:1px solid rgba(32,30,29,.2);padding-bottom:10px;margin-bottom:26px">전문 — 8쪽</div>
     <div style="display:flex;flex-direction:column;gap:26px;max-width:900px;margin:0 auto">
-      <figure style="margin:0"><img src="pages/p1.png" alt="에디터 설명서 1쪽 — 실행 화면" loading="lazy" style="width:100%;height:auto;display:block;border:1px solid rgba(32,30,29,.25)"><figcaption style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:rgba(32,30,29,.45);margin-top:7px">01 · 실행 화면</figcaption></figure>
-      <figure style="margin:0"><img src="pages/p2.png" alt="에디터 설명서 2쪽 — 기본적인 조작" loading="lazy" style="width:100%;height:auto;display:block;border:1px solid rgba(32,30,29,.25)"><figcaption style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:rgba(32,30,29,.45);margin-top:7px">02 · 기본적인 조작 — 뷰포트 · 하이어라키</figcaption></figure>
-      <figure style="margin:0"><img src="pages/p3.png" alt="에디터 설명서 3쪽 — 인스펙터" loading="lazy" style="width:100%;height:auto;display:block;border:1px solid rgba(32,30,29,.25)"><figcaption style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:rgba(32,30,29,.45);margin-top:7px">03 · 인스펙터 — 컴포넌트 추가 · 프리팹 저장</figcaption></figure>
-      <figure style="margin:0"><img src="pages/p4.png" alt="에디터 설명서 4쪽 — 에셋" loading="lazy" style="width:100%;height:auto;display:block;border:1px solid rgba(32,30,29,.25)"><figcaption style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:rgba(32,30,29,.45);margin-top:7px">04 · 에셋 — 리소스 · 프리팹 · 씬 로드</figcaption></figure>
-      <figure style="margin:0"><img src="pages/p5.png" alt="에디터 설명서 5쪽 — 라이트" loading="lazy" style="width:100%;height:auto;display:block;border:1px solid rgba(32,30,29,.25)"><figcaption style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:rgba(32,30,29,.45);margin-top:7px">05 · 라이트 — IBL</figcaption></figure>
-      <figure style="margin:0"><img src="pages/p6.png" alt="에디터 설명서 6쪽 — 렌더러 계열 컴포넌트" loading="lazy" style="width:100%;height:auto;display:block;border:1px solid rgba(32,30,29,.25)"><figcaption style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:rgba(32,30,29,.45);margin-top:7px">06 · 렌더러 계열 컴포넌트 유의사항</figcaption></figure>
-      <figure style="margin:0"><img src="pages/p7.png" alt="에디터 설명서 7쪽 — 리지드바디 컴포넌트" loading="lazy" style="width:100%;height:auto;display:block;border:1px solid rgba(32,30,29,.25)"><figcaption style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:rgba(32,30,29,.45);margin-top:7px">07 · 리지드바디 — 충돌 그룹 · 재질</figcaption></figure>
-      <figure style="margin:0"><img src="pages/p8.png" alt="에디터 설명서 8쪽 — 트리거 셰이프" loading="lazy" style="width:100%;height:auto;display:block;border:1px solid rgba(32,30,29,.25)"><figcaption style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:rgba(32,30,29,.45);margin-top:7px">08 · 트리거 셰이프 · 맺음말</figcaption></figure>
+      <figure style="margin:0"><img src="pages/p1.png" alt="에디터 설명서 1쪽 — 실행 화면" fetchpriority="high" style="width:100%;height:auto;display:block;border:1px solid rgba(32,30,29,.25)" decoding="async" width="1241" height="1754"><figcaption style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:rgba(32,30,29,.45);margin-top:7px">01 · 실행 화면</figcaption></figure>
+      <figure style="margin:0"><img data-src="pages/p2.png" alt="에디터 설명서 2쪽 — 기본적인 조작" loading="lazy" style="width:100%;height:auto;display:block;border:1px solid rgba(32,30,29,.25)" decoding="async" width="1241" height="1754"><figcaption style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:rgba(32,30,29,.45);margin-top:7px">02 · 기본적인 조작 — 뷰포트 · 하이어라키</figcaption></figure>
+      <figure style="margin:0"><img data-src="pages/p3.png" alt="에디터 설명서 3쪽 — 인스펙터" loading="lazy" style="width:100%;height:auto;display:block;border:1px solid rgba(32,30,29,.25)" decoding="async" width="1241" height="1754"><figcaption style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:rgba(32,30,29,.45);margin-top:7px">03 · 인스펙터 — 컴포넌트 추가 · 프리팹 저장</figcaption></figure>
+      <figure style="margin:0"><img data-src="pages/p4.png" alt="에디터 설명서 4쪽 — 에셋" loading="lazy" style="width:100%;height:auto;display:block;border:1px solid rgba(32,30,29,.25)" decoding="async" width="1241" height="1754"><figcaption style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:rgba(32,30,29,.45);margin-top:7px">04 · 에셋 — 리소스 · 프리팹 · 씬 로드</figcaption></figure>
+      <figure style="margin:0"><img data-src="pages/p5.png" alt="에디터 설명서 5쪽 — 라이트" loading="lazy" style="width:100%;height:auto;display:block;border:1px solid rgba(32,30,29,.25)" decoding="async" width="1241" height="1754"><figcaption style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:rgba(32,30,29,.45);margin-top:7px">05 · 라이트 — IBL</figcaption></figure>
+      <figure style="margin:0"><img data-src="pages/p6.png" alt="에디터 설명서 6쪽 — 렌더러 계열 컴포넌트" loading="lazy" style="width:100%;height:auto;display:block;border:1px solid rgba(32,30,29,.25)" decoding="async" width="1241" height="1754"><figcaption style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:rgba(32,30,29,.45);margin-top:7px">06 · 렌더러 계열 컴포넌트 유의사항</figcaption></figure>
+      <figure style="margin:0"><img data-src="pages/p7.png" alt="에디터 설명서 7쪽 — 리지드바디 컴포넌트" loading="lazy" style="width:100%;height:auto;display:block;border:1px solid rgba(32,30,29,.25)" decoding="async" width="1241" height="1754"><figcaption style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:rgba(32,30,29,.45);margin-top:7px">07 · 리지드바디 — 충돌 그룹 · 재질</figcaption></figure>
+      <figure style="margin:0"><img data-src="pages/p8.png" alt="에디터 설명서 8쪽 — 트리거 셰이프" loading="lazy" style="width:100%;height:auto;display:block;border:1px solid rgba(32,30,29,.25)" decoding="async" width="1241" height="1754"><figcaption style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:rgba(32,30,29,.45);margin-top:7px">08 · 트리거 셰이프 · 맺음말</figcaption></figure>
     </div>
   </section>
 

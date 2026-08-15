@@ -5,8 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>TicToc Guardians | 임상학 Portfolio</title>
 <meta name="description" content="자체 엔진 · 리플렉션 기반 에디터 · 시간 되감기 — 4주 제작 퍼즐 액션 프로젝트 상세">
+<link rel="preconnect" href="https://unpkg.com" crossorigin>
+<link rel="preload" as="script" crossorigin href="https://unpkg.com/react@18.3.1/umd/react.production.min.js" integrity="sha384-DGyLxAyjq0f9SPpVevD6IgztCFlnMF6oW/XQGmfe+IsZ8TqEiDrcHkMLKI6fiB/Z">
+<link rel="preload" as="script" crossorigin href="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" integrity="sha384-gTGxhz21lVGYNMcdJOyq01Edg0jhn/c22nsx0kyqP0TxaV5WVdsSH1fSDUf5YJj1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <script src="../support.js"></script>
-<script src="../toc.js"></script>
+<script src="../toc.js" defer></script>
+<script src="../lazy-img.js"></script>
 </head>
 <body>
 <x-dc>
@@ -35,7 +41,7 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
   <section style="padding:40px 0 0">
     <div style="display:grid;grid-template-columns:1.35fr 1fr;gap:40px;align-items:start">
       <div>
-        <div style="border:1px solid rgba(32,30,29,.25);aspect-ratio:16/9;overflow:hidden;background:#111"><img src="../assets/tt-1.gif" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+        <div style="border:1px solid rgba(32,30,29,.25);aspect-ratio:16/9;overflow:hidden;background:#111"><img src="../assets/tt-1.webp" alt="" style="width:100%;height:100%;object-fit:cover;display:block" fetchpriority="high" decoding="async" width="400" height="225"></div>
         <div style="font-size:12.5px;color:rgba(32,30,29,.55);margin-top:8px">세 캐릭터를 순서대로 조작해 균열을 수리하는 퍼즐 액션. 자체 엔진으로 만들었습니다.</div>
       </div>
       <div>
@@ -161,16 +167,16 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
       </div>
       <div style="display:grid;grid-template-columns:.85fr 1.15fr;gap:20px;margin-bottom:26px;align-items:start">
         <figure style="margin:0">
-          <div style="border:1px solid rgba(32,30,29,.25);background:#1b1b1b;padding:12px;display:flex;justify-content:center"><img src="../assets/tt-inspector.png" alt="" style="width:auto;max-width:100%;max-height:420px;object-fit:contain;display:block"></div>
+          <div style="border:1px solid rgba(32,30,29,.25);background:#1b1b1b;padding:12px;display:flex;justify-content:center"><img data-src="../assets/tt-inspector.png" alt="" style="width:auto;max-width:100%;max-height:420px;object-fit:contain;display:block" loading="lazy" decoding="async" width="450" height="893"></div>
           <figcaption style="font-size:12.5px;line-height:1.6;color:rgba(32,30,29,.65);margin-top:8px"><strong style="color:var(--color-text)">위젯 바인딩 —</strong> 속성의 타입에 따라 숫자는 드래그, 불리언은 체크박스, 열거형은 콤보 박스로 그려집니다.</figcaption>
         </figure>
         <figure style="margin:0;display:flex;flex-direction:column;gap:16px">
           <div>
-            <div style="border:1px solid rgba(32,30,29,.25);background:#1b1b1b;padding:12px;display:flex;justify-content:center"><img src="../assets/tt-drawer-string.png" alt="" style="width:auto;max-width:100%;object-fit:contain;display:block"></div>
+            <div style="border:1px solid rgba(32,30,29,.25);background:#1b1b1b;padding:12px;display:flex;justify-content:center"><img data-src="../assets/tt-drawer-string.png" alt="" style="width:auto;max-width:100%;object-fit:contain;display:block" loading="lazy" decoding="async" width="437" height="149"></div>
             <figcaption style="font-size:12.5px;line-height:1.6;color:rgba(32,30,29,.65);margin-top:8px"><strong style="color:var(--color-text)">문자열 드로어 —</strong> <code style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;background:rgba(32,30,29,.07);padding:1px 4px">std::string</code>은 입력 필드로 그려집니다.</figcaption>
           </div>
           <div>
-            <div style="border:1px solid rgba(32,30,29,.25);background:#1b1b1b;padding:12px;display:flex;justify-content:center"><img src="../assets/tt-drawer-vector.png" alt="" style="width:auto;max-width:100%;object-fit:contain;display:block"></div>
+            <div style="border:1px solid rgba(32,30,29,.25);background:#1b1b1b;padding:12px;display:flex;justify-content:center"><img data-src="../assets/tt-drawer-vector.png" alt="" style="width:auto;max-width:100%;object-fit:contain;display:block" loading="lazy" decoding="async" width="444" height="95"></div>
             <figcaption style="font-size:12.5px;line-height:1.6;color:rgba(32,30,29,.65);margin-top:8px"><strong style="color:var(--color-text)">컨테이너 드로어 —</strong> <code style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;background:rgba(32,30,29,.07);padding:1px 4px">std::vector</code>는 항목을 늘리고 줄일 수 있는 목록으로 그렸습니다. 열거형, 쿼터니언, 직접 만든 구조체도 드로어를 따로 뒀습니다.</figcaption>
           </div>
         </figure>
@@ -221,15 +227,15 @@ PropertyHandler&lt;Character, float&gt; speed{&amp;Character::Speed};</pre>
       </div>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:26px;align-items:start">
         <figure style="margin:0">
-          <div style="border:1px solid rgba(32,30,29,.25);background:#1b1b1b;padding:12px;display:flex;justify-content:center;min-height:200px;align-items:center"><img src="../assets/tt-comp-add.png" alt="" style="width:auto;max-width:100%;max-height:340px;object-fit:contain;display:block"></div>
+          <div style="border:1px solid rgba(32,30,29,.25);background:#1b1b1b;padding:12px;display:flex;justify-content:center;min-height:200px;align-items:center"><img data-src="../assets/tt-comp-add.png" alt="" style="width:auto;max-width:100%;max-height:340px;object-fit:contain;display:block" loading="lazy" decoding="async" width="265" height="378"></div>
           <figcaption style="font-size:12.5px;line-height:1.6;color:rgba(32,30,29,.65);margin-top:8px"><strong style="color:var(--color-text)">추가 —</strong> 검색 팝업에서 컴포넌트를 즉시 부착합니다. 목록은 등록된 타입에서 자동으로 만들어집니다.</figcaption>
         </figure>
         <figure style="margin:0">
-          <div style="border:1px solid rgba(32,30,29,.25);background:#1b1b1b;padding:12px;display:flex;justify-content:center;min-height:200px;align-items:center"><img src="../assets/tt-comp-remove.png" alt="" style="width:auto;max-width:100%;max-height:340px;object-fit:contain;display:block"></div>
+          <div style="border:1px solid rgba(32,30,29,.25);background:#1b1b1b;padding:12px;display:flex;justify-content:center;min-height:200px;align-items:center"><img data-src="../assets/tt-comp-remove.png" alt="" style="width:auto;max-width:100%;max-height:340px;object-fit:contain;display:block" loading="lazy" decoding="async" width="428" height="100"></div>
           <figcaption style="font-size:12.5px;line-height:1.6;color:rgba(32,30,29,.65);margin-top:8px"><strong style="color:var(--color-text)">삭제 —</strong> 우클릭 컨텍스트 메뉴로 붙어 있는 컴포넌트만 안전하게 떼어냅니다.</figcaption>
         </figure>
         <figure style="margin:0">
-          <div style="border:1px solid rgba(32,30,29,.25);background:#1b1b1b;padding:12px;display:flex;justify-content:center;min-height:200px;align-items:center"><img src="../assets/tt-prefab.png" alt="" style="width:auto;max-width:100%;max-height:340px;object-fit:contain;display:block"></div>
+          <div style="border:1px solid rgba(32,30,29,.25);background:#1b1b1b;padding:12px;display:flex;justify-content:center;min-height:200px;align-items:center"><img data-src="../assets/tt-prefab.png" alt="" style="width:auto;max-width:100%;max-height:340px;object-fit:contain;display:block" loading="lazy" decoding="async" width="441" height="302"></div>
           <figcaption style="font-size:12.5px;line-height:1.6;color:rgba(32,30,29,.65);margin-top:8px"><strong style="color:var(--color-text)">저장 —</strong> 선택한 오브젝트를 시작점으로 자식까지 따라 내려가며 하나의 JSON으로 남깁니다.</figcaption>
         </figure>
       </div>
@@ -288,7 +294,7 @@ PropertyHandler&lt;Character, float&gt; speed{&amp;Character::Speed};</pre>
       </div>
       <div style="display:grid;grid-template-columns:1.1fr minmax(0,1fr);gap:28px 36px;align-items:start">
         <figure style="margin:0">
-          <div style="border:1px solid rgba(32,30,29,.25);background:#111;aspect-ratio:16/9;overflow:hidden"><img src="../assets/tt-move.gif" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+          <div style="border:1px solid rgba(32,30,29,.25);background:#111;aspect-ratio:16/9;overflow:hidden"><img data-src="../assets/tt-move.webp" alt="" style="width:100%;height:100%;object-fit:cover;display:block" loading="lazy" decoding="async" width="400" height="225"></div>
           <figcaption style="font-size:12.5px;line-height:1.6;color:rgba(32,30,29,.65);margin-top:8px">방향키를 등각 축에 맞춘 대각 성분으로 합성한 뒤 정규화합니다. 이렇게 해야 화면에서 보이는 방향과 실제 이동 방향이 어긋나지 않습니다.</figcaption>
         </figure>
         <div style="min-width:0">
@@ -312,19 +318,19 @@ Publish("OnTraceDirection", {characterId, b});</pre>
           <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;color:rgba(32,30,29,.5);margin:6px 0 12px">편의 기능</div>
           <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px">
             <figure style="margin:0">
-              <div style="border:1px solid rgba(32,30,29,.25);background:#111;aspect-ratio:16/10;overflow:hidden"><img src="../assets/tt-skip.gif" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+              <div style="border:1px solid rgba(32,30,29,.25);background:#111;aspect-ratio:16/10;overflow:hidden"><img data-src="../assets/tt-skip.webp" alt="" style="width:100%;height:100%;object-fit:cover;display:block" loading="lazy" decoding="async" width="400" height="225"></div>
               <figcaption style="font-size:12px;line-height:1.55;color:rgba(32,30,29,.65);margin-top:7px"><strong style="color:var(--color-text)">X · 스킵 —</strong> 남은 시간을 SKIP으로 채우고 다음 캐릭터로</figcaption>
             </figure>
             <figure style="margin:0">
-              <div style="border:1px solid rgba(32,30,29,.25);background:#111;aspect-ratio:16/10;overflow:hidden"><img src="../assets/tt-undo1.gif" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+              <div style="border:1px solid rgba(32,30,29,.25);background:#111;aspect-ratio:16/10;overflow:hidden"><img data-src="../assets/tt-undo1.webp" alt="" style="width:100%;height:100%;object-fit:cover;display:block" loading="lazy" decoding="async" width="400" height="225"></div>
               <figcaption style="font-size:12px;line-height:1.55;color:rgba(32,30,29,.65);margin-top:7px"><strong style="color:var(--color-text)">R · 되돌리기 —</strong> 현재 캐릭터의 움직임만 초기화</figcaption>
             </figure>
             <figure style="margin:0">
-              <div style="border:1px solid rgba(32,30,29,.25);background:#111;aspect-ratio:16/10;overflow:hidden"><img src="../assets/tt-undo2.gif" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+              <div style="border:1px solid rgba(32,30,29,.25);background:#111;aspect-ratio:16/10;overflow:hidden"><img data-src="../assets/tt-undo2.webp" alt="" style="width:100%;height:100%;object-fit:cover;display:block" loading="lazy" decoding="async" width="400" height="225"></div>
               <figcaption style="font-size:12px;line-height:1.55;color:rgba(32,30,29,.65);margin-top:7px"><strong style="color:var(--color-text)">R · 한 단계 앞 —</strong> 움직이지 않았다면 이전 캐릭터로</figcaption>
             </figure>
             <figure style="margin:0">
-              <div style="border:1px solid rgba(32,30,29,.25);background:#111;aspect-ratio:16/10;overflow:hidden"><img src="../assets/tt-restart.gif" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+              <div style="border:1px solid rgba(32,30,29,.25);background:#111;aspect-ratio:16/10;overflow:hidden"><img data-src="../assets/tt-restart.webp" alt="" style="width:100%;height:100%;object-fit:cover;display:block" loading="lazy" decoding="async" width="400" height="225"></div>
               <figcaption style="font-size:12px;line-height:1.55;color:rgba(32,30,29,.65);margin-top:7px"><strong style="color:var(--color-text)">1 · 재시작 —</strong> 캐릭터 선택부터 다시</figcaption>
             </figure>
           </div>
@@ -355,7 +361,7 @@ Publish("OnTraceDirection", {characterId, b});</pre>
       </div>
       <div style="display:grid;grid-template-columns:1.1fr minmax(0,1fr);gap:28px 36px;align-items:start">
         <figure style="margin:0">
-          <div style="border:1px solid rgba(32,30,29,.25);background:#111;aspect-ratio:16/9;overflow:hidden"><img src="../assets/tt-replay.gif" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+          <div style="border:1px solid rgba(32,30,29,.25);background:#111;aspect-ratio:16/9;overflow:hidden"><img data-src="../assets/tt-replay.webp" alt="" style="width:100%;height:100%;object-fit:cover;display:block" loading="lazy" decoding="async" width="400" height="225"></div>
           <figcaption style="font-size:12.5px;line-height:1.6;color:rgba(32,30,29,.65);margin-top:8px">토끼를 조작하는 동안 고양이와 비버는 자기 차례에 했던 행동을 그대로 반복합니다.</figcaption>
         </figure>
         <div style="min-width:0">
@@ -420,7 +426,7 @@ if (IsReplaying) {
       <h3 style="margin:0 0 18px;font-size:28px;font-weight:700;letter-spacing:-.02em">랜딩 포인트</h3>
       <div style="display:grid;grid-template-columns:1.1fr minmax(0,1fr);gap:36px;align-items:start">
         <figure style="margin:0">
-          <div style="border:1px solid rgba(32,30,29,.25);background:#111;aspect-ratio:16/9;overflow:hidden"><img src="../assets/tt-landing.gif" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+          <div style="border:1px solid rgba(32,30,29,.25);background:#111;aspect-ratio:16/9;overflow:hidden"><img data-src="../assets/tt-landing.webp" alt="" style="width:100%;height:100%;object-fit:cover;display:block" loading="lazy" decoding="async" width="400" height="225"></div>
           <figcaption style="font-size:12.5px;line-height:1.6;color:rgba(32,30,29,.65);margin-top:8px">고양이가 파란 랜딩 포인트에 닿으면, 다음 차례인 토끼의 시작점이 그 자리로 옮겨집니다.</figcaption>
         </figure>
         <div>
