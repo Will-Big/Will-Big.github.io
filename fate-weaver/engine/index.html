@@ -15,6 +15,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&amp;family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
 <style>
+@media (prefers-reduced-motion: no-preference){html{scroll-behavior:smooth}}
 body{margin:0;background:var(--color-bg);color:var(--color-text);font-family:'IBM Plex Sans KR','Archivo',system-ui,sans-serif;-webkit-font-smoothing:antialiased;word-break:keep-all;overflow-wrap:break-word}
 a{color:#c22a10;text-decoration:none;border-bottom:1px solid rgba(194,42,16,.35)}
 a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
@@ -292,7 +293,7 @@ public:
     </sc-if>
 
     <div style="margin-top:22px;border-left:2px solid var(--color-accent);padding:4px 0 4px 18px">
-      <p style="margin:0;font-size:14px;line-height:1.8;color:rgba(32,30,29,.8);max-width:80ch;text-wrap:pretty">이 구조가 남긴 아쉬움 — <b>문자열 이벤트 ID 와 <code style="font-family:'IBM Plex Mono',monospace;font-size:12.5px">std::any</code> 파라미터</b> — 는 이후 엔진에서 타입 기반으로 바뀌었습니다. 그 변화를 <a href="#event-compare">이벤트 식별의 변화</a>에서 따로 정리했습니다.</p>
+      <p style="margin:0;font-size:14px;line-height:1.8;color:rgba(32,30,29,.8);max-width:80ch;text-wrap:pretty">이 구조가 남긴 아쉬움 — <b>문자열 이벤트 ID 와 <code style="font-family:'IBM Plex Mono',monospace;font-size:12.5px">std::any</code> 파라미터</b> — 은 이후 엔진에서 타입 기반으로 바뀌었습니다. 그 변화를 아래 <a href="#event-compare">이벤트 식별의 변화</a>에서 따로 정리했습니다.</p>
     </div>
   </section>
 
@@ -313,9 +314,9 @@ public:
       </div>
 
       <div id="event-compare" style="display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr) minmax(0,1.2fr);gap:20px;padding:14px 0;border-bottom:1px solid rgba(32,30,29,.14);scroll-margin-top:86px">
-        <span style="font-weight:600;color:var(--color-accent)">이벤트 시스템</span>
-        <span style="color:rgba(32,30,29,.75);line-height:1.7"><code style="font-family:'IBM Plex Mono',monospace;font-size:12px">std::any</code> 는 유연했지만 수신측이 <b>정확한 타입을 알고 캐스팅해야</b> 했습니다. 식별자가 문자열이라 오타를 컴파일러가 잡지 못했고, <code style="font-family:'IBM Plex Mono',monospace;font-size:12px">EventHandler</code> 상속과 <code style="font-family:'IBM Plex Mono',monospace;font-size:12px">MakeListenerInfo</code> 사용이 강제되어 사용법이 복잡했습니다.</span>
-        <span style="color:rgba(32,30,29,.75);line-height:1.7"><b>컴파일 타임에 오류를 검출하는 설계</b>의 필요성을 절감했습니다. 이후 엔진에서 <code style="font-family:'IBM Plex Mono',monospace;font-size:12px">struct</code> 자체를 이벤트 ID 이자 파라미터로 쓰는 방식으로 바꿨습니다 — <a href="../events/" style="color:inherit;border-bottom:1px solid rgba(32,30,29,.45)">🔗 프로젝트별 이벤트 시스템의 구현 비교 자세히 보기</a></span>
+        <span style="font-weight:600;color:var(--color-accent)">이벤트 시스템<span style="display:block;margin-top:8px;font-weight:400;font-size:13px;line-height:1.6;color:rgba(32,30,29,.75)"><a href="../events/" style="color:inherit;border-bottom:1px solid rgba(32,30,29,.45)">🔗 프로젝트별 이벤트 시스템의 구현 비교 자세히 보기</a></span></span>
+        <span style="color:rgba(32,30,29,.75);line-height:1.7"><code style="font-family:'IBM Plex Mono',monospace;font-size:12px">std::any</code> 는 유연했지만 수신측이 <b>정확한 타입을 알고 캐스팅해야</b> 했습니다. 식별자가 문자열이라 오타를 컴파일러가 잡지 못했고, 이벤트 클래스 상속 및 사용이 강제되어 사용법이 복잡했습니다.</span>
+        <span style="color:rgba(32,30,29,.75);line-height:1.7"><b>컴파일 타임에 오류를 검출하는 설계</b>의 필요성을 절감했습니다. 이후 엔진에서 <code style="font-family:'IBM Plex Mono',monospace;font-size:12px">struct</code> 자체를 이벤트 ID 이자 파라미터로 쓰는 방식으로 바꿨습니다.</span>
       </div>
 
       <div style="display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr) minmax(0,1.2fr);gap:20px;padding:14px 0;border-bottom:1px solid rgba(32,30,29,.14)">
