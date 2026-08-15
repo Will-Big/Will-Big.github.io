@@ -41,7 +41,7 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
   <section data-screen-label="01 문제" style="padding:52px 0 0">
     <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:6px">
       <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-accent)">01</span>
-      <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">이벤트가 엔진의 중심 통로였습니다</h2>
+      <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">이벤트 중심 구조</h2>
     </div>
     <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:40px;align-items:start;margin-top:16px">
       <div style="font-size:15px;line-height:1.85;color:rgba(32,30,29,.8);text-wrap:pretty">
@@ -63,7 +63,7 @@ EventSystem::GetInstance()-&gt;Subscribe(
   <section data-screen-label="02 경로 비교" style="padding:56px 0 0">
     <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:6px">
       <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-accent)">02</span>
-      <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">발행에서 수신까지 — 두 세대의 경로</h2>
+      <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">두 세대의 발행·수신 경로</h2>
     </div>
     <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);max-width:78ch;text-wrap:pretty">위가 2세대, 아래가 4세대입니다. 두 경로 모두 <b>발행 · 지연 · 대상 찾기 · 전달</b>을 거칩니다. 달라진 것은 대상을 찾는 기준과, 수신부가 타입을 복원해야 하는지 여부입니다.</p>
 
@@ -188,7 +188,7 @@ _dispatcher.enqueue&lt;<span style="color:#ff6a4d">OnCreateEntity</span>&gt;(ent
   <section data-screen-label="03 오타 시점" style="padding:56px 0 0">
     <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:6px">
       <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-accent)">03</span>
-      <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">같은 실수가 검출되는 시점</h2>
+      <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">오류 검출 시점</h2>
     </div>
     <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);max-width:78ch;text-wrap:pretty">이벤트 이름을 잘못 적었을 때, 2세대는 <b>실행 중에 아무 반응 없이 넘어가고</b>, 4세대는 <b>컴파일 단계에서 중단됩니다.</b></p>
 

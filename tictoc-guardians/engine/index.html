@@ -51,7 +51,7 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
   <section data-screen-label="01 왕복 제거" style="padding:56px 0 0">
     <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:6px">
       <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-accent)">01</span>
-      <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">수치 하나 고치는 데 걸리던 시간</h2>
+      <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">수치 수정 비용</h2>
     </div>
     <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);max-width:78ch;text-wrap:pretty">지난 엔진에서는 값 하나를 확인하려고 여섯 단계를 거쳤습니다. 그중 다섯은 그냥 기다리는 시간이었습니다. 이번에는 <b>고치는 곳과 확인하는 곳이 같은 화면</b>입니다.</p>
 
@@ -116,7 +116,7 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
   <section data-screen-label="02 모듈 경계" style="padding:56px 0 0">
     <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:6px">
       <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-accent)">02</span>
-      <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">에디터와 런처가 같은 게임 코드를 쓴다</h2>
+      <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">에디터·런처의 코드 공유</h2>
     </div>
     <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);max-width:78ch;text-wrap:pretty">Play 버튼이 제 역할을 하려면 에디터가 게임을 <b>직접 돌릴 수 있어야</b> 했습니다. 그래서 게임 프로젝트를 라이브러리로 만들고, 에디터와 런처가 각자 그걸 상속하게 했습니다. <code style="font-family:'IBM Plex Mono',monospace;font-size:12.5px">EditorProcess</code>에서 새로 쓴 건 <code style="font-family:'IBM Plex Mono',monospace;font-size:12.5px">OnImGuiRender()</code>와 편집 모드용 <code style="font-family:'IBM Plex Mono',monospace;font-size:12.5px">Update()</code> 두 개뿐입니다.</p>
 
@@ -174,7 +174,7 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
   <section data-screen-label="03 컴포넌트 저장" style="padding:56px 0 0">
     <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:6px">
       <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-accent)">03</span>
-      <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">컴포넌트 저장 — 타입마다 풀, 풀은 목록으로</h2>
+      <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">타입별 컴포넌트 풀</h2>
     </div>
     <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);max-width:78ch;text-wrap:pretty">컴포넌트를 어디에 둘지 정하는 일이 ECS의 출발점이었습니다. <b>타입마다 풀을 하나 두고, 풀이 차면 목록에 풀을 하나 더 붙이는</b> 방식으로 만들었습니다. 대신 지울 때 빈 자리를 메우느라 컴포넌트의 주소가 바뀌므로, 그 주소를 들고 있던 쪽을 찾아 고쳐 주어야 했습니다.</p>
 
@@ -304,7 +304,7 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
   <section data-screen-label="04 리플렉션" style="padding:56px 0 0">
     <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:6px">
       <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-accent)">04</span>
-      <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">리플렉션 — 등록은 미리, 조회는 이름으로</h2>
+      <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">이름 기반 리플렉션 조회</h2>
     </div>
     <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);max-width:78ch;text-wrap:pretty">인스펙터가 어떤 컴포넌트든 그려내려면 <b>멤버 이름과 타입, 그 멤버까지 닿는 길</b>이 실행 중에도 남아 있어야 합니다. 매크로 두 줄이 클래스에 등록 코드를 심어 두고, 프로그램이 로드될 때 <code style="font-family:'IBM Plex Mono',monospace;font-size:12.5px">TypeInfo</code>가 채워지게 했습니다.</p>
 
@@ -385,7 +385,7 @@ ElementType&amp; PropertyHandler&lt;TClass, T&gt;::Get(void* object) const
   <section data-screen-label="05 인스펙터" style="padding:56px 0 0">
     <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:6px">
       <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-accent)">05</span>
-      <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">인스펙터 — 타입을 보고 위젯을 고른다</h2>
+      <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">타입별 인스펙터 위젯</h2>
     </div>
     <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);max-width:78ch;text-wrap:pretty">인스펙터 코드에는 컴포넌트 이름이 한 번도 나오지 않습니다. 선택한 오브젝트에 붙은 컴포넌트를 훑고, 각 <code style="font-family:'IBM Plex Mono',monospace;font-size:12.5px">Property</code>의 타입 해시를 보고 위젯을 고릅니다. 앞에서 말한 반복을 실제로 없앤 화면이 여기입니다.</p>
 
@@ -466,7 +466,7 @@ void MatchGuiByType(const Property* property, Component* component)
   <section data-screen-label="06 직렬화" style="padding:56px 0 0">
     <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:6px">
       <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-accent)">06</span>
-      <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">직렬화 — 씬과 프리팹, 그리고 되돌리기</h2>
+      <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">직렬화와 되돌리기</h2>
     </div>
     <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);max-width:78ch;text-wrap:pretty">저장 단위를 두 개로 나눴습니다. 씬은 <b>컴포넌트 풀을 통째로</b> 타입 이름 아래에 쓰고, 프리팹은 <b>오브젝트 하나와 그 자식들만</b> 재귀로 씁니다. 이 차이 때문에 컴포넌트마다 <code style="font-family:'IBM Plex Mono',monospace;font-size:12.5px">SerializePool</code>과 <code style="font-family:'IBM Plex Mono',monospace;font-size:12.5px">SerializeThis</code>를 따로 뒀습니다.</p>
 
@@ -566,7 +566,7 @@ void MatchGuiByType(const Property* property, Component* component)
   <section data-screen-label="07 에디터 구조" style="padding:56px 0 0">
     <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:6px">
       <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-accent)">07</span>
-      <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">창 다섯 개와 이벤트 하나</h2>
+      <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">창 간 이벤트 연결</h2>
     </div>
     <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);max-width:78ch;text-wrap:pretty">창은 <code style="font-family:'IBM Plex Mono',monospace;font-size:12.5px">IWindow::OnImGuiRender()</code> 하나만 구현하면 목록에 들어갑니다. 창이 코어에 부탁할 일은 <b>문자열 키 이벤트</b>로 보냈습니다. 삭제처럼 순서가 중요한 건 지연 이벤트로 넘겼는데, 그리는 도중에 대상이 사라져서 터진 적이 있었기 때문입니다.</p>
 
@@ -623,7 +623,7 @@ void MatchGuiByType(const Property* property, Component* component)
   <section data-screen-label="08 정리" style="padding:56px 0 0">
     <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:6px">
       <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-accent)">08</span>
-      <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">남은 것과 넘긴 것</h2>
+      <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">남은 한계와 다음 엔진</h2>
     </div>
     <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);max-width:78ch;text-wrap:pretty">컴파일 왕복은 없앴지만, 대신 <b>에디터 코드를 고치는 왕복</b>이 생겼습니다. 타입이 늘면 인스펙터 분기를, 멤버가 늘면 등록 매크로를 사람이 챙겨야 했습니다. 아래 목록이 다음 엔진에서 먼저 손본 부분입니다.</p>
 
