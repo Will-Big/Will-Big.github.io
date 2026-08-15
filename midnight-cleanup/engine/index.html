@@ -35,11 +35,13 @@
 body{margin:0;background:var(--color-bg);color:var(--color-text);font-family:'IBM Plex Sans KR','Archivo',system-ui,sans-serif;-webkit-font-smoothing:antialiased;word-break:keep-all;overflow-wrap:break-word}
 a{color:#c22a10;text-decoration:none;border-bottom:1px solid rgba(194,42,16,.35)}
 a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
+.crumb{position:sticky;top:0;z-index:20;background:var(--color-bg)}
+@media print{.crumb{position:static}}
 </style>
 </helmet>
 <div style="max-width:1180px;margin:0 auto;padding:0 40px 140px">
 
-  <div style="padding:34px 0 14px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;color:rgba(32,30,29,.5);display:flex;justify-content:space-between;align-items:center;gap:20px;border-bottom:1px solid rgba(32,30,29,.18)">
+  <div class="crumb" style="padding:34px 0 14px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;color:rgba(32,30,29,.5);display:flex;justify-content:space-between;align-items:center;gap:20px;border-bottom:1px solid rgba(32,30,29,.18)">
     <span><a href="/" style="color:rgba(32,30,29,.5);border:none">↑ Portfolio</a> &nbsp;/&nbsp; <a href="../" style="color:rgba(32,30,29,.5);border:none">Midnight Cleanup</a> &nbsp;/&nbsp; <span style="color:var(--color-text)">엔진 아키텍처</span></span>
   </div>
 
@@ -248,7 +250,7 @@ void Scene::RegisterSystem()
     </div>
   </section>
 
-  <section id="meta-hub" data-screen-label="03 메타 허브" style="padding:56px 0 0;scroll-margin-top:20px">
+  <section id="meta-hub" data-screen-label="03 메타 허브" style="padding:56px 0 0;scroll-margin-top:86px">
     <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:6px">
       <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-accent)">03</span>
       <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">리플렉션 — 한 번 등록하면 세 곳이 같이 쓴다</h2>

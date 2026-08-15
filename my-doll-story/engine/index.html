@@ -18,11 +18,13 @@
 body{margin:0;background:var(--color-bg);color:var(--color-text);font-family:'IBM Plex Sans KR','Archivo',system-ui,sans-serif;-webkit-font-smoothing:antialiased;word-break:keep-all;overflow-wrap:break-word}
 a{color:#c22a10;text-decoration:none;border-bottom:1px solid rgba(194,42,16,.35)}
 a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
+.crumb{position:sticky;top:0;z-index:20;background:var(--color-bg)}
+@media print{.crumb{position:static}}
 </style>
 </helmet>
 <div style="max-width:1180px;margin:0 auto;padding:0 40px 140px">
 
-  <div style="padding:34px 0 14px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;color:rgba(32,30,29,.5);display:flex;justify-content:space-between;align-items:center;gap:20px;border-bottom:1px solid rgba(32,30,29,.18)">
+  <div class="crumb" style="padding:34px 0 14px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;color:rgba(32,30,29,.5);display:flex;justify-content:space-between;align-items:center;gap:20px;border-bottom:1px solid rgba(32,30,29,.18)">
     <span><a href="/" style="color:rgba(32,30,29,.5);border:none">↑ Portfolio</a> &nbsp;/&nbsp; <a href="../" style="color:rgba(32,30,29,.5);border:none">나의 인형 이야기</a> &nbsp;/&nbsp; <span style="color:var(--color-text)">엔진 아키텍처</span></span>
   </div>
 
@@ -182,7 +184,7 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
       <div style="display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.3fr) minmax(0,1.3fr);gap:28px;padding:18px 0;align-items:start">
         <span style="font-size:16px;font-weight:600;line-height:1.5">하드코딩</span>
         <span style="font-size:14.5px;line-height:1.75;color:rgba(32,30,29,.8)">씬과 오브젝트 배치가 코드 안에 있어, 수치 하나를 바꾸는 데도 재컴파일이 필요했습니다.</span>
-        <span style="font-size:14.5px;line-height:1.75;color:rgba(32,30,29,.8)">코드와 데이터의 분리. 3rd <a href="../../tictoc/engine/">TicToc</a>에서 직렬화와 에디터로 정리했습니다.</span>
+        <span style="font-size:14.5px;line-height:1.75;color:rgba(32,30,29,.8)">코드와 데이터의 분리. 3rd <a href="../../tictoc-guardians/engine/">TicToc</a>에서 직렬화와 에디터로 정리했습니다.</span>
       </div>
     </div>
 

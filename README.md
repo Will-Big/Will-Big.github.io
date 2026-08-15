@@ -14,8 +14,8 @@ Game Client / Engine Programmer
 
 | | 프로젝트 | 저장소 |
 |---|---|---|
-| [/mc](https://will-big.github.io/mc) | Midnight Cleanup | [midnight-cleanup](https://github.com/Will-Big/midnight-cleanup) |
-| [/tictoc](https://will-big.github.io/tictoc) | TicToc Guardians | [TicToc-Guardians](https://github.com/Will-Big/TicToc-Guardians) |
+| [/midnight-cleanup](https://will-big.github.io/midnight-cleanup) | Midnight Cleanup | [midnight-cleanup](https://github.com/Will-Big/midnight-cleanup) |
+| [/tictoc-guardians](https://will-big.github.io/tictoc-guardians) | TicToc Guardians | [TicToc-Guardians](https://github.com/Will-Big/TicToc-Guardians) |
 | [/fate-weaver](https://will-big.github.io/fate-weaver) | Fate Weaver | [fate-weaver](https://github.com/Will-Big/fate-weaver) |
 | [/my-doll-story](https://will-big.github.io/my-doll-story) | My Doll Story | [STOVE 스토어](https://store.onstove.com/ko/games/2398) |
 | [/rogue-deck](https://will-big.github.io/rogue-deck) | Rogue-deck | [sanghak-resume.netlify.app](https://sanghak-resume.netlify.app) |

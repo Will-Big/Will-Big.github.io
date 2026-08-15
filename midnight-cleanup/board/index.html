@@ -18,13 +18,15 @@
 body{margin:0;background:var(--color-bg);color:var(--color-text);font-family:'IBM Plex Sans KR','Archivo',system-ui,sans-serif;-webkit-font-smoothing:antialiased;word-break:keep-all}
 a{color:#c22a10;text-decoration:none;border-bottom:1px solid rgba(194,42,16,.35)}
 a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
+.crumb{position:sticky;top:0;z-index:20;background:var(--color-bg)}
+@media print{.crumb{position:static}}
 .board-frame{width:100%;height:820px;border:1px solid rgba(32,30,29,.3);display:block;background:#191919}
 @media (max-width:760px){.board-frame{height:600px}}
 </style>
 </helmet>
 <div style="max-width:1180px;margin:0 auto;padding:0 40px 140px">
 
-  <div style="padding:34px 0 14px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;color:rgba(32,30,29,.5);display:flex;justify-content:space-between;align-items:center;gap:20px;border-bottom:1px solid rgba(32,30,29,.18)">
+  <div class="crumb" style="padding:34px 0 14px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;color:rgba(32,30,29,.5);display:flex;justify-content:space-between;align-items:center;gap:20px;border-bottom:1px solid rgba(32,30,29,.18)">
     <span><a href="/" style="color:inherit;border:none">↑ Portfolio</a> &nbsp;/&nbsp; <a href="../" style="color:inherit;border:none">Midnight Cleanup</a> &nbsp;/&nbsp; <span style="color:var(--color-text)">작업 보드</span></span>
     <span>자료</span>
   </div>

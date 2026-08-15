@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TicToc Guardians | 임상학 Portfolio</title>
+<meta name="description" content="자체 엔진 · 리플렉션 기반 에디터 · 시간 되감기 — 4주 제작 퍼즐 액션 프로젝트 상세">
+<script src="../support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="../_ds/modernist-ae998351-d810-43b9-b194-f261b8babc31/styles.css">
+<script src="../_ds/modernist-ae998351-d810-43b9-b194-f261b8babc31/_ds_bundle.js"></script>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&amp;family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:var(--color-bg);color:var(--color-text);font-family:'IBM Plex Sans KR','Archivo',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#c22a10;text-decoration:none;border-bottom:1px solid rgba(194,42,16,.35)}
+a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
+.crumb{position:sticky;top:0;z-index:20;background:var(--color-bg)}
+@media print{.crumb{position:static}}
+</style>
+</helmet>
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#f3f2f2"></rect><rect x="18" y="30" width="64" height="4" fill="#201e1d"></rect><text x="18" y="60" font-family="Archivo, sans-serif" font-size="26" font-weight="700" fill="#ec3013">TT</text><rect x="18" y="68" width="64" height="2" fill="#201e1d"></rect></svg></template>
+<div style="max-width:1180px;margin:0 auto;padding:0 40px 140px">
+
+  <div class="crumb" style="padding:34px 0 14px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;color:rgba(32,30,29,.5);display:flex;justify-content:space-between;align-items:center;gap:20px;border-bottom:1px solid rgba(32,30,29,.18)">
+    <span>↑ Portfolio &nbsp;/&nbsp; <span style="color:var(--color-text)">TicToc Guardians</span></span>
+    <span>프로젝트 상세</span>
+  </div>
+
+  <!-- 1. 대표 GIF + 요약 -->
+  <section style="padding:40px 0 0">
+    <div style="display:grid;grid-template-columns:1.35fr 1fr;gap:40px;align-items:start">
+      <div>
+        <div style="border:1px solid rgba(32,30,29,.25);aspect-ratio:16/9;overflow:hidden;background:#111"><img src="../assets/tt-1.gif" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+        <div style="font-size:12.5px;color:rgba(32,30,29,.55);margin-top:8px">세 캐릭터를 순서대로 조작해 균열을 수리하는 퍼즐 액션. 자체 엔진으로 만들었습니다.</div>
+      </div>
+      <div>
+        <h1 style="margin:0;font-size:44px;line-height:1.15;letter-spacing:-.03em;font-weight:700">TicToc<br>Guardians</h1>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--color-accent);letter-spacing:.08em;margin-top:10px">2024 TGS 전시</div>
+        <div style="border-top:2px solid var(--color-text);margin-top:16px;padding-top:14px;font-size:14px;line-height:1.9;color:rgba(32,30,29,.8)">
+          <div><span style="color:rgba(32,30,29,.5);display:inline-block;width:76px">기간</span>2024.01 – 2024.02 (4주)</div>
+          <div><span style="color:rgba(32,30,29,.5);display:inline-block;width:76px">팀</span>11명 (프로그래밍 5 · 아트 3 · 기획 3)</div>
+          <div><span style="color:rgba(32,30,29,.5);display:inline-block;width:76px">내 몫</span>게임 엔진 · 에디터 · 게임 플레이</div>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:16px">
+          <span style="border:1px solid rgba(32,30,29,.3);font-family:'IBM Plex Mono',monospace;font-size:11px;padding:3px 8px">C++20</span>
+          <span style="border:1px solid rgba(32,30,29,.3);font-family:'IBM Plex Mono',monospace;font-size:11px;padding:3px 8px">DirectX 11</span>
+          <span style="border:1px solid rgba(32,30,29,.3);font-family:'IBM Plex Mono',monospace;font-size:11px;padding:3px 8px">PhysX</span>
+          <span style="border:1px solid rgba(32,30,29,.3);font-family:'IBM Plex Mono',monospace;font-size:11px;padding:3px 8px">ImGui</span>
+          <span style="border:1px solid rgba(32,30,29,.3);font-family:'IBM Plex Mono',monospace;font-size:11px;padding:3px 8px">nlohmann::json</span>
+          <span style="border:1px solid rgba(32,30,29,.3);font-family:'IBM Plex Mono',monospace;font-size:11px;padding:3px 8px">SVN</span>
+        </div>
+        <div style="margin-top:16px;font-size:13.5px;line-height:1.8">
+          <a href="https://github.com/Will-Big/TicToc-Guardians" target="_blank" rel="noopener">GitHub 저장소</a> · <a href="https://www.youtube.com/watch?v=Cuudj5FuxYY" target="_blank" rel="noopener">플레이 영상</a>
+        </div>
+      </div>
+    </div>
+    <p style="margin:30px 0 0;font-size:17px;line-height:1.8;max-width:74ch;text-wrap:pretty;color:rgba(32,30,29,.85)">세 번째로 만든 자체 엔진입니다. ECS라는 개념을 이때 처음 접했고, 자료를 찾아보고 팀원들과 이야기해 가며 <strong>컴포넌트 풀과 리플렉션, 직렬화를 직접 만들어 봤습니다</strong>. 에디터를 붙인 것도 이 프로젝트가 처음입니다. 게임 쪽에서는 <strong>매 프레임의 입력을 비트셋으로 남겨</strong>, 앞 순서 캐릭터가 고스트로 같은 행동을 반복하게 했습니다.</p>
+  </section>
+
+  <!-- 2. 하이라이트 -->
+  <section style="padding:48px 0 0">
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;color:var(--color-accent);padding-bottom:10px">하이라이트</div>
+    <div style="border-top:2px solid var(--color-text);border-bottom:2px solid var(--color-text);display:grid;grid-template-columns:1fr 1fr;gap:0 40px">
+      <a href="#f1" style="display:flex;gap:14px;padding:15px 0;border-bottom:1px solid rgba(32,30,29,.14);color:var(--color-text);border-top:none;text-decoration:none"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--color-accent);padding-top:4px">에디터</span><span style="font-size:15px;line-height:1.6;font-weight:500">🔗 리플렉션으로 인스펙터 위젯을 자동으로 붙이기</span></a>
+      <a href="#f2" style="display:flex;gap:14px;padding:15px 0;border-bottom:1px solid rgba(32,30,29,.14);color:var(--color-text);text-decoration:none"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--color-accent);padding-top:4px">에디터</span><span style="font-size:15px;line-height:1.6;font-weight:500">🔗 자식 계층까지 통째로 저장하는 프리팹 (재귀 직렬화)</span></a>
+      <a href="#f3" style="display:flex;gap:14px;padding:15px 0;border-bottom:1px solid rgba(32,30,29,.14);color:var(--color-text);text-decoration:none"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--color-accent);padding-top:4px">컨텐츠</span><span style="font-size:15px;line-height:1.6;font-weight:500">🔗 동시에 눌린 키를 잃지 않는 8비트 입력 기록</span></a>
+      <a href="#f4" style="display:flex;gap:14px;padding:15px 0;border-bottom:1px solid rgba(32,30,29,.14);color:var(--color-text);text-decoration:none"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--color-accent);padding-top:4px">컨텐츠</span><span style="font-size:15px;line-height:1.6;font-weight:500">🔗 과거의 조작을 다시 재생하는 고스트 플레이어</span></a>
+      <a href="#engine" style="display:flex;gap:14px;padding:15px 0;color:var(--color-text);text-decoration:none"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--color-accent);padding-top:4px">엔진</span><span style="font-size:15px;line-height:1.6;font-weight:500">🔗 ECS의 데이터 저장 · 검색 · 삭제 구현 방식</span></a>
+      <a href="#engine" style="display:flex;gap:14px;padding:15px 0;color:var(--color-text);text-decoration:none"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--color-accent);padding-top:4px">엔진</span><span style="font-size:15px;line-height:1.6;font-weight:500">🔗 매크로로 등록하고 런타임에 찾아 쓰는 리플렉션</span></a>
+    </div>
+  </section>
+
+  <!-- 3. 엔진 -->
+  <section id="engine" style="padding:52px 0 0;scroll-margin-top:86px">
+    <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:6px">
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-accent)">01</span>
+      <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">엔진 설계</h2>
+    </div>
+    <p style="margin:0 0 24px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);max-width:74ch">ECS와 툴, 런타임 리플렉션을 직접 만들어 보는 것이 이 엔진의 목표였습니다. <b>사용자 코드(User LIB)를 코어에서 떼어내고</b> <b>에디터와 런처를 각각의 실행 파일로 나눠</b>, 실행 파일마다 필요한 코드만 들어가게 했습니다.</p>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:rgba(32,30,29,.2);border:2px solid var(--color-text)">
+      <div style="background:#fff;padding:18px 20px 22px">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;color:var(--color-accent);margin-bottom:12px">PROCESS — EXE</div>
+        <div style="display:flex;flex-direction:column;gap:6px;font-family:'IBM Plex Mono',monospace;font-size:12px">
+          <div style="border:1px solid rgba(32,30,29,.35);padding:8px 10px">EditorProcess</div>
+          <div style="border:1px solid rgba(32,30,29,.2);padding:7px 10px;margin-left:14px;color:rgba(32,30,29,.75)">Hierarchy</div>
+          <div style="border:1px solid rgba(32,30,29,.2);padding:7px 10px;margin-left:14px;color:rgba(32,30,29,.75)">Inspector</div>
+          <div style="border:1px solid rgba(32,30,29,.35);padding:8px 10px">LauncherProcess</div>
+        </div>
+        <p style="margin:14px 0 0;font-size:12.5px;line-height:1.6;color:rgba(32,30,29,.6)">창은 <code style="font-family:'IBM Plex Mono',monospace;font-size:11px">IWindow::OnImGuiRender()</code> 하나만 구현하면 되도록 통일했습니다</p>
+      </div>
+      <div style="background:#fff;padding:18px 20px 22px">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;color:var(--color-accent);margin-bottom:12px">CORE — 커스텀 ECS</div>
+        <div style="display:flex;flex-direction:column;gap:6px;font-family:'IBM Plex Mono',monospace;font-size:12px">
+          <div style="border:1px solid rgba(32,30,29,.35);padding:8px 10px">ComponentPool&lt;T, N&gt;</div>
+          <div style="border:1px solid rgba(32,30,29,.35);padding:8px 10px">ComponentPoolManager</div>
+          <div style="border:1px solid rgba(32,30,29,.35);padding:8px 10px">GameObjectManager</div>
+          <div style="border:1px dashed var(--color-accent);padding:8px 10px;color:var(--color-accent)">std::list 멀티 풀</div>
+        </div>
+        <p style="margin:14px 0 0;font-size:12.5px;line-height:1.6;color:rgba(32,30,29,.6)">풀을 고정 배열로 잡아 데이터를 붙여 두고, 풀을 늘려도 주소가 바뀌지 않도록 list로 관리했습니다</p>
+      </div>
+      <div style="background:#fff;padding:18px 20px 22px">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;color:var(--color-accent);margin-bottom:12px">REFLECTION</div>
+        <div style="display:flex;flex-direction:column;gap:6px;font-family:'IBM Plex Mono',monospace;font-size:12px">
+          <div style="border:1px solid rgba(32,30,29,.35);padding:8px 10px">TypeInfo</div>
+          <div style="border:1px solid rgba(32,30,29,.35);padding:8px 10px">PropertyHandler&lt;C, T&gt;</div>
+          <div style="border:1px solid rgba(32,30,29,.35);padding:8px 10px">SerializeSystem (json)</div>
+          <div style="border:1px solid rgba(32,30,29,.35);padding:8px 10px">System Factory</div>
+        </div>
+        <p style="margin:14px 0 0;font-size:12.5px;line-height:1.6;color:rgba(32,30,29,.6)">로드 시점에 정적으로 등록해 두고 런타임에는 이름으로 찾습니다. 인스펙터와 직렬화가 같은 메타를 씁니다</p>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:26px;align-items:start">
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;color:rgba(32,30,29,.5);margin-bottom:10px">엔진 계보에서의 위치</div>
+        <div style="font-size:13.5px;border-top:2px solid var(--color-text)">
+          <div style="display:grid;grid-template-columns:1fr 1.4fr;gap:12px;padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="color:rgba(32,30,29,.55)">2nd · Fate Weaver</span><span>컴포넌트 기반 · Direct2D</span></div>
+          <div style="display:grid;grid-template-columns:1fr 1.4fr;gap:12px;padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="color:var(--color-accent)">3rd · TicToc</span><span>커스텀 ECS · 리플렉션 / 직렬화 최초 도입</span></div>
+          <div style="display:grid;grid-template-columns:1fr 1.4fr;gap:12px;padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="color:rgba(32,30,29,.55)">4th · Midnight</span><span>EnTT 전환 · 메인 루프 분리 · 레이어 추상화</span></div>
+        </div>
+      </div>
+      <div style="border:1px solid rgba(32,30,29,.3);padding:18px 20px">
+        <div style="font-size:14px;font-weight:600;margin-bottom:5px"><a href="engine/" style="color:inherit;border-bottom:1px solid rgba(32,30,29,.45)">🔗 엔진 설계 의도 자세히 보기</a></div>
+        <div style="font-size:12.5px;color:rgba(32,30,29,.6);line-height:1.65;margin-bottom:12px">타입별 풀과 멀티 풀 · 컴포넌트 검색과 삭제 시 포인터 보정 · 리플렉션의 장단 — 8분</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. 기능 -->
+  <section style="padding:56px 0 0">
+    <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:20px">
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-accent)">02</span>
+      <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">기능</h2>
+    </div>
+
+    <!-- f1 -->
+    <div id="f1" style="border:1px solid rgba(32,30,29,.22);border-top:4px solid var(--color-accent);background:#fff;padding:36px 44px 40px;scroll-margin-top:86px">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px">
+        <span style="background:var(--color-accent);color:#fff;font-family:'IBM Plex Mono',monospace;font-size:10px;padding:4px 8px;letter-spacing:.08em">내가 한 일 · 단독 설계 및 구현</span>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:rgba(32,30,29,.5);letter-spacing:.1em">EDITOR</span>
+      </div>
+      <h3 style="margin:0 0 18px;font-size:28px;font-weight:700;letter-spacing:-.02em">인스펙터와 리플렉션</h3>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);border-top:2px solid var(--color-text);border-bottom:1px solid rgba(32,30,29,.18);margin-bottom:26px">
+        <div style="padding:16px 20px 18px 0;border-right:1px solid rgba(32,30,29,.18)">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:rgba(32,30,29,.5);letter-spacing:.1em;margin-bottom:6px">무엇을</div>
+          <p style="margin:0;font-size:14.5px;line-height:1.6;font-weight:500">등록된 속성의 타입을 보고 Drag, Checkbox, Combo, ListBox를 알아서 붙이는 ImGui 인스펙터</p>
+        </div>
+        <div style="padding:16px 20px 18px;border-right:1px solid rgba(32,30,29,.18)">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:rgba(32,30,29,.5);letter-spacing:.1em;margin-bottom:6px">왜</div>
+          <p style="margin:0;font-size:14.5px;line-height:1.6;font-weight:500">값 하나 바꾸려고 코드를 고치고 다시 빌드하던 상황이라, 기획이 손댈 수가 없었음</p>
+        </div>
+        <div style="padding:16px 0 18px 20px">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--color-accent);letter-spacing:.1em;margin-bottom:6px">무엇이 나아졌나</div>
+          <p style="margin:0;font-size:14.5px;line-height:1.6;font-weight:500"><strong style="color:var(--color-accent)">등록 매크로만 써 두면</strong> 인스펙터에 뜹니다. 기획이 값을 직접 만졌습니다</p>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:.85fr 1.15fr;gap:20px;margin-bottom:26px;align-items:start">
+        <figure style="margin:0">
+          <div style="border:1px solid rgba(32,30,29,.25);background:#1b1b1b;padding:12px;display:flex;justify-content:center"><img src="../assets/tt-inspector.png" alt="" style="width:auto;max-width:100%;max-height:420px;object-fit:contain;display:block"></div>
+          <figcaption style="font-size:12.5px;line-height:1.6;color:rgba(32,30,29,.65);margin-top:8px"><strong style="color:var(--color-text)">위젯 바인딩 —</strong> 속성의 타입에 따라 숫자는 드래그, 불리언은 체크박스, 열거형은 콤보 박스로 그려집니다.</figcaption>
+        </figure>
+        <figure style="margin:0;display:flex;flex-direction:column;gap:16px">
+          <div>
+            <div style="border:1px solid rgba(32,30,29,.25);background:#1b1b1b;padding:12px;display:flex;justify-content:center"><img src="../assets/tt-drawer-string.png" alt="" style="width:auto;max-width:100%;object-fit:contain;display:block"></div>
+            <figcaption style="font-size:12.5px;line-height:1.6;color:rgba(32,30,29,.65);margin-top:8px"><strong style="color:var(--color-text)">문자열 드로어 —</strong> <code style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;background:rgba(32,30,29,.07);padding:1px 4px">std::string</code>은 입력 필드로 그려집니다.</figcaption>
+          </div>
+          <div>
+            <div style="border:1px solid rgba(32,30,29,.25);background:#1b1b1b;padding:12px;display:flex;justify-content:center"><img src="../assets/tt-drawer-vector.png" alt="" style="width:auto;max-width:100%;object-fit:contain;display:block"></div>
+            <figcaption style="font-size:12.5px;line-height:1.6;color:rgba(32,30,29,.65);margin-top:8px"><strong style="color:var(--color-text)">컨테이너 드로어 —</strong> <code style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;background:rgba(32,30,29,.07);padding:1px 4px">std::vector</code>는 항목을 늘리고 줄일 수 있는 목록으로 그렸습니다. 열거형, 쿼터니언, 직접 만든 구조체도 드로어를 따로 뒀습니다.</figcaption>
+          </div>
+        </figure>
+      </div>
+      <div style="display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:36px;align-items:start">
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;color:rgba(32,30,29,.5);margin-bottom:10px">핵심 코드 — 창의 공통 인터페이스</div>
+          <pre style="margin:0 0 14px;background:var(--color-text);color:#e8e6e3;font-family:'IBM Plex Mono',monospace;font-size:11.5px;line-height:1.75;padding:16px 18px;overflow-x:auto">struct IWindow
+{
+  virtual ~IWindow() = default;
+  virtual void OnImGuiRender() = 0;  <span style="color:rgb(255,106,77)">// 매 프레임 호출</span>
+};
+
+<span style="color:rgb(138,133,128)">// 멤버 포인터를 캡슐화해 인스턴스에서 직접 읽고 쓴다</span>
+PropertyHandler&lt;Character, float&gt; speed{&amp;Character::Speed};</pre>
+          <p style="margin:0;font-size:14px;line-height:1.75;color:rgba(32,30,29,.78)">프로세스는 등록된 <code style="font-family:'IBM Plex Mono',monospace;font-size:12px">IWindow</code>의 렌더 함수를 돌리기만 하고, 창은 각자 필요한 것을 그립니다. 인스펙터는 그 안에서 <strong>Property 목록을 훑어 위젯을 만들고 Get/Set을 연결</strong>합니다.</p>
+        </div>
+        <div>
+          <div style="border-left:2px solid var(--color-accent);padding:2px 0 2px 16px">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;color:var(--color-accent);margin-bottom:6px">막혔던 지점</div>
+            <p style="margin:0;font-size:13.5px;line-height:1.7;color:rgba(32,30,29,.75)">등록을 빠뜨려도 컴파일은 그냥 통과해서, 실행해 보고 나서야 속성이 없다는 걸 알게 됩니다. 결국 <strong>매크로를 잘 쓰자는 약속</strong>에 기대는 구조였고, 지원하는 컨테이너도 <code style="font-family:'IBM Plex Mono',monospace;font-size:11.5px">std::vector</code> 정도가 전부였습니다. 다음 엔진에서 이 부분을 다시 짰습니다.</p>
+          </div>
+          <div style="margin-top:14px;font-size:13px;color:rgba(32,30,29,.55)">이어지는 개선 → <a href="../midnight-cleanup/">Midnight Cleanup의 인스펙터</a></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- f2 -->
+    <div id="f2" style="border:1px solid rgba(32,30,29,.22);border-top:none;background:#fff;padding:36px 44px 40px;scroll-margin-top:86px">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px">
+        <span style="background:var(--color-accent);color:#fff;font-family:'IBM Plex Mono',monospace;font-size:10px;padding:4px 8px;letter-spacing:.08em">내가 한 일 · 단독 설계 및 구현</span>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:rgba(32,30,29,.5);letter-spacing:.1em">EDITOR</span>
+      </div>
+      <h3 style="margin:0 0 18px;font-size:28px;font-weight:700;letter-spacing:-.02em">컴포넌트 조립과 프리팹 저장</h3>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);border-top:2px solid var(--color-text);border-bottom:1px solid rgba(32,30,29,.18);margin-bottom:26px">
+        <div style="padding:16px 20px 18px 0;border-right:1px solid rgba(32,30,29,.18)">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:rgba(32,30,29,.5);letter-spacing:.1em;margin-bottom:6px">무엇을</div>
+          <p style="margin:0;font-size:14.5px;line-height:1.6;font-weight:500">검색 팝업으로 컴포넌트를 붙이고, 완성된 오브젝트를 자식 계층까지 <code style="font-family:'IBM Plex Mono',monospace;font-size:12px">.prefab</code>으로 저장</p>
+        </div>
+        <div style="padding:16px 20px 18px;border-right:1px solid rgba(32,30,29,.18)">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:rgba(32,30,29,.5);letter-spacing:.1em;margin-bottom:6px">왜</div>
+          <p style="margin:0;font-size:14.5px;line-height:1.6;font-weight:500">캐릭터 하나에 컴포넌트와 자식이 십수 개라, 매번 손으로 다시 조립할 수는 없었음</p>
+        </div>
+        <div style="padding:16px 0 18px 20px">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--color-accent);letter-spacing:.1em;margin-bottom:6px">무엇이 나아졌나</div>
+          <p style="margin:0;font-size:14.5px;line-height:1.6;font-weight:500">씬과 프리팹이 <strong style="color:var(--color-accent)">파일로 남아</strong> 빌드 없이 레벨을 구성하고 공유</p>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:26px;align-items:start">
+        <figure style="margin:0">
+          <div style="border:1px solid rgba(32,30,29,.25);background:#1b1b1b;padding:12px;display:flex;justify-content:center;min-height:200px;align-items:center"><img src="../assets/tt-comp-add.png" alt="" style="width:auto;max-width:100%;max-height:340px;object-fit:contain;display:block"></div>
+          <figcaption style="font-size:12.5px;line-height:1.6;color:rgba(32,30,29,.65);margin-top:8px"><strong style="color:var(--color-text)">추가 —</strong> 검색 팝업에서 컴포넌트를 즉시 부착합니다. 목록은 등록된 타입에서 자동으로 만들어집니다.</figcaption>
+        </figure>
+        <figure style="margin:0">
+          <div style="border:1px solid rgba(32,30,29,.25);background:#1b1b1b;padding:12px;display:flex;justify-content:center;min-height:200px;align-items:center"><img src="../assets/tt-comp-remove.png" alt="" style="width:auto;max-width:100%;max-height:340px;object-fit:contain;display:block"></div>
+          <figcaption style="font-size:12.5px;line-height:1.6;color:rgba(32,30,29,.65);margin-top:8px"><strong style="color:var(--color-text)">삭제 —</strong> 우클릭 컨텍스트 메뉴로 붙어 있는 컴포넌트만 안전하게 떼어냅니다.</figcaption>
+        </figure>
+        <figure style="margin:0">
+          <div style="border:1px solid rgba(32,30,29,.25);background:#1b1b1b;padding:12px;display:flex;justify-content:center;min-height:200px;align-items:center"><img src="../assets/tt-prefab.png" alt="" style="width:auto;max-width:100%;max-height:340px;object-fit:contain;display:block"></div>
+          <figcaption style="font-size:12.5px;line-height:1.6;color:rgba(32,30,29,.65);margin-top:8px"><strong style="color:var(--color-text)">저장 —</strong> 선택한 오브젝트를 시작점으로 자식까지 따라 내려가며 하나의 JSON으로 남깁니다.</figcaption>
+        </figure>
+      </div>
+      <div style="display:grid;grid-template-columns:1.1fr minmax(0,1fr);gap:28px 36px;align-items:start">
+        <div style="min-width:0">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;color:rgba(32,30,29,.5);margin-bottom:10px">핵심 코드 — 재귀 직렬화</div>
+          <pre style="margin:0;background:var(--color-text);color:#e8e6e3;font-family:'IBM Plex Mono',monospace;font-size:11.5px;line-height:1.75;padding:16px 18px;overflow-x:auto">void SerializeSystem::SerializePrefabRecursive(
+    uint32_t id, nlohmann::json&amp; out, bool isTop)
+{
+  auto components = m_GameObjectManager
+                      -&gt;GetAttachedComponents(id);
+
+  for (auto cp : *components | std::views::values)
+    cp-&gt;SerializeThis(attached);   <span style="color:rgb(255,106,77)">// 매크로가 만든 가상 함수</span>
+
+  if (const auto children =
+        m_GameObjectManager-&gt;QueryComponent&lt;Children&gt;(id))
+    for (auto child : children-&gt;ChildrenID)
+      SerializePrefabRecursive(child, out, false);  <span style="color:rgb(138,133,128)">// 반복</span>
+}</pre>
+        </div>
+        <div>
+          <p style="margin:0 0 18px;font-size:14px;line-height:1.75;color:rgba(32,30,29,.78)">시작점의 오브젝트 ID를 받아 붙어 있는 컴포넌트를 차례로 직렬화하고, <code style="font-family:'IBM Plex Mono',monospace;font-size:12px">Children</code> 컴포넌트가 있으면 같은 함수를 자식에게 다시 부릅니다. <strong>컴포넌트마다 저장 코드를 따로 쓰지 않고</strong> 리플렉션 등록부에서 만들어진 가상 함수를 그대로 씁니다.</p>
+          <div style="border-left:2px solid var(--color-accent);padding:2px 0 2px 16px">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;color:var(--color-accent);margin-bottom:6px">막혔던 지점</div>
+            <p style="margin:0;font-size:13.5px;line-height:1.7;color:rgba(32,30,29,.75)">저장된 <code style="font-family:'IBM Plex Mono',monospace;font-size:11.5px">GameObjectId</code>가 불러올 때의 ID와 같을 수 없어, 부모–자식 관계가 어긋났습니다. <strong>불러오는 시점에 ID를 새로 발급하고 대응표로 관계를 다시 잇는</strong> 방식으로 정리했습니다.</p>
+          </div>
+        </div>
+      </div>
+      <div style="border-top:1px solid rgba(32,30,29,.18);margin-top:26px;padding-top:18px;display:flex;gap:16px;align-items:baseline;flex-wrap:wrap">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;color:var(--color-accent)">덧붙여</span>
+        <span style="font-size:13.5px;line-height:1.7;color:rgba(32,30,29,.75);flex:1;min-width:280px">툴만 넘기면 안 쓸 것 같아서 <strong><a href="manual/">기획자용 에디터 설명서(PDF)</a></strong>를 따로 썼습니다. 기능마다 화면을 캡처해 붙여 뒀습니다.</span>
+      </div>
+    </div>
+
+    <!-- f3 -->
+    <div id="f3" style="border:1px solid rgba(32,30,29,.22);border-top:none;background:#fff;padding:36px 44px 40px;scroll-margin-top:86px">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px">
+        <span style="background:var(--color-accent);color:#fff;font-family:'IBM Plex Mono',monospace;font-size:10px;padding:4px 8px;letter-spacing:.08em">내가 한 일 · 설계 및 구현</span>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:rgba(32,30,29,.5);letter-spacing:.1em">GAMEPLAY</span>
+      </div>
+      <h3 style="margin:0 0 18px;font-size:28px;font-weight:700;letter-spacing:-.02em">캐릭터 시스템</h3>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);border-top:2px solid var(--color-text);border-bottom:1px solid rgba(32,30,29,.18);margin-bottom:26px">
+        <div style="padding:16px 20px 18px 0;border-right:1px solid rgba(32,30,29,.18)">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:rgba(32,30,29,.5);letter-spacing:.1em;margin-bottom:6px">무엇을</div>
+          <p style="margin:0;font-size:14.5px;line-height:1.6;font-weight:500">입력을 프레임 단위 8비트 비트셋으로 표준화하고, 아이소메트릭 축에 맞춰 이동·점프를 수행</p>
+        </div>
+        <div style="padding:16px 20px 18px;border-right:1px solid rgba(32,30,29,.18)">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:rgba(32,30,29,.5);letter-spacing:.1em;margin-bottom:6px">왜</div>
+          <p style="margin:0;font-size:14.5px;line-height:1.6;font-weight:500">고스트가 과거를 그대로 재현하려면, 조작부터 <strong>기록할 수 있는 형태</strong>여야 했음</p>
+        </div>
+        <div style="padding:16px 0 18px 20px">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--color-accent);letter-spacing:.1em;margin-bottom:6px">무엇이 나아졌나</div>
+          <p style="margin:0;font-size:14.5px;line-height:1.6;font-weight:500">동시 입력을 잃지 않고 <strong style="color:var(--color-accent)">한 프레임 1바이트</strong>로 보존 — 조작과 재생이 같은 코드</p>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1.1fr minmax(0,1fr);gap:28px 36px;align-items:start">
+        <figure style="margin:0">
+          <div style="border:1px solid rgba(32,30,29,.25);background:#111;aspect-ratio:16/9;overflow:hidden"><img src="../assets/tt-move.gif" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+          <figcaption style="font-size:12.5px;line-height:1.6;color:rgba(32,30,29,.65);margin-top:8px">방향키를 등각 축에 맞춘 대각 성분으로 합성한 뒤 정규화합니다. 이렇게 해야 화면에서 보이는 방향과 실제 이동 방향이 어긋나지 않습니다.</figcaption>
+        </figure>
+        <div style="min-width:0">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;color:rgba(32,30,29,.5);margin-bottom:10px">핵심 코드 — 입력에서 이동까지</div>
+          <pre style="margin:0 0 16px;background:var(--color-text);color:#e8e6e3;font-family:'IBM Plex Mono',monospace;font-size:11.5px;line-height:1.75;padding:16px 18px;overflow-x:auto"><span style="color:rgb(138,133,128)">// 1) 입력 → 비트셋 (LEFT/RIGHT/UP/DOWN/JUMP/BOX/SKIP)</span>
+Bitset8 b = SampleInput();
+
+<span style="color:rgb(138,133,128)">// 2) 이동 벡터 합성 &amp; 적용</span>
+vec3 dir = IsoCompose(b);
+ApplyKinematicMove(Normalize(dir), speed, dt);
+
+<span style="color:rgb(138,133,128)">// 3) 이벤트성 액션</span>
+if (b[JUMP]) OnJump(characterId);
+if (b[BOX])  OnSpawnBox(characterId);
+
+<span style="color:rgb(255,106,77)">// 4) 트레이스 송신 — 리플레이어가 받는다</span>
+Publish("OnTraceDirection", {characterId, b});</pre>
+          <p style="margin:0;font-size:14px;line-height:1.75;color:rgba(32,30,29,.78)"><code style="font-family:'IBM Plex Mono',monospace;font-size:12px">IsControllable / IsMovable / IsJumpAble / JumpCooldown</code>으로 입력을 받을 수 있는 시점과 행동 제약을 상태로 분리해, 조작·재생·정지가 같은 함수를 공유합니다.</p>
+        </div>
+        <div style="grid-column:1 / -1">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;color:rgba(32,30,29,.5);margin:6px 0 12px">편의 기능</div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px">
+            <figure style="margin:0">
+              <div style="border:1px solid rgba(32,30,29,.25);background:#111;aspect-ratio:16/10;overflow:hidden"><img src="../assets/tt-skip.gif" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+              <figcaption style="font-size:12px;line-height:1.55;color:rgba(32,30,29,.65);margin-top:7px"><strong style="color:var(--color-text)">X · 스킵 —</strong> 남은 시간을 SKIP으로 채우고 다음 캐릭터로</figcaption>
+            </figure>
+            <figure style="margin:0">
+              <div style="border:1px solid rgba(32,30,29,.25);background:#111;aspect-ratio:16/10;overflow:hidden"><img src="../assets/tt-undo1.gif" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+              <figcaption style="font-size:12px;line-height:1.55;color:rgba(32,30,29,.65);margin-top:7px"><strong style="color:var(--color-text)">R · 되돌리기 —</strong> 현재 캐릭터의 움직임만 초기화</figcaption>
+            </figure>
+            <figure style="margin:0">
+              <div style="border:1px solid rgba(32,30,29,.25);background:#111;aspect-ratio:16/10;overflow:hidden"><img src="../assets/tt-undo2.gif" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+              <figcaption style="font-size:12px;line-height:1.55;color:rgba(32,30,29,.65);margin-top:7px"><strong style="color:var(--color-text)">R · 한 단계 앞 —</strong> 움직이지 않았다면 이전 캐릭터로</figcaption>
+            </figure>
+            <figure style="margin:0">
+              <div style="border:1px solid rgba(32,30,29,.25);background:#111;aspect-ratio:16/10;overflow:hidden"><img src="../assets/tt-restart.gif" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+              <figcaption style="font-size:12px;line-height:1.55;color:rgba(32,30,29,.65);margin-top:7px"><strong style="color:var(--color-text)">1 · 재시작 —</strong> 캐릭터 선택부터 다시</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- f4 -->
+    <div id="f4" style="border:1px solid rgba(32,30,29,.22);border-top:none;background:#fff;padding:36px 44px 40px;scroll-margin-top:86px">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px">
+        <span style="background:var(--color-accent);color:#fff;font-family:'IBM Plex Mono',monospace;font-size:10px;padding:4px 8px;letter-spacing:.08em">내가 한 일 · 단독 설계 및 구현</span>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:rgba(32,30,29,.5);letter-spacing:.1em">GAMEPLAY</span>
+      </div>
+      <h3 style="margin:0 0 18px;font-size:28px;font-weight:700;letter-spacing:-.02em">리플레이(고스트 플레이어) 시스템</h3>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);border-top:2px solid var(--color-text);border-bottom:1px solid rgba(32,30,29,.18);margin-bottom:26px">
+        <div style="padding:16px 20px 18px 0;border-right:1px solid rgba(32,30,29,.18)">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:rgba(32,30,29,.5);letter-spacing:.1em;margin-bottom:6px">무엇을</div>
+          <p style="margin:0;font-size:14.5px;line-height:1.6;font-weight:500">프레임별 입력 트레이스를 저장했다가, 시작 상태로 되감은 뒤 그대로 다시 주입해 재생</p>
+        </div>
+        <div style="padding:16px 20px 18px;border-right:1px solid rgba(32,30,29,.18)">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:rgba(32,30,29,.5);letter-spacing:.1em;margin-bottom:6px">왜</div>
+          <p style="margin:0;font-size:14.5px;line-height:1.6;font-weight:500">혼자서 협동 퍼즐을 푸는 게임이라, 앞 순서 캐릭터가 만들어 둔 상황이 그대로 남아야 했음</p>
+        </div>
+        <div style="padding:16px 0 18px 20px">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--color-accent);letter-spacing:.1em;margin-bottom:6px">무엇이 나아졌나</div>
+          <p style="margin:0;font-size:14.5px;line-height:1.6;font-weight:500">위치가 아니라 <strong style="color:var(--color-accent)">입력을 기록</strong>해, 물리와 상호작용까지 매번 동일하게 재현</p>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1.1fr minmax(0,1fr);gap:28px 36px;align-items:start">
+        <figure style="margin:0">
+          <div style="border:1px solid rgba(32,30,29,.25);background:#111;aspect-ratio:16/9;overflow:hidden"><img src="../assets/tt-replay.gif" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+          <figcaption style="font-size:12.5px;line-height:1.6;color:rgba(32,30,29,.65);margin-top:8px">토끼를 조작하는 동안 고양이와 비버는 자기 차례에 했던 행동을 그대로 반복합니다.</figcaption>
+        </figure>
+        <div style="min-width:0">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;color:rgba(32,30,29,.5);margin-bottom:10px">핵심 코드 — 기록과 재생</div>
+          <pre style="margin:0 0 16px;background:var(--color-text);color:#e8e6e3;font-family:'IBM Plex Mono',monospace;font-size:11.5px;line-height:1.75;padding:16px 18px;overflow-x:auto"><span style="color:rgb(138,133,128)">// 기록</span>
+if (IsTracing) {
+  Tracer[TraceIndex++] = incomingBitset;
+  if (TraceIndex == TraceSize) FinishTracing();
+}
+
+<span style="color:rgb(138,133,128)">// 재생 — 조작과 동일한 합성 로직을 탄다</span>
+if (IsReplaying) {
+  const auto&amp; b = Tracer[ReplayIndex++];
+  vec3 dir = IsoCompose(b);
+  ApplyKinematicMove(Normalize(dir), speed, dt);
+  if (b[JUMP]) Publish("OnJump", characterId);
+  if (b[BOX])  Publish("OnSpawnBox", characterId);
+  if (b[SKIP]) IsWaiting = true;
+}</pre>
+          <p style="margin:0;font-size:14px;line-height:1.75;color:rgba(32,30,29,.78)">재생을 시작할 때 <code style="font-family:'IBM Plex Mono',monospace;font-size:12px">StartPosition / StartRotation</code>으로 <strong>시작 상태까지 되감습니다</strong>. 액션은 전부 이벤트로 넘겼기 때문에, 더블 점프나 레버 같은 걸 나중에 붙여도 리플레이 쪽은 건드리지 않았습니다.</p>
+        </div>
+        <div style="grid-column:1 / -1">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;color:rgba(32,30,29,.5);margin:6px 0 12px">캐릭터 ↔ 리플레이 시스템 — 이벤트 흐름</div>
+          <div style="display:grid;grid-template-columns:1.25fr 1fr;gap:36px;align-items:start">
+            <pre style="margin:0;background:var(--color-text);color:#e8e6e3;font-family:'IBM Plex Mono',monospace;font-size:11.5px;line-height:1.8;padding:16px 18px;overflow-x:auto">[스테이지 시작]
+  ↓
+[캐릭터 #1 조작]  Tracing ON
+  └ 매 틱: 비트셋 생성 → 이동 → OnTraceDirection
+  └ 종료(클리어 / 스킵 / 타임업) → OnFinishTracing
+  ↓
+[#1 리플레이 시작]  되감기 → Replaying ON
+[캐릭터 #2 조작]   Tracing ON
+  └ #1은 고스트로 환경을 보조(버튼 / 상자 / 리프트)
+  ↓
+[#1 + #2 리플레이] + [캐릭터 #3 조작] …
+  ↓
+[전원 재생 완료 ⇒ 퍼즐 클리어 판정]</pre>
+            <div>
+              <div style="font-size:13.5px;line-height:1.9;border-top:2px solid var(--color-text);padding-top:12px">
+                <div><code style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--color-accent)">OnStartMoving</code> <span style="color:rgba(32,30,29,.7)">조작 시작 · 기록 준비</span></div>
+                <div><code style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--color-accent)">OnTraceDirection</code> <span style="color:rgba(32,30,29,.7)">캐릭터 → 리플레이어</span></div>
+                <div><code style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--color-accent)">OnFinishTracing</code> <span style="color:rgba(32,30,29,.7)">기록 종료 · 조작 불가화</span></div>
+                <div><code style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--color-accent)">OnStartReplay</code> <span style="color:rgba(32,30,29,.7)">되감기 후 재생 시작</span></div>
+                <div><code style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--color-accent)">OnJump / OnSpawnBox</code> <span style="color:rgba(32,30,29,.7)">리플레이어 → 월드</span></div>
+              </div>
+              <div style="border-left:2px solid var(--color-accent);padding:2px 0 2px 16px;margin-top:16px">
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;color:var(--color-accent);margin-bottom:6px">막혔던 지점</div>
+                <p style="margin:0;font-size:13.5px;line-height:1.7;color:rgba(32,30,29,.75)">같은 입력을 넣어도 시작 위치가 조금만 어긋나면 뒤로 갈수록 궤적이 크게 벌어졌습니다. 재생 직전에 <strong>기준 트랜스폼을 강제로 맞춰 두는 것</strong>으로 정리했습니다.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- f5 -->
+    <div id="f5" style="border:1px solid rgba(32,30,29,.22);border-top:none;background:#fff;padding:36px 44px 40px;scroll-margin-top:86px">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px">
+        <span style="background:var(--color-accent);color:#fff;font-family:'IBM Plex Mono',monospace;font-size:10px;padding:4px 8px;letter-spacing:.08em">내가 한 일 · 설계 및 구현</span>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:rgba(32,30,29,.5);letter-spacing:.1em">GAMEPLAY</span>
+      </div>
+      <h3 style="margin:0 0 18px;font-size:28px;font-weight:700;letter-spacing:-.02em">랜딩 포인트</h3>
+      <div style="display:grid;grid-template-columns:1.1fr minmax(0,1fr);gap:36px;align-items:start">
+        <figure style="margin:0">
+          <div style="border:1px solid rgba(32,30,29,.25);background:#111;aspect-ratio:16/9;overflow:hidden"><img src="../assets/tt-landing.gif" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+          <figcaption style="font-size:12.5px;line-height:1.6;color:rgba(32,30,29,.65);margin-top:8px">고양이가 파란 랜딩 포인트에 닿으면, 다음 차례인 토끼의 시작점이 그 자리로 옮겨집니다.</figcaption>
+        </figure>
+        <div>
+          <p style="margin:0 0 18px;font-size:14px;line-height:1.75;color:rgba(32,30,29,.78)">캐릭터가 트리거에 도달하면 그 위치를 <strong>다음 캐릭터의 시작점</strong>으로 삼는 체크포인트입니다. 퍼즐을 앞으로 밀어 주는 장치라서, 씬 안에서 유효한 시작점이 항상 하나만 남도록 관리해야 했습니다.</p>
+          <div style="border-top:2px solid var(--color-text);font-size:13.5px;line-height:1.7">
+            <div style="padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)">씬 단위 <strong>유일 시작점</strong> 보장 — 나중에 닿은 포인트가 이전 것을 무효화</div>
+            <div style="padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)">되감기(R) 이벤트를 받으면 <strong>이전 시작 지점을 복구</strong></div>
+            <div style="padding:11px 0">시작점이 바뀔 때 이펙트와 사운드를 같이 재생해 <strong>플레이어가 알아채도록</strong></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. 회고 -->
+  <section style="padding:52px 0 0">
+    <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:20px">
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-accent)">03</span>
+      <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">회고</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);border-top:2px solid var(--color-text);border-bottom:2px solid var(--color-text)">
+      <div style="padding:24px 28px 28px 0;border-right:1px solid rgba(32,30,29,.18)">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;color:var(--color-accent);margin-bottom:10px">잘된 것</div>
+        <p style="margin:0;font-size:14.5px;line-height:1.75;color:rgba(32,30,29,.8)"><strong>리플렉션과 직렬화를 처음 넣어</strong> 씬과 프리팹을 파일로 남길 수 있게 됐고, 그때부터 기획이 빌드 없이 레벨을 만들었습니다.<br>입력을 비트셋으로 통일해 둔 덕에 <strong>조작과 리플레이가 같은 코드</strong>를 씁니다.</p>
+      </div>
+      <div style="padding:24px 28px 28px;border-right:1px solid rgba(32,30,29,.18)">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;color:var(--color-accent);margin-bottom:10px">아쉬운 것</div>
+        <p style="margin:0;font-size:14.5px;line-height:1.75;color:rgba(32,30,29,.8)">컴포넌트에 가상 함수를 그대로 두고, 비슷한 컴포넌트끼리 멤버도 겹쳤습니다. <strong>ECS로 옮긴 이유가 무색해진 부분</strong>입니다.<br>인스펙터가 부족해 파일명처럼 직접 타이핑해야 하는 값이 많았고, 오타 하나로 시간을 날린 적도 있습니다.</p>
+      </div>
+      <div style="padding:24px 0 28px 28px">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;color:var(--color-accent);margin-bottom:10px">다음에 개선한다면</div>
+        <p style="margin:0;font-size:14.5px;line-height:1.75;color:rgba(32,30,29,.8)">상속 대신 <strong>조합으로 컴포넌트를 쪼개</strong> 중복을 없애고, 데이터만 남은 컴포넌트를 시스템이 처리하게 하는 방향.<br>리플렉션도 직접 만든 매크로보다 이미 검증된 것을 쓰는 편이 낫다고 봤고, 다음 엔진에서 실제로 그렇게 했습니다. <a href="../midnight-cleanup/">Midnight Cleanup 보기</a></p>
+      </div>
+    </div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:24px">
+      <a href="https://github.com/Will-Big/TicToc-Guardians" target="_blank" rel="noopener" style="border:2px solid var(--color-text);padding:12px 18px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-text);border-bottom:2px solid var(--color-text)">GitHub — TicToc-Guardians</a>
+      <a href="https://www.youtube.com/watch?v=Cuudj5FuxYY" target="_blank" rel="noopener" style="border:2px solid var(--color-text);padding:12px 18px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-text);border-bottom:2px solid var(--color-text)">플레이 영상 — YouTube</a>
+    </div>
+  </section>
+
+  <div style="margin-top:44px;border-top:2px solid var(--color-text);padding-top:16px;display:flex;justify-content:space-between;gap:20px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:rgba(32,30,29,.55)">
+    <a href="../" style="color:var(--color-text);border:none">← Portfolio 로 돌아가기</a>
+    <span>TicToc Guardians · 2024</span>
+  </div>
+
+</div>
+</x-dc>
+</body>
+</html>
