@@ -367,22 +367,22 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
     </div>
     <div style="font-size:14px">
       <div style="display:grid;grid-template-columns:.5fr 1.1fr 1.4fr 1.4fr;gap:20px;padding:12px 0;border-bottom:1px solid rgba(32,30,29,.15);font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;color:rgba(32,30,29,.5)">
-        <span>순서</span><span>프로젝트</span><span>새로 도입한 것</span><span>이전에서 느낀 한계</span>
+        <span>순서</span><span>프로젝트</span><span>새로 도입한 것</span><span>개선해야겠다고 느낀 것</span>
       </div>
       <div style="display:grid;grid-template-columns:.5fr 1.1fr 1.4fr 1.4fr;gap:20px;padding:14px 0;border-bottom:1px solid rgba(32,30,29,.15);line-height:1.6">
-        <span style="font-family:'IBM Plex Mono',monospace;color:rgba(32,30,29,.45)">0th</span><span style="font-weight:500">로컬 PVP 바둑<br><span style="font-weight: 400; color: rgba(32, 30, 29, 0.5);"></span></span><span>외부 API 없이 순수 C · while 무한 게임 루프</span><span style="color:rgba(32,30,29,.65)">—</span>
+        <span style="font-family:'IBM Plex Mono',monospace;color:rgba(32,30,29,.45)">0th</span><span style="font-weight:500">로컬 PVP 바둑<br><span style="font-weight: 400; color: rgba(32, 30, 29, 0.5);"></span></span><span>외부 API 없이 순수 C · while 무한 게임 루프</span><span style="color:rgba(32,30,29,.65)">루프에 로직을 계속 덧붙이는 구조라 확장이 막힘 — 구조적인 게임 루프 설계가 필요하다고 느낌</span>
       </div>
       <div style="display:grid;grid-template-columns:.5fr 1.1fr 1.4fr 1.4fr;gap:20px;padding:14px 0;border-bottom:1px solid rgba(32,30,29,.15);line-height:1.6">
-        <span style="font-family:'IBM Plex Mono',monospace;color:rgba(32,30,29,.45)">1st</span><span style="font-weight:500">나의 인형 이야기</span><span>Windows API 위의 최소 게임 루프</span><span style="color:rgba(32,30,29,.65)">루프에 로직을 계속 덧붙이는 구조라 확장이 막힘 — 구조적인 게임 루프 설계가 필요하다고 느낌</span>
+        <span style="font-family:'IBM Plex Mono',monospace;color:rgba(32,30,29,.45)">1st</span><span style="font-weight:500">나의 인형 이야기</span><span>Windows API 위의 최소 게임 루프</span><span style="color:rgba(32,30,29,.65)">오브젝트가 상속으로만 늘어나 재사용이 안 됨</span>
       </div>
       <div style="display:grid;grid-template-columns:.5fr 1.1fr 1.4fr 1.4fr;gap:20px;padding:14px 0;border-bottom:1px solid rgba(32,30,29,.15);line-height:1.6">
-        <span style="font-family:'IBM Plex Mono',monospace;color:rgba(32,30,29,.45)">2nd</span><span style="font-weight:500">Fate Weaver</span><span>컴포넌트 기반 구조 · Direct2D</span><span style="color:rgba(32,30,29,.65)">오브젝트가 상속으로만 늘어나 재사용이 안 됨</span>
+        <span style="font-family:'IBM Plex Mono',monospace;color:rgba(32,30,29,.45)">2nd</span><span style="font-weight:500">Fate Weaver</span><span>컴포넌트 기반 구조 · Direct2D</span><span style="color:rgba(32,30,29,.65)">데이터를 코드로만 만들어 기획이 손댈 수 없었음</span>
       </div>
       <div style="display:grid;grid-template-columns:.5fr 1.1fr 1.4fr 1.4fr;gap:20px;padding:14px 0;border-bottom:1px solid rgba(32,30,29,.15);line-height:1.6">
-        <span style="font-family:'IBM Plex Mono',monospace;color:rgba(32,30,29,.45)">3rd</span><span style="font-weight:500">TicToc Guardians</span><span>리플렉션 · 시리얼라이즈 · 첫 에디터</span><span style="color:rgba(32,30,29,.65)">데이터를 코드로만 만들어 기획이 손댈 수 없었음</span>
+        <span style="font-family:'IBM Plex Mono',monospace;color:rgba(32,30,29,.45)">3rd</span><span style="font-weight:500">TicToc Guardians</span><span>리플렉션 · 시리얼라이즈 · 첫 에디터</span><span style="color:rgba(32,30,29,.65)">메인 루프와 렌더러가 붙어 있어 툴을 얹기 어려웠음</span>
       </div>
       <div style="display:grid;grid-template-columns:.5fr 1.1fr 1.4fr 1.4fr;gap:20px;padding:14px 0;border-bottom:2px solid var(--color-text);line-height:1.6;background:rgba(236,48,19,.05)">
-        <span style="font-family:'IBM Plex Mono',monospace;color:var(--color-accent)">4th</span><span style="font-weight:600">Midnight Cleanup</span><span>ECS 전환 · 메인 루프 분리 · 충돌 레이어 추상화</span><span style="color:rgba(32,30,29,.65)">메인 루프와 렌더러가 붙어 있어 툴을 얹기 어려웠음</span>
+        <span style="font-family:'IBM Plex Mono',monospace;color:var(--color-accent)">4th</span><span style="font-weight:600">Midnight Cleanup</span><span>ECS 전환 · 메인 루프 분리 · 충돌 레이어 추상화</span><span style="color:rgba(32,30,29,.65)">충돌 해결을 위한 버전 컨트롤과 마이그레이션에 대한 필요성을 알게 됨</span>
       </div>
     </div>
   </section>
