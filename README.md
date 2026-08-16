@@ -35,6 +35,7 @@ index.html          포트폴리오 본문 (이 파일 하나가 페이지 전�
 support.js          렌더링 런타임 — 반드시 함께 둘 것
 lazy-img.js         아래쪽 이미지를 화면에 가까워질 때 불러오는 스크립트
 image-slot.js       이미지 슬롯 컴포넌트 (지금은 어느 페이지도 쓰지 않음)
+mobile.css          좁은 화면(900px 이하) 대응. 넓은 화면에는 아무 영향이 없음
 _ds/modernist-.../  디자인 토큰 stylesheet + 번들
 assets/             WebP · GIF · PNG 자료
 .nojekyll           Jekyll 비활성화 — _ds 가 밑줄로 시작해서 필수. 지우면 스타일이 전부 깨짐
@@ -47,5 +48,10 @@ mc/ tictoc/ ...     프로젝트별 경로. 지금은 리다이렉트, 나중에
 이미지를 새로 넣을 때는 첫 화면에 보이는 한 장만 `src` 로 두고, 나머지는 `src` 대신
 `data-src` 로 적어 주세요. `lazy-img.js` 가 스크롤을 따라가며 채웁니다. `width` 와
 `height` 도 함께 적어야 그림이 늦게 채워져도 글이 밀리지 않습니다.
+
+`<helmet>` 안에 `<link>` · `<meta>` · `<script>` 를 새로 넣을 때는 **맨 마지막에 두지
+마세요.** `support.js` 는 helmet 의 마지막 자식이 이 세 태그 중 하나면 "아직 덜 받은
+조각"으로 보고 조용히 버립니다(`<style>` 은 이 검사를 받지 않아서 늘 살아남습니다).
+`</helmet>` 바로 앞은 `<style>` 로 두고, 나머지는 그 위에 넣으면 됩니다.
 
 </details>
