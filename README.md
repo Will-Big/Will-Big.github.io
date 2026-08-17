@@ -36,6 +36,7 @@ support.js          렌더링 런타임 — 반드시 함께 둘 것
 lazy-img.js         아래쪽 이미지를 화면에 가까워질 때 불러오는 스크립트
 image-slot.js       이미지 슬롯 컴포넌트 (지금은 어느 페이지도 쓰지 않음)
 mobile.css          좁은 화면(900px 이하) 대응. 넓은 화면에는 아무 영향이 없음
+STYLE.md            본문을 쓸 때 지키는 문장 · 제목 · 구성 기준
 _ds/modernist-.../  디자인 토큰 stylesheet + 번들
 assets/             WebP · GIF · PNG 자료
 .nojekyll           Jekyll 비활성화 — _ds 가 밑줄로 시작해서 필수. 지우면 스타일이 전부 깨짐
