@@ -41,9 +41,14 @@
   --color-accent-2-800: #71261b;
   --color-accent-2-900: #471d16;
 
-  --font-heading: "Archivo", system-ui, sans-serif;
+  /* Archivo has no Hangul. Without a Korean webfont in front of the system
+     stack, every Korean glyph falls through to the OS default — Apple SD
+     Gothic Neo on macOS, Malgun Gothic on Windows — and the page reads as a
+     different typeface per platform. IBM Plex Sans KR is already loaded by
+     every page, so it takes the Korean and Archivo keeps the Latin. */
+  --font-heading: "Archivo", "IBM Plex Sans KR", system-ui, sans-serif;
   --font-heading-weight: 800;
-  --font-body: "Archivo", system-ui, sans-serif;
+  --font-body: "Archivo", "IBM Plex Sans KR", system-ui, sans-serif;
 
   --space-1: 4.0px;
   --space-2: 8.0px;
@@ -69,6 +74,15 @@ body {
   font-family: var(--font-body);
 }
 h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: var(--font-heading-weight); }
+
+/* Same problem, one layer down: this site writes its body in inline style, and
+   IBM Plex Mono has no Hangul either. Any element that asks for Plex Mono gets
+   the Korean fallback appended here, so a page written with the plain
+   `'IBM Plex Mono',monospace` pair still renders identically on both
+   platforms. !important is what beats a normal inline declaration. */
+[style*="IBM Plex Mono"] {
+  font-family: "IBM Plex Mono", "IBM Plex Sans KR", monospace !important;
+}
 
 .grayscale{filter:grayscale(1) contrast(1.08)}
 

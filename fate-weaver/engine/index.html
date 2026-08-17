@@ -31,7 +31,7 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
 </helmet>
 <div style="max-width:1180px;margin:0 auto;padding:0 40px 140px">
 
-  <div class="crumb" style="padding:34px 0 14px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;color:rgba(32,30,29,.5);display:flex;justify-content:space-between;align-items:center;gap:20px;border-bottom:1px solid rgba(32,30,29,.18)">
+  <div class="crumb" style="padding:34px 0 14px;font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;letter-spacing:.1em;color:rgba(32,30,29,.5);display:flex;justify-content:space-between;align-items:center;gap:20px;border-bottom:1px solid rgba(32,30,29,.18)">
     <span><a href="/" style="color:rgba(32,30,29,.5);border:none">↑ Portfolio</a> &nbsp;/&nbsp; <a href="../" style="color:rgba(32,30,29,.5);border:none">Fate Weaver</a> &nbsp;/&nbsp; <span style="color:var(--color-text)">엔진 설계 의도</span></span>
     <span>C++17 · Direct2D(DX11)</span>
   </div>
@@ -39,7 +39,7 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
   <section data-screen-label="표제" style="padding:44px 0 0">
     <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:48px;align-items:end;border-bottom:2px solid var(--color-text);padding-bottom:26px">
       <div>
-        <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;color:var(--color-accent);margin-bottom:12px">2ND · FATE WEAVER (2023) — 설계 의도</div>
+        <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;letter-spacing:.12em;color:var(--color-accent);margin-bottom:12px">2ND · FATE WEAVER (2023) — 설계 의도</div>
         <h1 style="margin:0;font-size:52px;line-height:1.1;letter-spacing:-.035em;font-weight:700;text-wrap:pretty">오브젝트는 그릇,<br>기능은 컴포넌트</h1>
       </div>
       <p style="margin:0;font-size:14.5px;line-height:1.85;color:rgba(32,30,29,.78);text-wrap:pretty">두 번째로 만든 자체 엔진입니다. 첫 엔진을 만들며 얻은 구조에 대한 감각을 이어받아, 이번에는 <b>협업의 기반이 되는 아키텍처</b>를 먼저 설계하고 시작했습니다. 엔진 아키텍처 설계와 구현 전반 — 오브젝트 관리, 씬 전환, 컴포넌트 시스템, 이벤트 메커니즘 — 을 담당했습니다.</p>
@@ -47,7 +47,7 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
 
     <div style="padding:34px 0 0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.12fr);gap:48px;align-items:start">
       <div style="border-left:2px solid var(--color-accent);padding:4px 0 4px 20px">
-        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;color:var(--color-accent);margin-bottom:12px">설계 목표</div>
+        <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.14em;color:var(--color-accent);margin-bottom:12px">설계 목표</div>
         <div style="font-size:29px;line-height:1.35;font-weight:700;letter-spacing:-.02em;text-wrap:pretty">필요한 주기만 돌고,<br>참조 없이도 말이 통하게</div>
       </div>
       <div style="font-size:15px;line-height:1.9;color:rgba(32,30,29,.82);text-wrap:pretty">
@@ -59,10 +59,10 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
 
   <section data-screen-label="01 자동 등록" style="padding:56px 0 0">
     <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:6px">
-      <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-accent)">01</span>
+      <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px;color:var(--color-accent)">01</span>
       <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">실행 주기 인터페이스와 자동 등록</h2>
     </div>
-    <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);max-width:78ch;text-wrap:pretty">모든 컴포넌트가 <code style="font-family:'IBM Plex Mono',monospace;font-size:12.5px">Update</code>·<code style="font-family:'IBM Plex Mono',monospace;font-size:12.5px">Render</code>를 빈 함수로 들고 있는 대신, <b>필요한 인터페이스만 상속</b>하게 했습니다. 등록은 사람이 하지 않습니다. <code style="font-family:'IBM Plex Mono',monospace;font-size:12.5px">AddComponent</code> 안에서 <code style="font-family:'IBM Plex Mono',monospace;font-size:12.5px">dynamic_cast</code>로 인터페이스를 확인하고, 해당하는 컨테이너에 알아서 담깁니다.</p>
+    <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);max-width:78ch;text-wrap:pretty">모든 컴포넌트가 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12.5px">Update</code>·<code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12.5px">Render</code>를 빈 함수로 들고 있는 대신, <b>필요한 인터페이스만 상속</b>하게 했습니다. 등록은 사람이 하지 않습니다. <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12.5px">AddComponent</code> 안에서 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12.5px">dynamic_cast</code>로 인터페이스를 확인하고, 해당하는 컨테이너에 알아서 담깁니다.</p>
 
     <div data-om-raster="true" style="border:2px solid var(--color-text);background:#fff;padding:20px 22px">
       <svg sc-camel-view-box="0 0 1100 250" style="width:100%;height:auto;display:block" role="img" aria-label="AddComponent 의 자동 등록 흐름">
@@ -106,8 +106,8 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
     <sc-if value="{{ showCode }}" hint-placeholder-val="{{ true }}">
     <div style="display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:32px;margin-top:26px;align-items:start">
       <div>
-        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;color:rgba(32,30,29,.5);margin-bottom:10px"><span style="color:var(--color-text);font-weight:500">fate-weaver</span> · Engine/GameObject.h — 등록과 순회</div>
-        <pre style="margin:0;background:var(--color-text);color:#e8e6e3;font-family:'IBM Plex Mono',monospace;font-size:11.5px;line-height:1.75;padding:16px 18px;overflow-x:auto">template&lt;typename T&gt;
+        <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.12em;color:rgba(32,30,29,.5);margin-bottom:10px"><span style="color:var(--color-text);font-weight:500">fate-weaver</span> · Engine/GameObject.h — 등록과 순회</div>
+        <pre style="margin:0;background:var(--color-text);color:#e8e6e3;font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11.5px;line-height:1.75;padding:16px 18px;overflow-x:auto">template&lt;typename T&gt;
 T* GameObject::AddComponent()
 {
     T* component = new T(this);
@@ -133,11 +133,11 @@ void GameObject::Update(const float&amp; deltaTime)
       </div>
       <div>
         <div style="border-left:2px solid var(--color-accent);padding:2px 0 2px 16px;margin-bottom:16px">
-          <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;color:var(--color-accent);margin-bottom:6px">왜 인터페이스로 나눴나</div>
+          <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.1em;color:var(--color-accent);margin-bottom:6px">왜 인터페이스로 나눴나</div>
           <p style="margin:0;font-size:13.5px;line-height:1.7;color:rgba(32,30,29,.75)">컴포넌트가 늘어날수록 <b>아무 일도 하지 않는 가상 함수 호출</b>이 프레임마다 쌓입니다. 주기를 선언으로 드러내면 호출 자체가 없어지고, 컴포넌트를 보는 것만으로 언제 도는지 알 수 있습니다.</p>
         </div>
         <div style="border:1px solid rgba(32,30,29,.25);padding:16px 18px">
-          <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;color:rgba(32,30,29,.5);margin-bottom:8px">실제 결과</div>
+          <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.1em;color:rgba(32,30,29,.5);margin-bottom:8px">실제 결과</div>
           <div style="font-size:13px;line-height:1.75;color:rgba(32,30,29,.75)">기대했던 만큼의 <b>프레임 향상은 없었습니다.</b> 다만 불필요한 호출을 구조적으로 막는다는 설계적 의미는 남았고, 상용 엔진이 왜 같은 방식을 쓰는지 이때 체감했습니다.</div>
         </div>
       </div>
@@ -147,10 +147,10 @@ void GameObject::Update(const float&amp; deltaTime)
 
   <section data-screen-label="02 지연 처리" style="padding:56px 0 0">
     <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:6px">
-      <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-accent)">02</span>
+      <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px;color:var(--color-accent)">02</span>
       <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">씬의 지연 처리</h2>
     </div>
-    <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);max-width:78ch;text-wrap:pretty">순회 도중에 오브젝트를 지우면 이터레이터가 깨집니다. 그래서 <b>생성·삭제·씬 전환 요청을 큐에 쌓아 두고</b>, 한 프레임의 모든 순회가 끝난 <code style="font-family:'IBM Plex Mono',monospace;font-size:12.5px">LateUpdate</code> 시점에 한 번에 처리했습니다.</p>
+    <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);max-width:78ch;text-wrap:pretty">순회 도중에 오브젝트를 지우면 이터레이터가 깨집니다. 그래서 <b>생성·삭제·씬 전환 요청을 큐에 쌓아 두고</b>, 한 프레임의 모든 순회가 끝난 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12.5px">LateUpdate</code> 시점에 한 번에 처리했습니다.</p>
 
     <div data-om-raster="true" style="border:2px solid var(--color-text);background:#fff;padding:20px 22px">
       <svg sc-camel-view-box="0 0 1100 290" style="width:100%;height:auto;display:block" role="img" aria-label="한 프레임 안에서 삭제 요청이 지연 처리되는 흐름">
@@ -201,8 +201,8 @@ void GameObject::Update(const float&amp; deltaTime)
 
     <sc-if value="{{ showCode }}" hint-placeholder-val="{{ true }}">
     <div style="margin-top:26px">
-      <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;color:rgba(32,30,29,.5);margin-bottom:10px"><span style="color:var(--color-text);font-weight:500">fate-weaver</span> · Engine/SceneSystem.cpp — 미루고, 한 번에 처리한다</div>
-      <pre style="margin:0;background:var(--color-text);color:#e8e6e3;font-family:'IBM Plex Mono',monospace;font-size:11.5px;line-height:1.75;padding:16px 18px;overflow-x:auto">void SceneSystem::LateUpdate(const float&amp; deltaTime)
+      <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.12em;color:rgba(32,30,29,.5);margin-bottom:10px"><span style="color:var(--color-text);font-weight:500">fate-weaver</span> · Engine/SceneSystem.cpp — 미루고, 한 번에 처리한다</div>
+      <pre style="margin:0;background:var(--color-text);color:#e8e6e3;font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11.5px;line-height:1.75;padding:16px 18px;overflow-x:auto">void SceneSystem::LateUpdate(const float&amp; deltaTime)
 {
     if (m_CurScene != nullptr)
         m_CurScene-&gt;LateUpdate(deltaTime);
@@ -222,7 +222,7 @@ void SceneSystem::DelayedDelete(std::any delGO)
 
   <section data-screen-label="03 이벤트" style="padding:56px 0 0">
     <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:6px">
-      <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-accent)">03</span>
+      <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px;color:var(--color-accent)">03</span>
       <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">중앙 집중형 이벤트 시스템</h2>
     </div>
     <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);max-width:78ch;text-wrap:pretty">서로를 참조하기 어려운 클래스끼리 통신하도록, 이벤트를 엔진의 중앙 통로로 두었습니다. 게임 로직뿐 아니라 <b>오브젝트 생성·삭제, 씬 전환 같은 엔진 내부 동작까지</b> 이 통로로 요청합니다. 가장 신경 쓴 부분은 <b>구독을 끊는 일을 사람이 기억하지 않게 만드는 것</b>이었습니다.</p>
@@ -275,8 +275,8 @@ void SceneSystem::DelayedDelete(std::any delGO)
 
     <sc-if value="{{ showCode }}" hint-placeholder-val="{{ true }}">
     <div style="margin-top:26px">
-      <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;color:rgba(32,30,29,.5);margin-bottom:10px"><span style="color:var(--color-text);font-weight:500">fate-weaver</span> · Engine/EventHandler.h — 구독 해지를 소멸자가 대신한다</div>
-      <pre style="margin:0;background:var(--color-text);color:#e8e6e3;font-family:'IBM Plex Mono',monospace;font-size:11.5px;line-height:1.75;padding:16px 18px;overflow-x:auto">class EventHandler
+      <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.12em;color:rgba(32,30,29,.5);margin-bottom:10px"><span style="color:var(--color-text);font-weight:500">fate-weaver</span> · Engine/EventHandler.h — 구독 해지를 소멸자가 대신한다</div>
+      <pre style="margin:0;background:var(--color-text);color:#e8e6e3;font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11.5px;line-height:1.75;padding:16px 18px;overflow-x:auto">class EventHandler
 {
 public:
     <span style="color:#8a8580">// 소멸 시 EventSystem 에 등록된 자신을 제거</span>
@@ -299,19 +299,19 @@ public:
     </sc-if>
 
     <div style="margin-top:22px;border-left:2px solid var(--color-accent);padding:4px 0 4px 18px">
-      <p style="margin:0;font-size:14px;line-height:1.8;color:rgba(32,30,29,.8);max-width:80ch;text-wrap:pretty">이 구조가 남긴 아쉬움 — <b>문자열 이벤트 ID 와 <code style="font-family:'IBM Plex Mono',monospace;font-size:12.5px">std::any</code> 파라미터</b> — 은 이후 엔진에서 타입 기반으로 바뀌었습니다. 그 변화를 아래 <a href="#event-compare">이벤트 식별의 변화</a>에서 따로 정리했습니다.</p>
+      <p style="margin:0;font-size:14px;line-height:1.8;color:rgba(32,30,29,.8);max-width:80ch;text-wrap:pretty">이 구조가 남긴 아쉬움 — <b>문자열 이벤트 ID 와 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12.5px">std::any</code> 파라미터</b> — 은 이후 엔진에서 타입 기반으로 바뀌었습니다. 그 변화를 아래 <a href="#event-compare">이벤트 식별의 변화</a>에서 따로 정리했습니다.</p>
     </div>
   </section>
 
   <section data-screen-label="04 한계" style="padding:56px 0 0">
     <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:6px">
-      <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-accent)">04</span>
+      <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px;color:var(--color-accent)">04</span>
       <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">한계와 배운 점</h2>
     </div>
     <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);max-width:78ch;text-wrap:pretty">세 가지가 남았고, 셋 다 다음 엔진의 목표가 되었습니다.</p>
 
     <div style="border-top:2px solid var(--color-text);font-size:13.5px">
-      <div style="display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr) minmax(0,1.2fr);gap:20px;padding:12px 0;border-bottom:1px solid rgba(32,30,29,.14);font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;color:rgba(32,30,29,.5)"><span>영역</span><span>한계</span><span>배운 점 · 이후 반영</span></div>
+      <div style="display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr) minmax(0,1.2fr);gap:20px;padding:12px 0;border-bottom:1px solid rgba(32,30,29,.14);font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.1em;color:rgba(32,30,29,.5)"><span>영역</span><span>한계</span><span>배운 점 · 이후 반영</span></div>
 
       <div style="display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr) minmax(0,1.2fr);gap:20px;padding:14px 0;border-bottom:1px solid rgba(32,30,29,.14)">
         <span style="font-weight:600">실행 주기 최적화</span>
@@ -321,8 +321,8 @@ public:
 
       <div id="event-compare" style="display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr) minmax(0,1.2fr);gap:20px;padding:14px 0;border-bottom:1px solid rgba(32,30,29,.14);scroll-margin-top:86px">
         <span style="font-weight:600;color:var(--color-accent)">이벤트 시스템<span style="display:block;margin-top:8px;font-weight:400;font-size:13px;line-height:1.6;color:rgba(32,30,29,.75)"><a href="../events/" style="color:inherit;border-bottom:1px solid rgba(32,30,29,.45)">🔗 이벤트 구현 비교 자세히 보기</a></span></span>
-        <span style="color:rgba(32,30,29,.75);line-height:1.7"><code style="font-family:'IBM Plex Mono',monospace;font-size:12px">std::any</code> 는 유연했지만 수신측이 <b>정확한 타입을 알고 캐스팅해야</b> 했습니다. 식별자가 문자열이라 오타를 컴파일러가 잡지 못했고, 이벤트 클래스 상속 및 사용이 강제되어 사용법이 복잡했습니다.</span>
-        <span style="color:rgba(32,30,29,.75);line-height:1.7"><b>컴파일 타임에 오류를 검출하는 설계</b>의 필요성을 절감했습니다. 이후 엔진에서 <code style="font-family:'IBM Plex Mono',monospace;font-size:12px">struct</code> 자체를 이벤트 ID 이자 파라미터로 쓰는 방식으로 바꿨습니다.</span>
+        <span style="color:rgba(32,30,29,.75);line-height:1.7"><code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px">std::any</code> 는 유연했지만 수신측이 <b>정확한 타입을 알고 캐스팅해야</b> 했습니다. 식별자가 문자열이라 오타를 컴파일러가 잡지 못했고, 이벤트 클래스 상속 및 사용이 강제되어 사용법이 복잡했습니다.</span>
+        <span style="color:rgba(32,30,29,.75);line-height:1.7"><b>컴파일 타임에 오류를 검출하는 설계</b>의 필요성을 절감했습니다. 이후 엔진에서 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px">struct</code> 자체를 이벤트 ID 이자 파라미터로 쓰는 방식으로 바꿨습니다.</span>
       </div>
 
       <div style="display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr) minmax(0,1.2fr);gap:20px;padding:14px 0;border-bottom:1px solid rgba(32,30,29,.14)">
@@ -334,18 +334,18 @@ public:
 
     <sc-if value="{{ showRefTable }}" hint-placeholder-val="{{ true }}">
     <div style="margin-top:30px">
-      <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;color:rgba(32,30,29,.5);margin-bottom:10px">참조 코드</div>
+      <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.12em;color:rgba(32,30,29,.5);margin-bottom:10px">참조 코드</div>
       <div style="border-top:2px solid var(--color-text);font-size:13.5px">
-        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:20px;padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px"><a href="https://github.com/Will-Big/fate-weaver/blob/main/Engine/GameObject.h" target="_blank" rel="noopener">Engine/GameObject.h</a> · <a href="https://github.com/Will-Big/fate-weaver/blob/main/Engine/GameObject.cpp" target="_blank" rel="noopener">GameObject.cpp</a></span><span style="color:rgba(32,30,29,.75)">컴포넌트 컨테이너와 주기별 자동 등록, 위임 순회</span></div>
-        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:20px;padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px"><a href="https://github.com/Will-Big/fate-weaver/blob/main/Engine/SceneSystem.h" target="_blank" rel="noopener">Engine/SceneSystem.h</a> · <a href="https://github.com/Will-Big/fate-weaver/blob/main/Engine/SceneSystem.cpp" target="_blank" rel="noopener">SceneSystem.cpp</a></span><span style="color:rgba(32,30,29,.75)">지연 처리 큐와 씬 전환, 오브젝트 생명 주기 관리</span></div>
-        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:20px;padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px"><a href="https://github.com/Will-Big/fate-weaver/blob/main/Engine/EventSystem.h" target="_blank" rel="noopener">Engine/EventSystem.h</a> · <a href="https://github.com/Will-Big/fate-weaver/blob/main/Engine/EventHandler.h" target="_blank" rel="noopener">EventHandler.h</a></span><span style="color:rgba(32,30,29,.75)">multimap 구독부와 지연 발행, 소멸자 자동 해지</span></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:20px;padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px"><a href="https://github.com/Will-Big/fate-weaver/blob/main/Engine/GameObject.h" target="_blank" rel="noopener">Engine/GameObject.h</a> · <a href="https://github.com/Will-Big/fate-weaver/blob/main/Engine/GameObject.cpp" target="_blank" rel="noopener">GameObject.cpp</a></span><span style="color:rgba(32,30,29,.75)">컴포넌트 컨테이너와 주기별 자동 등록, 위임 순회</span></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:20px;padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px"><a href="https://github.com/Will-Big/fate-weaver/blob/main/Engine/SceneSystem.h" target="_blank" rel="noopener">Engine/SceneSystem.h</a> · <a href="https://github.com/Will-Big/fate-weaver/blob/main/Engine/SceneSystem.cpp" target="_blank" rel="noopener">SceneSystem.cpp</a></span><span style="color:rgba(32,30,29,.75)">지연 처리 큐와 씬 전환, 오브젝트 생명 주기 관리</span></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:20px;padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px"><a href="https://github.com/Will-Big/fate-weaver/blob/main/Engine/EventSystem.h" target="_blank" rel="noopener">Engine/EventSystem.h</a> · <a href="https://github.com/Will-Big/fate-weaver/blob/main/Engine/EventHandler.h" target="_blank" rel="noopener">EventHandler.h</a></span><span style="color:rgba(32,30,29,.75)">multimap 구독부와 지연 발행, 소멸자 자동 해지</span></div>
       </div>
     </div>
     </sc-if>
 
   </section>
 
-  <div style="margin-top:44px;border-top:2px solid var(--color-text);padding-top:16px;display:flex;justify-content:space-between;gap:20px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:rgba(32,30,29,.55)">
+  <div style="margin-top:44px;border-top:2px solid var(--color-text);padding-top:16px;display:flex;justify-content:space-between;gap:20px;font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;color:rgba(32,30,29,.55)">
     <a href="../" style="color:var(--color-text);border:none">← 프로젝트 상세로</a>
     <span>Fate Weaver · 2023</span>
   </div>

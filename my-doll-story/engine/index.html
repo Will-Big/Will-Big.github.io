@@ -31,14 +31,14 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
 </helmet>
 <div style="max-width:1180px;margin:0 auto;padding:0 40px 140px">
 
-  <div class="crumb" style="padding:34px 0 14px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;color:rgba(32,30,29,.5);display:flex;justify-content:space-between;align-items:center;gap:20px;border-bottom:1px solid rgba(32,30,29,.18)">
+  <div class="crumb" style="padding:34px 0 14px;font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;letter-spacing:.1em;color:rgba(32,30,29,.5);display:flex;justify-content:space-between;align-items:center;gap:20px;border-bottom:1px solid rgba(32,30,29,.18)">
     <span><a href="/" style="color:rgba(32,30,29,.5);border:none">↑ Portfolio</a> &nbsp;/&nbsp; <a href="../" style="color:rgba(32,30,29,.5);border:none">나의 인형 이야기</a> &nbsp;/&nbsp; <span style="color:var(--color-text)">엔진 아키텍처</span></span>
   </div>
 
   <section data-screen-label="표제" style="padding:44px 0 0">
     <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:48px;align-items:end;border-bottom:2px solid var(--color-text);padding-bottom:26px">
       <div>
-        <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;color:var(--color-accent);margin-bottom:12px">1ST ENGINE · C++11 · WINAPI — 설계 의도</div>
+        <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;letter-spacing:.12em;color:var(--color-accent);margin-bottom:12px">1ST ENGINE · C++11 · WINAPI — 설계 의도</div>
         <h1 style="margin:0;font-size:52px;line-height:1.1;letter-spacing:-.035em;font-weight:700;text-wrap:pretty">서로를 직접 부르지 않고<br>이벤트로 잇는다</h1>
       </div>
       <p style="margin:0;font-size:14.5px;line-height:1.85;color:rgba(32,30,29,.78);text-wrap:pretty">처음 만든 자체 엔진입니다. 오브젝트 관리 · 씬 전환 · 컴포넌트 · 이벤트를 설계하고 구현했습니다. 이 페이지는 그 네 갈래를 어떻게 나눴고 왜 그렇게 나눴는지를 다이어그램으로 정리했습니다.</p>
@@ -46,7 +46,7 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
 
     <div style="padding:34px 0 0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.12fr);gap:48px;align-items:start">
       <div style="border-left:2px solid var(--color-accent);padding:4px 0 4px 20px">
-        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;color:var(--color-accent);margin-bottom:12px">설계 원칙</div>
+        <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.14em;color:var(--color-accent);margin-bottom:12px">설계 원칙</div>
         <div style="font-size:29px;line-height:1.35;font-weight:700;letter-spacing:-.02em;text-wrap:pretty">커플링을 줄이고<br>실행 흐름을 만든다</div>
       </div>
       <div style="font-size:15px;line-height:1.9;color:rgba(32,30,29,.82);text-wrap:pretty">
@@ -60,7 +60,7 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
 
   <section data-screen-label="01 아키텍처" style="padding:56px 0 0">
     <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:6px">
-      <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-accent)">01</span>
+      <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px;color:var(--color-accent)">01</span>
       <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">단방향 호출과 이벤트</h2>
     </div>
     <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);max-width:78ch;text-wrap:pretty">매니저는 씬을, 씬은 오브젝트를 부릅니다. 반대 방향은 직접 부르지 않고 이벤트 매니저를 거칩니다.</p>
@@ -106,7 +106,7 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
 
   <section data-screen-label="02 컴포넌트" style="padding:56px 0 0">
     <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:6px">
-      <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-accent)">02</span>
+      <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px;color:var(--color-accent)">02</span>
       <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">선택적 컴포넌트 부착</h2>
     </div>
     <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);max-width:78ch;text-wrap:pretty">충돌과 애니메이션을 부모 클래스에 넣으면 필요 없는 오브젝트까지 그 코드를 갖습니다. 기능을 떼어 두고 <b>필요한 오브젝트만 붙이게</b> 했습니다.</p>
@@ -158,11 +158,11 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
     <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;margin-top:26px;align-items:start">
       <div style="border-top:2px solid var(--color-text);font-size:14px;line-height:1.7">
         <div style="padding:12px 0;border-bottom:1px solid rgba(32,30,29,.14)">새 오브젝트는 <b>Update와 Render</b>만 채우면 씬에 올라간다</div>
-        <div style="padding:12px 0;border-bottom:1px solid rgba(32,30,29,.14)">기능은 필요할 때 <code style="font-family:'IBM Plex Mono',monospace;font-size:12.5px">CreateCollider()</code> · <code style="font-family:'IBM Plex Mono',monospace;font-size:12.5px">CreateAnimator()</code> 한 줄로</div>
+        <div style="padding:12px 0;border-bottom:1px solid rgba(32,30,29,.14)">기능은 필요할 때 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12.5px">CreateCollider()</code> · <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12.5px">CreateAnimator()</code> 한 줄로</div>
         <div style="padding:12px 0">오브젝트를 새로 추가해도 기존 오브젝트의 코드를 건드릴 일이 없었다</div>
       </div>
       <div style="border-left:2px solid var(--color-accent);padding:2px 0 2px 16px">
-        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;color:var(--color-accent);margin-bottom:6px">한계</div>
+        <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.1em;color:var(--color-accent);margin-bottom:6px">한계</div>
         <p style="margin:0;font-size:13.5px;line-height:1.7;color:rgba(32,30,29,.75)">컴포넌트를 늘리려면 Object 클래스를 직접 고쳐야 했습니다. 붙이는 방식만 조합이고, <b>종류를 늘리는 일은 여전히 컴파일 타임</b>에 묶여 있었습니다.</p>
       </div>
     </div>
@@ -170,12 +170,12 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
 
   <section data-screen-label="03 정리" style="padding:56px 0 0">
     <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:6px">
-      <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-accent)">03</span>
+      <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px;color:var(--color-accent)">03</span>
       <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">한계와 다음 엔진</h2>
     </div>
     <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);max-width:78ch;text-wrap:pretty">2주짜리 첫 엔진의 한계입니다. 여기서 적어 둔 것이 다음 엔진의 우선순위가 됐습니다.</p>
     <div style="border-top:2px solid var(--color-text);border-bottom:2px solid var(--color-text)">
-      <div style="display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.3fr) minmax(0,1.3fr);gap:28px;padding:14px 0 10px;border-bottom:1px solid rgba(32,30,29,.2);font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;color:rgba(32,30,29,.5)">
+      <div style="display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.3fr) minmax(0,1.3fr);gap:28px;padding:14px 0 10px;border-bottom:1px solid rgba(32,30,29,.2);font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.12em;color:rgba(32,30,29,.5)">
         <span></span><span>한계</span><span style="color:var(--color-accent)">다음 엔진에서</span>
       </div>
       <div style="display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.3fr) minmax(0,1.3fr);gap:28px;padding:18px 0;border-bottom:1px solid rgba(32,30,29,.14);align-items:start">
@@ -196,18 +196,18 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
     </div>
 
     <div style="margin-top:26px">
-      <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;color:rgba(32,30,29,.5);margin-bottom:10px">참조 코드</div>
+      <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.12em;color:rgba(32,30,29,.5);margin-bottom:10px">참조 코드</div>
       <div style="border-top:2px solid var(--color-text);font-size:13.5px">
-        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:20px;padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px"><a href="https://github.com/Will-Big/my_doll_story/blob/master/My_Doll_Story/Object.h" target="_blank" rel="noopener">My_Doll_Story/Object.h</a></span><span style="color:rgba(32,30,29,.75)">공통 라이프사이클과 컴포넌트 생성 지점</span></div>
-        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:20px;padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px"><a href="https://github.com/Will-Big/my_doll_story/blob/master/My_Doll_Story/Scene.h" target="_blank" rel="noopener">Scene.h</a> · <a href="https://github.com/Will-Big/my_doll_story/blob/master/My_Doll_Story/SceneManager.h" target="_blank" rel="noopener">SceneManager.h</a></span><span style="color:rgba(32,30,29,.75)">그룹별 오브젝트 관리와 씬 전환</span></div>
-        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:20px;padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px"><a href="https://github.com/Will-Big/my_doll_story/blob/master/My_Doll_Story/EventManager.cpp" target="_blank" rel="noopener">EventManager.cpp</a> · <a href="https://github.com/Will-Big/my_doll_story/blob/master/My_Doll_Story/EventManager.h" target="_blank" rel="noopener">EventManager.h</a></span><span style="color:rgba(32,30,29,.75)">이벤트 큐와 지연 삭제</span></div>
-        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:20px;padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px"><a href="https://github.com/Will-Big/my_doll_story/blob/master/My_Doll_Story/Animator.h" target="_blank" rel="noopener">Animator.h</a> · <a href="https://github.com/Will-Big/my_doll_story/blob/master/My_Doll_Story/Collider.h" target="_blank" rel="noopener">Collider.h</a></span><span style="color:rgba(32,30,29,.75)">붙여 쓰는 컴포넌트 두 종</span></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:20px;padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px"><a href="https://github.com/Will-Big/my_doll_story/blob/master/My_Doll_Story/Object.h" target="_blank" rel="noopener">My_Doll_Story/Object.h</a></span><span style="color:rgba(32,30,29,.75)">공통 라이프사이클과 컴포넌트 생성 지점</span></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:20px;padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px"><a href="https://github.com/Will-Big/my_doll_story/blob/master/My_Doll_Story/Scene.h" target="_blank" rel="noopener">Scene.h</a> · <a href="https://github.com/Will-Big/my_doll_story/blob/master/My_Doll_Story/SceneManager.h" target="_blank" rel="noopener">SceneManager.h</a></span><span style="color:rgba(32,30,29,.75)">그룹별 오브젝트 관리와 씬 전환</span></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:20px;padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px"><a href="https://github.com/Will-Big/my_doll_story/blob/master/My_Doll_Story/EventManager.cpp" target="_blank" rel="noopener">EventManager.cpp</a> · <a href="https://github.com/Will-Big/my_doll_story/blob/master/My_Doll_Story/EventManager.h" target="_blank" rel="noopener">EventManager.h</a></span><span style="color:rgba(32,30,29,.75)">이벤트 큐와 지연 삭제</span></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:20px;padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px"><a href="https://github.com/Will-Big/my_doll_story/blob/master/My_Doll_Story/Animator.h" target="_blank" rel="noopener">Animator.h</a> · <a href="https://github.com/Will-Big/my_doll_story/blob/master/My_Doll_Story/Collider.h" target="_blank" rel="noopener">Collider.h</a></span><span style="color:rgba(32,30,29,.75)">붙여 쓰는 컴포넌트 두 종</span></div>
       </div>
     </div>
 
   </section>
 
-  <div style="margin-top:44px;border-top:2px solid var(--color-text);padding-top:16px;display:flex;justify-content:space-between;gap:20px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:rgba(32,30,29,.55)">
+  <div style="margin-top:44px;border-top:2px solid var(--color-text);padding-top:16px;display:flex;justify-content:space-between;gap:20px;font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;color:rgba(32,30,29,.55)">
     <a href="../" style="color:var(--color-text);border:none">← 프로젝트 상세로</a>
     <span>My Doll Story Engine — 2023</span>
   </div>

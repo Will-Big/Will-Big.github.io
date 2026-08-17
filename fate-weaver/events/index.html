@@ -30,14 +30,14 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
 </helmet>
 <div style="max-width:1180px;margin:0 auto;padding:0 40px 140px">
 
-  <div class="crumb" style="padding:34px 0 14px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;color:rgba(32,30,29,.5);display:flex;justify-content:space-between;align-items:center;gap:20px;border-bottom:1px solid rgba(32,30,29,.18)">
+  <div class="crumb" style="padding:34px 0 14px;font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;letter-spacing:.1em;color:rgba(32,30,29,.5);display:flex;justify-content:space-between;align-items:center;gap:20px;border-bottom:1px solid rgba(32,30,29,.18)">
     <span><a href="/" style="color:rgba(32,30,29,.5);border:none">↑ Portfolio</a> &nbsp;/&nbsp; <a href="../" style="color:rgba(32,30,29,.5);border:none">Fate Weaver</a> &nbsp;/&nbsp; <span style="color:var(--color-text)">이벤트 식별</span></span>
   </div>
 
   <section data-screen-label="표제" style="padding:44px 0 0">
     <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:48px;align-items:end;border-bottom:2px solid var(--color-text);padding-bottom:26px">
       <div>
-        <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;color:var(--color-accent);margin-bottom:12px">FATE WEAVER · 이벤트 시스템 — 회고 후속</div>
+        <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;letter-spacing:.12em;color:var(--color-accent);margin-bottom:12px">FATE WEAVER · 이벤트 시스템 — 회고 후속</div>
         <h1 style="margin:0;font-size:52px;line-height:1.1;letter-spacing:-.035em;font-weight:700;text-wrap:pretty">문자열로 부르던 이벤트를<br>타입으로 부르기까지</h1>
       </div>
       <p style="margin:0;font-size:14.5px;line-height:1.85;color:rgba(32,30,29,.78);text-wrap:pretty">회고에 적은 아쉬운 점 가운데 <b>이벤트 ID</b> 하나만 다룹니다. Fate Weaver 의 이벤트 전달 경로와 그 방식이 남긴 비용, 이후 Midnight Cleanup 에서 이를 대체한 방식을 도식으로 정리했습니다.</p>
@@ -46,7 +46,7 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
 
   <section data-screen-label="01 문제" style="padding:52px 0 0">
     <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:6px">
-      <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-accent)">01</span>
+      <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px;color:var(--color-accent)">01</span>
       <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">이벤트 중심 구조</h2>
     </div>
     <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:40px;align-items:start;margin-top:16px">
@@ -55,8 +55,8 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
         <p style="margin:0">이벤트가 엔진의 중심 통로였던 만큼, 식별 방식의 약점이 그대로 비용이 되었습니다.</p>
       </div>
       <div>
-        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;color:rgba(32,30,29,.5);margin-bottom:10px"><span style="color:var(--color-text);font-weight:500">fate-weaver</span> · Engine/SceneSystem.cpp — 엔진 내부 동작도 문자열로 구독합니다</div>
-        <pre style="margin:0;background:var(--color-text);color:#e8e6e3;font-family:'IBM Plex Mono',monospace;font-size:11.5px;line-height:1.8;padding:16px 18px;overflow-x:auto">EventSystem::GetInstance()-&gt;Subscribe(
+        <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.12em;color:rgba(32,30,29,.5);margin-bottom:10px"><span style="color:var(--color-text);font-weight:500">fate-weaver</span> · Engine/SceneSystem.cpp — 엔진 내부 동작도 문자열로 구독합니다</div>
+        <pre style="margin:0;background:var(--color-text);color:#e8e6e3;font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11.5px;line-height:1.8;padding:16px 18px;overflow-x:auto">EventSystem::GetInstance()-&gt;Subscribe(
     <span style="color:#ff6a4d">L"CREATE_OBJ"</span>,   MakeListenerInfo(&amp;SceneSystem::DelayedCreate));
 EventSystem::GetInstance()-&gt;Subscribe(
     <span style="color:#ff6a4d">L"DELETE_OBJ"</span>,   MakeListenerInfo(&amp;SceneSystem::DelayedDelete));
@@ -68,7 +68,7 @@ EventSystem::GetInstance()-&gt;Subscribe(
 
   <section data-screen-label="02 경로 비교" style="padding:56px 0 0">
     <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:6px">
-      <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-accent)">02</span>
+      <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px;color:var(--color-accent)">02</span>
       <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">두 엔진의 발행·수신 경로</h2>
     </div>
     <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);max-width:78ch;text-wrap:pretty">위가 Fate Weaver, 아래가 Midnight Cleanup 입니다. 두 경로 모두 <b>발행 · 지연 · 대상 찾기 · 전달</b>을 거칩니다. 달라진 것은 대상을 찾는 기준과, 수신부가 타입을 복원해야 하는지 여부입니다.</p>
@@ -166,8 +166,8 @@ EventSystem::GetInstance()-&gt;Subscribe(
     <sc-if value="{{ showCode }}" hint-placeholder-val="{{ true }}">
     <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px;margin-top:26px;align-items:start">
       <div>
-        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;color:rgba(32,30,29,.5);margin-bottom:10px"><span style="color:var(--color-text);font-weight:500">fate-weaver</span> · Engine/EventSystem.cpp — DispatchEvent</div>
-        <pre style="margin:0;background:var(--color-text);color:#e8e6e3;font-family:'IBM Plex Mono',monospace;font-size:11.5px;line-height:1.8;padding:16px 18px;overflow-x:auto">auto [first, last] =
+        <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.12em;color:rgba(32,30,29,.5);margin-bottom:10px"><span style="color:var(--color-text);font-weight:500">fate-weaver</span> · Engine/EventSystem.cpp — DispatchEvent</div>
+        <pre style="margin:0;background:var(--color-text);color:#e8e6e3;font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11.5px;line-height:1.8;padding:16px 18px;overflow-x:auto">auto [first, last] =
     m_Listeners.equal_range(<span style="color:#ff6a4d">evt.EventID</span>);
 
 for (auto&amp; it = first; it != last; ++it)
@@ -176,8 +176,8 @@ for (auto&amp; it = first; it != last; ++it)
 <span style="color:#8a8580">// 빈 범위도 오류가 아니다 — 반복문이 실행되지 않을 뿐</span></pre>
       </div>
       <div>
-        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;color:rgba(32,30,29,.5);margin-bottom:10px"><span style="color:var(--color-text);font-weight:500">midnight-cleanup</span> · Animacore — 정의 · 구독 · 지연 발행</div>
-        <pre style="margin:0;background:var(--color-text);color:#e8e6e3;font-family:'IBM Plex Mono',monospace;font-size:11.5px;line-height:1.8;padding:16px 18px;overflow-x:auto"><span style="color:#8a8580">// CoreSystemEvents.h — 이벤트가 구조체입니다</span>
+        <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.12em;color:rgba(32,30,29,.5);margin-bottom:10px"><span style="color:var(--color-text);font-weight:500">midnight-cleanup</span> · Animacore — 정의 · 구독 · 지연 발행</div>
+        <pre style="margin:0;background:var(--color-text);color:#e8e6e3;font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11.5px;line-height:1.8;padding:16px 18px;overflow-x:auto"><span style="color:#8a8580">// CoreSystemEvents.h — 이벤트가 구조체입니다</span>
 struct OnInputLock { bool isCameraLock; bool isMovementLock; };
 
 <span style="color:#8a8580">// AnimatorSystem.cpp — 구독은 타입으로 합니다</span>
@@ -193,7 +193,7 @@ _dispatcher.enqueue&lt;<span style="color:#ff6a4d">OnCreateEntity</span>&gt;(ent
 
   <section data-screen-label="03 오타 시점" style="padding:56px 0 0">
     <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:6px">
-      <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-accent)">03</span>
+      <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px;color:var(--color-accent)">03</span>
       <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">오류 검출 시점</h2>
     </div>
     <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);max-width:78ch;text-wrap:pretty">이벤트 이름을 잘못 적었을 때, Fate Weaver 는 <b>실행 중에 아무 반응 없이 넘어가고</b>, Midnight Cleanup 은 <b>컴파일 단계에서 중단됩니다.</b></p>
@@ -246,21 +246,21 @@ _dispatcher.enqueue&lt;<span style="color:#ff6a4d">OnCreateEntity</span>&gt;(ent
   <section data-screen-label="참조" style="padding:56px 0 0">
     <sc-if value="{{ showRefTable }}" hint-placeholder-val="{{ true }}">
     <div>
-      <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;color:rgba(32,30,29,.5);margin-bottom:10px">참조 코드 — 저장소 두 곳</div>
+      <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.12em;color:rgba(32,30,29,.5);margin-bottom:10px">참조 코드 — 저장소 두 곳</div>
       <div style="border-top:2px solid var(--color-text);font-size:13.5px">
-        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;color:var(--color-accent);padding:14px 0 4px">Will-Big/fate-weaver</div>
-        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:20px;padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px"><a href="https://github.com/Will-Big/fate-weaver/blob/main/Engine/EventSystem.h" target="_blank" rel="noopener">Engine/EventSystem.h</a> · <a href="https://github.com/Will-Big/fate-weaver/blob/main/Engine/EventSystem.cpp" target="_blank" rel="noopener">EventSystem.cpp</a></span><span style="color:rgba(32,30,29,.75)">문자열 키 구독부와 지연 큐, DispatchEvent</span></div>
-        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:20px;padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px"><a href="https://github.com/Will-Big/fate-weaver/blob/main/Engine/SceneSystem.cpp" target="_blank" rel="noopener">Engine/SceneSystem.cpp</a></span><span style="color:rgba(32,30,29,.75)">엔진 내부 동작(생성 · 삭제 · 씬 전환)의 문자열 구독</span></div>
+        <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.1em;color:var(--color-accent);padding:14px 0 4px">Will-Big/fate-weaver</div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:20px;padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px"><a href="https://github.com/Will-Big/fate-weaver/blob/main/Engine/EventSystem.h" target="_blank" rel="noopener">Engine/EventSystem.h</a> · <a href="https://github.com/Will-Big/fate-weaver/blob/main/Engine/EventSystem.cpp" target="_blank" rel="noopener">EventSystem.cpp</a></span><span style="color:rgba(32,30,29,.75)">문자열 키 구독부와 지연 큐, DispatchEvent</span></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:20px;padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px"><a href="https://github.com/Will-Big/fate-weaver/blob/main/Engine/SceneSystem.cpp" target="_blank" rel="noopener">Engine/SceneSystem.cpp</a></span><span style="color:rgba(32,30,29,.75)">엔진 내부 동작(생성 · 삭제 · 씬 전환)의 문자열 구독</span></div>
         
-        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;color:var(--color-accent);padding:14px 0 4px">Will-Big/midnight-cleanup</div>
-        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:20px;padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px"><a href="https://github.com/Will-Big/midnight-cleanup/blob/main/Animacore/CoreSystemEvents.h" target="_blank" rel="noopener">Animacore/CoreSystemEvents.h</a> · <a href="https://github.com/Will-Big/midnight-cleanup/blob/main/Animacore/AnimatorSystem.cpp" target="_blank" rel="noopener">AnimatorSystem.cpp</a></span><span style="color:rgba(32,30,29,.75)">구조체 이벤트 정의와 타입 구독</span></div>
+        <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.1em;color:var(--color-accent);padding:14px 0 4px">Will-Big/midnight-cleanup</div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:20px;padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px"><a href="https://github.com/Will-Big/midnight-cleanup/blob/main/Animacore/CoreSystemEvents.h" target="_blank" rel="noopener">Animacore/CoreSystemEvents.h</a> · <a href="https://github.com/Will-Big/midnight-cleanup/blob/main/Animacore/AnimatorSystem.cpp" target="_blank" rel="noopener">AnimatorSystem.cpp</a></span><span style="color:rgba(32,30,29,.75)">구조체 이벤트 정의와 타입 구독</span></div>
       </div>
     </div>
     </sc-if>
 
   </section>
 
-  <div style="margin-top:44px;border-top:2px solid var(--color-text);padding-top:16px;display:flex;justify-content:space-between;gap:20px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:rgba(32,30,29,.55)">
+  <div style="margin-top:44px;border-top:2px solid var(--color-text);padding-top:16px;display:flex;justify-content:space-between;gap:20px;font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;color:rgba(32,30,29,.55)">
     <a href="../engine/" style="color:var(--color-text);border:none">← 엔진 설계 의도 보기로</a>
     <span>Fate Weaver · 2023</span>
   </div>
