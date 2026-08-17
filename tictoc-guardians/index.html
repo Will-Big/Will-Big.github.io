@@ -67,7 +67,7 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
         </div>
       </div>
     </div>
-    <p style="margin:30px 0 0;font-size:17px;line-height:1.8;max-width:74ch;text-wrap:pretty;color:rgba(32,30,29,.85)">세 번째로 만든 자체 엔진입니다. ECS라는 개념을 이때 처음 접했고, 자료를 찾아보고 팀원들과 이야기해 가며 <strong>컴포넌트 풀과 리플렉션, 직렬화를 직접 만들어 봤습니다</strong>. 에디터를 붙인 것도 이 프로젝트가 처음입니다. 게임 쪽에서는 <strong>매 프레임의 입력을 비트셋으로 남겨</strong>, 앞 순서 캐릭터가 고스트로 같은 행동을 반복하게 했습니다.</p>
+    <p style="margin:30px 0 0;font-size:17px;line-height:1.8;max-width:74ch;text-wrap:pretty;color:rgba(32,30,29,.85)">세 번째로 만든 자체 엔진입니다. ECS라는 개념을 이때 처음 접했고, 자료를 찾아보고 팀원들과 이야기해 가며 <strong>컴포넌트 풀과 리플렉션, 직렬화를 직접 만들어 봤습니다</strong>. 에디터를 붙인 것도 이 프로젝트가 처음이었습니다. 게임 쪽에서는 <strong>매 프레임의 입력을 비트셋으로 남겨</strong>, 앞 순서 캐릭터가 고스트로 같은 행동을 반복하게 했습니다.</p>
   </section>
 
   <!-- 2. 하이라이트 -->
@@ -200,7 +200,7 @@ PropertyHandler&lt;Character, float&gt; speed{&amp;Character::Speed};</pre>
         <div>
           <div style="border-left:2px solid var(--color-accent);padding:2px 0 2px 16px">
             <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.1em;color:var(--color-accent);margin-bottom:6px">막혔던 지점</div>
-            <p style="margin:0;font-size:13.5px;line-height:1.7;color:rgba(32,30,29,.75)">등록을 빠뜨려도 컴파일은 그냥 통과해서, 실행해 보고 나서야 속성이 없다는 걸 알게 됩니다. 결국 <strong>매크로를 잘 쓰자는 약속</strong>에 기대는 구조였고, 지원하는 컨테이너도 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11.5px">std::vector</code> 정도가 전부였습니다. 다음 엔진에서 이 부분을 다시 짰습니다.</p>
+            <p style="margin:0;font-size:13.5px;line-height:1.7;color:rgba(32,30,29,.75)">등록을 빠뜨려도 컴파일은 그대로 통과해서, 실행해 보고 나서야 속성이 없다는 것을 알게 됩니다. 결국 <strong>매크로를 잘 쓰자는 약속</strong>에 기대는 구조였고, 지원하는 컨테이너도 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11.5px">std::vector</code> 정도가 전부였습니다. 다음 엔진에서 이 부분을 다시 짰습니다.</p>
           </div>
           <div style="margin-top:14px;font-size:13px;color:rgba(32,30,29,.55)">이어지는 개선 → <a href="../midnight-cleanup/">Midnight Cleanup의 인스펙터</a></div>
         </div>
