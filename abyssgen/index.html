@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AbyssGen | 임상학 Portfolio</title>
-<meta name="description" content="출구를 맞춰 잇는 절차적 던전 생성 · 한 클래스에서 여섯 책임으로의 분리 · ISM 최적화와 원인 격리 — 동작보다 이해를 우선한 개인 프로젝트">
+<meta name="description" content="AI를 활용한 자세와 그 위에서 한 객체지향 설계 · ISM 최적화 — 출구를 맞춰 잇는 절차적 던전 생성기">
 <link rel="preconnect" href="https://unpkg.com" crossorigin>
 <link rel="preload" as="script" crossorigin href="https://unpkg.com/react@18.3.1/umd/react.production.min.js" integrity="sha384-DGyLxAyjq0f9SPpVevD6IgztCFlnMF6oW/XQGmfe+IsZ8TqEiDrcHkMLKI6fiB/Z">
 <link rel="preload" as="script" crossorigin href="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" integrity="sha384-gTGxhz21lVGYNMcdJOyq01Edg0jhn/c22nsx0kyqP0TxaV5WVdsSH1fSDUf5YJj1">
@@ -63,16 +63,16 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
         </div>
       </div>
     </div>
-    <p style="margin:30px 0 0;font-size:17px;line-height:1.8;text-wrap:pretty;color:rgba(32,30,29,.85)">로그라이크의 던전이 매번 다르게 만들어지는 방식을 직접 확인해 보려고 시작한 개인 프로젝트입니다. 상용 엔진을 쓰고 구현의 상당 부분을 AI와 함께 진행했으므로, <strong>동작하는 코드를 어디까지 제 것으로 만들었는지</strong>가 이 프로젝트에서 판단이 필요했던 지점이었습니다. 아래 세 사례는 그 판단이 드러난 자리입니다.</p>
+    <p style="margin:30px 0 0;font-size:17px;line-height:1.8;text-wrap:pretty;color:rgba(32,30,29,.85)">로그라이크의 던전이 매번 다르게 만들어지는 방식을 직접 확인해 보려고 시작한 개인 프로젝트입니다. 상용 엔진을 쓰고 구현의 상당 부분을 AI와 함께 진행했으므로, <strong>무엇을 맡기고 어디까지를 제 것으로 남길지</strong>가 매번 판단의 대상이었습니다.</p>
   </section>
 
   <!-- 2. 하이라이트 -->
   <section style="padding:48px 0 0">
     <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;letter-spacing:.12em;color:var(--color-accent);padding-bottom:10px">하이라이트</div>
     <div style="border-top:2px solid var(--color-text);border-bottom:2px solid var(--color-text);display:grid;grid-template-columns:1fr 1fr 1fr;gap:0 32px">
-      <a href="#case-1" style="display:flex;gap:14px;padding:15px 0;color:var(--color-text);text-decoration:none"><span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;color:var(--color-accent);padding-top:4px;flex:none">사례 1</span><span style="font-size:15px;line-height:1.6;font-weight:500">🔗 동작보다 이해를 택한 결단</span></a>
-      <a href="#case-2" style="display:flex;gap:14px;padding:15px 0;color:var(--color-text);text-decoration:none"><span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;color:var(--color-accent);padding-top:4px;flex:none">사례 2</span><span style="font-size:15px;line-height:1.6;font-weight:500">🔗 하나의 클래스에서 여섯 책임으로의 분리</span></a>
-      <a href="#case-3" style="display:flex;gap:14px;padding:15px 0;color:var(--color-text);text-decoration:none"><span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;color:var(--color-accent);padding-top:4px;flex:none">사례 3</span><span style="font-size:15px;line-height:1.6;font-weight:500">🔗 변수를 제어해 해결한 최적화와 디버깅</span></a>
+      <a href="#stance" style="display:flex;gap:14px;padding:15px 0;color:var(--color-text);text-decoration:none"><span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;color:var(--color-accent);padding-top:4px;flex:none">02</span><span style="font-size:15px;line-height:1.6;font-weight:500">🔗 동작보다 이해를 택한 결단</span></a>
+      <a href="#design" style="display:flex;gap:14px;padding:15px 0;color:var(--color-text);text-decoration:none"><span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;color:var(--color-accent);padding-top:4px;flex:none">03</span><span style="font-size:15px;line-height:1.6;font-weight:500">🔗 한 클래스에서 여섯 책임으로의 분리</span></a>
+      <a href="#optimize" style="display:flex;gap:14px;padding:15px 0;color:var(--color-text);text-decoration:none"><span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;color:var(--color-accent);padding-top:4px;flex:none">04</span><span style="font-size:15px;line-height:1.6;font-weight:500">🔗 드로우 콜을 66에서 2로 줄인 ISM</span></a>
     </div>
   </section>
 
@@ -84,8 +84,7 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
     </div>
     <div style="border:1px solid rgba(32,30,29,.3);padding:22px 24px">
       <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;letter-spacing:.12em;color:var(--color-accent);margin-bottom:10px">방식을 고른 기준</div>
-      <p style="margin:0 0 12px;font-size:15px;line-height:1.8;color:rgba(32,30,29,.85)">절차적 던전을 만드는 방법은 여럿이지만, 고른 기준은 두 가지였습니다. 제가 끝까지 이해할 수 있을 것, 그리고 나중에 구조를 자유롭게 바꿀 수 있을 것.</p>
-      <p style="margin:0;font-size:15px;line-height:1.8;color:rgba(32,30,29,.85)">그래서 손으로 미리 만든 방을 한 방의 출구에 다음 방의 출구를 맞춰 이어 붙이고, 겹치면 폐기하고 다시 시도하는 방식을 택했습니다. 그리드나 타일맵은 쓰지 않으며 배치는 각 방의 출구 위치로만 결정됩니다.</p>
+      <p style="margin:0;font-size:15px;line-height:1.8;color:rgba(32,30,29,.85)">절차적 던전을 만드는 방법은 여럿이지만 고른 기준은 두 가지였습니다. 제가 끝까지 이해할 수 있을 것, 그리고 나중에 구조를 자유롭게 바꿀 수 있을 것. 그래서 손으로 미리 만든 방을 출구끼리 맞춰 이어 붙이고 겹치면 폐기하는 방식을 택했으며, 그리드나 타일맵은 쓰지 않습니다.</p>
     </div>
 
     <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;background:rgba(32,30,29,.2);border:2px solid var(--color-text);margin-top:22px">
@@ -102,37 +101,6 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
         <p style="margin:0;font-size:14.5px;line-height:1.75;color:rgba(32,30,29,.8)">이미 놓인 방과 겹치면 그 시도를 폐기하고 다른 방을 다시 뽑습니다.</p>
       </div>
     </div>
-    <p style="margin:20px 0 0;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">규칙이 이 셋뿐이므로 새 방은 코드를 고치지 않고 추가되며, 무작위 선택이 전부 하나의 시드를 지나가므로 같은 시드는 같은 던전을 만듭니다.</p>
-
-    <h3 style="margin:38px 0 10px;font-size:22px;font-weight:600;letter-spacing:-.01em">생성기를 얇게 유지한 세 가지 결정</h3>
-    <p style="margin:0 0 20px;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">이 프로젝트의 C++는 합성 우선과 단일 책임을 따릅니다. 비대해진 클래스는 컴포넌트로 나누고, 소유 액터는 컴포넌트를 조립하고 신호를 중계하기만 하는 얇은 façade로 두었습니다.</p>
-
-    <div style="border-top:2px solid var(--color-text);border-bottom:2px solid var(--color-text)">
-      <div style="display:grid;grid-template-columns:1fr 1.15fr 1.15fr;gap:0 28px;padding:14px 0;border-bottom:1px solid rgba(32,30,29,.14)">
-        <div>
-          <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;color:var(--color-accent);letter-spacing:.1em;margin-bottom:5px">결정 ①</div>
-          <div style="font-size:15px;line-height:1.6;font-weight:600">던전 생성과 콘텐츠 배치의 분리</div>
-        </div>
-        <div style="font-size:14.5px;line-height:1.75;color:rgba(32,30,29,.8)"><b style="color:rgba(32,30,29,.5);font-weight:500">문제</b> &nbsp;생성기 하나가 방을 잇는 일과 그 위에 몬스터·아이템·함정을 뿌리는 일을 모두 맡아 계속 비대해짐</div>
-        <div style="font-size:14.5px;line-height:1.75;color:rgba(32,30,29,.8)"><b style="color:var(--color-accent);font-weight:500">결과</b> &nbsp;생성기는 방 레이아웃만 책임지고 스폰은 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:13px">UDungeonPopulatorComponent</code>가 맡아, 생성 로직을 그대로 둔 채 스폰 규칙만 바꿀 수 있음</div>
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1.15fr 1.15fr;gap:0 28px;padding:14px 0;border-bottom:1px solid rgba(32,30,29,.14)">
-        <div>
-          <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;color:var(--color-accent);letter-spacing:.1em;margin-bottom:5px">결정 ②</div>
-          <div style="font-size:15px;line-height:1.6;font-weight:600">&ldquo;어디에&rdquo;와 &ldquo;무엇을&rdquo;의 분리</div>
-        </div>
-        <div style="font-size:14.5px;line-height:1.75;color:rgba(32,30,29,.8)"><b style="color:rgba(32,30,29,.5);font-weight:500">문제</b> &nbsp;스폰 위치가 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:13px">Spawn_Point_1~N</code> 처럼 고정 멤버 변수로 박혀 방마다 개수가 고정이고 무엇을 둘지와 한곳에 묶임</div>
-        <div style="font-size:14.5px;line-height:1.75;color:rgba(32,30,29,.8)"><b style="color:var(--color-accent);font-weight:500">결과</b> &nbsp;위치는 방에 직접 놓는 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:13px">USpawnPointComponent</code>가, 종류는 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:13px">FSpawnTable</code>이 정하므로 마커를 놓고 빼는 것만으로 스폰 구성이 바뀜</div>
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1.15fr 1.15fr;gap:0 28px;padding:14px 0">
-        <div>
-          <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;color:var(--color-accent);letter-spacing:.1em;margin-bottom:5px">결정 ③</div>
-          <div style="font-size:15px;line-height:1.6;font-weight:600">단일 난수원을 통한 재현</div>
-        </div>
-        <div style="font-size:14.5px;line-height:1.75;color:rgba(32,30,29,.8)"><b style="color:rgba(32,30,29,.5);font-weight:500">문제</b> &nbsp;무작위 생성은 매번 결과가 달라 버그를 같은 상황에서 재현하거나 테스트하기 어려움</div>
-        <div style="font-size:14.5px;line-height:1.75;color:rgba(32,30,29,.8)"><b style="color:var(--color-accent);font-weight:500">결과</b> &nbsp;방·출구·스폰 확률의 모든 선택이 하나의 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:13px">FRandomStream</code>을 지나므로 같은 시드가 같은 던전을 만들고, <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:13px">-1</code>이면 난수 시드를 만들어 화면에 표시함</div>
-      </div>
-    </div>
 
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:26px;align-items:start">
       <div>
@@ -140,242 +108,23 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
         <div style="font-size:12.5px;color:rgba(32,30,29,.55);margin-top:8px">생성기 액터가 노출하는 값</div>
       </div>
       <div>
-        <p style="margin:0;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">세 결정이 생성기 하나의 디테일 패널에 그대로 드러납니다. 배치를 맡는 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:14px">Populator Component</code>가 컴포넌트로 붙어 있고, <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:14px">Seed</code> 칸의 값 하나가 던전 전체를 정합니다.</p>
-        <p style="margin:14px 0 0;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">아래의 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:14px">Spawned Rooms</code>와 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:14px">Dungeon Map Connections</code>는 그 시드로 나온 결과이므로, 같은 값을 넣으면 같은 목록이 다시 만들어집니다.</p>
+        <p style="margin:0;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">규칙이 이 셋뿐이므로 새 방은 코드를 고치지 않고 추가됩니다. 방·출구·스폰 확률의 모든 무작위 선택은 하나의 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:14px">FRandomStream</code>을 지나므로, <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:14px">Seed</code> 칸의 값 하나가 던전 전체를 정합니다.</p>
+        <p style="margin:14px 0 0;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">아래의 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:14px">Spawned Rooms</code>와 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:14px">Dungeon Map Connections</code>는 그 시드로 나온 결과이므로, 같은 값을 넣으면 같은 던전이 다시 만들어집니다. 버그를 같은 상황에서 재현할 수 있다는 뜻이기도 합니다.</p>
       </div>
     </div>
   </section>
 
-  <!-- 4. 사례 -->
-  <section style="padding:52px 0 0">
+  <!-- 4. AI 활용 자세 -->
+  <section id="stance" style="padding:56px 0 0;scroll-margin-top:60px">
     <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:20px">
       <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px;color:var(--color-accent)">02</span>
-      <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">구현 과정의 세 사례</h2>
+      <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">동작보다 이해를 택한 결단</h2>
     </div>
 
-    <!-- 사례 1 -->
-    <div id="case-1" style="border:1px solid rgba(32,30,29,.22);border-top:4px solid var(--color-accent);background:#fff;padding:36px 44px 40px;scroll-margin-top:86px">
-      <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px">
-        <span style="background:var(--color-accent);color:#fff;font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;padding:4px 8px;letter-spacing:.08em">사례 1</span>
-        <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;color:rgba(32,30,29,.5);letter-spacing:.1em">구조 재설계</span>
-      </div>
-      <h3 style="margin:0 0 10px;font-size:28px;font-weight:700;letter-spacing:-.02em">동작보다 이해를 택한 결단</h3>
-      <p style="margin:0 0 24px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7)">동작하던 프로토타입을 접고 설명할 수 있는 구조로 다시 시작한 과정입니다.</p>
+    <p style="margin:0;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">처음에는 자료에서 본 정교한 방식을 그대로 좇았습니다. 그리드 배치와 Separation Steering, Delaunay 삼각분할, 최소 신장 트리를 엮은 구성이었고 결과도 나왔습니다. 문제는 구조가 커질수록 코드를 따라가지 못했다는 점입니다. <strong>빌드 오류가 나면 메시지를 그대로 넘기고 고쳐 받은 코드를 다시 돌리는 사이클만 반복되었고, 어떤 부분이 왜 그렇게 동작하는지 스스로 설명하지 못했습니다.</strong></p>
+    <p style="margin:14px 0 0;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">동작하던 프로젝트를 접고, 앞 절의 출구 규칙으로 처음부터 다시 설계했습니다. 다만 모든 것을 직접 이해하려 들지는 않았습니다. 알고리즘 자체는 역할만 알고 넘어가되 그것을 감싸는 구조는 제가 설계한다는 선을 먼저 그었고, 그 선 덕분에 복잡도를 고르는 기준이 &ldquo;더 정교한 것&rdquo;에서 &ldquo;제가 바꿀 수 있는 것&rdquo;으로 바뀌었습니다.</p>
 
-      <p style="margin:0;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">이 프로젝트의 목표는 절차적 생성이 실제로 어떻게 구현되는지를 확인하는 것이었으므로, 처음에는 자료에서 본 정교한 방식을 그대로 좇았습니다. 그리드 배치와 Separation Steering, Delaunay 삼각분할, 최소 신장 트리를 엮은 구성이었고 결과도 나왔습니다.</p>
-      <p style="margin:14px 0 0;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">문제는 구조가 커질수록 코드를 따라가지 못했다는 점입니다. <strong>빌드 오류가 나면 메시지를 그대로 넘기고 고쳐 받은 코드를 다시 돌리는 사이클만 반복되었고, 어떤 부분이 왜 그렇게 동작하는지 스스로 설명하지 못했습니다.</strong></p>
-
-      <div style="border:1px solid rgba(32,30,29,.25);padding:16px 18px;margin-top:22px">
-        <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.14em;color:rgba(32,30,29,.5);margin-bottom:12px">작업 중 대화</div>
-        <div style="display:flex;gap:14px">
-          <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;color:var(--color-accent);flex:none;width:24px;padding-top:3px">나</span>
-          <p style="margin:0;font-size:14.5px;line-height:1.75;color:rgba(32,30,29,.8)">아니야 처음부터 다시 만들거야. 현재 프로젝트의 구조는 내가 잘 이해가 가지 않아. 처음부터 설계하면서 다시 만들어볼거야.</p>
-        </div>
-      </div>
-
-      <h4 style="margin:34px 0 10px;font-size:19px;font-weight:600;letter-spacing:-.01em">이해할 범위를 정한 선</h4>
-      <p style="margin:0;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">다시 시작하면서 모든 것을 직접 이해하려 들지는 않았습니다. 알고리즘 자체는 역할만 알고 넘어가되 그것을 감싸는 구조는 제가 설계한다는 선을 먼저 그었고, 그 선 덕분에 복잡도를 고르는 기준이 &ldquo;더 정교한 것&rdquo;에서 &ldquo;제가 바꿀 수 있는 것&rdquo;으로 바뀌었습니다.</p>
-
-      <div style="border:1px solid rgba(32,30,29,.25);padding:16px 18px;margin-top:22px">
-        <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.14em;color:rgba(32,30,29,.5);margin-bottom:12px">작업 중 대화</div>
-        <div style="display:flex;gap:14px">
-          <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;color:var(--color-accent);flex:none;width:24px;padding-top:3px">나</span>
-          <p style="margin:0;font-size:14.5px;line-height:1.75;color:rgba(32,30,29,.8)">생성 알고리즘 자체는 내가 만들고 이해하지 않을거야. 외부 라이브러리를 사용하던, AI로 구현하던, 구현된 기능을 사용하고, 이 알고리즘이 어떤 역할을 하는지만 이해하고 넘어갈거기 때문에 알고리즘의 복잡도는 크게 중요하지 않아.</p>
-        </div>
-      </div>
-      <p style="margin:20px 0 0;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">기존 코드를 지우고 새 폴더에서 시작해, 앞 절의 출구 규칙으로 다시 설계했습니다. 실행 환경도 이때 나눠, 에디터에서는 생성 과정을 단계적으로 볼 수 있게 하고 런타임에서는 한 번에 끝내도록 했습니다.</p>
-
-      <div style="border-left:2px solid var(--color-accent);padding:2px 0 2px 16px;margin-top:20px">
-        <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.1em;color:var(--color-accent);margin-bottom:6px">얻은 기준</div>
-        <p style="margin:0;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">당장 굴러가는 결과보다 끝까지 설명할 수 있는 구조를 택했으며, 이해하지 않고 넘어갈 범위는 미리 정해 두어야 그 선택이 방치가 되지 않는다는 것을 얻었습니다.</p>
-      </div>
-    </div>
-
-    <!-- 사례 2 -->
-    <div id="case-2" style="border:1px solid rgba(32,30,29,.22);border-top:none;background:#fff;padding:36px 44px 40px;scroll-margin-top:86px">
-      <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px">
-        <span style="background:var(--color-accent);color:#fff;font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;padding:4px 8px;letter-spacing:.08em">사례 2</span>
-        <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;color:rgba(32,30,29,.5);letter-spacing:.1em">책임 분리</span>
-      </div>
-      <h3 style="margin:0 0 10px;font-size:28px;font-weight:700;letter-spacing:-.02em">하나의 클래스에서 여섯 책임으로의 분리</h3>
-      <p style="margin:0 0 24px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7)">기능이 아니라 구조를 점검할 때라고 보고, 세 종류의 군더더기를 각각 다른 방법으로 정리한 과정입니다.</p>
-
-      <p style="margin:0;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">전투까지 동작하게 만든 뒤, 좋은 구조인지는 <strong>한 곳을 고칠 때 다른 곳이 흔들리지 않는가</strong>로 드러난다고 보고 코드를 되짚었습니다. 흔들리는 자리는 세 군데였고 원인이 서로 달라 정리하는 방법도 달랐습니다.</p>
-
-      <h4 style="margin:34px 0 10px;font-size:19px;font-weight:600;letter-spacing:-.01em">한 클래스가 들고 있던 몬스터의 여섯 책임</h4>
-      <p style="margin:0 0 18px;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">처음의 몬스터는 한 클래스가 탐지·공격·연출·사망·피격·체력을 전부 직접 들고 있었습니다. 동작은 했지만 공격 타이밍 하나를 손보려 해도 사망·연출 코드 사이를 헤집어야 했고, 같은 기능이 필요한 플레이어에 가져다 쓸 방법도 없었습니다.</p>
-
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;background:rgba(32,30,29,.2);border:2px solid var(--color-text)">
-        <div style="background:#fff;padding:18px 20px 22px">
-          <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.14em;color:rgba(32,30,29,.5);margin-bottom:12px">이전</div>
-          <div style="border:1px solid rgba(32,30,29,.35);padding:10px 12px">
-            <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12.5px;font-weight:500;padding-bottom:6px;border-bottom:1px solid rgba(32,30,29,.2)">AAbyssMonsterBase</div>
-            <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11.5px;line-height:1.9;color:rgba(32,30,29,.7);padding-top:6px">+ 탐지()<br>+ 공격()<br>+ 연출()<br>+ 사망()<br>+ 체력()</div>
-          </div>
-          <div style="font-size:12.5px;color:rgba(32,30,29,.55);margin-top:10px">모든 책임이 한 클래스에 (약 192줄)</div>
-        </div>
-        <div style="background:#fff;padding:18px 20px 22px">
-          <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.14em;color:var(--color-accent);margin-bottom:12px">지금</div>
-          <div style="border:1px solid var(--color-accent);padding:10px 12px">
-            <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;color:var(--color-accent);letter-spacing:.06em">&laquo;coordinator&raquo;</div>
-            <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12.5px;font-weight:500">AAbyssMonsterBase</div>
-          </div>
-          <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;color:rgba(32,30,29,.45);text-align:center;line-height:1.4;padding:4px 0">↓</div>
-          <div style="display:grid;grid-template-columns:1fr;gap:4px">
-            <div style="border:1px solid rgba(32,30,29,.3);padding:5px 9px;display:flex;justify-content:space-between;gap:10px;align-items:baseline"><span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px">UHealthComponent</span><span style="font-size:11.5px;color:rgba(32,30,29,.55);flex:none">체력</span></div>
-            <div style="border:1px solid rgba(32,30,29,.3);padding:5px 9px;display:flex;justify-content:space-between;gap:10px;align-items:baseline"><span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px">UMeleeAttackComponent</span><span style="font-size:11.5px;color:rgba(32,30,29,.55);flex:none">공격</span></div>
-            <div style="border:1px solid rgba(32,30,29,.3);padding:5px 9px;display:flex;justify-content:space-between;gap:10px;align-items:baseline"><span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px">USpawnIntroComponent</span><span style="font-size:11.5px;color:rgba(32,30,29,.55);flex:none">연출</span></div>
-            <div style="border:1px solid rgba(32,30,29,.3);padding:5px 9px;display:flex;justify-content:space-between;gap:10px;align-items:baseline"><span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px">UMonsterTargetingComponent</span><span style="font-size:11.5px;color:rgba(32,30,29,.55);flex:none">탐지</span></div>
-            <div style="border:1px solid rgba(32,30,29,.3);padding:5px 9px;display:flex;justify-content:space-between;gap:10px;align-items:baseline"><span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px">UMonsterDeathComponent</span><span style="font-size:11.5px;color:rgba(32,30,29,.55);flex:none">사망</span></div>
-            <div style="border:1px solid rgba(32,30,29,.3);padding:5px 9px;display:flex;justify-content:space-between;gap:10px;align-items:baseline"><span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px">UMonsterHitReactionComponent</span><span style="font-size:11.5px;color:rgba(32,30,29,.55);flex:none">피격</span></div>
-          </div>
-          <div style="font-size:12.5px;color:rgba(32,30,29,.55);margin-top:10px">액터에는 상태와 타이머가 남지 않고 조립과 중계만 남음</div>
-        </div>
-      </div>
-
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:20px;align-items:start">
-        <div>
-          <div style="border:1px solid rgba(32,30,29,.25);background:#111"><img data-src="../assets/ab-monster.webp" alt="" style="width:100%;height:auto;display:block" loading="lazy" decoding="async" width="478" height="362"></div>
-          <div style="font-size:12.5px;color:rgba(32,30,29,.55);margin-top:8px">몬스터 블루프린트의 컴포넌트 목록</div>
-        </div>
-        <p style="margin:0;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">나눈 결과는 블루프린트에서도 그대로 보입니다. 컴포넌트를 붙이고 떼는 것만으로 어떤 몬스터가 무엇을 할 수 있는지가 정해지고, 같은 조각을 플레이어가 가져다 쓰는 것도 막히지 않습니다.</p>
-      </div>
-
-      <div style="border:1px solid rgba(32,30,29,.25);padding:16px 18px;margin-top:22px">
-        <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.14em;color:rgba(32,30,29,.5);margin-bottom:12px">작업 중 대화</div>
-        <div style="display:flex;gap:14px">
-          <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;color:var(--color-accent);flex:none;width:24px;padding-top:3px">나</span>
-          <p style="margin:0;font-size:14.5px;line-height:1.75;color:rgba(32,30,29,.8)">지금 MonsterBase가 너무 무거운거같은데, 객체지향 원칙에 따라 클래스 역할을 분배하는게 좋지 않을까?</p>
-        </div>
-      </div>
-
-      <h4 style="margin:34px 0 10px;font-size:19px;font-weight:600;letter-spacing:-.01em">고유 코드가 없던 방의 중간 클래스</h4>
-      <p style="margin:0 0 18px;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">방은 종류마다 C++ 중간 클래스를 하나씩 두고 그 멤버 변수에 값을 박아 변주를 주는 구조였습니다. 중간 클래스에는 고유 코드가 없어 방이 늘어날수록 종류만 늘었으므로, 블루프린트가 베이스를 직접 상속하고 멤버 변수를 수정 가능한 컨테이너로 바꿔 한 클래스에서 변주가 나오게 했습니다.</p>
-
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;background:rgba(32,30,29,.2);border:2px solid var(--color-text)">
-        <div style="background:#fff;padding:18px 20px 22px">
-          <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.14em;color:rgba(32,30,29,.5);margin-bottom:12px">이전</div>
-          <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11.5px;line-height:1.9;color:rgba(32,30,29,.8)">ARoomBase<br>&nbsp;&nbsp;├ RB_DungeonRoom1 &nbsp;→ BP_Room1<br>&nbsp;&nbsp;├ RB_DungeonRoom2 &nbsp;→ BP_Room2<br>&nbsp;&nbsp;└ RB_DungeonStairsRoom1</div>
-          <div style="font-size:12.5px;color:rgba(32,30,29,.55);margin-top:10px">고유 코드 0 — 종류만 늘어남</div>
-        </div>
-        <div style="background:#fff;padding:18px 20px 22px">
-          <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.14em;color:var(--color-accent);margin-bottom:12px">지금</div>
-          <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11.5px;line-height:1.9;color:rgba(32,30,29,.8)">ARoomBase<br>&nbsp;&nbsp;├ BP_Room1<br>&nbsp;&nbsp;├ BP_Room2<br>&nbsp;&nbsp;├ ASpecialTreasureRoom<br>&nbsp;&nbsp;└ ARB_DungeonElevatorRoom</div>
-          <div style="font-size:12.5px;color:rgba(32,30,29,.55);margin-top:10px">생성기는 <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;color:var(--color-accent)">ARoomBase</span> 타입만 사용</div>
-        </div>
-      </div>
-
-      <div style="border:1px solid rgba(32,30,29,.25);margin-top:20px;background:#111"><img data-src="../assets/ab-room.png" alt="" style="width:100%;height:auto;display:block" loading="lazy" decoding="async" width="526" height="186"></div>
-      <div style="font-size:12.5px;color:rgba(32,30,29,.55);margin-top:8px">같은 베이스를 직접 상속하는 방 블루프린트</div>
-
-      <div style="border:1px solid rgba(32,30,29,.25);padding:16px 18px;margin-top:22px">
-        <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.14em;color:rgba(32,30,29,.5);margin-bottom:12px">작업 중 대화</div>
-        <div style="display:flex;gap:14px">
-          <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;color:var(--color-accent);flex:none;width:24px;padding-top:3px">나</span>
-          <p style="margin:0;font-size:14.5px;line-height:1.75;color:rgba(32,30,29,.8)">그런데 이러면 Room1~N 의 cpp 클래스는 있을 필요가 없고 그냥 BP 만 있어도 되는거 아니야? BP들의 상속을 다 RoomBase 로 바꿔도 되겠네?</p>
-        </div>
-      </div>
-
-      <h4 style="margin:34px 0 10px;font-size:19px;font-weight:600;letter-spacing:-.01em">약속만 공유하는 상호작용 대상</h4>
-      <p style="margin:0 0 18px;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">문·상자·코인은 서로 다른 물건이지만 &ldquo;닿으면 반응한다&rdquo;는 약속은 같습니다. 생성기와 플레이어가 상대를 무엇인지 묻지 않고 약속만 보고 신호를 보내도록, 약속을 잘게 나눠 필요한 것만 갖게 했습니다. 함정도 상대를 피해를 받는 대상으로만 대합니다.</p>
-
-      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;background:rgba(32,30,29,.2);border:2px solid var(--color-text)">
-        <div style="background:#fff;padding:18px 20px 22px">
-          <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;color:var(--color-accent);letter-spacing:.06em">&laquo;interface&raquo;</div>
-          <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12.5px;font-weight:500;padding-bottom:8px;border-bottom:1px solid rgba(32,30,29,.2)">IInteractable</div>
-          <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;line-height:1.9;color:rgba(32,30,29,.65);padding:6px 0 10px">+ OnInteractorEnter()<br>+ OnInteractorExit()</div>
-          <div style="font-size:12.5px;line-height:1.7;color:rgba(32,30,29,.7);border-top:1px solid rgba(32,30,29,.15);padding-top:8px">ADoor · AChest · ACoin</div>
-        </div>
-        <div style="background:#fff;padding:18px 20px 22px">
-          <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;color:var(--color-accent);letter-spacing:.06em">&laquo;interface&raquo;</div>
-          <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12.5px;font-weight:500;padding-bottom:8px;border-bottom:1px solid rgba(32,30,29,.2)">ISpawnable</div>
-          <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;line-height:1.9;color:rgba(32,30,29,.65);padding:6px 0 10px">+ GetGroundOffset()</div>
-          <div style="font-size:12.5px;line-height:1.7;color:rgba(32,30,29,.7);border-top:1px solid rgba(32,30,29,.15);padding-top:8px">AChest · ACoin · ATrapHazard</div>
-        </div>
-        <div style="background:#fff;padding:18px 20px 22px">
-          <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;color:var(--color-accent);letter-spacing:.06em">&laquo;interface&raquo;</div>
-          <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12.5px;font-weight:500;padding-bottom:8px;border-bottom:1px solid rgba(32,30,29,.2)">IDamageable</div>
-          <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;line-height:1.9;color:rgba(32,30,29,.65);padding:6px 0 10px">+ GetHealthComponent()</div>
-          <div style="font-size:12.5px;line-height:1.7;color:rgba(32,30,29,.7);border-top:1px solid rgba(32,30,29,.15);padding-top:8px">AAbyssMonsterBase · AAbyssGenCharacter</div>
-        </div>
-      </div>
-      <p style="margin:14px 0 0;font-size:13px;line-height:1.7;color:rgba(32,30,29,.65)">상자와 코인은 상호작용과 바닥에서 띄우기 둘 다 필요하므로 두 약속을 함께 가지고, 함정은 띄우기만 가져갑니다.</p>
-
-      <div style="border:1px solid rgba(32,30,29,.25);margin-top:20px;background:#111"><img data-src="../assets/ab-interface.png" alt="" style="width:100%;height:auto;display:block" loading="lazy" decoding="async" width="414" height="175"></div>
-      <div style="font-size:12.5px;color:rgba(32,30,29,.55);margin-top:8px">약속을 나눠 가진 상호작용 대상 블루프린트</div>
-
-      <div style="border-left:2px solid var(--color-accent);padding:2px 0 2px 16px;margin-top:26px">
-        <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.1em;color:var(--color-accent);margin-bottom:6px">얻은 기준</div>
-        <p style="margin:0;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">같은 군더더기라도 원인이 다르면 정리하는 방법도 달라야 하므로, 책임이 뭉친 몬스터는 컴포넌트로 쪼개고 껍데기만 남은 방의 중간 계층은 지웠으며 서로 다른 물건은 인터페이스로 묶었습니다.</p>
-      </div>
-    </div>
-
-    <!-- 사례 3 -->
-    <div id="case-3" style="border:1px solid rgba(32,30,29,.22);border-top:none;background:#fff;padding:36px 44px 40px;scroll-margin-top:86px">
-      <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px">
-        <span style="background:var(--color-accent);color:#fff;font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;padding:4px 8px;letter-spacing:.08em">사례 3</span>
-        <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;color:rgba(32,30,29,.5);letter-spacing:.1em">최적화 · 디버깅</span>
-      </div>
-      <h3 style="margin:0 0 10px;font-size:28px;font-weight:700;letter-spacing:-.02em">변수를 제어해 해결한 최적화와 디버깅</h3>
-      <p style="margin:0 0 24px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7)">최적화를 넣은 직후 나타난 이상 현상의 원인을 관찰로 좁혀간 과정입니다.</p>
-
-      <h4 style="margin:0 0 10px;font-size:19px;font-weight:600;letter-spacing:-.01em">반복되는 타일을 묶은 ISM</h4>
-      <p style="margin:0;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">방 하나는 바닥과 벽·천장이 모두 같은 타일의 반복입니다. 바닥 25개에 벽·천장 41개를 더해 약 66개이고, 이를 개별 스태틱 메시로 두면 타일 수만큼 드로우 콜이 나가며 던전에는 방이 여럿이라 부담이 곱해집니다. 프레임 드랍이 직접 발생하지는 않았으나 개선할 여건이 보여 목표로 삼았습니다.</p>
-      <p style="margin:14px 0 0;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">같은 메시를 한 번의 드로우 콜로 여러 개 그리는 Instanced Static Mesh로 묶었습니다. 방 안에 모여 한 번에 보이는 반복이라 인스턴스별 컬링이 필요한 HISM 대신 ISM을 골랐고, 배치는 방 블루프린트의 Construction Script에서 격자만큼 인스턴스를 까는 방식입니다.</p>
-
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;background:rgba(32,30,29,.2);border:2px solid var(--color-text);margin-top:22px">
-        <div style="background:#fff;padding:18px 20px 22px">
-          <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.14em;color:rgba(32,30,29,.5);margin-bottom:10px">이전 — 방 하나의 드로우 콜</div>
-          <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:24px;line-height:1.4;color:rgba(32,30,29,.75)">66</div>
-          <div style="font-size:13px;line-height:1.7;color:rgba(32,30,29,.6);margin-top:4px">바닥 25 + 벽·천장 41, 타일 하나가 곧 드로우 콜 하나</div>
-        </div>
-        <div style="background:#fff;padding:18px 20px 22px">
-          <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.14em;color:var(--color-accent);margin-bottom:10px">지금 — 방 하나의 드로우 콜</div>
-          <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:24px;line-height:1.4;color:var(--color-accent)">2</div>
-          <div style="font-size:13px;line-height:1.7;color:rgba(32,30,29,.6);margin-top:4px">메시 종류 수만큼으로 줄어, 방이 늘어도 타일 수를 따라가지 않음</div>
-        </div>
-      </div>
-
-      <h4 style="margin:34px 0 10px;font-size:19px;font-weight:600;letter-spacing:-.01em">프레임 드랍의 원인 격리</h4>
-      <p style="margin:0;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">적용 직후 에디터에서 방을 다룰 때 프레임 드랍이 생겼습니다. 방금 넣은 ISM부터 의심해 일반 메시일 때와 비교하고 인스턴스 개수를 측정했고, 그 결과 <strong>ISM은 의도대로 동작하고 있었으며 원인은 Add Instance 노드를 ForLoop의 Completed 핀에 연결해 둔 제 실수였습니다.</strong> 블루프린트에 익숙하지 않아 생긴 연결이었고, 이를 바로잡자 런타임 드로우 콜은 의도대로 줄어 있었습니다.</p>
-
-      <div style="border:1px solid rgba(32,30,29,.25);padding:16px 18px;margin-top:22px">
-        <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.14em;color:rgba(32,30,29,.5);margin-bottom:12px">작업 중 대화</div>
-        <div style="display:flex;gap:14px">
-          <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;color:var(--color-accent);flex:none;width:24px;padding-top:3px">나</span>
-          <p style="margin:0;font-size:14.5px;line-height:1.75;color:rgba(32,30,29,.8)">선택을 해제해도 마찬가지야. 중요한건, ISM이 아니라 그냥 일반 스태틱 메쉬였을때는 문제가없었어.</p>
-        </div>
-      </div>
-
-      <div style="border:1px solid rgba(32,30,29,.25);margin-top:22px;background:#111"><img data-src="../assets/ab-ism.webp" alt="" style="width:100%;height:auto;display:block" loading="lazy" decoding="async" width="1839" height="598"></div>
-      <div style="font-size:12.5px;color:rgba(32,30,29,.55);margin-top:8px">Construction Script — 격자만큼 벽 인스턴스를 까는 그래프</div>
-
-      <h4 style="margin:34px 0 10px;font-size:19px;font-weight:600;letter-spacing:-.01em">엘리베이터 메시 지연의 원인</h4>
-      <p style="margin:0;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">엘리베이터에서도 같은 방법을 썼습니다. 이동 속도를 낮춰 현상을 느리게 만들자 콜리전은 따라오는데 메시만 이동 전 자리에 남고 점프할 때만 갱신되는 것이 보였고, 이 관찰을 단서로 넘겨 Network Smoothing이 원인임을 확인했습니다.</p>
-
-      <div style="border:1px solid rgba(32,30,29,.25);padding:16px 18px;margin-top:22px">
-        <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.14em;color:rgba(32,30,29,.5);margin-bottom:12px">작업 중 대화</div>
-        <div style="display:flex;gap:14px">
-          <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;color:var(--color-accent);flex:none;width:24px;padding-top:3px">나</span>
-          <p style="margin:0;font-size:14.5px;line-height:1.75;color:rgba(32,30,29,.8)">속도를 줄여서 해보니까 문제가 좀 더 명확하게 보여. 캐릭터의 콜리전은 따라오는데 메쉬가 따라오지 못해. 메쉬는 여전히 이동전 위치에 존재하다가 내가 점프하면 현재 캐릭터 위치로 갱신돼.</p>
-        </div>
-      </div>
-
-      <div style="border-left:2px solid var(--color-accent);padding:2px 0 2px 16px;margin-top:26px">
-        <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.1em;color:var(--color-accent);margin-bottom:6px">얻은 기준</div>
-        <p style="margin:0;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">원인을 추측으로 지목하지 않고 변수를 하나씩 바꿔 현상을 격리했으며, 방금 넣은 것을 먼저 의심하되 비교로 무죄가 확인되고 나서야 다음 후보로 넘어갔습니다.</p>
-      </div>
-    </div>
-
-  </section>
-
-  <!-- 5. 정리 -->
-  <section style="padding:52px 0 0">
-    <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:20px">
-      <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px;color:var(--color-accent)">03</span>
-      <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">세 사례에서 정리한 협업 기준</h2>
-    </div>
-    <p style="margin:0 0 22px;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">구현의 상당 부분을 AI와 함께 진행했으므로, 무엇을 맡기고 어디까지를 제 것으로 남길지가 매번 판단의 대상이었습니다. 위 세 사례에서 반복된 것을 네 가지로 정리했습니다.</p>
+    <h3 style="margin:36px 0 18px;font-size:22px;font-weight:600;letter-spacing:-.01em">이후 지킨 네 가지</h3>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;background:rgba(32,30,29,.2);border:2px solid var(--color-text)">
       <div style="background:#fff;padding:18px 20px 22px">
         <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.14em;color:var(--color-accent);margin-bottom:8px">01</div>
@@ -397,6 +146,141 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
         <div style="font-size:15px;line-height:1.6;font-weight:600;margin-bottom:6px">막힐 때는 추측이 아니라 관찰을 건넵니다</div>
         <p style="margin:0;font-size:14.5px;line-height:1.75;color:rgba(32,30,29,.8)">일반 메시였을 때는 괜찮았다는 식의 단서를 주어 원인의 범위를 먼저 좁혔습니다.</p>
       </div>
+    </div>
+
+    <div style="border-left:2px solid var(--color-accent);padding:2px 0 2px 16px;margin-top:24px">
+      <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.1em;color:var(--color-accent);margin-bottom:6px">얻은 기준</div>
+      <p style="margin:0;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">당장 굴러가는 결과보다 끝까지 설명할 수 있는 구조를 택했으며, 이해하지 않고 넘어갈 범위는 미리 정해 두어야 그 선택이 방치가 되지 않는다는 것을 얻었습니다.</p>
+    </div>
+  </section>
+
+  <!-- 5. 객체지향 설계 -->
+  <section id="design" style="padding:56px 0 0;scroll-margin-top:60px">
+    <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:20px">
+      <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px;color:var(--color-accent)">03</span>
+      <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">한 클래스에서 여섯 책임으로의 분리</h2>
+    </div>
+
+    <p style="margin:0 0 22px;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">이 프로젝트의 C++는 합성 우선과 단일 책임을 따릅니다. 비대해진 클래스는 컴포넌트로 나누고 소유 액터는 조립과 중계만 하는 얇은 façade로 두었으며, 좋은 구조인지는 <strong>한 곳을 고칠 때 다른 곳이 흔들리지 않는가</strong>로 판단했습니다. 흔들리는 자리는 세 군데였고 원인이 서로 달라 정리하는 방법도 달랐습니다.</p>
+
+    <h3 style="margin:0 0 10px;font-size:22px;font-weight:600;letter-spacing:-.01em">한 클래스가 들고 있던 몬스터의 여섯 책임</h3>
+    <p style="margin:0 0 18px;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">처음의 몬스터는 한 클래스가 탐지·공격·연출·사망·피격·체력을 전부 직접 들고 있었습니다. 동작은 했지만 공격 타이밍 하나를 손보려 해도 사망·연출 코드 사이를 헤집어야 했고, 같은 기능이 필요한 플레이어에 가져다 쓸 방법도 없었습니다.</p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;background:rgba(32,30,29,.2);border:2px solid var(--color-text)">
+      <div style="background:#fff;padding:18px 20px 22px">
+        <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.14em;color:rgba(32,30,29,.5);margin-bottom:12px">이전</div>
+        <div style="border:1px solid rgba(32,30,29,.35);padding:10px 12px">
+          <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12.5px;font-weight:500;padding-bottom:6px;border-bottom:1px solid rgba(32,30,29,.2)">AAbyssMonsterBase</div>
+          <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11.5px;line-height:1.9;color:rgba(32,30,29,.7);padding-top:6px">+ 탐지()<br>+ 공격()<br>+ 연출()<br>+ 사망()<br>+ 체력()</div>
+        </div>
+        <div style="font-size:12.5px;color:rgba(32,30,29,.55);margin-top:10px">모든 책임이 한 클래스에 (약 192줄)</div>
+      </div>
+      <div style="background:#fff;padding:18px 20px 22px">
+        <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.14em;color:var(--color-accent);margin-bottom:12px">지금</div>
+        <div style="border:1px solid var(--color-accent);padding:10px 12px">
+          <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;color:var(--color-accent);letter-spacing:.06em">&laquo;coordinator&raquo;</div>
+          <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12.5px;font-weight:500">AAbyssMonsterBase</div>
+        </div>
+        <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;color:rgba(32,30,29,.45);text-align:center;line-height:1.4;padding:4px 0">↓</div>
+        <div style="display:grid;grid-template-columns:1fr;gap:4px">
+          <div style="border:1px solid rgba(32,30,29,.3);padding:5px 9px;display:flex;justify-content:space-between;gap:10px;align-items:baseline"><span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px">UHealthComponent</span><span style="font-size:11.5px;color:rgba(32,30,29,.55);flex:none">체력</span></div>
+          <div style="border:1px solid rgba(32,30,29,.3);padding:5px 9px;display:flex;justify-content:space-between;gap:10px;align-items:baseline"><span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px">UMeleeAttackComponent</span><span style="font-size:11.5px;color:rgba(32,30,29,.55);flex:none">공격</span></div>
+          <div style="border:1px solid rgba(32,30,29,.3);padding:5px 9px;display:flex;justify-content:space-between;gap:10px;align-items:baseline"><span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px">USpawnIntroComponent</span><span style="font-size:11.5px;color:rgba(32,30,29,.55);flex:none">연출</span></div>
+          <div style="border:1px solid rgba(32,30,29,.3);padding:5px 9px;display:flex;justify-content:space-between;gap:10px;align-items:baseline"><span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px">UMonsterTargetingComponent</span><span style="font-size:11.5px;color:rgba(32,30,29,.55);flex:none">탐지</span></div>
+          <div style="border:1px solid rgba(32,30,29,.3);padding:5px 9px;display:flex;justify-content:space-between;gap:10px;align-items:baseline"><span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px">UMonsterDeathComponent</span><span style="font-size:11.5px;color:rgba(32,30,29,.55);flex:none">사망</span></div>
+          <div style="border:1px solid rgba(32,30,29,.3);padding:5px 9px;display:flex;justify-content:space-between;gap:10px;align-items:baseline"><span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px">UMonsterHitReactionComponent</span><span style="font-size:11.5px;color:rgba(32,30,29,.55);flex:none">피격</span></div>
+        </div>
+        <div style="font-size:12.5px;color:rgba(32,30,29,.55);margin-top:10px">액터에는 상태와 타이머가 남지 않고 조립과 중계만 남음</div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:20px;align-items:start">
+      <div>
+        <div style="border:1px solid rgba(32,30,29,.25);background:#111"><img data-src="../assets/ab-monster.webp" alt="" style="width:100%;height:auto;display:block" loading="lazy" decoding="async" width="478" height="362"></div>
+        <div style="font-size:12.5px;color:rgba(32,30,29,.55);margin-top:8px">몬스터 블루프린트의 컴포넌트 목록</div>
+      </div>
+      <p style="margin:0;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">나눈 결과는 블루프린트에서도 그대로 보입니다. 컴포넌트를 붙이고 떼는 것만으로 어떤 몬스터가 무엇을 할 수 있는지가 정해지고, 같은 조각을 플레이어가 가져다 쓰는 것도 막히지 않습니다.</p>
+    </div>
+
+    <h3 style="margin:38px 0 10px;font-size:22px;font-weight:600;letter-spacing:-.01em">고유 코드가 없던 방의 중간 클래스</h3>
+    <p style="margin:0 0 18px;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">방은 종류마다 C++ 중간 클래스를 하나씩 두고 그 멤버 변수에 값을 박아 변주를 주는 구조였습니다. 중간 클래스에는 고유 코드가 없어 방이 늘어날수록 종류만 늘었으므로, 블루프린트가 베이스를 직접 상속하고 멤버 변수를 수정 가능한 컨테이너로 바꿔 한 클래스에서 변주가 나오게 했습니다.</p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;background:rgba(32,30,29,.2);border:2px solid var(--color-text)">
+      <div style="background:#fff;padding:18px 20px 22px">
+        <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.14em;color:rgba(32,30,29,.5);margin-bottom:12px">이전</div>
+        <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11.5px;line-height:1.9;color:rgba(32,30,29,.8)">ARoomBase<br>&nbsp;&nbsp;├ RB_DungeonRoom1 &nbsp;→ BP_Room1<br>&nbsp;&nbsp;├ RB_DungeonRoom2 &nbsp;→ BP_Room2<br>&nbsp;&nbsp;└ RB_DungeonStairsRoom1</div>
+        <div style="font-size:12.5px;color:rgba(32,30,29,.55);margin-top:10px">고유 코드 0 — 종류만 늘어남</div>
+      </div>
+      <div style="background:#fff;padding:18px 20px 22px">
+        <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.14em;color:var(--color-accent);margin-bottom:12px">지금</div>
+        <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11.5px;line-height:1.9;color:rgba(32,30,29,.8)">ARoomBase<br>&nbsp;&nbsp;├ BP_Room1<br>&nbsp;&nbsp;├ BP_Room2<br>&nbsp;&nbsp;├ ASpecialTreasureRoom<br>&nbsp;&nbsp;└ ARB_DungeonElevatorRoom</div>
+        <div style="font-size:12.5px;color:rgba(32,30,29,.55);margin-top:10px">생성기는 <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;color:var(--color-accent)">ARoomBase</span> 타입만 사용</div>
+      </div>
+    </div>
+
+    <h3 style="margin:38px 0 10px;font-size:22px;font-weight:600;letter-spacing:-.01em">약속만 공유하는 상호작용 대상</h3>
+    <p style="margin:0 0 18px;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">문·상자·코인은 서로 다른 물건이지만 &ldquo;닿으면 반응한다&rdquo;는 약속은 같습니다. 생성기와 플레이어가 상대를 무엇인지 묻지 않고 약속만 보고 신호를 보내도록, 약속을 잘게 나눠 필요한 것만 갖게 했습니다.</p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;background:rgba(32,30,29,.2);border:2px solid var(--color-text)">
+      <div style="background:#fff;padding:18px 20px 22px">
+        <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;color:var(--color-accent);letter-spacing:.06em">&laquo;interface&raquo;</div>
+        <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12.5px;font-weight:500;padding-bottom:8px;border-bottom:1px solid rgba(32,30,29,.2)">IInteractable</div>
+        <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;line-height:1.9;color:rgba(32,30,29,.65);padding:6px 0 10px">+ OnInteractorEnter()<br>+ OnInteractorExit()</div>
+        <div style="font-size:12.5px;line-height:1.7;color:rgba(32,30,29,.7);border-top:1px solid rgba(32,30,29,.15);padding-top:8px">ADoor · AChest · ACoin</div>
+      </div>
+      <div style="background:#fff;padding:18px 20px 22px">
+        <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;color:var(--color-accent);letter-spacing:.06em">&laquo;interface&raquo;</div>
+        <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12.5px;font-weight:500;padding-bottom:8px;border-bottom:1px solid rgba(32,30,29,.2)">ISpawnable</div>
+        <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;line-height:1.9;color:rgba(32,30,29,.65);padding:6px 0 10px">+ GetGroundOffset()</div>
+        <div style="font-size:12.5px;line-height:1.7;color:rgba(32,30,29,.7);border-top:1px solid rgba(32,30,29,.15);padding-top:8px">AChest · ACoin · ATrapHazard</div>
+      </div>
+      <div style="background:#fff;padding:18px 20px 22px">
+        <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;color:var(--color-accent);letter-spacing:.06em">&laquo;interface&raquo;</div>
+        <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12.5px;font-weight:500;padding-bottom:8px;border-bottom:1px solid rgba(32,30,29,.2)">IDamageable</div>
+        <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;line-height:1.9;color:rgba(32,30,29,.65);padding:6px 0 10px">+ GetHealthComponent()</div>
+        <div style="font-size:12.5px;line-height:1.7;color:rgba(32,30,29,.7);border-top:1px solid rgba(32,30,29,.15);padding-top:8px">AAbyssMonsterBase · AAbyssGenCharacter</div>
+      </div>
+    </div>
+    <p style="margin:14px 0 0;font-size:13px;line-height:1.7;color:rgba(32,30,29,.65)">상자와 코인은 상호작용과 바닥에서 띄우기 둘 다 필요하므로 두 약속을 함께 가지고, 함정은 띄우기만 가져갑니다.</p>
+
+    <div style="border-left:2px solid var(--color-accent);padding:2px 0 2px 16px;margin-top:26px">
+      <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.1em;color:var(--color-accent);margin-bottom:6px">얻은 기준</div>
+      <p style="margin:0;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">같은 군더더기라도 원인이 다르면 정리하는 방법도 달라야 하므로, 책임이 뭉친 몬스터는 컴포넌트로 쪼개고 껍데기만 남은 방의 중간 계층은 지웠으며 서로 다른 물건은 인터페이스로 묶었습니다.</p>
+    </div>
+  </section>
+
+  <!-- 6. 최적화 -->
+  <section id="optimize" style="padding:56px 0 0;scroll-margin-top:60px">
+    <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:20px">
+      <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px;color:var(--color-accent)">04</span>
+      <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">드로우 콜을 66에서 2로 줄인 ISM</h2>
+    </div>
+
+    <p style="margin:0;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">방 하나는 바닥과 벽·천장이 모두 같은 타일의 반복입니다. 바닥 25개에 벽·천장 41개를 더해 약 66개이고, 이를 개별 스태틱 메시로 두면 타일 수만큼 드로우 콜이 나가며 던전에는 방이 여럿이라 부담이 곱해집니다. 프레임 드랍이 직접 발생하지는 않았으나 개선할 여건이 보여 목표로 삼았습니다.</p>
+    <p style="margin:14px 0 0;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">같은 메시를 한 번의 드로우 콜로 여러 개 그리는 Instanced Static Mesh로 묶었습니다. 방 안에 모여 한 번에 보이는 반복이라 인스턴스별 컬링이 필요한 HISM 대신 ISM을 골랐고, 배치는 방 블루프린트의 Construction Script에서 격자만큼 인스턴스를 까는 방식입니다.</p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;background:rgba(32,30,29,.2);border:2px solid var(--color-text);margin-top:22px">
+      <div style="background:#fff;padding:18px 20px 22px">
+        <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.14em;color:rgba(32,30,29,.5);margin-bottom:10px">이전 — 방 하나의 드로우 콜</div>
+        <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:24px;line-height:1.4;color:rgba(32,30,29,.75)">66</div>
+        <div style="font-size:13px;line-height:1.7;color:rgba(32,30,29,.6);margin-top:4px">바닥 25 + 벽·천장 41, 타일 하나가 곧 드로우 콜 하나</div>
+      </div>
+      <div style="background:#fff;padding:18px 20px 22px">
+        <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.14em;color:var(--color-accent);margin-bottom:10px">지금 — 방 하나의 드로우 콜</div>
+        <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:24px;line-height:1.4;color:var(--color-accent)">2</div>
+        <div style="font-size:13px;line-height:1.7;color:rgba(32,30,29,.6);margin-top:4px">메시 종류 수만큼으로 줄어, 방이 늘어도 타일 수를 따라가지 않음</div>
+      </div>
+    </div>
+
+    <h3 style="margin:38px 0 10px;font-size:22px;font-weight:600;letter-spacing:-.01em">프레임 드랍의 원인 격리</h3>
+    <p style="margin:0;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">적용 직후 에디터에서 방을 다룰 때 프레임 드랍이 생겼습니다. 방금 넣은 ISM부터 의심해 일반 메시일 때와 비교하고 인스턴스 개수를 측정했고, 그 결과 <strong>ISM은 의도대로 동작하고 있었으며 원인은 Add Instance 노드를 ForLoop의 Completed 핀에 연결해 둔 제 실수였습니다.</strong> 이를 바로잡자 런타임 드로우 콜은 의도대로 줄어 있었습니다.</p>
+
+    <div style="border:1px solid rgba(32,30,29,.25);margin-top:22px;background:#111"><img data-src="../assets/ab-ism.webp" alt="" style="width:100%;height:auto;display:block" loading="lazy" decoding="async" width="1839" height="598"></div>
+    <div style="font-size:12.5px;color:rgba(32,30,29,.55);margin-top:8px">Construction Script — 격자만큼 벽 인스턴스를 까는 그래프</div>
+
+    <div style="border-left:2px solid var(--color-accent);padding:2px 0 2px 16px;margin-top:26px">
+      <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.1em;color:var(--color-accent);margin-bottom:6px">얻은 기준</div>
+      <p style="margin:0;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">원인을 추측으로 지목하지 않고 변수를 하나씩 바꿔 현상을 격리했으며, 방금 넣은 것을 먼저 의심하되 비교로 무죄가 확인되고 나서야 다음 후보로 넘어갔습니다.</p>
     </div>
   </section>
 
