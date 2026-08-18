@@ -121,32 +121,72 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
     </div>
 
     <h3 style="margin:36px 0 16px;font-size:22px;font-weight:600;letter-spacing:-.01em">생성기가 한 판을 만드는 순서</h3>
-    <div style="border-top:2px solid var(--color-text);border-bottom:2px solid var(--color-text)">
-      <div style="display:grid;grid-template-columns:200px 1fr;gap:0 24px;padding:13px 0;border-bottom:1px solid rgba(32,30,29,.14)">
-        <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px;color:var(--color-accent);padding-top:3px">SetSeed</span>
-        <span style="font-size:14.5px;line-height:1.75;color:rgba(32,30,29,.85)"><code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:13px">Seed</code>가 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:13px">-1</code>이면 난수로 뽑아 화면에 띄우고, 아니면 지정한 값으로 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:13px">FRandomStream</code>을 초기화합니다. 이후의 모든 추첨이 이 스트림 하나를 지납니다.</span>
-      </div>
-      <div style="display:grid;grid-template-columns:200px 1fr;gap:0 24px;padding:13px 0;border-bottom:1px solid rgba(32,30,29,.14)">
-        <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px;color:var(--color-accent);padding-top:3px">SpawnStarterRoom</span>
-        <span style="font-size:14.5px;line-height:1.75;color:rgba(32,30,29,.85)">시작 방을 생성기 위치에 놓고, 그 방이 가진 출구 지점들을 <b>열린 출구 목록</b>에 담습니다.</span>
-      </div>
-      <div style="display:grid;grid-template-columns:200px 1fr;gap:0 24px;padding:13px 0;border-bottom:1px solid rgba(32,30,29,.14)">
-        <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px;color:var(--color-accent);padding-top:3px">SpawnNextRoom</span>
-        <span style="font-size:14.5px;line-height:1.75;color:rgba(32,30,29,.85)">방 후보와 열린 출구에서 각각 하나씩 뽑아, 출구의 위치와 회전을 새 방에 그대로 적용합니다. 겹치지 않으면 그 출구를 <b>문 자리</b>로 옮기고 새 방의 출구를 목록에 더한 뒤, 목표 방 수를 채울 때까지 되풀이합니다.</span>
-      </div>
-      <div style="display:grid;grid-template-columns:200px 1fr;gap:0 24px;padding:13px 0;border-bottom:1px solid rgba(32,30,29,.14)">
-        <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px;color:var(--color-accent);padding-top:3px">SpawnEscapeRoom</span>
-        <span style="font-size:14.5px;line-height:1.75;color:rgba(32,30,29,.85)">남은 출구를 생성기에서 <b>먼 순으로 정렬</b>해 하나씩 시도하고, 겹치지 않는 첫 자리에 탈출방을 정확히 하나 놓습니다. 시작점에서 멀수록 먼저 시도하므로 탈출구가 코앞에 붙지 않습니다.</span>
-      </div>
-      <div style="display:grid;grid-template-columns:200px 1fr;gap:0 24px;padding:13px 0;border-bottom:1px solid rgba(32,30,29,.14)">
-        <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px;color:var(--color-accent);padding-top:3px">SpawnSpecialRooms</span>
-        <span style="font-size:14.5px;line-height:1.75;color:rgba(32,30,29,.85)">남은 출구 중에서 뽑아 막다른 특수방을 지정한 개수만큼 놓습니다. 자리를 찾지 못하면 그 사실을 화면에 알리고 넘어갑니다.</span>
-      </div>
-      <div style="display:grid;grid-template-columns:200px 1fr;gap:0 24px;padding:13px 0">
-        <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px;color:var(--color-accent);padding-top:3px">FinalizeDungeon</span>
-        <span style="font-size:14.5px;line-height:1.75;color:rgba(32,30,29,.85)">쓰이지 않은 출구는 벽으로 막고, 이어진 출구에는 문과 횃불을 놓은 다음 콘텐츠 배치를 넘깁니다.</span>
+    <div data-om-raster="true">
+      <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.12em;color:rgba(32,30,29,.5);margin-bottom:10px">한 판 — 레이아웃을 먼저 끝내고 마감을 미룬다</div>
+      <div style="border:2px solid var(--color-text);background:#fff;padding:20px 22px">
+        <svg sc-camel-view-box="0 0 1100 324" style="width:100%;height:auto;display:block" role="img" aria-label="시드 초기화부터 시작 방, 방 잇기, 탈출방, 특수방까지 같은 프레임에 끝내고 벽과 문, 횃불, 콘텐츠 배치를 다음 틱에 마감하는 순서 다이어그램">
+          <defs>
+            <marker id="pga" sc-camel-view-box="0 0 10 10" sc-camel-ref-x="9" sc-camel-ref-y="5" sc-camel-marker-width="7" sc-camel-marker-height="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#201e1d"></path></marker>
+            <marker id="pgr" sc-camel-view-box="0 0 10 10" sc-camel-ref-x="9" sc-camel-ref-y="5" sc-camel-marker-width="7" sc-camel-marker-height="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#ec3013"></path></marker>
+          </defs>
+          <path d="M 690,72 C 690,32 562,32 562,70" stroke="#ec3013" stroke-width="1.5" fill="none" marker-end="url(#pgr)"></path>
+          <text x="716" y="46" font-family="'IBM Plex Sans KR',sans-serif" font-size="11.5" fill="#ec3013">겹치면 폐기하고 다시 뽑기</text>
+          <text x="12" y="96" font-family="'IBM Plex Mono',monospace" font-size="12.5" fill="#ec3013">BeginPlay</text>
+          <text x="12" y="114" font-family="'IBM Plex Sans KR',sans-serif" font-size="11" fill="#8a8580">같은 프레임</text>
+          <rect x="176" y="72" width="160" height="54" fill="#fff" stroke="#201e1d" stroke-width="1.5"></rect>
+          <text x="190" y="96" font-family="'IBM Plex Mono',monospace" font-size="12" fill="#201e1d">SetSeed</text>
+          <text x="190" y="114" font-family="'IBM Plex Sans KR',sans-serif" font-size="11" fill="#8a8580">난수원 하나로 고정</text>
+          <line x1="338" y1="99" x2="359" y2="99" stroke="#201e1d" stroke-width="1.5" marker-end="url(#pga)"></line>
+          <rect x="361" y="72" width="160" height="54" fill="#fff" stroke="#201e1d" stroke-width="1.5"></rect>
+          <text x="375" y="96" font-family="'IBM Plex Mono',monospace" font-size="12" fill="#201e1d">SpawnStarterRoom</text>
+          <text x="375" y="114" font-family="'IBM Plex Sans KR',sans-serif" font-size="11" fill="#8a8580">시작 방 하나</text>
+          <line x1="523" y1="99" x2="544" y2="99" stroke="#201e1d" stroke-width="1.5" marker-end="url(#pga)"></line>
+          <rect x="546" y="72" width="160" height="54" fill="#fbe9e6" stroke="#ec3013" stroke-width="1.5"></rect>
+          <text x="560" y="96" font-family="'IBM Plex Mono',monospace" font-size="12" fill="#ec3013">SpawnNextRoom</text>
+          <text x="560" y="114" font-family="'IBM Plex Sans KR',sans-serif" font-size="11" fill="#6b6663">방 수를 채울 때까지</text>
+          <line x1="708" y1="99" x2="729" y2="99" stroke="#201e1d" stroke-width="1.5" marker-end="url(#pga)"></line>
+          <rect x="731" y="72" width="160" height="54" fill="#fff" stroke="#201e1d" stroke-width="1.5"></rect>
+          <text x="745" y="96" font-family="'IBM Plex Mono',monospace" font-size="12" fill="#201e1d">SpawnEscapeRoom</text>
+          <text x="745" y="114" font-family="'IBM Plex Sans KR',sans-serif" font-size="11" fill="#8a8580">먼 출구부터 한 개</text>
+          <line x1="893" y1="99" x2="914" y2="99" stroke="#201e1d" stroke-width="1.5" marker-end="url(#pga)"></line>
+          <rect x="916" y="72" width="160" height="54" fill="#fff" stroke="#201e1d" stroke-width="1.5"></rect>
+          <text x="930" y="96" font-family="'IBM Plex Mono',monospace" font-size="12" fill="#201e1d">SpawnSpecialRooms</text>
+          <text x="930" y="114" font-family="'IBM Plex Sans KR',sans-serif" font-size="11" fill="#8a8580">막다른 특수방</text>
+          <line x1="12" y1="150" x2="1076" y2="150" stroke="#201e1d" stroke-width="1" opacity=".18"></line>
+          <text x="12" y="190" font-family="'IBM Plex Mono',monospace" font-size="12.5" fill="#ec3013">Exits</text>
+          <text x="12" y="208" font-family="'IBM Plex Sans KR',sans-serif" font-size="11" fill="#8a8580">세 단계가 함께 쓰는 목록</text>
+          <rect x="176" y="166" width="230" height="48" fill="#fff" stroke="#201e1d" stroke-width="1.5"></rect>
+          <text x="190" y="188" font-family="'IBM Plex Sans KR',sans-serif" font-size="12.5" fill="#201e1d">열린 출구</text>
+          <text x="190" y="205" font-family="'IBM Plex Sans KR',sans-serif" font-size="11" fill="#8a8580">아직 이어지지 않은 자리</text>
+          <line x1="408" y1="190" x2="502" y2="190" stroke="#ec3013" stroke-width="1.5" marker-end="url(#pgr)"></line>
+          <text x="455" y="180" text-anchor="middle" font-family="'IBM Plex Sans KR',sans-serif" font-size="11" fill="#ec3013">이어 붙으면</text>
+          <rect x="506" y="166" width="230" height="48" fill="#fff" stroke="#ec3013" stroke-width="1.5"></rect>
+          <text x="520" y="188" font-family="'IBM Plex Sans KR',sans-serif" font-size="12.5" fill="#201e1d">문 자리</text>
+          <text x="520" y="205" font-family="'IBM Plex Sans KR',sans-serif" font-size="11" fill="#8a8580">방과 방이 이어진 자리</text>
+          <text x="766" y="182" font-family="'IBM Plex Sans KR',sans-serif" font-size="11.5" fill="#8a8580">새 방이 붙을 때마다 그 방의 출구가</text>
+          <text x="766" y="200" font-family="'IBM Plex Sans KR',sans-serif" font-size="11.5" fill="#8a8580">열린 출구로 다시 들어옵니다</text>
+          <line x1="12" y1="238" x2="1076" y2="238" stroke="#201e1d" stroke-width="1" opacity=".18"></line>
+          <text x="12" y="278" font-family="'IBM Plex Mono',monospace" font-size="12.5" fill="#ec3013">FinalizeDungeon</text>
+          <text x="12" y="296" font-family="'IBM Plex Sans KR',sans-serif" font-size="11" fill="#8a8580">다음 틱</text>
+          <rect x="176" y="254" width="200" height="54" fill="#fff" stroke="#201e1d" stroke-width="1.5"></rect>
+          <text x="190" y="278" font-family="'IBM Plex Mono',monospace" font-size="12" fill="#201e1d">CloseUnusedExits</text>
+          <text x="190" y="296" font-family="'IBM Plex Sans KR',sans-serif" font-size="11" fill="#8a8580">남은 열린 출구를 벽으로</text>
+          <line x1="378" y1="281" x2="407" y2="281" stroke="#201e1d" stroke-width="1.5" marker-end="url(#pga)"></line>
+          <rect x="409" y="254" width="200" height="54" fill="#fff" stroke="#201e1d" stroke-width="1.5"></rect>
+          <text x="423" y="278" font-family="'IBM Plex Mono',monospace" font-size="12" fill="#201e1d">SpawnDoors</text>
+          <text x="423" y="296" font-family="'IBM Plex Sans KR',sans-serif" font-size="11" fill="#8a8580">문 자리에 문을</text>
+          <line x1="611" y1="281" x2="640" y2="281" stroke="#201e1d" stroke-width="1.5" marker-end="url(#pga)"></line>
+          <rect x="642" y="254" width="200" height="54" fill="#fff" stroke="#201e1d" stroke-width="1.5"></rect>
+          <text x="656" y="278" font-family="'IBM Plex Mono',monospace" font-size="12" fill="#201e1d">SpawnTorches</text>
+          <text x="656" y="296" font-family="'IBM Plex Sans KR',sans-serif" font-size="11" fill="#8a8580">문 옆 지점에 횃불을</text>
+          <line x1="844" y1="281" x2="873" y2="281" stroke="#201e1d" stroke-width="1.5" marker-end="url(#pga)"></line>
+          <rect x="875" y="254" width="200" height="54" fill="#fbe9e6" stroke="#ec3013" stroke-width="1.5"></rect>
+          <text x="889" y="278" font-family="'IBM Plex Mono',monospace" font-size="12" fill="#ec3013">BeginPopulate</text>
+          <text x="889" y="296" font-family="'IBM Plex Sans KR',sans-serif" font-size="11" fill="#6b6663">콘텐츠 배치를 넘김</text>
+        </svg>
       </div>
     </div>
+    <p style="margin:16px 0 0;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">방과 출구, 스폰 확률의 모든 추첨이 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:14px">SetSeed</code>가 만든 스트림 하나를 지납니다. 탈출방은 남은 출구를 생성기에서 먼 순으로 정렬해 시도하므로 시작점 코앞에 붙지 않고, 특수방은 자리를 찾지 못하면 그 사실을 화면에 알리고 넘어갑니다.</p>
 
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;background:rgba(32,30,29,.2);border:2px solid var(--color-text);margin-top:26px">
       <div style="background:#fff;padding:18px 20px 22px">
