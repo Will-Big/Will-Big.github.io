@@ -56,6 +56,36 @@
 그대로 쓰면 자동으로 대응됩니다. 새로운 크기·그리드를 쓰려면 `mobile.css` 에 규칙을
 추가해야 합니다.
 
+## 코드 블록에 camelCase 를 적을 때
+
+`support.js` 는 페이지 원문 전체에 아래 정규식을 걸어 camelCase 속성명을 인코딩합니다
+(`support.js` 365행).
+
+```
+/(\s)([a-z]+[A-Z][A-Za-z0-9]*)(\s*=)/g
+```
+
+`<pre>` 안인지 태그 안인지 가리지 않으므로 코드 블록도 함께 바뀝니다. 실제로
+`var baselineScenario = …` 가 화면에서 `var sc-camel-baseline-scenario = …` 로 나왔습니다
+(2026-08-18, rogue-deck).
+
+등호를 `&#61;` 로 적으면 정규식에 걸리지 않고 화면에는 `=` 로 나옵니다.
+
+```html
+<pre>    var baselineScenario &#61; WithoutInterventionPlays(scenario);</pre>
+```
+
+걸리는 것은 **공백 바로 뒤에 오는 소문자 시작 camelCase 이름에 `=` 가 이어지는 경우**뿐입니다.
+대문자로 시작하는 이름(`Id = 1`)과 점이 낀 이름(`ctx.State.Foo = 1`), `=>` 나 `!=` 처럼 등호 앞에
+다른 글자가 있는 것은 그대로 나옵니다. `viewBox="…"` 같은 진짜 속성은 이 변환을 거쳐 원래
+이름으로 되돌아가므로 손대지 않습니다.
+
+새 코드 블록을 넣었으면 이렇게 확인합니다.
+
+```bash
+python3 -c "import io,re;s=io.open('site/rogue-deck/index.html',encoding='utf-8').read();print(re.findall(r'\s[a-z]+[A-Z][A-Za-z0-9]*\s*=',s))"
+```
+
 ## 확인 방법
 
 ```bash
