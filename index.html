@@ -100,7 +100,7 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
     <div style="display:grid;grid-template-columns:1.35fr 1fr;gap:48px;padding-top:26px;align-items:start">
       <div>
         <h1 style="margin:0;font-size:56px;line-height:1.1;letter-spacing:-.03em;font-weight:700">임상학<span style="font-size:24px;font-weight:400;color:rgba(32,30,29,.5);margin-left:14px">Sanghak Im</span></h1>
-        <p style="margin:18px 0 0;font-size:17px;line-height:1.8;text-wrap:pretty;color:rgba(32,30,29,.85)">더 좋은 성능을 이끌어내기 위한 <strong>설계와 학습</strong>을 좋아하는 프로그래머입니다. 자체 엔진을 네 번 만들며 매번 이전 구조의 한계를 짚어 다시 설계했고, 동시에 기획·아트가 직접 쓸 수 있는 툴을 만들고 설명서까지 남기는 일을 제 몫으로 여겨 왔습니다.</p>
+        <p style="margin:18px 0 0;font-size:17px;line-height:1.8;text-wrap:pretty;color:rgba(32,30,29,.85)">더 좋은 게임을 만들기 위한 <strong>설계와 학습</strong>을 좋아하는 프로그래머입니다. 자체 엔진을 네 번 만들며 매번 이전 구조의 한계를 짚어 다시 설계했고, 동시에 다른 직군의 동료들도 직접 쓸 수 있는 툴을 만들어 생산성을 높여왔습니다.</p>
       </div>
       <div style="border-left:2px solid var(--color-text);padding-left:24px">
         <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.12em;color:rgba(32,30,29,.5);margin-bottom:10px">CONTACT</div>
@@ -289,6 +289,33 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
     </article>
   </section>
 
+  <!-- 엔진 비교 -->
+  <section style="padding:44px 0 0;break-inside:avoid">
+    <div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;border-bottom:2px solid var(--color-text);padding-bottom:10px;margin-bottom:0">
+      <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">자체 엔진 개선 과정</h2>
+    </div>
+    <div style="font-size:14px">
+      <div style="display:grid;grid-template-columns:.5fr 1.1fr 1.4fr 1.4fr;gap:20px;padding:12px 0;border-bottom:1px solid rgba(32,30,29,.15);font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10.5px;letter-spacing:.1em;color:rgba(32,30,29,.5)">
+        <span>순서</span><span>프로젝트</span><span>새로 도입한 것</span><span>개선해야겠다고 느낀 것</span>
+      </div>
+      <div style="display:grid;grid-template-columns:.5fr 1.1fr 1.4fr 1.4fr;gap:20px;padding:14px 0;border-bottom:1px solid rgba(32,30,29,.15);line-height:1.6">
+        <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;color:rgba(32,30,29,.45)">0th</span><span style="font-weight:500">로컬 PVP 바둑</span><span>외부 API 없이 순수 C · while 무한 게임 루프</span><span style="color:rgba(32,30,29,.65)">루프에 로직을 계속 덧붙이는 구조라 확장이 막힘 — 구조적인 게임 루프 설계가 필요하다고 느낌</span>
+      </div>
+      <div style="display:grid;grid-template-columns:.5fr 1.1fr 1.4fr 1.4fr;gap:20px;padding:14px 0;border-bottom:1px solid rgba(32,30,29,.15);line-height:1.6">
+        <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;color:rgba(32,30,29,.45)">1st</span><span style="font-weight:500">나의 인형 이야기</span><span>Windows API 위의 최소 게임 루프</span><span style="color:rgba(32,30,29,.65)">오브젝트가 상속으로만 늘어나 재사용이 안 됨</span>
+      </div>
+      <div style="display:grid;grid-template-columns:.5fr 1.1fr 1.4fr 1.4fr;gap:20px;padding:14px 0;border-bottom:1px solid rgba(32,30,29,.15);line-height:1.6">
+        <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;color:rgba(32,30,29,.45)">2nd</span><span style="font-weight:500">Fate Weaver</span><span>컴포넌트 기반 구조 · Direct2D</span><span style="color:rgba(32,30,29,.65)">데이터를 코드로만 만들어 기획이 손댈 수 없었음</span>
+      </div>
+      <div style="display:grid;grid-template-columns:.5fr 1.1fr 1.4fr 1.4fr;gap:20px;padding:14px 0;border-bottom:1px solid rgba(32,30,29,.15);line-height:1.6">
+        <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;color:rgba(32,30,29,.45)">3rd</span><span style="font-weight:500">TicToc Guardians</span><span>리플렉션 · 시리얼라이즈 · 첫 에디터</span><span style="color:rgba(32,30,29,.65)">메인 루프와 렌더러가 붙어 있어 툴을 얹기 어려웠음</span>
+      </div>
+      <div style="display:grid;grid-template-columns:.5fr 1.1fr 1.4fr 1.4fr;gap:20px;padding:14px 0;border-bottom:2px solid var(--color-text);line-height:1.6;background:rgba(236,48,19,.05)">
+        <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;color:var(--color-accent)">4th</span><span style="font-weight:600">Midnight Cleanup</span><span>ECS 전환 · 메인 루프 분리 · 충돌 레이어 추상화</span><span style="color:rgba(32,30,29,.65)">충돌 해결을 위한 버전 컨트롤과 마이그레이션에 대한 필요성을 알게 됨</span>
+      </div>
+    </div>
+  </section>
+
   <!-- 개인 프로젝트 -->
   <section style="padding:44px 0 0">
     <div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;border-bottom:2px solid var(--color-text);padding-bottom:10px">
@@ -364,32 +391,6 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
     </article>
   </section>
 
-  <!-- 엔진 비교 -->
-  <section style="padding:44px 0 0;break-inside:avoid">
-    <div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;border-bottom:2px solid var(--color-text);padding-bottom:10px;margin-bottom:0">
-      <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">자체 엔진 개선 과정</h2>
-    </div>
-    <div style="font-size:14px">
-      <div style="display:grid;grid-template-columns:.5fr 1.1fr 1.4fr 1.4fr;gap:20px;padding:12px 0;border-bottom:1px solid rgba(32,30,29,.15);font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10.5px;letter-spacing:.1em;color:rgba(32,30,29,.5)">
-        <span>순서</span><span>프로젝트</span><span>새로 도입한 것</span><span>개선해야겠다고 느낀 것</span>
-      </div>
-      <div style="display:grid;grid-template-columns:.5fr 1.1fr 1.4fr 1.4fr;gap:20px;padding:14px 0;border-bottom:1px solid rgba(32,30,29,.15);line-height:1.6">
-        <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;color:rgba(32,30,29,.45)">0th</span><span style="font-weight:500">로컬 PVP 바둑</span><span>외부 API 없이 순수 C · while 무한 게임 루프</span><span style="color:rgba(32,30,29,.65)">루프에 로직을 계속 덧붙이는 구조라 확장이 막힘 — 구조적인 게임 루프 설계가 필요하다고 느낌</span>
-      </div>
-      <div style="display:grid;grid-template-columns:.5fr 1.1fr 1.4fr 1.4fr;gap:20px;padding:14px 0;border-bottom:1px solid rgba(32,30,29,.15);line-height:1.6">
-        <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;color:rgba(32,30,29,.45)">1st</span><span style="font-weight:500">나의 인형 이야기</span><span>Windows API 위의 최소 게임 루프</span><span style="color:rgba(32,30,29,.65)">오브젝트가 상속으로만 늘어나 재사용이 안 됨</span>
-      </div>
-      <div style="display:grid;grid-template-columns:.5fr 1.1fr 1.4fr 1.4fr;gap:20px;padding:14px 0;border-bottom:1px solid rgba(32,30,29,.15);line-height:1.6">
-        <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;color:rgba(32,30,29,.45)">2nd</span><span style="font-weight:500">Fate Weaver</span><span>컴포넌트 기반 구조 · Direct2D</span><span style="color:rgba(32,30,29,.65)">데이터를 코드로만 만들어 기획이 손댈 수 없었음</span>
-      </div>
-      <div style="display:grid;grid-template-columns:.5fr 1.1fr 1.4fr 1.4fr;gap:20px;padding:14px 0;border-bottom:1px solid rgba(32,30,29,.15);line-height:1.6">
-        <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;color:rgba(32,30,29,.45)">3rd</span><span style="font-weight:500">TicToc Guardians</span><span>리플렉션 · 시리얼라이즈 · 첫 에디터</span><span style="color:rgba(32,30,29,.65)">메인 루프와 렌더러가 붙어 있어 툴을 얹기 어려웠음</span>
-      </div>
-      <div style="display:grid;grid-template-columns:.5fr 1.1fr 1.4fr 1.4fr;gap:20px;padding:14px 0;border-bottom:2px solid var(--color-text);line-height:1.6;background:rgba(236,48,19,.05)">
-        <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;color:var(--color-accent)">4th</span><span style="font-weight:600">Midnight Cleanup</span><span>ECS 전환 · 메인 루프 분리 · 충돌 레이어 추상화</span><span style="color:rgba(32,30,29,.65)">충돌 해결을 위한 버전 컨트롤과 마이그레이션에 대한 필요성을 알게 됨</span>
-      </div>
-    </div>
-  </section>
 
   <!-- 협업 -->
   <section id="collab" style="padding:44px 0 0;break-inside:avoid;scroll-margin-top:24px">
