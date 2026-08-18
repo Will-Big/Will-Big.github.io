@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Rogue-deck | 임상학 Portfolio</title>
-<meta name="description" content="순수 C# 코어와 Unity 레이어 분리 · JSON 단일 원본 전환 · 설계 문서 형식 개편 — AI와 나눠 구현하며 세운 규칙">
+<meta name="description" content="순수 C# 코어와 Unity 레이어 분리 · 효과 확장 구조 · 시나리오 비교 러너 · 두 번의 구조 전환">
 <link rel="preconnect" href="https://unpkg.com" crossorigin>
 <link rel="preload" as="script" crossorigin href="https://unpkg.com/react@18.3.1/umd/react.production.min.js" integrity="sha384-DGyLxAyjq0f9SPpVevD6IgztCFlnMF6oW/XQGmfe+IsZ8TqEiDrcHkMLKI6fiB/Z">
 <link rel="preload" as="script" crossorigin href="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" integrity="sha384-gTGxhz21lVGYNMcdJOyq01Edg0jhn/c22nsx0kyqP0TxaV5WVdsSH1fSDUf5YJj1">
@@ -56,22 +56,24 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
         <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:16px">
           <span style="border:1px solid rgba(32,30,29,.3);font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;padding:3px 8px">Unity</span>
           <span style="border:1px solid rgba(32,30,29,.3);font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;padding:3px 8px">C#</span>
-          <span style="border:1px solid rgba(32,30,29,.3);font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;padding:3px 8px">헤드리스 테스트</span>
+          <span style="border:1px solid rgba(32,30,29,.3);font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;padding:3px 8px">시뮬레이션</span>
         </div>
         <div style="margin-top:16px;font-size:13.5px;line-height:1.8">
           <a href="https://github.com/Will-Big/rogue-deck" target="_blank" rel="noopener">GitHub 저장소</a>
         </div>
       </div>
     </div>
-    <p style="margin:30px 0 0;font-size:17px;line-height:1.8;text-wrap:pretty;color:rgba(32,30,29,.85)">적의 다음 수가 모두 공개된 채로 턴이 시작되는 턴제 덱빌딩 로그라이크입니다. 구현은 AI와 나눠 맡고 있으며, <strong>무엇을 맡기고 그 결과를 무엇으로 검증할지는 저장소의 규칙 문서로 정해 두었습니다.</strong> 그 조항 대부분은 미리 세운 것이 아니라 아래 두 번의 구조 전환에서 나온 것입니다.</p>
+    <p style="margin:30px 0 0;font-size:17px;line-height:1.8;text-wrap:pretty;color:rgba(32,30,29,.85)">턴제 덱빌딩 로그라이크입니다. 실행 카드는 매 턴 자동으로 뽑혀 자동으로 발동되고, 플레이어가 직접 쓰는 것은 그 실행 순서를 바꾸는 개입 카드입니다. 적의 다음 수까지 모두 공개된 채로 턴이 시작되므로, 카드 한 장의 수치보다 <strong>순서와 조건과 상태가 서로를 참조하며 만들어 내는 판정</strong>이 규칙의 대부분을 차지합니다. 구현은 AI와 나눠 맡고 있으며, 무엇을 맡기고 어떤 구조를 지킬지는 저장소의 규칙 문서(<a href="https://github.com/Will-Big/rogue-deck/blob/master/AGENTS.md" target="_blank" rel="noopener">AGENTS.md</a> · 조항 30개)로 정해 두었습니다.</p>
   </section>
 
   <!-- 2. 하이라이트 -->
   <section style="padding:48px 0 0">
     <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;letter-spacing:.12em;color:var(--color-accent);padding-bottom:10px">하이라이트</div>
     <div style="border-top:2px solid var(--color-text);border-bottom:2px solid var(--color-text);display:grid;grid-template-columns:1fr 1fr;gap:0 40px">
-      <a href="#case-1" style="display:flex;gap:14px;padding:15px 0;color:var(--color-text);text-decoration:none"><span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;color:var(--color-accent);padding-top:4px">사례 1</span><span style="font-size:15px;line-height:1.6;font-weight:500">🔗 카드 저작 원본의 단일화</span></a>
-      <a href="#case-2" style="display:flex;gap:14px;padding:15px 0;color:var(--color-text);text-decoration:none"><span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;color:var(--color-accent);padding-top:4px">사례 2</span><span style="font-size:15px;line-height:1.6;font-weight:500">🔗 설계 문서 형식의 개편</span></a>
+      <a href="#extension" style="display:flex;gap:14px;padding:15px 0;color:var(--color-text);text-decoration:none;border:none"><span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;color:var(--color-accent);padding-top:5px;flex:none;width:40px">02</span><span><span style="display:block;font-size:15px;line-height:1.5;font-weight:500">🔗 효과 하나를 늘릴 때 손대는 곳</span><span style="display:block;font-size:13px;line-height:1.6;color:rgba(32,30,29,.6);margin-top:3px">JSON 한 칸, 클래스 하나, 등록 한 줄로 끝나는 확장 경로</span></span></a>
+      <a href="#runner" style="display:flex;gap:14px;padding:15px 0;color:var(--color-text);text-decoration:none;border:none"><span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;color:var(--color-accent);padding-top:5px;flex:none;width:40px">03</span><span><span style="display:block;font-size:15px;line-height:1.5;font-weight:500">🔗 시나리오 비교 러너</span><span style="display:block;font-size:13px;line-height:1.6;color:rgba(32,30,29,.6);margin-top:3px">같은 판을 개입 없이 한 번, 넣어서 한 번 돌린 차이</span></span></a>
+      <a href="#case-1" style="display:flex;gap:14px;padding:15px 0;color:var(--color-text);text-decoration:none;border:none"><span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;color:var(--color-accent);padding-top:5px;flex:none;width:40px">사례 1</span><span><span style="display:block;font-size:15px;line-height:1.5;font-weight:500">🔗 카드 저작 원본의 단일화</span><span style="display:block;font-size:13px;line-height:1.6;color:rgba(32,30,29,.6);margin-top:3px">같은 데이터가 두 곳에 있던 상태를 JSON 하나로 좁힌 과정</span></span></a>
+      <a href="#case-2" style="display:flex;gap:14px;padding:15px 0;color:var(--color-text);text-decoration:none;border:none"><span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;color:var(--color-accent);padding-top:5px;flex:none;width:40px">사례 2</span><span><span style="display:block;font-size:15px;line-height:1.5;font-weight:500">🔗 설계 문서 형식의 개편</span><span style="display:block;font-size:13px;line-height:1.6;color:rgba(32,30,29,.6);margin-top:3px">검토할 수 없던 문서를 사람 검수용과 인계용 두 층으로 분리</span></span></a>
     </div>
   </section>
 
@@ -82,16 +84,123 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
       <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">순수 C# 코어와 Unity 레이어의 분리</h2>
     </div>
     <div style="border:1px solid rgba(32,30,29,.3);padding:22px 24px">
-      <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;letter-spacing:.12em;color:var(--color-accent);margin-bottom:10px">이 프로젝트의 전제</div>
-      <p style="margin:0 0 12px;font-size:15px;line-height:1.8;color:rgba(32,30,29,.85)">AI가 Unity 에디터를 열지 않고 헤드리스로 작업하며 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:13.5px">dotnet test</code>로 직접 검증할 수 있도록, 게임 규칙은 UnityEngine을 참조하지 않는 순수 C# 코어에 두고 표현과 저작은 Unity 레이어에 두었습니다.</p>
-      <p style="margin:0;font-size:15px;line-height:1.8;color:rgba(32,30,29,.85)">대신 코어가 Unity 레이어의 에셋을 읽을 수 없으므로, 카드 능력은 SO로 저작한 뒤 코드로 변환해 코어에 넘기는 방식을 택했습니다. 이 선택이 뒤에 문제가 되었습니다.</p>
+      <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;letter-spacing:.12em;color:var(--color-accent);margin-bottom:10px">이 구조를 택한 이유</div>
+      <p style="margin:0 0 12px;font-size:15px;line-height:1.8;color:rgba(32,30,29,.85)">카드 밸런스를 수기 시뮬레이션으로 확인하던 것을 코드로 반복 실행하는 것과, Unity를 쓰되 AI가 에디터를 열지 않고 규칙 코드를 다룰 수 있게 하는 것이 이 프로젝트의 두 요구였습니다. 두 요구가 같은 구조를 가리켰으므로 게임 규칙은 UnityEngine을 참조하지 않는 순수 C# 코어에 두고, 표현과 저작은 Unity 레이어에 두었습니다.</p>
+      <p style="margin:0;font-size:15px;line-height:1.8;color:rgba(32,30,29,.85)">엔진을 쓰지 않겠다는 것이 아니라 규칙 레이어만 순수하게 두는 선택이며, 대가는 코어가 Unity 에셋을 직접 읽지 못해 경계에서 변환이 필요하다는 것입니다. 그래서 카드 능력은 SO로 저작한 뒤 코드로 변환해 코어에 넘기는 방식으로 시작했습니다.</p>
+      <div style="border-left:2px solid var(--color-accent);padding:2px 0 2px 16px;margin-top:20px">
+        <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.1em;color:var(--color-accent);margin-bottom:6px">설계 시점의 결정 기록 — 2026-06-18 스펙 §12</div>
+        <p style="margin:0;font-size:15px;line-height:1.8;color:rgba(32,30,29,.85)">&ldquo;<b>순수 C# 코어</b>: … 비용은 경계에서 SO↔DTO 변환 보일러플레이트.&rdquo;</p>
+      </div>
+      <p style="margin:16px 0 0;font-size:15px;line-height:1.8;color:rgba(32,30,29,.85)">적어 둔 이 비용이 아래 <b>사례 1</b>에서 그대로 청구되었습니다.</p>
     </div>
   </section>
 
-  <!-- 4. 사례 -->
-  <section style="padding:52px 0 0">
+  <!-- 4. 확장 구조 -->
+  <section id="extension" style="padding:52px 0 0;scroll-margin-top:86px">
     <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:20px">
       <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px;color:var(--color-accent)">02</span>
+      <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">효과 하나를 늘릴 때 손대는 곳</h2>
+    </div>
+    <p style="margin:0 0 20px;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">카드 효과는 종류가 계속 늘어나므로, 새 효과를 넣을 때 기존 코드를 열지 않는 것을 저장소 규칙으로 두었습니다.</p>
+    <div style="border-left:2px solid var(--color-accent);padding:2px 0 2px 16px;margin-bottom:24px">
+      <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.1em;color:var(--color-accent);margin-bottom:6px">AGENTS.md 조항 9</div>
+      <p style="margin:0;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">&ldquo;확장은 레지스트리로 한다. 새 효과/상태 이상/개입 액션 = 핸들러 클래스 1개 + 키 등록. 중앙 switch를 키우지 않는다.&rdquo;</p>
+    </div>
+    <div style="border:1px solid rgba(32,30,29,.25);padding:18px 20px 22px;margin-bottom:24px">
+      <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.14em;color:rgba(32,30,29,.5);margin-bottom:12px">효과 하나가 지나가는 경로</div>
+      <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12.5px;line-height:2;color:rgba(32,30,29,.8)">카드 JSON의 kind &nbsp;→&nbsp; EffectKey &nbsp;→&nbsp; IEffectHandler 구현 &nbsp;→&nbsp; 레지스트리 등록</div>
+    </div>
+    <p style="margin:0 0 18px;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">시작 덱의 <b>증류</b>는 적의 독을 1 소비하고 다시 걸어, 소비에 성공했을 때만 다음 턴 운명력을 1 더 주는 카드입니다. 마지막 효과가 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:14px">grant_next_turn_fate</code>이고, 카드 파일에는 그 이름과 값만 적혀 있습니다.</p>
+    <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.12em;color:rgba(32,30,29,.5);margin-bottom:10px">Assets/StreamingAssets/Content/Cards/distill.json</div>
+    <pre style="margin:0;background:var(--color-text);color:#e8e6e3;font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11.5px;line-height:1.75;padding:16px 18px;overflow-x:auto">"effects": [
+  { "kind": "consume_status", "status": "poison", "maxAmount": 1, "selector": "FrontOne" },
+  { "kind": "apply_status",   "status": "poison", "count": 1, "target": "TargetEnemy", "selector": "FrontOne" },
+  {
+    "kind": "grant_next_turn_fate",
+    "value": 1,
+    "condition": { "kind": "ConsumedStatusAtLeast", "n": 1, "successEffectValue": 1, "skipOnBasic": true }
+  }
+]</pre>
+    <p style="margin:10px 0 0;font-size:13px;line-height:1.7;color:rgba(32,30,29,.65)">읽기 쉽도록 앞 두 효과를 한 줄로 접은 것이며, 카드 파일에는 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11.5px">id</code>·<code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11.5px">grade</code> 같은 다른 필드도 함께 있습니다.</p>
+    <p style="margin:22px 0 18px;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">코어가 이 문자열을 받는 자리가 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:14px">EffectKey</code>입니다. enum이 아니라 문자열을 감싼 읽기 전용 구조체라, 값이 늘어도 닫힌 목록을 고칠 일이 없으면서 타입은 구분됩니다.</p>
+    <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.12em;color:rgba(32,30,29,.5);margin-bottom:10px">Assets/Core/Effects/EffectKey.cs · IEffectHandler.cs</div>
+    <pre style="margin:0;background:var(--color-text);color:#e8e6e3;font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11.5px;line-height:1.75;padding:16px 18px;overflow-x:auto"><span style="color:rgb(138,133,128)">// 열린 집합을 유지하면서 타입 안전을 얻는 키</span>
+public readonly struct EffectKey : IEquatable&lt;EffectKey&gt; { public string Id { get; } … }
+
+public static readonly EffectKey GrantNextTurnFate = new EffectKey("grant_next_turn_fate");
+
+<span style="color:rgb(138,133,128)">// 효과가 지켜야 하는 계약은 이 셋뿐이다</span>
+public interface IEffectHandler
+{
+    EffectKey Key { get; }
+    CardTargetKey? TargetFor(CardDefinition card, EffectData effect);
+    void Apply(EffectContext ctx);
+}</pre>
+    <p style="margin:22px 0 18px;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">그래서 효과 하나를 늘릴 때 새로 쓰는 것은 이 계약을 구현한 클래스 하나와, 그것을 레지스트리에 얹는 한 줄입니다.</p>
+    <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.12em;color:var(--color-accent);margin-bottom:10px">Assets/Core/Effects/GrantNextTurnFateHandler.cs · Registries/CombatRegistries.cs</div>
+    <pre style="margin:0;background:var(--color-text);color:#e8e6e3;font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11.5px;line-height:1.75;padding:16px 18px;overflow-x:auto"><span style="color:rgb(138,133,128)">/// 다음 플레이어 사용 턴에 운명력을 추가로 준다. CombatState에 적립만 하고,
+/// 실제 지급은 세션의 턴 시작 리필이 담당한다.</span>
+public sealed class GrantNextTurnFateHandler : IEffectHandler
+{
+    public EffectKey Key =&gt; EffectKeys.GrantNextTurnFate;
+
+    public CardTargetKey? TargetFor(CardDefinition card, EffectData effect) =&gt; null;
+
+    public void Apply(EffectContext ctx)
+    {
+        if (ctx.Card.CancellationReason != null) { return; }
+
+        ctx.State.PendingNextTurnFateEnergy += ctx.EffectValue;
+    }
+}
+
+<span style="color:rgb(255,106,77)">// 등록은 한 줄이고, 전투 씬과 시뮬레이션이 이 레지스트리를 함께 쓴다</span>
+effects.Register(new GrantNextTurnFateHandler());</pre>
+    <p style="margin:10px 0 0;font-size:13px;line-height:1.7;color:rgba(32,30,29,.65)"><code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11.5px">EffectRegistry</code>는 키와 핸들러를 담는 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11.5px">Dictionary</code> 하나이며 분기가 없으므로, 효과가 늘어도 커지는 파일은 없습니다. 상태 이상과 개입 액션도 각자의 레지스트리로 같은 형태를 씁니다.</p>
+  </section>
+
+  <!-- 5. 시나리오 비교 러너 -->
+  <section id="runner" style="padding:52px 0 0;scroll-margin-top:86px">
+    <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:20px">
+      <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px;color:var(--color-accent)">03</span>
+      <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">시나리오 비교 러너</h2>
+    </div>
+    <p style="margin:0 0 18px;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">코어가 UnityEngine을 참조하지 않으므로 씬을 띄우지 않고 콘솔에서 같은 규칙을 돌릴 수 있고, 코어가 내놓는 것이 이벤트 타임라인 하나뿐이므로 그 타임라인을 화면 대신 텍스트로 재생할 수 있습니다. 그 위에 같은 시나리오를 <b>개입 없이 한 번, 개입을 넣어 한 번</b> 돌려 두 결과를 비교하는 러너를 두었습니다.</p>
+    <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.12em;color:rgba(32,30,29,.5);margin-bottom:10px">Assets/Core/Simulation/MultiTurnRunner.cs · MultiTurnComparisonResult.cs</div>
+    <pre style="margin:0;background:var(--color-text);color:#e8e6e3;font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11.5px;line-height:1.75;padding:16px 18px;overflow-x:auto">public MultiTurnComparisonResult Compare(MultiTurnScenario scenario)
+{
+    var baselineScenario &#61; WithoutInterventionPlays(scenario);
+    return new MultiTurnComparisonResult(
+        scenario,
+        Run(baselineScenario),
+        Run(scenario));
+}
+
+<span style="color:rgb(255,106,77)">// 두 실행의 차이를 그대로 수치로 낸다</span>
+public int PlayerHpDelta
+    =&gt; Manipulated.FinalState.Party[0].Hp - Baseline.FinalState.Party[0].Hp;</pre>
+    <p style="margin:16px 0 22px;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">리포트는 턴마다 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:14px">Initial order</code>와 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:14px">Resolved order</code>를 실행 순서 번호와 함께 찍고, 카드별 조건 판정과 피해를 이어 붙입니다. 순서 조작이 이 게임의 주제이므로 출력 형식이 곧 도메인의 형태입니다.</p>
+    <div style="border-top:2px solid var(--color-text);border-bottom:2px solid var(--color-text)">
+      <div style="display:flex;gap:16px;padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14);font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.1em;color:rgba(32,30,29,.5)">
+        <span style="flex:1.6">마크 콤보 시나리오</span><span style="flex:1">무조작</span><span style="flex:1;color:var(--color-accent)">개입 후</span>
+      </div>
+      <div style="display:flex;gap:16px;padding:12px 0;border-bottom:1px solid rgba(32,30,29,.14);font-size:14.5px;line-height:1.7;color:rgba(32,30,29,.85)">
+        <span style="flex:1.6"><code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:13px">mark</code> 조건 판정</span><span style="flex:1">Basic</span><span style="flex:1"><b>Success</b></span>
+      </div>
+      <div style="display:flex;gap:16px;padding:12px 0;border-bottom:1px solid rgba(32,30,29,.14);font-size:14.5px;line-height:1.7;color:rgba(32,30,29,.85)">
+        <span style="flex:1.6"><code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:13px">slash</code> 피해</span><span style="flex:1">2</span><span style="flex:1"><b>8</b></span>
+      </div>
+      <div style="display:flex;gap:16px;padding:12px 0;font-size:14.5px;line-height:1.7;color:rgba(32,30,29,.85)">
+        <span style="flex:1.6">적 HP 차이</span><span style="flex:1">기준선</span><span style="flex:1"><b>6 이상</b></span>
+      </div>
+    </div>
+    <p style="margin:10px 0 0;font-size:13px;line-height:1.7;color:rgba(32,30,29,.65)">적이 먼저 해결되어 두 조건이 함께 성립하지 못하는 배치이며, 개입으로 적을 늦추면 같은 카드가 조건을 채웁니다. 위 값은 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11.5px">DesignInvariantTests</code>에 단언으로 고정되어 있습니다.</p>
+  </section>
+
+  <!-- 6. 사례 -->
+  <section style="padding:52px 0 0">
+    <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:20px">
+      <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px;color:var(--color-accent)">04</span>
       <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">구조 전환 사례</h2>
     </div>
 
@@ -103,47 +212,20 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
       <h3 style="margin:0 0 10px;font-size:28px;font-weight:700;letter-spacing:-.02em">카드 저작 원본의 단일화</h3>
       <p style="margin:0 0 24px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7)">같은 데이터가 두 곳에 있던 상태를 JSON 하나로 좁힌 과정입니다.</p>
 
-      <p style="margin:0 0 20px;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">이 게임은 카드 데이터가 자주 바뀝니다. 그래서 <strong>카드 한 장을 파일 하나로 두고, 그 파일을 런타임에 읽어 들이는 저작 방식</strong>을 처음부터 예정하고 있었습니다. SO 저작을 제안받았을 때도 그 전제를 감안한 안이라고 보고 그대로 받았습니다.</p>
+      <p style="margin:0 0 20px;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">이 게임은 카드 데이터가 자주 바뀌므로 <strong>카드 한 장을 파일 하나로 두고 런타임에 읽어 들이는 저작 방식</strong>을 처음부터 예정하고 있었으나, 그 계획을 밝히지 않은 채 SO 저작안을 받았습니다.</p>
 
       <div style="border:1px solid rgba(32,30,29,.25);padding:18px 20px 22px">
         <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.14em;color:rgba(32,30,29,.5);margin-bottom:12px">개선 전 저작 경로</div>
         <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12.5px;line-height:2;color:rgba(32,30,29,.8)">인스펙터에서 SO 저작 &nbsp;→&nbsp; CardCodeGenerator &nbsp;→&nbsp; 생성된 C# 리터럴 &nbsp;→&nbsp; 헤드리스 시뮬레이션</div>
       </div>
-      <p style="margin:20px 0 0;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">카드는 인스펙터에서 ScriptableObject로 저작하고, 에디터 메뉴의 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:14px">CardCodeGenerator</code>가 그 내용을 순수 C# 리터럴로 뽑아냈습니다. 헤드리스 테스트는 이 과정에서 생성된 코드를 사용했습니다. 저작에 SO가 반드시 포함되어야 했으므로 <strong>같은 데이터가 SO와 리터럴 코드로 병존했습니다.</strong></p>
-      <p style="margin:14px 0 0;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">직렬화를 붙이려고 작업을 시작하자 SO는 에디터에서만 생성할 수 있어 런타임 생성이 어렵고, 데이터를 파일 단위로 늘리기도 JSON보다 번거롭다는 답이 돌아왔습니다. <strong>제가 예정하고 있던 두 가지가 모두 SO로는 어려운 일이었으나, 그 계획을 밝히지 않았으므로 설계에 반영될 수 없었습니다.</strong></p>
+      <p style="margin:20px 0 0;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">카드는 인스펙터에서 ScriptableObject로 저작하고, 에디터 메뉴의 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:14px">CardCodeGenerator</code>가 그 내용을 순수 C# 리터럴로 뽑아냈습니다. 헤드리스 시뮬레이션은 이 과정에서 생성된 코드를 사용했습니다. 저작에 SO가 반드시 포함되어야 했으므로 <strong>같은 데이터가 SO와 리터럴 코드로 병존했습니다.</strong></p>
+      <p style="margin:14px 0 0;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">직렬화를 붙이려고 작업을 시작하자 SO는 에디터에서만 생성할 수 있어 런타임 생성이 어렵고, 데이터를 파일 단위로 늘리기도 JSON보다 번거롭다는 답이 돌아왔습니다. <strong>제가 예정하고 있던 두 가지가 모두 SO로는 어려운 일이었으나, 밝히지 않은 계획은 설계에 반영될 수 없었습니다.</strong></p>
 
       <h4 style="margin:34px 0 10px;font-size:19px;font-weight:600;letter-spacing:-.01em">전환 순서</h4>
-      <p style="margin:0 0 18px;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">원본을 JSON 하나로 옮기기로 하고, 순서를 다음과 같이 잡았습니다.</p>
-      <div style="border-top:2px solid var(--color-text);border-bottom:2px solid var(--color-text)">
-        <div style="display:flex;gap:16px;padding:12px 0;border-bottom:1px solid rgba(32,30,29,.14)">
-          <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;color:var(--color-accent);flex:none;width:68px;padding-top:4px">07-31</span>
-          <span style="font-size:14.5px;line-height:1.7;color:rgba(32,30,29,.85)">직렬화 설정과 다형 컨버터, 로더를 만들고 <b>JSON 왕복을 테스트로 고정</b></span>
-        </div>
-        <div style="display:flex;gap:16px;padding:12px 0;border-bottom:1px solid rgba(32,30,29,.14)">
-          <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;color:var(--color-accent);flex:none;width:68px;padding-top:4px">07-31</span>
-          <span style="font-size:14.5px;line-height:1.7;color:rgba(32,30,29,.85)">카드 콘텐츠를 JSON으로 내보내고 <b>옛 원본과 결과가 같다는 것을 테스트로 잠금</b></span>
-        </div>
-        <div style="display:flex;gap:16px;padding:12px 0;border-bottom:1px solid rgba(32,30,29,.14)">
-          <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;color:var(--color-accent);flex:none;width:68px;padding-top:4px">08-02~03</span>
-          <span style="font-size:14.5px;line-height:1.7;color:rgba(32,30,29,.85)">상태 · 덱 · 풀 · 캐릭터 콘텐츠를 옮기고, 전투 씬이 JSON을 읽도록 전환</span>
-        </div>
-        <div style="display:flex;gap:16px;padding:12px 0;border-bottom:1px solid rgba(32,30,29,.14)">
-          <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;color:var(--color-accent);flex:none;width:68px;padding-top:4px">08-03</span>
-          <span style="font-size:14.5px;line-height:1.7;color:rgba(32,30,29,.85)">카드 SO 제거 — 97개 파일, <b>2,528줄 삭제</b></span>
-        </div>
-        <div style="display:flex;gap:16px;padding:12px 0;border-bottom:1px solid rgba(32,30,29,.14)">
-          <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;color:var(--color-accent);flex:none;width:68px;padding-top:4px">08-03</span>
-          <span style="font-size:14.5px;line-height:1.7;color:rgba(32,30,29,.85)">코드 생성 경로 제거 — <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:13px">CardCodeGenerator.cs</code> <b>698줄 삭제</b></span>
-        </div>
-        <div style="display:flex;gap:16px;padding:12px 0">
-          <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;color:var(--color-accent);flex:none;width:68px;padding-top:4px">08-05</span>
-          <span style="font-size:14.5px;line-height:1.7;color:rgba(32,30,29,.85)">카드 규칙의 C# 원본을 지우고 JSON을 유일 원본으로 확정</span>
-        </div>
-      </div>
-      <p style="margin:20px 0 0;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">원본이 둘인 동안에는 한쪽만 고쳐도 컴파일이 통과하므로, 두 원본이 같은 결과를 낸다는 것을 테스트로 고정한 뒤에 런타임을 옮기고 마지막에 옛 경로를 지웠습니다.</p>
+      <p style="margin:0;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">원본이 둘인 동안에는 한쪽만 고쳐도 컴파일이 통과하므로, <strong>두 원본이 같은 결과를 낸다는 것을 먼저 테스트로 고정한 뒤</strong> 런타임을 JSON으로 옮기고 마지막에 옛 경로를 지웠습니다. 이 과정에서 카드 SO 97개 파일 2,528줄과 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:14px">CardCodeGenerator.cs</code> 698줄이 삭제되었고, 2026-08-05에 JSON이 유일 원본으로 확정되었습니다.</p>
 
       <h4 style="margin:34px 0 10px;font-size:19px;font-weight:600;letter-spacing:-.01em">같은 카드의 전환 전후</h4>
-      <p style="margin:0 0 18px;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">시작 덱의 <b>견제타</b>는 피해 4와 방어 1을 함께 가진 카드입니다. 전환 전에는 인스펙터에서 저작한 SO를 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:14px">CardCodeGenerator</code>가 아래 한 줄로 옮겼고, 헤드리스 테스트는 그 줄을 읽었습니다.</p>
+      <p style="margin:0 0 18px;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">시작 덱의 <b>견제타</b>는 피해 4와 방어 1을 함께 가진 카드입니다. 전환 전에는 인스펙터에서 저작한 SO를 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:14px">CardCodeGenerator</code>가 아래 한 줄로 옮겼고, 헤드리스 시뮬레이션은 그 줄을 읽었습니다.</p>
       <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.12em;color:rgba(32,30,29,.5);margin-bottom:10px">개선 전 — Assets/Core/Simulation/Generated/GeneratedCards.cs</div>
       <pre style="margin:0;background:var(--color-text);color:#e8e6e3;font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11.5px;line-height:1.75;padding:16px 18px;white-space:pre-wrap;overflow-wrap:anywhere"><span style="color:rgb(138,133,128)">// AUTO-GENERATED — SO에서 뽑아낸 코드이며 사람이 손대는 자리가 아닙니다.</span>
 new CardSpec { Id = "probing_strike", Name = "견제타", EnergyCost = 1, BaseExecutionOrder = 4, InterventionEffectValue = 0,
@@ -156,28 +238,14 @@ new CardSpec { Id = "probing_strike", Name = "견제타", EnergyCost = 1, BaseEx
   "id": "probing_strike",
   "name": "견제타",
   "side": "Player",
-  "category": "Execution",
   "energyCost": 1,
   "baseExecutionOrder": 4,
   "effects": [
-    {
-      "kind": "damage",
-      "value": 4,
-      "selector": "FrontOne"
-    },
-    {
-      "kind": "apply_status",
-      "status": "block",
-      "count": 1
-    }
-  ],
-  "grade": "Common",
-  "tags": [
-    "시작",
-    "공격"
+    { "kind": "damage", "value": 4, "selector": "FrontOne" },
+    { "kind": "apply_status", "status": "block", "count": 1 }
   ]
 }</pre>
-      <p style="margin:10px 0 0;font-size:13px;line-height:1.7;color:rgba(32,30,29,.65)">기본값은 적지 않으므로 카드에 실제로 저작된 것만 남고, 카드 한 장이 파일 하나입니다. 전투 씬과 헤드리스 테스트가 모두 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11.5px">ContentBootstrap.Load</code>로 이 파일을 읽습니다.</p>
+      <p style="margin:10px 0 0;font-size:13px;line-height:1.7;color:rgba(32,30,29,.65)">기본값은 적지 않으므로 카드에 실제로 저작된 것만 남고, 카드 한 장이 파일 하나입니다. 효과 두 개를 각각 한 줄로 접고 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11.5px">grade</code>·<code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11.5px">tags</code>는 줄였습니다. 전투 씬과 헤드리스 시뮬레이션이 모두 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11.5px">ContentBootstrap.Load</code>로 이 파일을 읽습니다.</p>
 
       <h4 style="margin:34px 0 10px;font-size:19px;font-weight:600;letter-spacing:-.01em">규칙 반영</h4>
       <p style="margin:0;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">콘텐츠의 원본은 JSON 하나이고 SO 카드 저작 경로는 없으며 남아 있는 ScriptableObject는 표현 자원 전용으로 규칙 수치를 담지 않는다는 것을 조항으로 적어, 지운 구조가 다시 들어오지 않도록 했습니다.</p>
@@ -195,8 +263,7 @@ new CardSpec { Id = "probing_strike", Name = "견제타", EnergyCost = 1, BaseEx
       <h3 style="margin:0 0 10px;font-size:28px;font-weight:700;letter-spacing:-.02em">설계 문서 형식의 개편</h3>
       <p style="margin:0 0 24px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7)">같은 형태를 한 번 더 겪고, 원인을 문서의 형식에서 찾은 과정입니다.</p>
 
-      <p style="margin:0;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">이 게임은 카드에 들어가는 데이터가 유동적이어서 카드 타입 설계가 중요했습니다. 요구사항과 확장 방향은 충분히 설명했다고 보았으므로 확장을 감안한 설계가 나왔으리라 생각해 계획서를 자세히 확인하지 않았습니다.</p>
-      <p style="margin:14px 0 0;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">실제로 그 부분을 확장할 때가 되어서야 해당 지점이 하드코딩되어 있는 것을 확인했고, 받은 구조를 한 번 더 확인해야 한다고 정리해 두고도 같은 일이 되풀이되었으므로 설계 검토를 소홀히 한 제 문제로 보았습니다.</p>
+      <p style="margin:0;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">카드에 들어가는 데이터가 유동적이어서 카드 타입 설계가 중요했으나, 요구사항을 충분히 설명했다고 보아 계획서를 자세히 확인하지 않았습니다. 확장할 때가 되어서야 그 지점이 하드코딩된 것을 확인했고, 앞 사례에서 받은 구조를 한 번 더 확인하기로 정리해 두고도 같은 일이 되풀이되었으므로 처음에는 제 검토 문제로 보았습니다.</p>
 
       <h4 style="margin:34px 0 10px;font-size:19px;font-weight:600;letter-spacing:-.01em">검토가 이루어지지 않은 원인</h4>
       <p style="margin:0;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">제가 읽고 있던 계획서는 다음 세션의 AI가 그대로 실행할 수 있도록 쓰인 문서였고, 분량과 세부가 실행에 맞춰져 있어 사람이 검토하기에는 부담이 컸습니다. <strong>문제는 검토를 게을리한 태도가 아니라 검토할 수 없는 형식이었습니다.</strong></p>
@@ -251,25 +318,6 @@ if (earlier.Def.Side == Side.Enemy
       </div>
     </div>
 
-  </section>
-
-  <!-- 5. 저작 구조의 개선 -->
-  <section style="padding:52px 0 0">
-    <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:20px">
-      <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px;color:var(--color-accent)">03</span>
-      <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">두 사례를 기반으로 한 저작 구조의 개선</h2>
-    </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;background:rgba(32,30,29,.2);border:2px solid var(--color-text)">
-      <div style="background:#fff;padding:18px 20px 22px">
-        <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.14em;color:rgba(32,30,29,.5);margin-bottom:10px">이전</div>
-        <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px;line-height:2;color:rgba(32,30,29,.6)">SO 에셋<br>→ CardCodeGenerator<br>→ 생성된 C#<br>→ 코어</div>
-      </div>
-      <div style="background:#fff;padding:18px 20px 22px">
-        <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.14em;color:var(--color-accent);margin-bottom:10px">지금</div>
-        <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px;line-height:2;color:rgba(32,30,29,.85)">Content/Cards/&lt;카드&gt;.json<br>→ ContentBootstrap.Load<br>→ 코어</div>
-      </div>
-    </div>
-    <p style="margin:20px 0 0;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">카드 데이터를 SO와 리터럴 코드가 중복해서 가지고 있던 구조에서 JSON 단일 소유 구조로 개편하였고, 새로운 기능의 추가 또한 핸들러 클래스 추가와 키 등록으로 간소화하였습니다.</p>
   </section>
 
   <div style="margin-top:44px;border-top:2px solid var(--color-text);padding-top:16px;display:flex;justify-content:space-between;gap:20px;font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;color:rgba(32,30,29,.55)">
