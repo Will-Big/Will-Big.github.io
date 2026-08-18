@@ -78,7 +78,7 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
       <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px;color:var(--color-accent)">01</span>
       <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">모듈 경계 분리</h2>
     </div>
-    <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);max-width:78ch;text-wrap:pretty"><code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12.5px">CoreProcess</code>는 창 생성 · 렌더러 생성 · 설정 로드 · 메타데이터 등록까지만 책임지고, <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12.5px">Loop()</code>는 순수 가상으로 비워 뒀습니다. 비워 둔 그 한 칸을 툴은 패널을 그리는 루프로, 런처는 매 프레임 씬을 갱신하는 루프로 각자 구현합니다.</p>
+    <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);text-wrap:pretty"><code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12.5px">CoreProcess</code>는 창 생성 · 렌더러 생성 · 설정 로드 · 메타데이터 등록까지만 책임지고, <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12.5px">Loop()</code>는 순수 가상으로 비워 뒀습니다. 비워 둔 그 한 칸을 툴은 패널을 그리는 루프로, 런처는 매 프레임 씬을 갱신하는 루프로 각자 구현합니다.</p>
 
     <div data-om-raster="true" style="border:2px solid var(--color-text);background:#fff;padding:20px 22px">
       <svg sc-camel-view-box="0 0 1100 560" style="width:100%;height:auto;display:block" role="img" aria-label="모듈 경계 다이어그램">
@@ -130,7 +130,7 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
       <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px;color:var(--color-accent)">02</span>
       <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">실행 단계별 인터페이스</h2>
     </div>
-    <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);max-width:78ch;text-wrap:pretty">시스템을 추가할 때마다 엔진의 등록표를 고쳐야 한다면 위 규칙은 지킬 수 없습니다. <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12.5px">RegisterSystem&lt;T&gt;()</code>가 T의 상속 관계를 컴파일 타임에 확인해, 해당 실행 단계 컨테이너에 <b>직접 넣도록</b> 했습니다.</p>
+    <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);text-wrap:pretty">시스템을 추가할 때마다 엔진의 등록표를 고쳐야 한다면 위 규칙은 지킬 수 없습니다. <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12.5px">RegisterSystem&lt;T&gt;()</code>가 T의 상속 관계를 컴파일 타임에 확인해, 해당 실행 단계 컨테이너에 <b>직접 넣도록</b> 했습니다.</p>
 
     <div data-om-raster="true" style="border:2px solid var(--color-text);background:#fff;padding:20px 22px">
       <svg sc-camel-view-box="0 0 1100 300" style="width:100%;height:auto;display:block" role="img" aria-label="시스템 자동 등록 다이어그램">
@@ -262,7 +262,7 @@ void Scene::RegisterSystem()
       <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px;color:var(--color-accent)">03</span>
       <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">리플렉션 등록 일원화</h2>
     </div>
-    <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);max-width:78ch;text-wrap:pretty">컴포넌트가 늘 때마다 에디터와 직렬화를 함께 고쳐야 한다면 이것도 엔진 코드를 수정하는 일입니다. 둘이 서로를 참조하는 대신 <b>같은 메타 컨텍스트</b>를 읽게 해, 수정할 파일을 게임 쪽 등록부 하나로 줄였습니다.</p>
+    <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);text-wrap:pretty">컴포넌트가 늘 때마다 에디터와 직렬화를 함께 고쳐야 한다면 이것도 엔진 코드를 수정하는 일입니다. 둘이 서로를 참조하는 대신 <b>같은 메타 컨텍스트</b>를 읽게 해, 수정할 파일을 게임 쪽 등록부 하나로 줄였습니다.</p>
 
     <div data-om-raster="true" style="border:2px solid var(--color-text);background:#fff;padding:20px 22px">
       <svg sc-camel-view-box="0 0 1100 420" style="width:100%;height:auto;display:block" role="img" aria-label="메타 컨텍스트 허브 다이어그램">
@@ -337,7 +337,7 @@ for (auto&amp;&amp; [id, type] : entt::resolve(global::componentMetaCtx))
       <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px;color:var(--color-accent)">04</span>
       <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">패널 간 이벤트 통신</h2>
     </div>
-    <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);max-width:78ch;text-wrap:pretty">패널이 서로를 직접 호출하면 하나를 고칠 때마다 다른 쪽이 깨집니다. 각 패널은 <b>자기 그리기 함수와 디스패처</b>만 가지고 있고, 나머지는 이벤트로 주고받습니다.</p>
+    <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);text-wrap:pretty">패널이 서로를 직접 호출하면 하나를 고칠 때마다 다른 쪽이 깨집니다. 각 패널은 <b>자기 그리기 함수와 디스패처</b>만 가지고 있고, 나머지는 이벤트로 주고받습니다.</p>
 
     <div data-om-raster="true" style="border:2px solid var(--color-text);background:#fff;padding:20px 22px">
       <svg sc-camel-view-box="0 0 1100 300" style="width:100%;height:auto;display:block" role="img" aria-label="패널과 툴 이벤트 버스 다이어그램">
@@ -394,7 +394,7 @@ for (auto&amp;&amp; [id, type] : entt::resolve(global::componentMetaCtx))
 
     <div style="margin-top:26px">
       <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.12em;color:var(--color-accent);margin-bottom:10px">재생 · 정지 — 씬 직렬화를 되돌리기로 사용</div>
-      <p style="margin:0 0 16px;font-size:14px;line-height:1.75;color:rgba(32,30,29,.75);max-width:80ch">에디터에서 게임을 재생하면 씬 상태가 되돌릴 수 없게 바뀝니다. 편집 상태를 복제하는 코드를 따로 넣는 대신 <b>기존 씬 직렬화를 재사용</b>했습니다. 정지는 임시 파일을 다시 여는 동작입니다.</p>
+      <p style="margin:0 0 16px;font-size:14px;line-height:1.75;color:rgba(32,30,29,.75);">에디터에서 게임을 재생하면 씬 상태가 되돌릴 수 없게 바뀝니다. 편집 상태를 복제하는 코드를 따로 넣는 대신 <b>기존 씬 직렬화를 재사용</b>했습니다. 정지는 임시 파일을 다시 여는 동작입니다.</p>
       <div data-om-raster="true" style="border:2px solid var(--color-text);background:#fff;padding:20px 22px">
         <svg sc-camel-view-box="0 0 1100 290" style="width:100%;height:auto;display:block" role="img" aria-label="재생 정지 사이클 다이어그램">
           <defs>
@@ -446,7 +446,7 @@ for (auto&amp;&amp; [id, type] : entt::resolve(global::componentMetaCtx))
       <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px;color:var(--color-accent)">05</span>
       <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">의존 방향 정리</h2>
     </div>
-    <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);max-width:78ch;text-wrap:pretty">의존성은 <b>아래로만</b> 향해, 툴과 게임이 코어를 참조하고 코어에는 그 반대 방향 참조가 없습니다. 덕분에 게임을 확장하는 동안 코어 파일을 수정할 일이 거의 없었습니다.</p>
+    <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);text-wrap:pretty">의존성은 <b>아래로만</b> 향해, 툴과 게임이 코어를 참조하고 코어에는 그 반대 방향 참조가 없습니다. 덕분에 게임을 확장하는 동안 코어 파일을 수정할 일이 거의 없었습니다.</p>
 
     <div data-om-raster="true" style="border:2px solid var(--color-text);background:#fff;padding:20px 22px">
       <svg sc-camel-view-box="0 0 1100 320" style="width:100%;height:auto;display:block" role="img" aria-label="의존 방향 다이어그램">

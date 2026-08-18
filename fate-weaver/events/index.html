@@ -71,7 +71,7 @@ EventSystem::GetInstance()-&gt;Subscribe(
       <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px;color:var(--color-accent)">02</span>
       <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">두 엔진의 발행·수신 경로</h2>
     </div>
-    <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);max-width:78ch;text-wrap:pretty">위가 Fate Weaver, 아래가 Midnight Cleanup 입니다. 두 경로 모두 <b>발행 · 지연 · 대상 찾기 · 전달</b>을 거칩니다. 달라진 것은 대상을 찾는 기준과, 수신부가 타입을 복원해야 하는지 여부입니다.</p>
+    <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);text-wrap:pretty">위가 Fate Weaver, 아래가 Midnight Cleanup 입니다. 두 경로 모두 <b>발행 · 지연 · 대상 찾기 · 전달</b>을 거칩니다. 달라진 것은 대상을 찾는 기준과, 수신부가 타입을 복원해야 하는지 여부입니다.</p>
 
     <div data-om-raster="true" style="border:2px solid var(--color-text);background:#fff;padding:20px 22px">
       <svg sc-camel-view-box="0 0 1100 470" style="width:100%;height:auto;display:block" role="img" aria-label="Fate Weaver 와 Midnight Cleanup 의 이벤트 전달 경로 비교">
@@ -196,7 +196,7 @@ _dispatcher.enqueue&lt;<span style="color:#ff6a4d">OnCreateEntity</span>&gt;(ent
       <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px;color:var(--color-accent)">03</span>
       <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">오류 검출 시점</h2>
     </div>
-    <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);max-width:78ch;text-wrap:pretty">이벤트 이름을 잘못 적었을 때, Fate Weaver 는 <b>실행 중에 아무 반응 없이 넘어가고</b>, Midnight Cleanup 은 <b>컴파일 단계에서 중단됩니다.</b></p>
+    <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);text-wrap:pretty">이벤트 이름을 잘못 적었을 때, Fate Weaver 는 <b>실행 중에 아무 반응 없이 넘어가고</b>, Midnight Cleanup 은 <b>컴파일 단계에서 중단됩니다.</b></p>
 
     <div data-om-raster="true" style="border:2px solid var(--color-text);background:#fff;padding:20px 22px">
       <svg sc-camel-view-box="0 0 1100 330" style="width:100%;height:auto;display:block" role="img" aria-label="오타가 걸리는 시점 비교">

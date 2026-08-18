@@ -59,7 +59,7 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
       <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px;color:var(--color-accent)">01</span>
       <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">수치 수정 비용</h2>
     </div>
-    <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);max-width:78ch;text-wrap:pretty">지난 엔진에서는 값 하나를 확인하려고 여섯 단계를 거쳤고, 그중 다섯은 기다리는 시간이었습니다. 이번에는 <b>고치는 곳과 확인하는 곳이 같은 화면</b>입니다.</p>
+    <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);text-wrap:pretty">지난 엔진에서는 값 하나를 확인하려고 여섯 단계를 거쳤고, 그중 다섯은 기다리는 시간이었습니다. 이번에는 <b>고치는 곳과 확인하는 곳이 같은 화면</b>입니다.</p>
 
     <div data-om-raster="true" style="border:2px solid var(--color-text);background:#fff;padding:20px 22px">
       <svg sc-camel-view-box="0 0 1100 400" style="width:100%;height:auto;display:block" role="img" aria-label="이전 엔진과 이번 엔진의 작업 흐름 비교">
@@ -122,7 +122,7 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
       <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px;color:var(--color-accent)">02</span>
       <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">타입별 컴포넌트 풀</h2>
     </div>
-    <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);max-width:78ch;text-wrap:pretty">컴포넌트를 어디에 둘지 정하는 일이 ECS의 출발점이었습니다. <b>타입마다 풀을 하나 두고, 풀이 차면 목록에 풀을 하나 더 붙이는</b> 방식으로 만들었습니다. 대신 지울 때 빈 자리를 메우느라 컴포넌트의 주소가 바뀌므로, 그 주소를 들고 있던 쪽을 찾아 고쳐 주어야 했습니다.</p>
+    <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);text-wrap:pretty">컴포넌트를 어디에 둘지 정하는 일이 ECS의 출발점이었습니다. <b>타입마다 풀을 하나 두고, 풀이 차면 목록에 풀을 하나 더 붙이는</b> 방식으로 만들었습니다. 대신 지울 때 빈 자리를 메우느라 컴포넌트의 주소가 바뀌므로, 그 주소를 들고 있던 쪽을 찾아 고쳐 주어야 했습니다.</p>
 
     <div data-om-raster="true" style="border:2px solid var(--color-text);background:#fff;padding:20px 22px">
       <svg sc-camel-view-box="0 0 1100 196" style="width:100%;height:auto;display:block" role="img" aria-label="타입별 멀티 풀 구조 다이어그램">
@@ -252,7 +252,7 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
       <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px;color:var(--color-accent)">03</span>
       <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">이름 기반 리플렉션 조회</h2>
     </div>
-    <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);max-width:78ch;text-wrap:pretty">인스펙터가 어떤 컴포넌트든 그려내려면 <b>멤버 이름과 타입, 그 멤버까지 닿는 길</b>이 실행 중에도 남아 있어야 합니다. 매크로 두 줄이 클래스에 등록 코드를 심어 두고, 프로그램이 로드될 때 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12.5px">TypeInfo</code>가 채워지게 했습니다.</p>
+    <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);text-wrap:pretty">인스펙터가 어떤 컴포넌트든 그려내려면 <b>멤버 이름과 타입, 그 멤버까지 닿는 길</b>이 실행 중에도 남아 있어야 합니다. 매크로 두 줄이 클래스에 등록 코드를 심어 두고, 프로그램이 로드될 때 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12.5px">TypeInfo</code>가 채워지게 했습니다.</p>
 
     <div data-om-raster="true" style="border:2px solid var(--color-text);background:#fff;padding:20px 22px">
       <svg sc-camel-view-box="0 0 1100 430" style="width:100%;height:auto;display:block" role="img" aria-label="리플렉션 등록과 소비 다이어그램">
@@ -333,7 +333,7 @@ ElementType&amp; PropertyHandler&lt;TClass, T&gt;::Get(void* object) const
       <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px;color:var(--color-accent)">04</span>
       <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">직렬화와 되돌리기</h2>
     </div>
-    <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);max-width:78ch;text-wrap:pretty">저장 단위를 두 개로 나눴습니다. 씬은 <b>컴포넌트 풀을 통째로</b> 타입 이름 아래에 쓰고, 프리팹은 <b>오브젝트 하나와 그 자식들만</b> 재귀로 씁니다. 이 차이 때문에 컴포넌트마다 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12.5px">SerializePool</code>과 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12.5px">SerializeThis</code>를 따로 뒀습니다.</p>
+    <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);text-wrap:pretty">저장 단위를 두 개로 나눴습니다. 씬은 <b>컴포넌트 풀을 통째로</b> 타입 이름 아래에 쓰고, 프리팹은 <b>오브젝트 하나와 그 자식들만</b> 재귀로 씁니다. 이 차이 때문에 컴포넌트마다 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12.5px">SerializePool</code>과 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12.5px">SerializeThis</code>를 따로 뒀습니다.</p>
 
     <div data-om-raster="true" style="border:2px solid var(--color-text);background:#fff;padding:20px 22px">
       <svg sc-camel-view-box="0 0 1100 360" style="width:100%;height:auto;display:block" role="img" aria-label="씬과 프리팹 직렬화 다이어그램">
@@ -381,7 +381,7 @@ ElementType&amp; PropertyHandler&lt;TClass, T&gt;::Get(void* object) const
 
     <div style="margin-top:26px">
       <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.12em;color:var(--color-accent);margin-bottom:10px">Play · Stop — 되돌리기를 직렬화로 해결했다</div>
-      <p style="margin:0 0 16px;font-size:14px;line-height:1.75;color:rgba(32,30,29,.75);max-width:80ch">에디터에서 게임을 한 번 돌리면 씬 상태가 망가집니다. 편집 상태를 복제하는 코드를 새로 쓰는 대신, <b>이미 만들어 둔 씬 저장·로드를 되돌리기로 썼습니다</b>. Stop은 임시 파일을 다시 여는 것뿐입니다. 창을 켜 둔 채로 값을 고치고 바로 돌려 보게 된 게 이 지점입니다.</p>
+      <p style="margin:0 0 16px;font-size:14px;line-height:1.75;color:rgba(32,30,29,.75);">에디터에서 게임을 한 번 돌리면 씬 상태가 망가집니다. 편집 상태를 복제하는 코드를 새로 쓰는 대신, <b>이미 만들어 둔 씬 저장·로드를 되돌리기로 썼습니다</b>. Stop은 임시 파일을 다시 여는 것뿐입니다. 창을 켜 둔 채로 값을 고치고 바로 돌려 보게 된 게 이 지점입니다.</p>
       <div data-om-raster="true" style="border:2px solid var(--color-text);background:#fff;padding:20px 22px">
         <svg sc-camel-view-box="0 0 1100 290" style="width:100%;height:auto;display:block" role="img" aria-label="재생 정지 사이클 다이어그램">
           <defs>
@@ -430,7 +430,7 @@ ElementType&amp; PropertyHandler&lt;TClass, T&gt;::Get(void* object) const
 
   <section data-screen-label="05 정리" style="padding:56px 0 0">
     <div style="margin-top:20px;border-left:2px solid var(--color-accent);padding:4px 0 4px 18px">
-      <p style="margin:0;font-size:14px;line-height:1.8;color:rgba(32,30,29,.8);max-width:80ch;text-wrap:pretty">이 엔진에서 얻은 것은 분명합니다. <b>기획과 아트가 값을 직접 만진 첫 엔진</b>이었고, 이후에 만든 도구는 전부 직렬화와 리플렉션 위에 올라갔습니다. 툴을 처음 접한 동료가 사용하기 쉽도록&nbsp;<b><a href="../manual/" target="_blank" rel="noopener">에디터 설명서</a>를 따로 써서</b> 같이 넘겼습니다.</p>
+      <p style="margin:0;font-size:14px;line-height:1.8;color:rgba(32,30,29,.8);text-wrap:pretty">이 엔진에서 얻은 것은 분명합니다. <b>기획과 아트가 값을 직접 만진 첫 엔진</b>이었고, 이후에 만든 도구는 전부 직렬화와 리플렉션 위에 올라갔습니다. 툴을 처음 접한 동료가 사용하기 쉽도록&nbsp;<b><a href="../manual/" target="_blank" rel="noopener">에디터 설명서</a>를 따로 써서</b> 같이 넘겼습니다.</p>
     </div>
 
     <sc-if value="{{ showRefTable }}" hint-placeholder-val="{{ true }}">

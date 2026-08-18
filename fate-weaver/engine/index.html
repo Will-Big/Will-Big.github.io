@@ -62,7 +62,7 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
       <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px;color:var(--color-accent)">01</span>
       <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">실행 주기 인터페이스와 자동 등록</h2>
     </div>
-    <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);max-width:78ch;text-wrap:pretty">모든 컴포넌트가 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12.5px">Update</code>·<code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12.5px">Render</code>를 빈 함수로 들고 있는 대신, <b>필요한 인터페이스만 상속</b>하게 했습니다. 등록은 사람이 하지 않습니다. <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12.5px">AddComponent</code> 안에서 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12.5px">dynamic_cast</code>로 인터페이스를 확인하고, 해당하는 컨테이너에 알아서 담깁니다.</p>
+    <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);text-wrap:pretty">모든 컴포넌트가 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12.5px">Update</code>·<code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12.5px">Render</code>를 빈 함수로 들고 있는 대신, <b>필요한 인터페이스만 상속</b>하게 했습니다. 등록은 사람이 하지 않습니다. <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12.5px">AddComponent</code> 안에서 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12.5px">dynamic_cast</code>로 인터페이스를 확인하고, 해당하는 컨테이너에 알아서 담깁니다.</p>
 
     <div data-om-raster="true" style="border:2px solid var(--color-text);background:#fff;padding:20px 22px">
       <svg sc-camel-view-box="0 0 1100 250" style="width:100%;height:auto;display:block" role="img" aria-label="AddComponent 의 자동 등록 흐름">
@@ -150,7 +150,7 @@ void GameObject::Update(const float&amp; deltaTime)
       <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px;color:var(--color-accent)">02</span>
       <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">씬의 지연 처리</h2>
     </div>
-    <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);max-width:78ch;text-wrap:pretty">순회 도중에 오브젝트를 지우면 이터레이터가 깨집니다. 그래서 <b>생성·삭제·씬 전환 요청을 큐에 쌓아 두고</b>, 한 프레임의 모든 순회가 끝난 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12.5px">LateUpdate</code> 시점에 한 번에 처리했습니다.</p>
+    <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);text-wrap:pretty">순회 도중에 오브젝트를 지우면 이터레이터가 깨집니다. 그래서 <b>생성·삭제·씬 전환 요청을 큐에 쌓아 두고</b>, 한 프레임의 모든 순회가 끝난 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12.5px">LateUpdate</code> 시점에 한 번에 처리했습니다.</p>
 
     <div data-om-raster="true" style="border:2px solid var(--color-text);background:#fff;padding:20px 22px">
       <svg sc-camel-view-box="0 0 1100 290" style="width:100%;height:auto;display:block" role="img" aria-label="한 프레임 안에서 삭제 요청이 지연 처리되는 흐름">
@@ -225,7 +225,7 @@ void SceneSystem::DelayedDelete(std::any delGO)
       <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px;color:var(--color-accent)">03</span>
       <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">중앙 집중형 이벤트 시스템</h2>
     </div>
-    <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);max-width:78ch;text-wrap:pretty">서로를 참조하기 어려운 클래스끼리 통신하도록, 이벤트를 엔진의 중앙 통로로 두었습니다. 게임 로직뿐 아니라 <b>오브젝트 생성·삭제, 씬 전환 같은 엔진 내부 동작까지</b> 이 통로로 요청합니다. 가장 신경 쓴 부분은 <b>구독을 끊는 일을 사람이 기억하지 않게 만드는 것</b>이었습니다.</p>
+    <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);text-wrap:pretty">서로를 참조하기 어려운 클래스끼리 통신하도록, 이벤트를 엔진의 중앙 통로로 두었습니다. 게임 로직뿐 아니라 <b>오브젝트 생성·삭제, 씬 전환 같은 엔진 내부 동작까지</b> 이 통로로 요청합니다. 가장 신경 쓴 부분은 <b>구독을 끊는 일을 사람이 기억하지 않게 만드는 것</b>이었습니다.</p>
 
     <div data-om-raster="true" style="border:2px solid var(--color-text);background:#fff;padding:20px 22px">
       <svg sc-camel-view-box="0 0 1100 300" style="width:100%;height:auto;display:block" role="img" aria-label="이벤트 구독과 발행, 자동 해지 구조">
@@ -299,7 +299,7 @@ public:
     </sc-if>
 
     <div style="margin-top:22px;border-left:2px solid var(--color-accent);padding:4px 0 4px 18px">
-      <p style="margin:0;font-size:14px;line-height:1.8;color:rgba(32,30,29,.8);max-width:80ch;text-wrap:pretty">이 구조가 남긴 아쉬움 — <b>문자열 이벤트 ID 와 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12.5px">std::any</code> 파라미터</b> — 은 이후 엔진에서 타입 기반으로 바뀌었습니다. 그 변화를 아래 <a href="#event-compare">이벤트 식별의 변화</a>에서 따로 정리했습니다.</p>
+      <p style="margin:0;font-size:14px;line-height:1.8;color:rgba(32,30,29,.8);text-wrap:pretty">이 구조가 남긴 아쉬움 — <b>문자열 이벤트 ID 와 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12.5px">std::any</code> 파라미터</b> — 은 이후 엔진에서 타입 기반으로 바뀌었습니다. 그 변화를 아래 <a href="#event-compare">이벤트 식별의 변화</a>에서 따로 정리했습니다.</p>
     </div>
   </section>
 
@@ -308,7 +308,7 @@ public:
       <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px;color:var(--color-accent)">04</span>
       <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">한계와 배운 점</h2>
     </div>
-    <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);max-width:78ch;text-wrap:pretty">세 가지가 남았고, 셋 다 다음 엔진의 목표가 되었습니다.</p>
+    <p style="margin:0 0 22px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);text-wrap:pretty">세 가지가 남았고, 셋 다 다음 엔진의 목표가 되었습니다.</p>
 
     <div style="border-top:2px solid var(--color-text);font-size:13.5px">
       <div style="display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr) minmax(0,1.2fr);gap:20px;padding:12px 0;border-bottom:1px solid rgba(32,30,29,.14);font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.1em;color:rgba(32,30,29,.5)"><span>영역</span><span>한계</span><span>배운 점 · 이후 반영</span></div>

@@ -64,7 +64,7 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
         </div>
       </div>
     </div>
-    <p style="margin:30px 0 0;font-size:17px;line-height:1.8;max-width:74ch;text-wrap:pretty;color:rgba(32,30,29,.85)">두 번째 자체 엔진 프로젝트로, 엔진 구조와 카드 전투 로직을 맡았습니다. 이후 작업의 기준이 된 <strong>컴포넌트 구조를 이 엔진에서 확립</strong>했고, 실행 주기를 인터페이스로 나눠 컴포넌트가 <strong>필요한 주기에만 참여</strong>하도록 했습니다. 게임 쪽에서는 전투 씬을 <strong>하나의 상태 머신</strong>으로 구성하고, 카드 효과를 <strong>컴포넌트처럼 탈부착</strong>할 수 있게 해 조합만으로 새 카드를 만들 수 있도록 했습니다.</p>
+    <p style="margin:30px 0 0;font-size:17px;line-height:1.8;text-wrap:pretty;color:rgba(32,30,29,.85)">두 번째 자체 엔진 프로젝트로, 엔진 구조와 카드 전투 로직을 맡았습니다. 이후 작업의 기준이 된 <strong>컴포넌트 구조를 이 엔진에서 확립</strong>했고, 실행 주기를 인터페이스로 나눠 컴포넌트가 <strong>필요한 주기에만 참여</strong>하도록 했습니다. 게임 쪽에서는 전투 씬을 <strong>하나의 상태 머신</strong>으로 구성하고, 카드 효과를 <strong>컴포넌트처럼 탈부착</strong>할 수 있게 해 조합만으로 새 카드를 만들 수 있도록 했습니다.</p>
   </section>
 
   <!-- 2. 하이라이트 -->
@@ -84,7 +84,7 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
       <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px;color:var(--color-accent)">01</span>
       <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">엔진 설계</h2>
     </div>
-    <p style="margin:0 0 24px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);max-width:74ch">아키텍처는 Unity를 참고해 <b>오브젝트는 컴포넌트를 담는 컨테이너</b>로 두고, <b>실행 주기를 인터페이스로 분리</b>해 컴포넌트가 필요한 주기에만 참여하도록 했습니다. 엔진(Core)은 <code style="font-family: &quot;IBM Plex Mono&quot;, monospace; font-size: 12.5px;">lib</code>, 게임(App)은 <code style="font-family: &quot;IBM Plex Mono&quot;, monospace; font-size: 12.5px;">exe</code>로 분리해 게임 코드가 엔진 내부를 수정하지 않고도 동작하도록 했습니다.</p>
+    <p style="margin:0 0 24px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7);">아키텍처는 Unity를 참고해 <b>오브젝트는 컴포넌트를 담는 컨테이너</b>로 두고, <b>실행 주기를 인터페이스로 분리</b>해 컴포넌트가 필요한 주기에만 참여하도록 했습니다. 엔진(Core)은 <code style="font-family: &quot;IBM Plex Mono&quot;, monospace; font-size: 12.5px;">lib</code>, 게임(App)은 <code style="font-family: &quot;IBM Plex Mono&quot;, monospace; font-size: 12.5px;">exe</code>로 분리해 게임 코드가 엔진 내부를 수정하지 않고도 동작하도록 했습니다.</p>
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:rgba(32,30,29,.2);border:2px solid var(--color-text)">
       <div style="background:#fff;padding:18px 20px 22px">
         <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.1em;color:var(--color-accent);margin-bottom:12px">CORE — 진입점과 루프</div>
