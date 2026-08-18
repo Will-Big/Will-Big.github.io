@@ -52,11 +52,14 @@
   // "씬 — 상속한 인터페이스가 실행 단계를 결정한다" 처럼 긴 제목은 그대로 두고
   // 패널 안에서 줄바꿈시킵니다. 막대만 보이는 동안에는 어차피 글자가 없습니다.
   function labelOf(h) {
+    var mark = h.getAttribute('data-toc');
+    if (mark) return mark;
     return (h.textContent || '').trim().replace(/\s+/g, ' ');
   }
 
   // 제목 옆에 형제로 놓인 01 · 02 번호가 있으면 목차에도 함께 씁니다.
   function numberOf(h) {
+    if (h.hasAttribute('data-toc')) return ''; // 번호 없이 이름만 싣는 항목
     var prev = h.previousElementSibling;
     if (prev && prev.tagName === 'SPAN' && /^\d{1,2}$/.test(prev.textContent.trim())) {
       return prev.textContent.trim();
@@ -65,7 +68,8 @@
   }
 
   function build() {
-    var heads = [].slice.call(document.querySelectorAll('h2'));
+    // h2 외에, 제목이 없는 절은 data-toc 을 붙여 목차에 싣습니다(번호 없이).
+    var heads = [].slice.call(document.querySelectorAll('h2, [data-toc]'));
     if (heads.length < 2) return; // 섹션이 하나뿐인 페이지는 목차를 만들지 않습니다
 
     // 브레드크럼이 상단에 고정된 페이지에서는 그 높이만큼 더 내려야 제목이 가리지 않습니다.
@@ -218,7 +222,7 @@
   // 제목 개수가 두 번 연속 같으면 렌더가 끝난 것으로 봅니다.
   var seen = -1, stable = 0, tries = 0;
   var timer = setInterval(function () {
-    var n = document.querySelectorAll('h2').length;
+    var n = document.querySelectorAll('h2, [data-toc]').length;
     stable = (n > 0 && n === seen) ? stable + 1 : 0;
     seen = n;
     if (stable >= 2) { clearInterval(timer); build(); }
