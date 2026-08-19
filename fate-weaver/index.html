@@ -27,6 +27,8 @@ body{margin:0;background:var(--color-bg);color:var(--color-text);font-family:'IB
 a{color:#c22a10;text-decoration:none;border-bottom:1px solid rgba(194,42,16,.35)}
 a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
 .crumb{position:sticky;top:0;z-index:20;background:var(--color-bg)}
+.crumb a{color:var(--color-text);border:2px solid var(--color-text);padding:4px 9px;font-weight:500;display:inline-block;line-height:1.25}
+.crumb a:hover{background:var(--color-text);color:var(--color-bg);border-color:var(--color-text)}
 @media print{.crumb{position:static}}
 </style>
 </helmet>
@@ -34,7 +36,7 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
 <div style="max-width:1180px;margin:0 auto;padding:0 40px 140px">
 
   <div class="crumb" style="padding:34px 0 14px;font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;letter-spacing:.1em;color:rgba(32,30,29,.5);display:flex;justify-content:space-between;align-items:center;gap:20px;border-bottom:1px solid rgba(32,30,29,.18)">
-    <span><a href="../" style="color:inherit;border:none">↑ Portfolio</a> &nbsp;/&nbsp; <span style="color:var(--color-text)">Fate Weaver</span></span>
+    <span><a href="../">↑ Portfolio</a> &nbsp;&nbsp;/&nbsp;&nbsp; <span style="color:var(--color-text)">Fate Weaver</span></span>
     <span>프로젝트 상세</span>
   </div>
 
