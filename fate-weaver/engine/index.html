@@ -320,7 +320,7 @@ public:
       </div>
 
       <div id="event-compare" style="display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr) minmax(0,1.2fr);gap:20px;padding:14px 0;border-bottom:1px solid rgba(32,30,29,.14);scroll-margin-top:86px">
-        <span style="font-weight:600;color:var(--color-accent)">이벤트 시스템<span style="display:block;margin-top:8px;font-weight:400;font-size:13px;line-height:1.6;color:rgba(32,30,29,.75)"><a href="../events/" style="color:inherit;border-bottom:1px solid rgba(32,30,29,.45)">🔗 이벤트 구현 비교 자세히 보기</a></span></span>
+        <span style="font-weight:600;color:var(--color-accent)">이벤트 시스템<span style="display:block;margin-top:8px;font-weight:400;font-size:13px;line-height:1.6;color:rgba(32,30,29,.75)"><a href="../events/" style="color:inherit;border-bottom:1px solid rgba(32,30,29,.45)" target="_blank" rel="noopener">🔗 이벤트 구현 비교 자세히 보기</a></span></span>
         <span style="color:rgba(32,30,29,.75);line-height:1.7"><code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px">std::any</code> 는 유연했지만 수신측이 <b>정확한 타입을 알고 캐스팅해야</b> 했습니다. 식별자가 문자열이라 오타를 컴파일러가 잡지 못했고, 이벤트 클래스 상속 및 사용이 강제되어 사용법이 복잡했습니다.</span>
         <span style="color:rgba(32,30,29,.75);line-height:1.7"><b>컴파일 타임에 오류를 검출하는 설계</b>의 필요성을 절감했습니다. 이후 엔진에서 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px">struct</code> 자체를 이벤트 ID 이자 파라미터로 쓰는 방식으로 바꿨습니다.</span>
       </div>
@@ -328,7 +328,7 @@ public:
       <div style="display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr) minmax(0,1.2fr);gap:20px;padding:14px 0;border-bottom:1px solid rgba(32,30,29,.14)">
         <span style="font-weight:600">개발 생산성</span>
         <span style="color:rgba(32,30,29,.75);line-height:1.7">오브젝트 위치와 속성 등 <b>모든 게임 데이터를 코드로 관리</b>했습니다. 사소한 수정에도 재컴파일이 필요했고, 개발 속도의 병목이 되었습니다.</span>
-        <span style="color:rgba(32,30,29,.75);line-height:1.7"><b>코드와 데이터의 분리</b>, 그리고 <b>전용 에디터</b>가 필수임을 배웠습니다. 다음 엔진의 최우선 목표가 되었습니다 — <a href="../../tictoc-guardians/engine/">TicToc 엔진 설계</a></span>
+        <span style="color:rgba(32,30,29,.75);line-height:1.7"><b>코드와 데이터의 분리</b>, 그리고 <b>전용 에디터</b>가 필수임을 배웠습니다. 다음 엔진의 최우선 목표가 되었습니다 — <a href="../../tictoc-guardians/engine/" target="_blank" rel="noopener">TicToc 엔진 설계</a></span>
       </div>
     </div>
 

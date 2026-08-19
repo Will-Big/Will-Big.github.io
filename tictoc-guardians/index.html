@@ -132,10 +132,10 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
           <div style="display:grid;grid-template-columns:1fr 1.4fr;gap:12px;padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="color:rgba(32,30,29,.55)">4th · Midnight</span><span>EnTT 전환 · 메인 루프 분리 · 레이어 추상화</span></div>
         </div>
       </div>
-      <div style="border:1px solid rgba(45,58,140,.35);border-left:3px solid #2d3a8c;background:rgba(45,58,140,.07);padding:18px 20px">
-        <div style="font-size:14px;font-weight:600;margin-bottom:5px"><a href="engine/" style="color:#2d3a8c;border-bottom:1px solid rgba(45,58,140,.45)">🔗 엔진 설계 의도 자세히 보기</a></div>
+      <div style="border:1px solid rgba(236,48,19,.4);border-left:3px solid var(--color-accent);background:#fff;padding:18px 20px">
+        <div style="font-size:16.5px;font-weight:600;margin-bottom:6px"><a href="engine/" target="_blank" rel="noopener" style="color:var(--color-accent);border-bottom:1px solid rgba(236,48,19,.45)">🔗 엔진 설계 의도 자세히 보기</a></div>
         <div style="font-size:12.5px;color:rgba(32,30,29,.6);line-height:1.65;margin-bottom:12px">타입별 컴포넌트 풀 · 이름 기반 리플렉션 · 직렬화와 되돌리기 — 5분</div>
-        <div style="border-top:1px solid rgba(32,30,29,.15);margin-top:12px;padding-top:12px;font-size:13px;line-height:1.7;color:rgba(32,30,29,.6)"><a href="../fate-weaver/">Fate Weaver</a>에서 가장 크게 느낀 <strong style="color:var(--color-text)">에디터의 부재</strong>를 해결하려고 직렬화와 리플렉션을 처음 만들었고, 이후 제가 만든 도구는 전부 그 위에 올라갔습니다. 다만 컴포넌트를 주소로 들고 다녀 지울 때마다 풀을 훑어야 했습니다. 조회를 제 코드가 아니라 자료 구조가 책임지게 한다는 답은 <a href="../midnight-cleanup/">Midnight</a>에서 EnTT의 저장 구조를 뜯어보고서야 찾았습니다.</div>
+        <div style="border-top:1px solid rgba(32,30,29,.15);margin-top:12px;padding-top:12px;font-size:13px;line-height:1.7;color:rgba(32,30,29,.6)"><a href="../fate-weaver/" target="_blank" rel="noopener">Fate Weaver</a>에서 가장 크게 느낀 <strong style="color:var(--color-text)">에디터의 부재</strong>를 해결하려고 직렬화와 리플렉션을 처음 만들었고, 이후 제가 만든 도구는 전부 그 위에 올라갔습니다. 다만 컴포넌트를 주소로 들고 다녀 지울 때마다 풀을 훑어야 했습니다. 조회를 제 코드가 아니라 자료 구조가 책임지게 한다는 답은 <a href="../midnight-cleanup/" target="_blank" rel="noopener">Midnight</a>에서 EnTT의 저장 구조를 뜯어보고서야 찾았습니다.</div>
       </div>
     </div>
   </section>
@@ -202,7 +202,7 @@ PropertyHandler&lt;Character, float&gt; speed{&amp;Character::Speed};</pre>
             <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.1em;color:var(--color-accent);margin-bottom:6px">막혔던 지점</div>
             <p style="margin:0;font-size:13.5px;line-height:1.7;color:rgba(32,30,29,.75)">등록을 빠뜨려도 컴파일은 그대로 통과해서, 실행해 보고 나서야 속성이 없다는 것을 알게 됩니다. 결국 <strong>매크로를 잘 쓰자는 약속</strong>에 기대는 구조였고, 지원하는 컨테이너도 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11.5px">std::vector</code> 정도가 전부였습니다. 다음 엔진에서 이 부분을 다시 짰습니다.</p>
           </div>
-          <div style="margin-top:14px;font-size:13px;color:rgba(32,30,29,.55)">이어지는 개선 → <a href="../midnight-cleanup/">Midnight Cleanup의 인스펙터</a></div>
+          <div style="margin-top:14px;font-size:13px;color:rgba(32,30,29,.55)">이어지는 개선 → <a href="../midnight-cleanup/" target="_blank" rel="noopener">Midnight Cleanup의 인스펙터</a></div>
         </div>
       </div>
     </div>
@@ -461,7 +461,7 @@ if (IsReplaying) {
       </div>
       <div style="padding:24px 0 28px 28px">
         <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.14em;color:var(--color-accent);margin-bottom:10px">다음에 개선한다면</div>
-        <p style="margin:0;font-size:14.5px;line-height:1.75;color:rgba(32,30,29,.8)">상속 대신 <strong>조합으로 컴포넌트를 쪼개</strong> 중복을 없애고, 데이터만 남은 컴포넌트를 시스템이 처리하게 하는 방향.<br>리플렉션도 직접 만든 매크로보다 이미 검증된 것을 쓰는 편이 낫다고 봤고, 다음 엔진에서 실제로 그렇게 했습니다. <a href="../midnight-cleanup/">Midnight Cleanup 보기</a></p>
+        <p style="margin:0;font-size:14.5px;line-height:1.75;color:rgba(32,30,29,.8)">상속 대신 <strong>조합으로 컴포넌트를 쪼개</strong> 중복을 없애고, 데이터만 남은 컴포넌트를 시스템이 처리하게 하는 방향.<br>리플렉션도 직접 만든 매크로보다 이미 검증된 것을 쓰는 편이 낫다고 봤고, 다음 엔진에서 실제로 그렇게 했습니다. <a href="../midnight-cleanup/" target="_blank" rel="noopener">Midnight Cleanup 보기</a></p>
       </div>
     </div>
     <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:24px">
