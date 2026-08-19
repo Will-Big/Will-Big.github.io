@@ -34,6 +34,11 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
 @media print{
   body{background:#fff}
   a{color:var(--color-text);border-bottom:1px solid rgba(32,30,29,.32)}
+  /* 같은 계열의 블록을 통째로 다음 장으로 넘기면 장 끝에 큰 여백이 남습니다.
+     영역이 장을 넘어 잘리는 것은 허용하고, 그림과 코드 블록만 한 장 안에 둡니다. */
+  section,article,header,div{break-inside:auto;page-break-inside:auto}
+  figure,img,pre,[style*="aspect-ratio"]{break-inside:avoid;page-break-inside:avoid}
+  p{orphans:2;widows:2}
   .crumb{position:static;display:none}
 }
 </style>
@@ -46,7 +51,7 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
   </div>
 
   <!-- 머리말 -->
-  <header style="padding:40px 0 0;break-inside:avoid">
+  <header style="padding:40px 0 0">
     <div style="display:flex;justify-content:space-between;align-items:baseline;gap:24px;font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(32,30,29,.55);border-bottom:2px solid var(--color-text);padding-bottom:12px">
       <span>Resume 2026</span>
       <span>Game Client / Engine Programmer</span>
@@ -74,7 +79,7 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
   </header>
 
   <!-- 기술 -->
-  <section style="padding:44px 0 0;break-inside:avoid">
+  <section style="padding:44px 0 0">
     <div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;border-bottom:2px solid var(--color-text);padding-bottom:10px">
       <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">기술</h2>
       <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;color:rgba(32,30,29,.5);letter-spacing:.1em">프로젝트 · 개인 학습에서 사용</span>
@@ -119,12 +124,12 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
   </section>
 
   <!-- 교육 이력 -->
-  <section style="padding:44px 0 0;break-inside:avoid">
+  <section style="padding:44px 0 0">
     <div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;border-bottom:2px solid var(--color-text);padding-bottom:10px">
       <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">교육 이력</h2>
       <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;color:rgba(32,30,29,.5);letter-spacing:.1em">1건</span>
     </div>
-    <article style="border:1px solid rgba(32,30,29,.22);border-top:none;background:#fff;padding:32px 40px 36px;break-inside:avoid">
+    <article style="border:1px solid rgba(32,30,29,.22);border-top:none;background:#fff;padding:32px 40px 36px">
       <div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap">
         <h3 style="margin:0;font-size:26px;font-weight:700;letter-spacing:-.02em">게임인재원 5기 <span style="font-size:14px;font-weight:400;color:rgba(32,30,29,.55);margin-left:6px">한국콘텐츠진흥원 · 프로그래밍</span></h3>
         <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;color:rgba(32,30,29,.6);letter-spacing:.08em">2023.03 – 2025.02</span>
@@ -150,7 +155,7 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
     </div>
 
     <!-- Midnight Cleanup -->
-    <article style="border:1px solid rgba(32,30,29,.22);border-top:none;background:#fff;padding:32px 40px 36px;break-inside:avoid">
+    <article style="border:1px solid rgba(32,30,29,.22);border-top:none;background:#fff;padding:32px 40px 36px">
       <div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap">
         <h3 style="margin:0;font-size:26px;font-weight:700;letter-spacing:-.02em">Midnight Cleanup <span style="font-size:14px;font-weight:400;color:rgba(32,30,29,.55);margin-left:6px">3D 청소 시뮬레이션</span></h3>
         <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;color:var(--color-accent);letter-spacing:.08em">2024 G-STAR 전시</span>
@@ -177,7 +182,7 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
     </article>
 
     <!-- TicToc Guardians -->
-    <article style="border:1px solid rgba(32,30,29,.22);border-top:none;background:#fff;padding:32px 40px 36px;break-inside:avoid">
+    <article style="border:1px solid rgba(32,30,29,.22);border-top:none;background:#fff;padding:32px 40px 36px">
       <div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap">
         <h3 style="margin:0;font-size:26px;font-weight:700;letter-spacing:-.02em">TicToc Guardians <span style="font-size:14px;font-weight:400;color:rgba(32,30,29,.55);margin-left:6px">3D 퍼즐</span></h3>
         <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;color:var(--color-accent);letter-spacing:.08em">2024 TGS 전시</span>
@@ -204,7 +209,7 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
     </article>
 
     <!-- Fate Weaver -->
-    <article style="border:1px solid rgba(32,30,29,.22);border-top:none;background:#fff;padding:32px 40px 36px;break-inside:avoid">
+    <article style="border:1px solid rgba(32,30,29,.22);border-top:none;background:#fff;padding:32px 40px 36px">
       <div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap">
         <h3 style="margin:0;font-size:26px;font-weight:700;letter-spacing:-.02em">Fate Weaver <span style="font-size:14px;font-weight:400;color:rgba(32,30,29,.55);margin-left:6px">2D 턴제 카드</span></h3>
         <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;color:rgba(32,30,29,.5);letter-spacing:.08em">두 번째 자체 엔진</span>
@@ -231,7 +236,7 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
     </article>
 
     <!-- 나의 인형 이야기 -->
-    <article style="border:1px solid rgba(32,30,29,.22);border-top:none;background:#fff;padding:32px 40px 36px;break-inside:avoid">
+    <article style="border:1px solid rgba(32,30,29,.22);border-top:none;background:#fff;padding:32px 40px 36px">
       <div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap">
         <h3 style="margin:0;font-size:26px;font-weight:700;letter-spacing:-.02em">나의 인형 이야기 <span style="font-size:14px;font-weight:400;color:rgba(32,30,29,.55);margin-left:6px">2D 소코반식 퍼즐</span></h3>
         <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;color:var(--color-accent);letter-spacing:.08em">STOVE 스토어 등록</span>
@@ -267,7 +272,7 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
     </div>
 
     <!-- Rogue-deck -->
-    <article style="border:1px solid rgba(32,30,29,.22);border-top:none;background:#fff;padding:32px 40px 36px;break-inside:avoid">
+    <article style="border:1px solid rgba(32,30,29,.22);border-top:none;background:#fff;padding:32px 40px 36px">
       <div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap">
         <h3 style="margin:0;font-size:26px;font-weight:700;letter-spacing:-.02em">Rogue-deck <span style="font-size:14px;font-weight:400;color:rgba(32,30,29,.5)">(가제)</span> <span style="font-size:14px;font-weight:400;color:rgba(32,30,29,.55);margin-left:6px">턴제 덱빌딩 로그라이크</span></h3>
         <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;color:var(--color-accent);letter-spacing:.08em">진행 중</span>
@@ -293,7 +298,7 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
     </article>
 
     <!-- AbyssGen -->
-    <article style="border:1px solid rgba(32,30,29,.22);border-top:none;background:#fff;padding:32px 40px 36px;break-inside:avoid">
+    <article style="border:1px solid rgba(32,30,29,.22);border-top:none;background:#fff;padding:32px 40px 36px">
       <div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap">
         <h3 style="margin:0;font-size:26px;font-weight:700;letter-spacing:-.02em">AbyssGen <span style="font-size:14px;font-weight:400;color:rgba(32,30,29,.55);margin-left:6px">절차적 던전 생성기</span></h3>
         <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;color:rgba(32,30,29,.5);letter-spacing:.08em">완료</span>
@@ -321,7 +326,7 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
   </section>
 
   <!-- 맺음 -->
-  <section style="padding:44px 0 0;break-inside:avoid">
+  <section style="padding:44px 0 0">
     <div style="border:2px solid var(--color-text);background:#fff;padding:24px 28px 28px">
       <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.12em;color:rgba(32,30,29,.5);margin-bottom:10px">MORE</div>
       <div style="font-size:14.5px;line-height:1.9;color:rgba(32,30,29,.85)">
