@@ -94,6 +94,10 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
   section,article,header,div{break-inside:auto;page-break-inside:auto}
   figure,img,pre,[style*="aspect-ratio"]{break-inside:avoid;page-break-inside:avoid}
   p{orphans:2;widows:2}
+  /* 인쇄 폭(≈816px)은 900px 아래라 mobile.css 가 이미 모든 단을 한 단으로 세웁니다.
+     그래서 협업 절의 그림이 단 폭을 꽉 채워 110mm 넘게 자라고, 남은 자리에 들어가지
+     못해 통째로 넘어갑니다. 그림은 자를 수 없으므로 폭을 줄여 자리를 만듭니다. */
+  .collab-cards [style*="aspect-ratio"]{max-width:80%}
   .docbtn{border:2px solid var(--color-text)}
 }
 </style>
@@ -424,7 +428,7 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
         </div>
       </div>
     </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:26px">
+    <div class="collab-cards" style="display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:26px">
       <div>
         <h3 style="margin:0 0 8px;font-size:19px;font-weight:700">설명서와 사후 관리</h3>
         <p style="margin:0 0 14px;font-size:14.5px;line-height:1.8;color:rgba(32,30,29,.8)">기획·아트가 겪는 불편을 모아 툴을 만들고, 거기서 끝내지 않고 <strong>설명서를 쓰고 예시를 보여주며</strong> 사후 관리했습니다. 쓰이지 않는 툴은 만들지 않은 것과 같다고 생각합니다.</p>
