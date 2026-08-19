@@ -360,7 +360,7 @@ std::sort(hits.begin(), hits.end());  <span style="color:#8a8580">// 거리순</
       </div>
       <div style="padding:24px 28px 28px;border-right:1px solid rgba(32,30,29,.18)">
         <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.14em;color:var(--color-accent);margin-bottom:10px">아쉬운 것</div>
-        <p style="margin:0;font-size:14.5px;line-height:1.75;color:rgba(32,30,29,.8)">씬 버전이 안 맞을 때 <strong>try-catch로 막아만 두고</strong> 마이그레이션은 끝내 못 만들었습니다.<br>프리팹을 고쳐도 이미 배치된 것들은 따로 동기화되지 않아서, 기획이 같은 작업을 두 번 해야 했습니다.</p>
+        <p style="margin:0;font-size:14.5px;line-height:1.75;color:rgba(32,30,29,.8)">씬 버전이 맞지 않을 때는 <strong>try-catch로 예외를 잡아</strong> 에디터가 멈추지 않게 했지만, 일정상 <strong>버전 마이그레이션</strong>까지는 만들지 못했습니다.<br>프리팹은 원본을 고쳐도 <strong>이미 배치된 인스턴스에 반영되지 않는 구조</strong>라, 기획이 같은 수정을 두 번 해야 했습니다.</p>
       </div>
       <div style="padding:24px 0 28px 28px">
         <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.14em;color:var(--color-accent);margin-bottom:10px">다음에 개선한다면</div>
