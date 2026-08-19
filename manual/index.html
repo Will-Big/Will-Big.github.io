@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>에디터 설명서 — TicToc Guardians | 임상학 Portfolio</title>
+<meta name="description" content="TicToc Guardians 자체 엔진 에디터 설명서 — 4주 프로젝트에서 엔진·에디터를 만들며 기획·아트 6명에게 함께 넘긴 8쪽 문서">
+<link rel="preconnect" href="https://unpkg.com" crossorigin>
+<link rel="preload" as="script" crossorigin href="https://unpkg.com/react@18.3.1/umd/react.production.min.js" integrity="sha384-DGyLxAyjq0f9SPpVevD6IgztCFlnMF6oW/XQGmfe+IsZ8TqEiDrcHkMLKI6fiB/Z">
+<link rel="preload" as="script" crossorigin href="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" integrity="sha384-gTGxhz21lVGYNMcdJOyq01Edg0jhn/c22nsx0kyqP0TxaV5WVdsSH1fSDUf5YJj1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<script src="../support.js"></script>
+<script src="../lazy-img.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="../_ds/modernist-ae998351-d810-43b9-b194-f261b8babc31/styles.css">
+<link rel="stylesheet" href="../mobile.css">
+<script src="../_ds/modernist-ae998351-d810-43b9-b194-f261b8babc31/_ds_bundle.js"></script>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&amp;family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:var(--color-bg);color:var(--color-text);font-family:'IBM Plex Sans KR','Archivo',system-ui,sans-serif;-webkit-font-smoothing:antialiased;word-break:keep-all}
+a{color:#c22a10;text-decoration:none;border-bottom:1px solid rgba(194,42,16,.35)}
+a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
+.crumb{position:sticky;top:0;z-index:20;background:var(--color-bg)}
+@media print{.crumb{position:static}}
+</style>
+</helmet>
+<div style="max-width:1180px;margin:0 auto;padding:0 40px 140px">
+
+  <div class="crumb" style="padding:34px 0 14px;font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;letter-spacing:.1em;color:rgba(32,30,29,.5);display:flex;justify-content:space-between;align-items:center;gap:20px;border-bottom:1px solid rgba(32,30,29,.18)">
+    <span><a href="/" style="color:inherit;border:none">↑ Portfolio</a> &nbsp;/&nbsp; <span style="color:var(--color-text)">TicToc Guardians 에디터 설명서</span></span>
+    <span>자료</span>
+  </div>
+
+  <section style="padding:44px 0 0">
+    <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;letter-spacing:.14em;color:var(--color-accent);margin-bottom:12px">TICTOC GUARDIANS · 2024</div>
+    <h1 style="margin:0 0 18px;font-size:44px;line-height:1.15;letter-spacing:-.03em;font-weight:700">에디터 설명서</h1>
+    <p style="margin:0 0 16px;font-size:16px;line-height:1.8;color:rgba(32,30,29,.8)">세 번째 자체 엔진이었고, 기간은 <strong>4주</strong>였습니다. 엔진을 만들면서 그 위에 올릴 에디터까지 같이 맡았는데, 엔진이 다 나온 뒤에 기획·아트가 작업을 시작하면 4주 안에 게임이 나올 수 없다고 봤습니다. 그래서 에디터를 넘기는 시점에 이 문서를 같이 썼습니다. <strong>기획 3명과 아트 3명</strong>이 저를 거치지 않고 씬을 만들 수 있게 하는 것이 목적이었습니다.</p>
+    <p style="margin:0;font-size:16px;line-height:1.8;color:rgba(32,30,29,.8)">창별 조작법과 컴포넌트별 유의사항을 정리했고, 잘못 건드리면 문제가 생기는 부분은 빨간 글씨로 따로 적었습니다. 마지막 쪽에는 아직 불안정한 컴포넌트를 숨기지 않고 밝히고, 문제가 생기면 언제든 연락 달라는 말을 남겼습니다.</p>
+
+    <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:22px;align-items:center">
+      <a href="tictoc-editor-manual.pdf" style="border:2px solid var(--color-text);border-bottom:2px solid var(--color-text);padding:11px 18px;font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px;color:var(--color-text)">PDF 내려받기 (8쪽 · 200KB)</a>
+      <a href="https://github.com/Will-Big/TicToc-Guardians" target="_blank" rel="noopener" style="border:1px solid rgba(32,30,29,.35);border-bottom:1px solid rgba(32,30,29,.35);padding:11px 18px;font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px;color:var(--color-text)">GitHub — TicToc-Guardians</a>
+    </div>
+
+    <div style="border-top:2px solid var(--color-text);margin-top:34px;padding-top:16px;display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px 26px;font-size:13.5px;line-height:1.7;color:rgba(32,30,29,.7)">
+      <div><span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;color:var(--color-accent);display:block;letter-spacing:.1em">01 · 02</span>실행 화면 · 기본 조작</div>
+      <div><span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;color:var(--color-accent);display:block;letter-spacing:.1em">03 · 04</span>인스펙터 · 에셋</div>
+      <div><span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;color:var(--color-accent);display:block;letter-spacing:.1em">05</span>라이트</div>
+      <div><span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;color:var(--color-accent);display:block;letter-spacing:.1em">06 – 08</span>컴포넌트 유의사항</div>
+    </div>
+  </section>
+
+  <section style="padding:44px 0 0">
+    <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;letter-spacing:.12em;color:rgba(32,30,29,.5);border-bottom:1px solid rgba(32,30,29,.2);padding-bottom:10px;margin-bottom:26px">전문 — 8쪽</div>
+    <div style="display:flex;flex-direction:column;gap:26px">
+      <figure style="margin:0"><img src="pages/p1.png" alt="에디터 설명서 1쪽 — 실행 화면" fetchpriority="high" style="width:100%;height:auto;display:block;border:1px solid rgba(32,30,29,.25)" decoding="async" width="1241" height="1754"><figcaption style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10.5px;color:rgba(32,30,29,.45);margin-top:7px">01 · 실행 화면</figcaption></figure>
+      <figure style="margin:0"><img data-src="pages/p2.png" alt="에디터 설명서 2쪽 — 기본적인 조작" loading="lazy" style="width:100%;height:auto;display:block;border:1px solid rgba(32,30,29,.25)" decoding="async" width="1241" height="1754"><figcaption style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10.5px;color:rgba(32,30,29,.45);margin-top:7px">02 · 기본적인 조작 — 뷰포트 · 하이어라키</figcaption></figure>
+      <figure style="margin:0"><img data-src="pages/p3.png" alt="에디터 설명서 3쪽 — 인스펙터" loading="lazy" style="width:100%;height:auto;display:block;border:1px solid rgba(32,30,29,.25)" decoding="async" width="1241" height="1754"><figcaption style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10.5px;color:rgba(32,30,29,.45);margin-top:7px">03 · 인스펙터 — 컴포넌트 추가 · 프리팹 저장</figcaption></figure>
+      <figure style="margin:0"><img data-src="pages/p4.png" alt="에디터 설명서 4쪽 — 에셋" loading="lazy" style="width:100%;height:auto;display:block;border:1px solid rgba(32,30,29,.25)" decoding="async" width="1241" height="1754"><figcaption style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10.5px;color:rgba(32,30,29,.45);margin-top:7px">04 · 에셋 — 리소스 · 프리팹 · 씬 로드</figcaption></figure>
+      <figure style="margin:0"><img data-src="pages/p5.png" alt="에디터 설명서 5쪽 — 라이트" loading="lazy" style="width:100%;height:auto;display:block;border:1px solid rgba(32,30,29,.25)" decoding="async" width="1241" height="1754"><figcaption style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10.5px;color:rgba(32,30,29,.45);margin-top:7px">05 · 라이트 — IBL</figcaption></figure>
+      <figure style="margin:0"><img data-src="pages/p6.png" alt="에디터 설명서 6쪽 — 렌더러 계열 컴포넌트" loading="lazy" style="width:100%;height:auto;display:block;border:1px solid rgba(32,30,29,.25)" decoding="async" width="1241" height="1754"><figcaption style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10.5px;color:rgba(32,30,29,.45);margin-top:7px">06 · 렌더러 계열 컴포넌트 유의사항</figcaption></figure>
+      <figure style="margin:0"><img data-src="pages/p7.png" alt="에디터 설명서 7쪽 — 리지드바디 컴포넌트" loading="lazy" style="width:100%;height:auto;display:block;border:1px solid rgba(32,30,29,.25)" decoding="async" width="1241" height="1754"><figcaption style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10.5px;color:rgba(32,30,29,.45);margin-top:7px">07 · 리지드바디 — 충돌 그룹 · 재질</figcaption></figure>
+      <figure style="margin:0"><img data-src="pages/p8.png" alt="에디터 설명서 8쪽 — 트리거 셰이프" loading="lazy" style="width:100%;height:auto;display:block;border:1px solid rgba(32,30,29,.25)" decoding="async" width="1241" height="1754"><figcaption style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10.5px;color:rgba(32,30,29,.45);margin-top:7px">08 · 트리거 셰이프 · 맺음말</figcaption></figure>
+    </div>
+  </section>
+
+  <div style="margin-top:56px;border-top:2px solid var(--color-text);padding-top:16px;display:flex;justify-content:space-between;gap:20px;font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;color:rgba(32,30,29,.55)">
+    <span><a href="/" style="color:inherit;border-bottom:1px solid rgba(32,30,29,.3)">← Portfolio 로 돌아가기</a></span>
+    <span>TicToc Guardians · 에디터 설명서</span>
+  </div>
+
+</div>
+</x-dc>
+</body>
+</html>
