@@ -83,10 +83,13 @@
 body{margin:0;background:var(--color-bg);color:var(--color-text);font-family:'IBM Plex Sans KR','Archivo',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
 a{color:#c22a10;text-decoration:none;border-bottom:1px solid rgba(194,42,16,.35)}
 a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
+.docbtn{color:var(--color-text);border:2px solid var(--color-text);display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:16px 20px 18px;line-height:1.3}
+.docbtn:hover{background:var(--color-text);color:var(--color-bg);border-color:var(--color-text)}
 @page{margin:14mm 12mm}
 @media print{
   body{background:#fff}
   a{color:var(--color-text);border-bottom:1px solid rgba(32,30,29,.32)}
+  .docbtn{border:2px solid var(--color-text)}
 }
 </style>
 </helmet>
@@ -444,6 +447,30 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
           <div style="padding:9px 0"><strong>최종 목표</strong> — 언젠가 내가 만든 게임을 "가장 재미있는 게임"으로 꼽아주는 플레이어를 보고 싶습니다.</div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- 이력서 · 경력기술서 -->
+  <section style="padding:44px 0 0;break-inside:avoid">
+    <div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;border-bottom:2px solid var(--color-text);padding-bottom:10px">
+      <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">이력서와 경력기술서</h2>
+      <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;color:rgba(32,30,29,.5);letter-spacing:.1em">2건</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;padding-top:22px">
+      <a class="docbtn" href="resume/">
+        <span>
+          <span style="display:block;font-size:19px;font-weight:700;letter-spacing:-.02em">이력서</span>
+          <span style="display:block;font-size:12.5px;font-weight:400;opacity:.7;margin-top:6px">인적사항 · 기술 · 교육 이력 · 프로젝트 요약</span>
+        </span>
+        <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:13px;flex:none" aria-hidden="true">&#8599;</span>
+      </a>
+      <a class="docbtn" href="career/">
+        <span>
+          <span style="display:block;font-size:19px;font-weight:700;letter-spacing:-.02em">경력기술서</span>
+          <span style="display:block;font-size:12.5px;font-weight:400;opacity:.7;margin-top:6px">프로젝트별 담당 업무와 설계 판단의 근거</span>
+        </span>
+        <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:13px;flex:none" aria-hidden="true">&#8599;</span>
+      </a>
     </div>
   </section>
 
