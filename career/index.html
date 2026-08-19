@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>경력기술서 | 임상학 Sanghak Im</title>
+<meta name="description" content="게임 클라이언트 / 엔진 프로그래머 임상학 경력기술서 — 자체 엔진 4회 · 프로세스 추상화 · 리플렉션 에디터 · PhysX 물리 모듈">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://unpkg.com" crossorigin>
+<link rel="preload" as="script" crossorigin href="https://unpkg.com/react@18.3.1/umd/react.production.min.js" integrity="sha384-DGyLxAyjq0f9SPpVevD6IgztCFlnMF6oW/XQGmfe+IsZ8TqEiDrcHkMLKI6fiB/Z">
+<link rel="preload" as="script" crossorigin href="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" integrity="sha384-gTGxhz21lVGYNMcdJOyq01Edg0jhn/c22nsx0kyqP0TxaV5WVdsSH1fSDUf5YJj1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<script src="../support.js"></script>
+<script src="../lazy-img.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="omelette-owns-print">
+<link rel="stylesheet" href="../_ds/modernist-ae998351-d810-43b9-b194-f261b8babc31/styles.css">
+<script src="../_ds/modernist-ae998351-d810-43b9-b194-f261b8babc31/_ds_bundle.js"></script>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&amp;family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+<link rel="stylesheet" href="../mobile.css">
+<style>
+@media (prefers-reduced-motion: no-preference){html{scroll-behavior:smooth}}
+body{margin:0;background:var(--color-bg);color:var(--color-text);font-family:'IBM Plex Sans KR','Archivo',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#c22a10;text-decoration:none;border-bottom:1px solid rgba(194,42,16,.35)}
+a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
+.crumb{position:sticky;top:0;z-index:20;background:var(--color-bg)}
+.crumb a{color:var(--color-text);border:2px solid var(--color-text);padding:4px 9px;font-weight:500;display:inline-block;line-height:1.25}
+.crumb a:hover{background:var(--color-text);color:var(--color-bg);border-color:var(--color-text)}
+@page{margin:14mm 12mm}
+@media print{
+  body{background:#fff}
+  a{color:var(--color-text);border-bottom:1px solid rgba(32,30,29,.32)}
+  .crumb{position:static;display:none}
+}
+</style>
+</helmet>
+<div style="max-width:1180px;margin:0 auto;padding:0 40px 120px">
+
+  <div class="crumb" style="padding:34px 0 14px;font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;letter-spacing:.1em;color:rgba(32,30,29,.5);display:flex;justify-content:space-between;align-items:center;gap:20px;border-bottom:1px solid rgba(32,30,29,.18)">
+    <span><a href="../">↑ Portfolio</a> &nbsp;&nbsp;/&nbsp;&nbsp; <span style="color:var(--color-text)">경력기술서</span></span>
+    <span>Career</span>
+  </div>
+
+  <!-- 머리말 -->
+  <header style="padding:40px 0 0;break-inside:avoid">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;gap:24px;font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(32,30,29,.55);border-bottom:2px solid var(--color-text);padding-bottom:12px">
+      <span>Career 2026</span>
+      <span>Game Client / Engine Programmer</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1.35fr 1fr;gap:48px;padding-top:26px;align-items:start">
+      <div>
+        <h1 style="margin:0;font-size:56px;line-height:1.1;letter-spacing:-.03em;font-weight:700">임상학 <span style="font-size:24px;font-weight:400;color:rgba(32,30,29,.5);margin-left:6px">Sanghak Im</span></h1>
+        <p style="margin:18px 0 0;font-size:17px;line-height:1.8;text-wrap:pretty;color:rgba(32,30,29,.85)"><strong>엔진을 사용해 본 데 그치지 않고 직접 설계하고 구현해 온 게임 프로그래머입니다.</strong> Windows API 기반의 첫 자체 엔진부터 EnTT 기반 ECS 엔진까지 네 차례에 걸쳐 엔진을 만들며, 매번 직전 엔진의 한계를 다음 설계의 출발점으로 삼아 코어·에디터·런타임의 경계를 나누고 구조를 다시 세워 왔습니다.</p>
+        <p style="margin:14px 0 0;font-size:15px;line-height:1.8;text-wrap:pretty;color:rgba(32,30,29,.85)">특히 <strong>PhysX 물리 모듈의 추상화</strong>, <strong>매크로 기반 런타임 리플렉션과 에디터 툴체인</strong>, <strong>프로파일링 기반 성능 개선</strong>에 강점이 있습니다. 제가 만든 도구로 동료가 코드 없이 콘텐츠를 만들어 갈 때, 병목의 원인을 짚어 개선한 덕분에 유저의 플레이가 쾌적해질 때 보람을 느낍니다.</p>
+        <p style="margin:14px 0 0;font-size:15px;line-height:1.8;text-wrap:pretty;color:rgba(32,30,29,.85)">Unreal Engine 5 절차적 던전 생성 프로젝트로 상용 엔진의 구조를 익혔고, 현재는 개인 프로젝트 <strong>Rogue-deck</strong>에서 기획부터 구현까지 직접 책임지며 게임 제작 전반을 보는 시야를 넓히고 있습니다. AI 같은 새로운 도구는 개발 속도를 높이는 데 적극 활용하되, <strong>요구사항과 구조는 직접 정의하고 적용 여부와 범위는 스스로 판단</strong>한다는 원칙을 지키고 있습니다.</p>
+      </div>
+      <div style="border-left:2px solid var(--color-text);padding-left:24px">
+        <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.12em;color:rgba(32,30,29,.5);margin-bottom:10px">CONTACT</div>
+        <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12.5px;line-height:2;color:rgba(32,30,29,.85)">
+          <div>im.willBig@gmail.com</div>
+          <div><a href="https://github.com/Will-Big" target="_blank" rel="noopener" style="color:inherit;border-bottom-color:rgba(32,30,29,.3)">github.com/Will-Big</a></div>
+          <div><a href="https://will-big.github.io" target="_blank" rel="noopener" style="color:inherit;border-bottom-color:rgba(32,30,29,.3)">will-big.github.io</a></div>
+        </div>
+        <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.12em;color:rgba(32,30,29,.5);margin:18px 0 8px">EDUCATION</div>
+        <div style="font-size:13px;line-height:1.8;color:rgba(32,30,29,.8)">
+          <div>국민대학교 소프트웨어학과<br><span style="color:rgba(32,30,29,.55)">2018.02 – 2026.08 (졸업 예정)</span></div>
+          <div style="margin-top:8px">게임인재원 프로그래밍학과 5기<br><span style="color:rgba(32,30,29,.55)">2023.03 – 2025.02 · 한국콘텐츠진흥원</span></div>
+        </div>
+        <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.12em;color:rgba(32,30,29,.5);margin:18px 0 8px">RELATED</div>
+        <div style="font-size:13px;line-height:1.9;color:rgba(32,30,29,.8)">
+          <div><a href="../resume/">이력서</a></div>
+          <div><a href="../">포트폴리오</a></div>
+        </div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:0 36px;margin-top:30px;border-top:2px solid var(--color-text);border-bottom:1px solid rgba(32,30,29,.25);padding:18px 0 20px">
+      <div style="padding:6px 0">
+        <div style="font-size:19px;font-weight:700;letter-spacing:-.02em">자체 엔진 4회</div>
+        <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;color:rgba(32,30,29,.6);margin-top:5px">Win API → Direct2D → Custom ECS → EnTT</div>
+      </div>
+      <div style="padding:6px 0">
+        <div style="font-size:19px;font-weight:700;letter-spacing:-.02em">G-Star · TGS 전시</div>
+        <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;color:rgba(32,30,29,.6);margin-top:5px">2024 지스타 / 도쿄 게임쇼 출품</div>
+      </div>
+      <div style="padding:6px 0">
+        <div style="font-size:19px;font-weight:700;letter-spacing:-.02em">C++ · DirectX11 · PhysX</div>
+        <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;color:rgba(32,30,29,.6);margin-top:5px">엔진 코어 · 물리 · 툴 · 게임 플레이</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 핵심 역량 -->
+  <section style="padding:44px 0 0;break-inside:avoid">
+    <div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;border-bottom:2px solid var(--color-text);padding-bottom:10px">
+      <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">핵심 역량</h2>
+      <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;color:rgba(32,30,29,.5);letter-spacing:.1em">3</span>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:0 36px;padding-top:8px">
+      <div style="padding:18px 0 20px;border-bottom:1px solid rgba(32,30,29,.18)">
+        <h3 style="margin:0 0 8px;font-size:19px;font-weight:700;letter-spacing:-.02em">엔진 아키텍처 설계</h3>
+        <p style="margin:0;font-size:14px;line-height:1.8;color:rgba(32,30,29,.8)"><code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px">CoreProcess</code> 추상화로 에디터와 런처의 실행 단위를 분리했고, ECS 데이터 구조와 매크로 기반 런타임 리플렉션을 직접 설계했습니다.</p>
+      </div>
+      <div style="padding:18px 0 20px;border-bottom:1px solid rgba(32,30,29,.18)">
+        <h3 style="margin:0 0 8px;font-size:19px;font-weight:700;letter-spacing:-.02em">물리 모듈 구현</h3>
+        <p style="margin:0;font-size:14px;line-height:1.8;color:rgba(32,30,29,.8)">PhysX를 엔진 레이어에 맞게 래핑하고 충돌 레이어와 콜백을 추상화했습니다. DirectX 11 기반 렌더링 파이프라인의 동작 원리를 이해하고 활용합니다.</p>
+      </div>
+      <div style="padding:18px 0 20px;border-bottom:1px solid rgba(32,30,29,.18)">
+        <h3 style="margin:0 0 8px;font-size:19px;font-weight:700;letter-spacing:-.02em">툴 · 최적화 · 협업</h3>
+        <p style="margin:0;font-size:14px;line-height:1.8;color:rgba(32,30,29,.8)">리플렉션 기반 인스펙터·프리팹·직렬화 툴체인을 구축했고, 프로파일링으로 병목을 찾아 구조와 성능을 함께 개선했습니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 주요 프로젝트 -->
+  <section style="padding:44px 0 0">
+    <div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;border-bottom:2px solid var(--color-text);padding-bottom:10px">
+      <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">주요 프로젝트</h2>
+      <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;color:rgba(32,30,29,.5);letter-spacing:.1em">4건</span>
+    </div>
+
+    <!-- Midnight Cleanup -->
+    <article style="padding:30px 0 34px;border-bottom:2px solid var(--color-text);break-inside:avoid">
+      <div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap">
+        <h3 style="margin:0;font-size:26px;font-weight:700;letter-spacing:-.02em">Midnight Cleanup</h3>
+        <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;color:var(--color-accent);letter-spacing:.08em">2024 G-STAR 전시</span>
+      </div>
+      <div style="font-size:14.5px;line-height:1.8;color:rgba(32,30,29,.85);margin-top:8px">EnTT 기반 ECS 자체 엔진 · 대표 프로젝트</div>
+      <div style="border-top:2px solid var(--color-text);margin-top:12px;padding-top:12px;font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11.5px;line-height:2;color:rgba(32,30,29,.75)">
+        <div><span style="color:rgba(32,30,29,.45);display:inline-block;width:52px">기간</span>2024.04 – 2024.11 (7개월)</div>
+        <div><span style="color:rgba(32,30,29,.45);display:inline-block;width:52px">인원</span>9명 · 프로그래밍 3 / 아트 3 / 기획 3</div>
+        <div><span style="color:rgba(32,30,29,.45);display:inline-block;width:52px">담당</span>게임 엔진 · PhysX 물리 모듈 · 에디터 · 오브젝트 상호작용 / 청소 진행 로직</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:20px">
+        <figure style="margin:0">
+          <div style="border:1px solid rgba(32,30,29,.25);aspect-ratio:16/9;overflow:hidden;background:#111"><img src="../assets/cr-mc-gameplay.webp" alt="Midnight Cleanup 인게임 화면" style="width:100%;height:100%;object-fit:cover;display:block" fetchpriority="high" decoding="async" width="1280" height="720"></div>
+          <figcaption style="font-size:12px;color:rgba(32,30,29,.55);margin-top:7px">인게임 — PhysX 기반 청소 · 상호작용 플레이</figcaption>
+        </figure>
+        <figure style="margin:0">
+          <div style="border:1px solid rgba(32,30,29,.25);aspect-ratio:16/9;overflow:hidden;background:#111"><img data-src="../assets/cr-mc-editor.webp" alt="Midnight Cleanup 에디터 화면" style="width:100%;height:100%;object-fit:cover;display:block" loading="lazy" decoding="async" width="1280" height="734"></div>
+          <figcaption style="font-size:12px;color:rgba(32,30,29,.55);margin-top:7px">리플렉션 기반 에디터 — 하이어라키 · 인스펙터</figcaption>
+        </figure>
+      </div>
+      <div style="border-top:2px solid var(--color-text);font-size:14.5px;line-height:1.8;margin-top:22px">
+        <div style="display:grid;grid-template-columns:22px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;color:var(--color-accent);padding-top:4px">01</span><span><strong>프로세스 추상화</strong> — 직전 엔진은 메인 루프가 고정돼 에디터와 런처가 각자 필요한 기능을 끼워 넣기 어려웠습니다. <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px">CoreProcess</code>를 완전히 추상화해 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px">ToolProcess</code>·<code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px">LauncherProcess</code>가 각 실행 단위에 필요한 루프만 구현하도록 분리했고, 런처를 경량화하면서 코어와 응용 프로그램의 결합도를 낮췄습니다.</span></div>
+        <div style="display:grid;grid-template-columns:22px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;color:var(--color-accent);padding-top:4px">02</span><span><strong>조합형 컴포넌트로의 구조 개편</strong> — 직전 엔진은 컴포넌트가 가상 함수를 가진 클래스여서 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px">vtable</code> 간접 호출로 ECS의 핵심 이점인 캐시 적중률을 살리지 못했습니다. 컴포넌트를 가상 함수 없는 순수 데이터로 개편하고, 공통 데이터(<code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px">ColliderCommon</code>)와 형태별 데이터(<code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px">BoxCollider</code>·<code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px">SphereCollider</code>)를 상속이 아닌 조합으로 분리해 데이터 중복과 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px">vtable</code>을 함께 제거했습니다.</span></div>
+        <div style="display:grid;grid-template-columns:22px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;color:var(--color-accent);padding-top:4px">03</span><span><strong>충돌 레이어 추상화</strong> — 직전 엔진은 레이어를 코어에 박아 넣어 다른 프로젝트에서 재사용할 수 없었습니다. <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px">struct</code>와 매크로로 앱마다 한 줄로 레이어를 정의하도록 바꾸고 비트마스크로 충돌을 필터링해, 코어를 고치지 않고도 범용성과 성능을 함께 확보했습니다.</span></div>
+        <div style="display:grid;grid-template-columns:22px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;color:var(--color-accent);padding-top:4px">04</span><span><strong>충돌 콜백 추상화</strong> — 직전 엔진은 충돌 이벤트가 중앙에 집중돼 시스템별로 필요한 충돌만 받기 어려웠습니다. 필요한 시스템만 구독하도록 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px">ICollisionHandler</code> 인터페이스로 분산하고, PhysX API는 엔진 코어에만 은닉했습니다.</span></div>
+        <div style="display:grid;grid-template-columns:22px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;color:var(--color-accent);padding-top:4px">05</span><span><strong>리플렉션 에디터와 휴먼 에러 개선</strong> — 직전 엔진은 파일명과 이벤트를 문자열로 직접 입력해 오타 오류가 잦았습니다. 리플렉션으로 가능한 입력을 콤보 박스로 전개하고 사전 정의 값을 엔진 리소스로 바꿔 런타임 편집을 지원함으로써, 기획·아트의 재컴파일과 실수를 제거했습니다.</span></div>
+        <div style="display:grid;grid-template-columns:22px 1fr;gap:12px;padding:12px 0"><span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;color:var(--color-accent);padding-top:4px">06</span><span><strong>성능 최적화</strong> — 프로파일링으로 다수 동적 광원의 그림자 렌더링이 병목임을 확인했습니다. 시연 일정상 엔진 수정이 어려워 활성 조명 수를 큐로 제한하는 자원 관리 시스템을 게임 로직 레벨에서 구현했고, 최저 프레임을 10FPS 이상 확보했습니다.</span></div>
+      </div>
+      <div style="border:1px solid rgba(32,30,29,.3);padding:14px 16px;margin-top:18px">
+        <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.12em;color:rgba(32,30,29,.5);margin-bottom:6px">RESULT</div>
+        <div style="font-size:14px;line-height:1.8;color:rgba(32,30,29,.85)">기술 제약을 어두운 공간의 몰입감이라는 <strong>기획적 연출로 전환</strong>하며 성능을 확보했습니다. 직전 엔진의 한계를 구조 개편으로 풀어 7개월 팀 프로젝트로 완성했고 <strong>2024 G-Star</strong> 에 전시했습니다.</div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:14px">
+        <span style="border:1px solid rgba(32,30,29,.3);font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10.5px;padding:3px 7px">C++20</span>
+        <span style="border:1px solid rgba(32,30,29,.3);font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10.5px;padding:3px 7px">DirectX 11</span>
+        <span style="border:1px solid rgba(32,30,29,.3);font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10.5px;padding:3px 7px">PhysX</span>
+        <span style="border:1px solid rgba(32,30,29,.3);font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10.5px;padding:3px 7px">EnTT</span>
+        <span style="border:1px solid rgba(32,30,29,.3);font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10.5px;padding:3px 7px">ImGui</span>
+        <span style="border:1px solid rgba(32,30,29,.3);font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10.5px;padding:3px 7px">Reflection</span>
+        <span style="border:1px solid rgba(32,30,29,.3);font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10.5px;padding:3px 7px">Serialize</span>
+        <span style="border:1px solid rgba(32,30,29,.3);font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10.5px;padding:3px 7px">SVN</span>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px 18px;border-top:1px solid rgba(32,30,29,.15);margin-top:14px;padding-top:10px;font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px">
+        <a href="../midnight-cleanup/" style="color:rgba(32,30,29,.72);border-bottom-color:rgba(32,30,29,.3)">프로젝트 상세</a>
+        <a href="https://github.com/Will-Big/midnight-cleanup" target="_blank" rel="noopener" style="color:rgba(32,30,29,.72);border-bottom-color:rgba(32,30,29,.3)">GitHub</a>
+        <a href="https://www.youtube.com/watch?v=WkjI6ZwUVwU" target="_blank" rel="noopener" style="color:rgba(32,30,29,.72);border-bottom-color:rgba(32,30,29,.3)">시연 영상</a>
+      </div>
+    </article>
+
+    <!-- TicToc Guardians -->
+    <article style="padding:30px 0 34px;border-bottom:2px solid var(--color-text);break-inside:avoid">
+      <div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap">
+        <h3 style="margin:0;font-size:26px;font-weight:700;letter-spacing:-.02em">TicToc Guardians</h3>
+        <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;color:var(--color-accent);letter-spacing:.08em">2024 TGS 전시</span>
+      </div>
+      <div style="font-size:14.5px;line-height:1.8;color:rgba(32,30,29,.85);margin-top:8px">커스텀 ECS 자체 엔진</div>
+      <div style="border-top:2px solid var(--color-text);margin-top:12px;padding-top:12px;font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11.5px;line-height:2;color:rgba(32,30,29,.75)">
+        <div><span style="color:rgba(32,30,29,.45);display:inline-block;width:52px">기간</span>2024.01 – 2024.02 (4주)</div>
+        <div><span style="color:rgba(32,30,29,.45);display:inline-block;width:52px">인원</span>11명 · 프로그래밍 5 / 아트 3 / 기획 3</div>
+        <div><span style="color:rgba(32,30,29,.45);display:inline-block;width:52px">담당</span>게임 엔진(커스텀 ECS · 리플렉션) · 에디터 · 리플레이 시스템</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:20px">
+        <figure style="margin:0">
+          <div style="border:1px solid rgba(32,30,29,.25);aspect-ratio:16/9;overflow:hidden;background:#111"><img data-src="../assets/cr-tt-gameplay.webp" alt="TicToc Guardians 인게임 화면" style="width:100%;height:100%;object-fit:cover;display:block" loading="lazy" decoding="async" width="1280" height="720"></div>
+          <figcaption style="font-size:12px;color:rgba(32,30,29,.55);margin-top:7px">인게임 — 시간 되감기 기반 협동 퍼즐 플레이</figcaption>
+        </figure>
+        <figure style="margin:0">
+          <div style="border:1px solid rgba(32,30,29,.25);aspect-ratio:16/9;overflow:hidden;background:#111"><img data-src="../assets/cr-tt-editor.webp" alt="TicToc Guardians 에디터 화면" style="width:100%;height:100%;object-fit:cover;display:block" loading="lazy" decoding="async" width="1280" height="719"></div>
+          <figcaption style="font-size:12px;color:rgba(32,30,29,.55);margin-top:7px">커스텀 ECS · 리플렉션 기반 에디터</figcaption>
+        </figure>
+      </div>
+      <div style="border-top:2px solid var(--color-text);font-size:14.5px;line-height:1.8;margin-top:22px">
+        <div style="display:grid;grid-template-columns:22px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;color:var(--color-accent);padding-top:4px">01</span><span><strong>커스텀 ECS 직접 구현</strong> — ECS와 런타임 리플렉션을 라이브러리에 의존하지 않고 직접 만들어 개념을 체화하는 것을 목표로 삼았습니다. 데이터 인접성을 위해 타입별 고정 배열(<code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px">std::array</code>) 풀을 쓰되, 런타임 증설이 필요해 이를 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px">std::list</code>로 묶은 멀티 풀로 설계했습니다.</span></div>
+        <div style="display:grid;grid-template-columns:22px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;color:var(--color-accent);padding-top:4px">02</span><span><strong>포인터 주소 안정성 확보</strong> — <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px">std::vector</code>로 풀을 묶으면 증설 시 재할당으로 기존 컴포넌트 포인터가 무효화됩니다. 노드 기반인 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px">std::list</code>를 택해 풀을 증설해도 기존 노드 주소가 보존되게 했고, <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px">swap-pop</code> 삭제 후에는 이동된 컴포넌트의 소유자 맵 포인터를 갱신해 일관성을 유지했습니다.</span></div>
+        <div style="display:grid;grid-template-columns:22px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;color:var(--color-accent);padding-top:4px">03</span><span><strong>C++20 채용 근거</strong> — 모든 컴포넌트가 템플릿 기반 풀과 조회 경로를 거치는데, 잘못된 타입이 들어오면 해석하기 어려운 템플릿 오류가 발생합니다. C++20 concepts(<code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px">requires IsComponent&lt;T&gt;</code>)로 컴포넌트 타입만 허용하도록 제약해 오용을 컴파일 시점에 차단했고, 팀원이 ECS 위에서 안전하게 작업할 수 있게 했습니다.</span></div>
+        <div style="display:grid;grid-template-columns:22px 1fr;gap:12px;padding:12px 0"><span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;color:var(--color-accent);padding-top:4px">04</span><span><strong>리플레이(고스트) 시스템</strong> — 프레임 단위 입력을 비트셋으로 기록하고, 되감기 후 초기 상태로 되돌려 입력을 재주입하는 고스트 플레이어로 시간차 협동 퍼즐을 구현했습니다. 캐릭터와 리플레이어는 이벤트 버스로 통신해 결합도를 최소화했습니다.</span></div>
+      </div>
+      <div style="border:1px solid rgba(32,30,29,.3);padding:14px 16px;margin-top:18px">
+        <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.12em;color:rgba(32,30,29,.5);margin-bottom:6px">RESULT</div>
+        <div style="font-size:14px;line-height:1.8;color:rgba(32,30,29,.85)">직접 구현을 통해 ECS의 한계를 체득했습니다. 컴포넌트가 가상 함수를 가진 클래스여서 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px">vtable</code> 간접 호출로 캐시 적중률을 온전히 살리지 못함을 확인했고, 이 경험이 다음 엔진에서 <strong>조합형 순수 데이터 컴포넌트</strong>로 개선하는 기준이 되었습니다. <strong>2024 TGS</strong> 에 전시했습니다.</div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:14px">
+        <span style="border:1px solid rgba(32,30,29,.3);font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10.5px;padding:3px 7px">C++20</span>
+        <span style="border:1px solid rgba(32,30,29,.3);font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10.5px;padding:3px 7px">DirectX 11</span>
+        <span style="border:1px solid rgba(32,30,29,.3);font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10.5px;padding:3px 7px">PhysX</span>
+        <span style="border:1px solid rgba(32,30,29,.3);font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10.5px;padding:3px 7px">ImGui</span>
+        <span style="border:1px solid rgba(32,30,29,.3);font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10.5px;padding:3px 7px">Custom ECS</span>
+        <span style="border:1px solid rgba(32,30,29,.3);font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10.5px;padding:3px 7px">Reflection</span>
+        <span style="border:1px solid rgba(32,30,29,.3);font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10.5px;padding:3px 7px">Replay</span>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px 18px;border-top:1px solid rgba(32,30,29,.15);margin-top:14px;padding-top:10px;font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px">
+        <a href="../tictoc-guardians/" style="color:rgba(32,30,29,.72);border-bottom-color:rgba(32,30,29,.3)">프로젝트 상세</a>
+        <a href="https://github.com/Will-Big/TicToc-Guardians" target="_blank" rel="noopener" style="color:rgba(32,30,29,.72);border-bottom-color:rgba(32,30,29,.3)">GitHub</a>
+        <a href="https://www.youtube.com/watch?v=Cuudj5FuxYY" target="_blank" rel="noopener" style="color:rgba(32,30,29,.72);border-bottom-color:rgba(32,30,29,.3)">시연 영상</a>
+        <a href="../manual/" style="color:rgba(32,30,29,.72);border-bottom-color:rgba(32,30,29,.3)">에디터 설명서</a>
+      </div>
+    </article>
+
+    <!-- Rogue-deck -->
+    <article style="padding:30px 0 34px;border-bottom:2px solid var(--color-text);break-inside:avoid">
+      <div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap">
+        <h3 style="margin:0;font-size:26px;font-weight:700;letter-spacing:-.02em">Rogue-deck <span style="font-size:14px;font-weight:400;color:rgba(32,30,29,.5)">(가제)</span></h3>
+        <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;color:var(--color-accent);letter-spacing:.08em">진행 중 · 개인 프로젝트</span>
+      </div>
+      <div style="font-size:14.5px;line-height:1.8;color:rgba(32,30,29,.85);margin-top:8px">Unity 턴제 덱빌딩 로그라이크 · 《Fate Weaver》의 카드 조합 재미를 제 방식으로 확장</div>
+      <div style="border-top:2px solid var(--color-text);margin-top:12px;padding-top:12px;font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11.5px;line-height:2;color:rgba(32,30,29,.75)">
+        <div><span style="color:rgba(32,30,29,.45);display:inline-block;width:52px">기간</span>2026.06 – 현재</div>
+        <div><span style="color:rgba(32,30,29,.45);display:inline-block;width:52px">인원</span>1명 (개인)</div>
+        <div><span style="color:rgba(32,30,29,.45);display:inline-block;width:52px">담당</span>기획부터 구현까지 전반 (Unity · C#)</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:20px">
+        <figure style="margin:0">
+          <div style="border:1px solid rgba(32,30,29,.25);aspect-ratio:4/3;overflow:hidden;background:#111"><img data-src="../assets/roguedeck-proto.png" alt="Rogue-deck 프로토타입 전투 화면" style="width:100%;height:100%;object-fit:contain;display:block" loading="lazy" decoding="async" width="1342" height="1006"></div>
+          <figcaption style="font-size:12px;color:rgba(32,30,29,.55);margin-top:7px">프로토타입 전투 화면 — 아트 미적용</figcaption>
+        </figure>
+        <div>
+          <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.12em;color:rgba(32,30,29,.5);margin-bottom:8px">시작한 목적</div>
+          <p style="margin:0;font-size:14px;line-height:1.8;color:rgba(32,30,29,.8)">C++ 자체 엔진으로 제작했던 《Fate Weaver》의 <strong>카드 조합에서 오는 재미를 제 방식으로 확장</strong>해 보고자, 팀 프로젝트가 끝난 뒤에도 같은 소재를 상용 엔진 위에서 다시 설계하고 있습니다. 기획부터 구현까지 직접 책임지며 게임 제작 전반을 보는 시야를 넓히는 것이 목표입니다.</p>
+          <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.12em;color:rgba(32,30,29,.5);margin:16px 0 8px">배운 것</div>
+          <p style="margin:0;font-size:14px;line-height:1.8;color:rgba(32,30,29,.8)">구조는 미루면 다음 작업이 막히고, 눈에 띌 때마다 손대면 진행 중인 작업이 흐트러졌습니다. 그래서 <strong>지금 하려는 일을 직접 막는 것만 바로 해결하고 나머지는 기록해 두었다가 나중에 다루는</strong> 기준을 세웠고, 지금은 이 기준이 리팩토링을 언제 시작하고 어디서 멈출지 판단하는 근거가 되고 있습니다.</p>
+        </div>
+      </div>
+      <div style="border-top:2px solid var(--color-text);font-size:14.5px;line-height:1.8;margin-top:22px">
+        <div style="display:grid;grid-template-columns:22px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;color:var(--color-accent);padding-top:4px">01</span><span><strong>기획과 밸런스</strong> — 전투 규칙과 카드·캐릭터 구조를 직접 정의하고, 초안을 기록·편집하는 저작 도구를 만들어 아이디어를 곧바로 반영했습니다. 수치는 감이 아니라 <strong>시뮬레이션으로 검증</strong>합니다.</span></div>
+        <div style="display:grid;grid-template-columns:22px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;color:var(--color-accent);padding-top:4px">02</span><span><strong>구조 설계</strong> — 게임 규칙을 <strong>엔진에 의존하지 않는 순수 C# 코어</strong>에 두고 표현과 저작은 Unity 레이어로 분리했습니다. 새 효과와 상태는 핸들러 하나만 추가하면 되도록 해 콘텐츠가 늘어도 규칙 코드가 복잡해지지 않게 했습니다.</span></div>
+        <div style="display:grid;grid-template-columns:22px 1fr;gap:12px;padding:12px 0"><span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;color:var(--color-accent);padding-top:4px">03</span><span><strong>AI 활용 원칙</strong> — AI로 속도를 높이고 다양한 관점을 참고하되, <strong>요구사항과 구조는 직접 정의하고 적용 여부와 범위는 제가 판단</strong>합니다. 그 기준이 흔들리지 않도록 아키텍처 경계는 문서로, 검증은 테스트로 저장소에 고정해 두었습니다.</span></div>
+      </div>
+      <div style="border:1px solid rgba(32,30,29,.3);padding:14px 16px;margin-top:18px">
+        <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.12em;color:rgba(32,30,29,.5);margin-bottom:6px">RESULT</div>
+        <div style="font-size:14px;line-height:1.8;color:rgba(32,30,29,.85)">게임 하나를 <strong>AI와 함께 끝까지 완성해 가는 과정</strong>에서 기획·구현·검증을 아우르는 전체적인 시야를 넓혀 가고 있습니다.</div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:14px">
+        <span style="border:1px solid rgba(32,30,29,.3);font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10.5px;padding:3px 7px">Unity</span>
+        <span style="border:1px solid rgba(32,30,29,.3);font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10.5px;padding:3px 7px">C#</span>
+        <span style="border:1px solid rgba(32,30,29,.3);font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10.5px;padding:3px 7px">Game Design</span>
+        <span style="border:1px solid rgba(32,30,29,.3);font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10.5px;padding:3px 7px">Deck-building</span>
+        <span style="border:1px solid rgba(32,30,29,.3);font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10.5px;padding:3px 7px">AI-Assisted Dev</span>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px 18px;border-top:1px solid rgba(32,30,29,.15);margin-top:14px;padding-top:10px;font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px">
+        <a href="../rogue-deck/" style="color:rgba(32,30,29,.72);border-bottom-color:rgba(32,30,29,.3)">프로젝트 상세</a>
+        <a href="https://github.com/Will-Big/rogue-deck" target="_blank" rel="noopener" style="color:rgba(32,30,29,.72);border-bottom-color:rgba(32,30,29,.3)">GitHub</a>
+      </div>
+    </article>
+
+    <!-- AbyssGen -->
+    <article style="padding:30px 0 34px;border-bottom:2px solid var(--color-text);break-inside:avoid">
+      <div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap">
+        <h3 style="margin:0;font-size:26px;font-weight:700;letter-spacing:-.02em">AbyssGen</h3>
+        <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;color:rgba(32,30,29,.5);letter-spacing:.08em">완료 · 개인 프로젝트</span>
+      </div>
+      <div style="font-size:14.5px;line-height:1.8;color:rgba(32,30,29,.85);margin-top:8px">Unreal Engine 5 절차적 던전 생성 · 상용 엔진 구조 학습</div>
+      <div style="border-top:2px solid var(--color-text);margin-top:12px;padding-top:12px;font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11.5px;line-height:2;color:rgba(32,30,29,.75)">
+        <div><span style="color:rgba(32,30,29,.45);display:inline-block;width:52px">기간</span>2026.04 – 2026.06 (2개월)</div>
+        <div><span style="color:rgba(32,30,29,.45);display:inline-block;width:52px">인원</span>1명 (개인)</div>
+        <div><span style="color:rgba(32,30,29,.45);display:inline-block;width:52px">담당</span>전체 설계 및 구현 (C++ · Blueprint)</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:20px">
+        <figure style="margin:0">
+          <div style="border:1px solid rgba(32,30,29,.25);aspect-ratio:16/9;overflow:hidden;background:#111"><img data-src="../assets/cr-ab-outside.webp" alt="절차적으로 생성된 던전 전경" style="width:100%;height:100%;object-fit:cover;display:block" loading="lazy" decoding="async" width="1280" height="851"></div>
+          <figcaption style="font-size:12px;color:rgba(32,30,29,.55);margin-top:7px">생성 결과 — 방 Blueprint 가 층 단위로 이어진 던전</figcaption>
+        </figure>
+        <figure style="margin:0">
+          <div style="border:1px solid rgba(32,30,29,.25);aspect-ratio:16/9;overflow:hidden;background:#111"><img data-src="../assets/cr-ab-inside.webp" alt="던전 내부 인게임 화면" style="width:100%;height:100%;object-fit:cover;display:block" loading="lazy" decoding="async" width="1280" height="742"></div>
+          <figcaption style="font-size:12px;color:rgba(32,30,29,.55);margin-top:7px">인게임 — 방 내부 전투 · 엘리베이터 이동</figcaption>
+        </figure>
+      </div>
+      <div style="border-top:2px solid var(--color-text);font-size:14.5px;line-height:1.8;margin-top:22px">
+        <div style="display:grid;grid-template-columns:22px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;color:var(--color-accent);padding-top:4px">01</span><span><strong>절차적 던전 생성</strong> — 손으로 제작한 방 Blueprint 를 출구와 겹침 규칙에 따라 이어 붙여, 무작위성과 통제 가능성을 함께 확보하는 생성 구조를 구현했습니다. <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px">FRandomStream</code> 시드로 재현성을 확보했습니다.</span></div>
+        <div style="display:grid;grid-template-columns:22px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;color:var(--color-accent);padding-top:4px">02</span><span><strong>확장 가능한 구조</strong> — 방 타입은 공통 부모 클래스 상속으로 추가하고 상호작용 오브젝트는 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px">IInteractable</code> 인터페이스로 분리해, 던전 생성 로직·방 데이터·상호작용의 책임을 나눴습니다.</span></div>
+        <div style="display:grid;grid-template-columns:22px 1fr;gap:12px;padding:12px 0"><span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;color:var(--color-accent);padding-top:4px">03</span><span><strong>Unreal Engine 5 기능 활용</strong> — ISM(Instanced Static Mesh) 기반 바닥·벽 스폰, 오버랩 기반 문 개폐와 엘리베이터, 확률 테이블 기반 적·아이템 배치를 구현하며 액터·컴포넌트 구조를 학습했습니다.</span></div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:18px">
+        <span style="border:1px solid rgba(32,30,29,.3);font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10.5px;padding:3px 7px">Unreal Engine 5</span>
+        <span style="border:1px solid rgba(32,30,29,.3);font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10.5px;padding:3px 7px">C++</span>
+        <span style="border:1px solid rgba(32,30,29,.3);font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10.5px;padding:3px 7px">Blueprint</span>
+        <span style="border:1px solid rgba(32,30,29,.3);font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10.5px;padding:3px 7px">Procedural Generation</span>
+        <span style="border:1px solid rgba(32,30,29,.3);font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10.5px;padding:3px 7px">ISM</span>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px 18px;border-top:1px solid rgba(32,30,29,.15);margin-top:14px;padding-top:10px;font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px">
+        <a href="../abyssgen/" style="color:rgba(32,30,29,.72);border-bottom-color:rgba(32,30,29,.3)">프로젝트 상세</a>
+        <a href="https://github.com/Will-Big/AbyssGen" target="_blank" rel="noopener" style="color:rgba(32,30,29,.72);border-bottom-color:rgba(32,30,29,.3)">GitHub</a>
+        <a href="https://youtu.be/A47CNn7ZQGQ" target="_blank" rel="noopener" style="color:rgba(32,30,29,.72);border-bottom-color:rgba(32,30,29,.3)">시연 영상</a>
+      </div>
+    </article>
+  </section>
+
+  <!-- 그 외 프로젝트 -->
+  <section style="padding:44px 0 0;break-inside:avoid">
+    <div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;border-bottom:2px solid var(--color-text);padding-bottom:10px">
+      <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">그 외 프로젝트</h2>
+      <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;color:rgba(32,30,29,.5);letter-spacing:.1em">2건</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:36px;padding-top:24px">
+      <div>
+        <h3 style="margin:0;font-size:19px;font-weight:700;letter-spacing:-.02em">Fate Weaver</h3>
+        <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;color:rgba(32,30,29,.6);margin-top:6px">2023.08 (3주) · 7명 · Direct2D 자체 엔진</div>
+        <p style="margin:10px 0 0;font-size:14px;line-height:1.8;color:rgba(32,30,29,.8)">실행 주기 인터페이스(<code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px">IUpdatable</code>·<code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px">IRenderable</code>)와 <strong>타입세이프 이벤트 시스템</strong>으로 엔진과 게임 로직을 분리했습니다. 카드 능력을 컴포넌트로 조합하는 덱빌딩 구조와 전투 FSM 을 구현했습니다.</p>
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px 18px;border-top:1px solid rgba(32,30,29,.15);margin-top:12px;padding-top:10px;font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px">
+          <a href="../fate-weaver/" style="color:rgba(32,30,29,.72);border-bottom-color:rgba(32,30,29,.3)">프로젝트 상세</a>
+          <a href="https://github.com/Will-Big/fate-weaver" target="_blank" rel="noopener" style="color:rgba(32,30,29,.72);border-bottom-color:rgba(32,30,29,.3)">GitHub</a>
+        </div>
+      </div>
+      <div>
+        <h3 style="margin:0;font-size:19px;font-weight:700;letter-spacing:-.02em">나의 인형 이야기</h3>
+        <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;color:rgba(32,30,29,.6);margin-top:6px">2023.05 (2주) · 8명 · Windows API 첫 자체 엔진</div>
+        <p style="margin:10px 0 0;font-size:14px;line-height:1.8;color:rgba(32,30,29,.8)">Windows API 로 게임 루프·오브젝트 생명주기·렌더링 흐름을 직접 구성했습니다. 조립 순서에 독립적인 파츠 결합 알고리즘과 상태 기반 렌더링을 구현했고, <strong>STOVE 스토어에 등록</strong>했습니다.</p>
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px 18px;border-top:1px solid rgba(32,30,29,.15);margin-top:12px;padding-top:10px;font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px">
+          <a href="../my-doll-story/" style="color:rgba(32,30,29,.72);border-bottom-color:rgba(32,30,29,.3)">프로젝트 상세</a>
+          <a href="https://github.com/Will-Big/my_doll_story" target="_blank" rel="noopener" style="color:rgba(32,30,29,.72);border-bottom-color:rgba(32,30,29,.3)">GitHub</a>
+          <a href="https://store.onstove.com/ko/games/2398" target="_blank" rel="noopener" style="color:rgba(32,30,29,.72);border-bottom-color:rgba(32,30,29,.3)">STOVE</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 기술과 학력 -->
+  <section style="padding:44px 0 0;break-inside:avoid">
+    <div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;border-bottom:2px solid var(--color-text);padding-bottom:10px">
+      <h2 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em">기술과 학력</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:1.35fr 1fr;gap:48px;padding-top:20px;align-items:start">
+      <div style="border-top:2px solid var(--color-text);font-size:14px;line-height:1.8">
+        <div style="padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;letter-spacing:.08em;color:rgba(32,30,29,.5);display:inline-block;width:96px">LANGUAGE</span>C/C++ (C++98–20) · C# · Python</div>
+        <div style="padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;letter-spacing:.08em;color:rgba(32,30,29,.5);display:inline-block;width:96px">ENGINE</span>자체 엔진 4종 · Unreal Engine 5 · Unity</div>
+        <div style="padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;letter-spacing:.08em;color:rgba(32,30,29,.5);display:inline-block;width:96px">GRAPHICS</span>DirectX 11 (렌더링 파이프라인 이해)</div>
+        <div style="padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;letter-spacing:.08em;color:rgba(32,30,29,.5);display:inline-block;width:96px">LIBRARY</span>EnTT · PhysX · ImGui · cereal / RapidJSON</div>
+        <div style="padding:11px 0;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;letter-spacing:.08em;color:rgba(32,30,29,.5);display:inline-block;width:96px">TOOLING</span>Reflection · Serialize · Editor · Profiling</div>
+        <div style="padding:11px 0"><span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;letter-spacing:.08em;color:rgba(32,30,29,.5);display:inline-block;width:96px">COLLAB</span>Git · SVN · Notion · Trello</div>
+      </div>
+      <div style="border-left:2px solid var(--color-text);padding-left:24px;font-size:13.5px;line-height:1.8;color:rgba(32,30,29,.85)">
+        <div style="margin-bottom:14px"><strong>국민대학교 소프트웨어학과</strong><br><span style="color:rgba(32,30,29,.55)">2018.02 – 2026.08 (졸업 예정)</span></div>
+        <div style="margin-bottom:14px"><strong>게임인재원 프로그래밍학과 5기</strong><br><span style="color:rgba(32,30,29,.55)">2023.03 – 2025.02 · 한국콘텐츠진흥원</span></div>
+        <div><strong>전시 · 출시</strong><br><span style="color:rgba(32,30,29,.55)">2024 G-STAR · 2024 Tokyo Game Show · STOVE 스토어 등록</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 맺음 -->
+  <section style="padding:44px 0 0;break-inside:avoid">
+    <div style="border:2px solid var(--color-text);padding:24px 28px 28px">
+      <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.12em;color:rgba(32,30,29,.5);margin-bottom:10px">MORE</div>
+      <div style="font-size:14.5px;line-height:1.9;color:rgba(32,30,29,.85)">
+        <div>인적사항과 프로젝트 요약은 <a href="../resume/">이력서</a>, 설계 판단의 전체 맥락은 <a href="../">포트폴리오</a>에 정리했습니다.</div>
+        <div>연락은 <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:13px">im.willBig@gmail.com</span> 으로 부탁드립니다.</div>
+      </div>
+    </div>
+  </section>
+
+</div>
+</x-dc>
+</body>
+</html>
