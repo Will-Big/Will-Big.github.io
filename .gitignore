@@ -1,3 +1,6 @@
 .DS_Store
 desktop.ini
 Thumbs.db
+
+# 프로필 사진 원본(2000x3000, 3MB). 자른 결과인 assets/profile.webp 만 올립니다.
+assets/profile.png
