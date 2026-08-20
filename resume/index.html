@@ -30,6 +30,10 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
 .crumb{position:sticky;top:0;z-index:20;background:var(--color-bg)}
 .crumb a{color:var(--color-text);border:2px solid var(--color-text);padding:4px 9px;font-weight:500;display:inline-block;line-height:1.25}
 .crumb a:hover{background:var(--color-text);color:var(--color-bg);border-color:var(--color-text)}
+.profile{min-height:220px}
+/* 좁은 화면에서는 그리드가 한 단이 되어 따라갈 옆 글이 없습니다.
+   그대로 두면 사진이 화면 폭을 꽉 채우므로 제 비율로 되돌립니다. */
+@media (max-width:900px){.profile{min-height:0;aspect-ratio:4/5;width:150px}}
 @page{margin:14mm 12mm}
 @media print{
   body{background:#fff}
@@ -57,8 +61,8 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
       <span>Game Client / Engine Programmer</span>
     </div>
     <div style="display:grid;grid-template-columns:1.8fr 1fr;gap:48px;padding-top:26px;align-items:start">
-      <div style="display:grid;grid-template-columns:150px minmax(0,1fr);gap:28px;align-items:start">
-        <div style="border:1px solid rgba(32,30,29,.22);aspect-ratio:4/5;overflow:hidden;background:#e9e8e7;width:150px"><img src="../assets/profile.webp" alt="임상학" style="width:100%;height:100%;object-fit:cover;display:block" fetchpriority="high" decoding="async" width="640" height="800"></div>
+      <div style="display:grid;grid-template-columns:200px minmax(0,1fr);gap:28px">
+        <div class="profile" style="border:1px solid rgba(32,30,29,.22);overflow:hidden;background:#e9e8e7"><img src="../assets/profile.webp" alt="임상학" style="width:100%;height:100%;object-fit:cover;display:block" fetchpriority="high" decoding="async" width="640" height="800"></div>
         <div>
           <h1 style="margin:0;font-size:56px;line-height:1.1;letter-spacing:-.03em;font-weight:700">임상학<span style="font-size:24px;font-weight:400;color:rgba(32,30,29,.5);margin-left:14px">Sanghak Im</span></h1>
         <p style="margin:18px 0 0;font-size:17px;line-height:1.8;text-wrap:pretty;color:rgba(32,30,29,.85)">더 좋은 성능과 더 깊은 재미를 이끌어내기 위한 <strong>설계와 학습</strong>을 좋아하는 프로그래머입니다. 자체 엔진을 네 번 만들며 매번 이전 구조의 한계를 짚어 다시 설계했고, 동시에 기획·아트가 직접 쓸 수 있는 툴을 만들고 설명서까지 남기는 일을 제 몫으로 여겨 왔습니다.</p>
