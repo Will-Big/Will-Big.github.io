@@ -45,7 +45,7 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
     <div style="display:grid;grid-template-columns:1.35fr 1fr;gap:40px;align-items:start">
       <div>
         <div style="border:1px solid rgba(32,30,29,.25);aspect-ratio:16/9;overflow:hidden;background:#111"><img src="../assets/fw-3.webp" alt="" style="width:100%;height:100%;object-fit:cover;display:block" fetchpriority="high" decoding="async" width="800" height="450"></div>
-        <div style="font-size:12.5px;color:rgba(32,30,29,.55);margin-top:8px">손패의 운명 카드로 그 순서와 효과를 밀고 당기는 덱빌딩 카드 배틀</div>
+        <div style="font-size:12.5px;color:rgba(32,30,29,.55);margin-top:8px">손패의 조작 카드로 그 순서와 효과를 밀고 당기는 덱빌딩 카드 배틀</div>
       </div>
       <div>
         <h1 style="margin:0;font-size:44px;line-height:1.15;letter-spacing:-.03em;font-weight:700">Fate<br>Weaver</h1>
@@ -151,7 +151,7 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
         <div><strong>주도력</strong><br><span style="color:rgba(32,30,29,.65)">카드 실행 순서의 정렬 기준. 낮을수록 먼저</span></div>
         <div><strong>미래 영역</strong><br><span style="color:rgba(32,30,29,.65)">양측 행동 카드가 주도력 순으로 놓이는 화면 상단</span></div>
         <div><strong>행동 카드</strong><br><span style="color:rgba(32,30,29,.65)">턴이 끝나면 순서대로 발동되는 카드</span></div>
-        <div><strong>운명 카드</strong><br><span style="color:rgba(32,30,29,.65)">행동 카드의 효과·대상·순서를 바꾸는 플레이어의 손패</span></div>
+        <div><strong>조작 카드</strong><br><span style="color:rgba(32,30,29,.65)">행동 카드의 효과·대상·순서를 바꾸는 플레이어의 손패</span></div>
       </div>
     </div>
 
@@ -169,7 +169,7 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
         </div>
         <div style="padding:16px 20px 18px;border-right:1px solid rgba(32,30,29,.18)">
           <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;color:rgba(32,30,29,.5);letter-spacing:.1em;margin-bottom:6px">왜</div>
-          <p style="margin:0;font-size:14.5px;line-height:1.6;font-weight:500">운명 카드가 수치·대상·주도력·횟수까지 변경하므로, 카드 한 장의 능력이 <strong>런타임에 계속 달라짐</strong></p>
+          <p style="margin:0;font-size:14.5px;line-height:1.6;font-weight:500">조작 카드가 수치·대상·주도력·횟수까지 변경하므로, 카드 한 장의 능력이 <strong>런타임에 계속 달라짐</strong></p>
         </div>
         <div style="padding:16px 0 18px 20px">
           <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;color:var(--color-accent);letter-spacing:.1em;margin-bottom:6px">무엇이 나아졌나</div>
@@ -183,7 +183,7 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
         </figure>
         <figure style="margin:0">
           <div style="border:1px solid rgba(32,30,29,.25);background:#0d0d0d;padding:10px"><img data-src="../assets/fw-card-fate.png" alt="" style="width:100%;height:auto;display:block" loading="lazy" decoding="async" width="950" height="534"></div>
-          <figcaption style="font-size:12.5px;line-height:1.6;color:rgba(32,30,29,.65);margin-top:8px"><strong style="color:var(--color-text)">운명 카드 —</strong> 행동 카드의 <strong style="color:var(--color-text)">피해량·대상·주도력·횟수·상태이상</strong>까지 건드립니다. 이 범위가 곧 “카드 능력을 클래스로 고정할 수 없다”는 근거였습니다.</figcaption>
+          <figcaption style="font-size:12.5px;line-height:1.6;color:rgba(32,30,29,.65);margin-top:8px"><strong style="color:var(--color-text)">조작 카드 —</strong> 행동 카드의 <strong style="color:var(--color-text)">피해량·대상·주도력·횟수·상태이상</strong>까지 건드립니다. 이 범위가 곧 “카드 능력을 클래스로 고정할 수 없다”는 근거였습니다.</figcaption>
         </figure>
       </div>
       <div style="display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:36px;align-items:start">
@@ -206,7 +206,7 @@ case DefaultPlayCard::PlayerCard::다리걸기:
 
   return card;
 }</pre>
-          <p style="margin:0;font-size:14px;line-height:1.75;color:rgba(32,30,29,.78)"><code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px">Card</code>는 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px">GameObject</code>를 상속합니다. <strong>엔진의 컴포넌트 구조를 게임 규칙에 그대로 재사용</strong>한 것으로, 운명 카드는 대상 카드에 붙어 있는 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px">AttributeParts</code>를 찾아 값과 대상만 변경합니다. 카드 문구 역시 각 부품의 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px">ExtractString()</code>을 이어 붙여 생성하므로, 수치가 바뀌면 텍스트도 함께 갱신됩니다.</p>
+          <p style="margin:0;font-size:14px;line-height:1.75;color:rgba(32,30,29,.78)"><code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px">Card</code>는 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px">GameObject</code>를 상속합니다. <strong>엔진의 컴포넌트 구조를 게임 규칙에 그대로 재사용</strong>한 것으로, 조작 카드는 대상 카드에 붙어 있는 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px">AttributeParts</code>를 찾아 값과 대상만 변경합니다. 카드 문구 역시 각 부품의 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px">ExtractString()</code>을 이어 붙여 생성하므로, 수치가 바뀌면 텍스트도 함께 갱신됩니다.</p>
         </div>
         <div>
           <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.12em;color:rgba(32,30,29,.5);margin-bottom:10px">부품 구성</div>
@@ -218,7 +218,7 @@ case DefaultPlayCard::PlayerCard::다리걸기:
           </div>
           <div style="border-left:2px solid var(--color-accent);padding:2px 0 2px 16px;margin-top:18px">
             <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.1em;color:var(--color-accent);margin-bottom:6px">막혔던 지점</div>
-            <p style="margin:0;font-size:13.5px;line-height:1.7;color:rgba(32,30,29,.75)">운명 카드가 값을 변경한 뒤 <strong>턴이 끝나면 원래 값으로 복구</strong>되어야 하는데, 여러 카드의 효과가 겹치면 원본 값을 추적할 수 없었습니다. 부품마다 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11.5px">SetOriginValue / ResetToOriginValue</code> 구현을 강제해, 복구 책임을 부품 자신에게 두는 방식으로 정리했습니다.</p>
+            <p style="margin:0;font-size:13.5px;line-height:1.7;color:rgba(32,30,29,.75)">조작 카드가 값을 변경한 뒤 <strong>턴이 끝나면 원래 값으로 복구</strong>되어야 하는데, 여러 카드의 효과가 겹치면 원본 값을 추적할 수 없었습니다. 부품마다 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11.5px">SetOriginValue / ResetToOriginValue</code> 구현을 강제해, 복구 책임을 부품 자신에게 두는 방식으로 정리했습니다.</p>
           </div>
         </div>
       </div>
@@ -271,7 +271,7 @@ switch (m_Progress) { <span style="color:rgb(138,133,128)">/* DrawFateCards() ·
               <div style="flex:3;min-width:0">
                 <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:9.5px;letter-spacing:.12em;color:rgba(32,30,29,.5);border-bottom:1px solid rgba(32,30,29,.25);padding-bottom:6px;margin-bottom:10px">1 · 배치 — 조작 불가</div>
                 <div style="display:flex;align-items:center;gap:8px">
-                  <div style="flex:1;min-width:0;border:1px solid rgba(32,30,29,.35);padding:9px 10px"><div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:9px;font-weight:500;white-space:nowrap;line-height:1.35;letter-spacing:-.01em">DRAW_<br>FATECARD</div><div style="font-size:11px;line-height:1.5;color:rgba(32,30,29,.6);margin-top:5px;word-break:keep-all">운명 카드 뽑기</div></div>
+                  <div style="flex:1;min-width:0;border:1px solid rgba(32,30,29,.35);padding:9px 10px"><div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:9px;font-weight:500;white-space:nowrap;line-height:1.35;letter-spacing:-.01em">DRAW_<br>FATECARD</div><div style="font-size:11px;line-height:1.5;color:rgba(32,30,29,.6);margin-top:5px;word-break:keep-all">조작 카드 뽑기</div></div>
                   <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:13px;color:rgba(32,30,29,.45)">→</span>
                   <div style="flex:1;min-width:0;border:1px solid rgba(32,30,29,.35);padding:9px 10px"><div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:9px;font-weight:500;white-space:nowrap;line-height:1.35;letter-spacing:-.01em">DRAW_<br>PLAYCARD</div><div style="font-size:11px;line-height:1.5;color:rgba(32,30,29,.6);margin-top:5px;word-break:keep-all">양측 행동 카드</div></div>
                   <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:13px;color:rgba(32,30,29,.45)">→</span>
@@ -282,7 +282,7 @@ switch (m_Progress) { <span style="color:rgb(138,133,128)">/* DrawFateCards() ·
               <div style="flex:2;min-width:0">
                 <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:9.5px;letter-spacing:.12em;color:var(--color-accent);border-bottom:1px solid var(--color-accent);padding-bottom:6px;margin-bottom:10px">2 · 플레이어 개입</div>
                 <div style="display:flex;align-items:center;gap:8px">
-                  <div style="flex:1;min-width:0;border:1px solid var(--color-accent);padding:9px 10px"><div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:9px;font-weight:500;color:var(--color-accent);white-space:nowrap;line-height:1.35;letter-spacing:-.01em">USE_<br>FATECARD</div><div style="font-size:11px;line-height:1.5;color:rgba(32,30,29,.6);margin-top:5px;word-break:keep-all">운명 카드 사용</div></div>
+                  <div style="flex:1;min-width:0;border:1px solid var(--color-accent);padding:9px 10px"><div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:9px;font-weight:500;color:var(--color-accent);white-space:nowrap;line-height:1.35;letter-spacing:-.01em">USE_<br>FATECARD</div><div style="font-size:11px;line-height:1.5;color:rgba(32,30,29,.6);margin-top:5px;word-break:keep-all">조작 카드 사용</div></div>
                   <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:13px;color:var(--color-accent)">⇄</span>
                   <div style="flex:1;min-width:0;border:1px solid var(--color-accent);padding:9px 10px"><div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:9px;font-weight:500;color:var(--color-accent);white-space:nowrap;line-height:1.35;letter-spacing:-.01em">SELECT_<br>TARGET</div><div style="font-size:11px;line-height:1.5;color:rgba(32,30,29,.6);margin-top:5px;word-break:keep-all">대상 선택·재정렬</div></div>
                 </div>
