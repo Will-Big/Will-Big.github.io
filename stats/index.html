@@ -25,6 +25,12 @@
   td.n, th.n { text-align:right; font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace; }
   .msg { color:#c22a10; font-size:14px; }
   svg { width:100%; height:220px; display:block; }
+  /* preserveAspectRatio="none" 인 SVG 안의 <text> 는 좁은 화면에서 가로로 늘어나 보인다.
+     그래서 라벨은 SVG 밖 일반 HTML 로 그린다 — 늘어나지 않는다. */
+  .chartLabel { color:#6b6664; font-size:11px; line-height:1;
+                font-family:'IBM Plex Sans KR','Archivo',system-ui,sans-serif; }
+  .chartTop { margin-bottom:6px; }
+  .chartAxis { display:flex; justify-content:space-between; margin-top:6px; }
   /* .row 와 svg 의 display 지정이 [hidden] 기본값을 이겨버리므로 !important 로 되돌린다 */
   [hidden] { display: none !important; }
 </style>
@@ -47,7 +53,14 @@
   </div>
 
   <p class="msg" id="msg"></p>
-  <svg id="chart" viewBox="0 0 900 220" preserveAspectRatio="none" hidden></svg>
+  <div id="chartWrap" hidden>
+    <div class="chartTop"><span class="chartLabel" id="chartMax"></span></div>
+    <svg id="chart" viewBox="0 0 900 220" preserveAspectRatio="none"></svg>
+    <div class="chartAxis">
+      <span class="chartLabel" id="chartStart"></span>
+      <span class="chartLabel" id="chartEnd"></span>
+    </div>
+  </div>
   <table id="table" hidden>
     <thead><tr><th>경로</th><th class="n">조회수</th></tr></thead>
     <tbody></tbody>
@@ -62,19 +75,45 @@
 
   function key() { try { return localStorage.getItem('statskey'); } catch (e) { return null; } }
 
-  function paintChart(daily) {
+  // Worker 와 같은 방식(KST, UTC+9)으로 날짜를 잘라야 클라이언트의 로컬 시간대가
+  // 날짜 경계를 어긋나게 하지 않는다.
+  function kstDay(ms) { return new Date(ms + 9 * 3600 * 1000).toISOString().slice(0, 10); }
+
+  // daily 는 GROUP BY day 라 방문이 없던 날은 행 자체가 없다. 그 상태로 좌표를
+  // 등간격으로 찍으면 뜨문뜨문한 날짜가 연속된 날처럼 보인다 — 응답의 days(서버가
+  // 자른 값)로 오늘까지의 전체 날짜를 채우고 빈 날은 0 으로 메운다.
+  function fillDays(daily, days) {
+    var byDay = {};
+    daily.forEach(function (d) { byDay[d.day] = d.n; });
+    var now = Date.now();
+    var out = [];
+    for (var i = days - 1; i >= 0; i--) {
+      var day = kstDay(now - i * 86400000);
+      out.push({ day: day, n: byDay[day] || 0 });
+    }
+    return out;
+  }
+
+  function paintChart(daily, days) {
     var svg = $('chart');
-    if (!daily.length) { svg.toggleAttribute('hidden', true); return; }
-    var max = Math.max.apply(null, daily.map(function (d) { return d.n; }));
-    var stepX = daily.length > 1 ? 880 / (daily.length - 1) : 0;
-    var pts = daily.map(function (d, i) {
+    var wrap = $('chartWrap');
+    if (!daily.length) {
+      svg.innerHTML = ''; // 숨긴 뒤에도 이전 렌더의 polyline 이 안 남도록 먼저 지운다
+      wrap.toggleAttribute('hidden', true);
+      return;
+    }
+    var filled = fillDays(daily, days);
+    var max = Math.max.apply(null, filled.map(function (d) { return d.n; }));
+    var stepX = filled.length > 1 ? 880 / (filled.length - 1) : 0;
+    var pts = filled.map(function (d, i) {
       var y = 200 - (max ? (d.n / max) * 180 : 0);
       return (10 + i * stepX).toFixed(1) + ',' + y.toFixed(1);
     }).join(' ');
-    svg.innerHTML =
-      '<polyline fill="none" stroke="#c22a10" stroke-width="2" points="' + pts + '"></polyline>' +
-      '<text x="10" y="14" font-size="11" fill="#6b6664">최고 ' + max + '</text>';
-    svg.toggleAttribute('hidden', false);
+    svg.innerHTML = '<polyline fill="none" stroke="#c22a10" stroke-width="2" points="' + pts + '"></polyline>';
+    $('chartMax').textContent = '최고 ' + max;
+    $('chartStart').textContent = filled[0].day;
+    $('chartEnd').textContent = filled[filled.length - 1].day;
+    wrap.toggleAttribute('hidden', false);
   }
 
   function paintTable(byPath) {
@@ -101,15 +140,28 @@
       .then(function (res) {
         if (res.status === 401) {
           try { localStorage.removeItem('statskey'); } catch (e) {}
-          throw new Error('열쇠가 맞지 않습니다.');
+          var e401 = new Error('열쇠가 맞지 않습니다.');
+          e401.status = 401;
+          throw e401;
         }
-        if (!res.ok) throw new Error('불러오지 못했습니다 (' + res.status + ').');
+        if (!res.ok) {
+          var eStatus = new Error('불러오지 못했습니다 (' + res.status + ').');
+          eStatus.status = res.status;
+          throw eStatus;
+        }
         return res.json();
       })
-      .then(function (b) { paintChart(b.daily); paintTable(b.byPath); })
+      .then(function (b) { paintChart(b.daily, b.days); paintTable(b.byPath); })
       .catch(function (err) {
-        $('msg').textContent = err.message;
-        $('chart').toggleAttribute('hidden', true); $('table').toggleAttribute('hidden', true);
+        // status 가 없는 실패는 응답을 아예 못 받은 것 — 네트워크 문제이거나(Worker 가
+        // D1 오류로 CORS 헤더 없는 1101 페이지를 냈을 때 포함) CORS 자체가 막힌 경우다.
+        // 그때 브라우저가 주는 메시지는 "Failed to fetch" 처럼 번역되지 않은 영어라
+        // 그대로 보여주지 않는다.
+        var msg = (err && typeof err.status === 'number')
+          ? err.message
+          : '서버에 연결하지 못했습니다. 잠시 후 다시 시도하세요.';
+        $('msg').textContent = msg;
+        $('chartWrap').toggleAttribute('hidden', true); $('table').toggleAttribute('hidden', true);
         if (!key()) { $('keyRow').toggleAttribute('hidden', false); $('ctrlRow').toggleAttribute('hidden', true); }
       });
   }

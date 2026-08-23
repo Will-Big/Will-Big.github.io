@@ -8,6 +8,9 @@
   // 감싸지 않으면 여기서 터져 픽셀까지 안 나갑니다.
   try {
     if (localStorage.getItem('nocount')) return;
-  } catch (e) {}
+  } catch (e) {
+    // localStorage 를 못 읽어도 무시하고 계속 진행한다 — 여기서 멈추면 픽셀 자체가
+    // 안 나가 집계가 통째로 빠진다. 의도적으로 비워 둔다.
+  }
   new Image().src = ENDPOINT + '/c?p=' + encodeURIComponent(location.pathname);
 })();
