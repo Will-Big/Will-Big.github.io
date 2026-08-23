@@ -4,3 +4,6 @@ Thumbs.db
 
 # 프로필 사진 원본(2000x3000, 3MB). 자른 결과인 assets/profile.webp 만 올립니다.
 assets/profile.png
+
+# SDD 작업용 스크래치. 이 저장소는 공개되므로 반드시 제외한다
+.superpowers/
