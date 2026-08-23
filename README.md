@@ -34,6 +34,8 @@ im.willBig@gmail.com · [github.com/Will-Big](https://github.com/Will-Big)
 index.html          포트폴리오 본문 (이 파일 하나가 페이지 전체)
 support.js          렌더링 런타임 — 반드시 함께 둘 것
 lazy-img.js         아래쪽 이미지를 화면에 가까워질 때 불러오는 스크립트
+count.js            방문 한 건을 셉니다. 경로만 보내고 그 밖에는 아무것도 보내지 않습니다
+stats/              방문 통계 보기. 열쇠를 넣어야 열립니다
 image-slot.js       이미지 슬롯 컴포넌트 (지금은 어느 페이지도 쓰지 않음)
 mobile.css          좁은 화면(900px 이하) 대응. 넓은 화면에는 아무 영향이 없음
 STYLE.md            본문을 쓸 때 지키는 문장 · 제목 · 구성 기준
