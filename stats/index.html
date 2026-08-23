@@ -25,6 +25,8 @@
   td.n, th.n { text-align:right; font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace; }
   .msg { color:#c22a10; font-size:14px; }
   svg { width:100%; height:220px; display:block; }
+  /* .row 와 svg 의 display 지정이 [hidden] 기본값을 이겨버리므로 !important 로 되돌린다 */
+  [hidden] { display: none !important; }
 </style>
 </head>
 <body>
@@ -62,7 +64,7 @@
 
   function paintChart(daily) {
     var svg = $('chart');
-    if (!daily.length) { svg.hidden = true; return; }
+    if (!daily.length) { svg.toggleAttribute('hidden', true); return; }
     var max = Math.max.apply(null, daily.map(function (d) { return d.n; }));
     var stepX = daily.length > 1 ? 880 / (daily.length - 1) : 0;
     var pts = daily.map(function (d, i) {
@@ -72,7 +74,7 @@
     svg.innerHTML =
       '<polyline fill="none" stroke="#c22a10" stroke-width="2" points="' + pts + '"></polyline>' +
       '<text x="10" y="14" font-size="11" fill="#6b6664">최고 ' + max + '</text>';
-    svg.hidden = false;
+    svg.toggleAttribute('hidden', false);
   }
 
   function paintTable(byPath) {
@@ -87,13 +89,13 @@
       td2.textContent = r.n;
       tr.appendChild(td1); tr.appendChild(td2); body.appendChild(tr);
     });
-    $('table').hidden = false;
+    $('table').toggleAttribute('hidden', false);
   }
 
   function load() {
     var k = key();
-    if (!k) { $('keyRow').hidden = false; $('ctrlRow').hidden = true; return; }
-    $('keyRow').hidden = true; $('ctrlRow').hidden = false; $('msg').textContent = '';
+    if (!k) { $('keyRow').toggleAttribute('hidden', false); $('ctrlRow').toggleAttribute('hidden', true); return; }
+    $('keyRow').toggleAttribute('hidden', true); $('ctrlRow').toggleAttribute('hidden', false); $('msg').textContent = '';
 
     fetch(ENDPOINT + '/api/stats?days=' + days, { headers: { 'X-Stats-Key': k } })
       .then(function (res) {
@@ -107,8 +109,8 @@
       .then(function (b) { paintChart(b.daily); paintTable(b.byPath); })
       .catch(function (err) {
         $('msg').textContent = err.message;
-        $('chart').hidden = true; $('table').hidden = true;
-        if (!key()) { $('keyRow').hidden = false; $('ctrlRow').hidden = true; }
+        $('chart').toggleAttribute('hidden', true); $('table').toggleAttribute('hidden', true);
+        if (!key()) { $('keyRow').toggleAttribute('hidden', false); $('ctrlRow').toggleAttribute('hidden', true); }
       });
   }
 
