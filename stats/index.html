@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>방문 통계 | 임상학 Sanghak Im</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="../_ds/modernist-ae998351-d810-43b9-b194-f261b8babc31/styles.css">
+<link rel="stylesheet" href="../mobile.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&amp;family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+<style>
+  body { margin:0; background:#f3f2f2; color:#201e1d;
+         font-family:'IBM Plex Sans KR','Archivo',system-ui,sans-serif; }
+  .wrap { max-width:900px; margin:0 auto; padding:40px 24px 80px; }
+  h1 { font-family:var(--font-heading); font-size:32px; margin:0 0 8px; }
+  .sub { color:#6b6664; font-size:14px; margin:0 0 32px; }
+  .row { display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-bottom:24px; }
+  button, input { font-family:'IBM Plex Sans KR','Archivo',system-ui,sans-serif; font-size:14px;
+                  padding:8px 14px; border:1px solid #d6d2d0; border-radius:6px; background:#fff;
+                  color:#201e1d; cursor:pointer; }
+  button[aria-pressed="true"] { background:#201e1d; color:#fff; border-color:#201e1d; }
+  input { cursor:text; min-width:260px; }
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  th, td { text-align:left; padding:10px 8px; border-bottom:1px solid #e5e1df; }
+  td.n, th.n { text-align:right; font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace; }
+  .msg { color:#c22a10; font-size:14px; }
+  svg { width:100%; height:220px; display:block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>방문 통계</h1>
+  <p class="sub">경로와 날짜만 셉니다. IP·브라우저·유입 경로는 저장하지 않습니다.</p>
+
+  <div class="row" id="keyRow" hidden>
+    <input id="key" type="password" placeholder="통계 열쇠" autocomplete="off">
+    <button id="save">확인</button>
+  </div>
+
+  <div class="row" id="ctrlRow" hidden>
+    <button class="days" data-days="30" aria-pressed="true">30일</button>
+    <button class="days" data-days="90" aria-pressed="false">90일</button>
+    <button id="nocount" aria-pressed="false">내 방문 제외</button>
+    <button id="forget">열쇠 지우기</button>
+  </div>
+
+  <p class="msg" id="msg"></p>
+  <svg id="chart" viewBox="0 0 900 220" preserveAspectRatio="none" hidden></svg>
+  <table id="table" hidden>
+    <thead><tr><th>경로</th><th class="n">조회수</th></tr></thead>
+    <tbody></tbody>
+  </table>
+</div>
+
+<script>
+(function () {
+  var ENDPOINT = 'https://counter.im-willbig.workers.dev';
+  var days = 30;
+  var $ = function (id) { return document.getElementById(id); };
+
+  function key() { try { return localStorage.getItem('statskey'); } catch (e) { return null; } }
+
+  function paintChart(daily) {
+    var svg = $('chart');
+    if (!daily.length) { svg.hidden = true; return; }
+    var max = Math.max.apply(null, daily.map(function (d) { return d.n; }));
+    var stepX = daily.length > 1 ? 880 / (daily.length - 1) : 0;
+    var pts = daily.map(function (d, i) {
+      var y = 200 - (max ? (d.n / max) * 180 : 0);
+      return (10 + i * stepX).toFixed(1) + ',' + y.toFixed(1);
+    }).join(' ');
+    svg.innerHTML =
+      '<polyline fill="none" stroke="#c22a10" stroke-width="2" points="' + pts + '"></polyline>' +
+      '<text x="10" y="14" font-size="11" fill="#6b6664">최고 ' + max + '</text>';
+    svg.hidden = false;
+  }
+
+  function paintTable(byPath) {
+    var body = $('table').querySelector('tbody');
+    body.innerHTML = '';
+    byPath.forEach(function (r) {
+      var tr = document.createElement('tr');
+      var td1 = document.createElement('td');
+      td1.textContent = r.path;
+      var td2 = document.createElement('td');
+      td2.className = 'n';
+      td2.textContent = r.n;
+      tr.appendChild(td1); tr.appendChild(td2); body.appendChild(tr);
+    });
+    $('table').hidden = false;
+  }
+
+  function load() {
+    var k = key();
+    if (!k) { $('keyRow').hidden = false; $('ctrlRow').hidden = true; return; }
+    $('keyRow').hidden = true; $('ctrlRow').hidden = false; $('msg').textContent = '';
+
+    fetch(ENDPOINT + '/api/stats?days=' + days, { headers: { 'X-Stats-Key': k } })
+      .then(function (res) {
+        if (res.status === 401) {
+          try { localStorage.removeItem('statskey'); } catch (e) {}
+          throw new Error('열쇠가 맞지 않습니다.');
+        }
+        if (!res.ok) throw new Error('불러오지 못했습니다 (' + res.status + ').');
+        return res.json();
+      })
+      .then(function (b) { paintChart(b.daily); paintTable(b.byPath); })
+      .catch(function (err) {
+        $('msg').textContent = err.message;
+        $('chart').hidden = true; $('table').hidden = true;
+        if (!key()) { $('keyRow').hidden = false; $('ctrlRow').hidden = true; }
+      });
+  }
+
+  $('save').addEventListener('click', function () {
+    var v = $('key').value.trim();
+    if (!v) return;
+    try { localStorage.setItem('statskey', v); } catch (e) {}
+    $('key').value = ''; load();
+  });
+
+  $('forget').addEventListener('click', function () {
+    try { localStorage.removeItem('statskey'); } catch (e) {}
+    load();
+  });
+
+  Array.prototype.forEach.call(document.querySelectorAll('.days'), function (b) {
+    b.addEventListener('click', function () {
+      days = Number(b.dataset.days);
+      Array.prototype.forEach.call(document.querySelectorAll('.days'), function (o) {
+        o.setAttribute('aria-pressed', String(o === b));
+      });
+      load();
+    });
+  });
+
+  var nc = $('nocount');
+  function syncNocount() {
+    var on = false;
+    try { on = !!localStorage.getItem('nocount'); } catch (e) {}
+    nc.setAttribute('aria-pressed', String(on));
+    nc.textContent = on ? '내 방문 제외 — 켜짐' : '내 방문 제외';
+  }
+  nc.addEventListener('click', function () {
+    try {
+      if (localStorage.getItem('nocount')) localStorage.removeItem('nocount');
+      else localStorage.setItem('nocount', '1');
+    } catch (e) {}
+    syncNocount();
+  });
+
+  syncNocount();
+  load();
+})();
+</script>
+</body>
+</html>
