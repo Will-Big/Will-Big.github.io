@@ -30,7 +30,23 @@
   .chartLabel { color:#6b6664; font-size:11px; line-height:1;
                 font-family:'IBM Plex Sans KR','Archivo',system-ui,sans-serif; }
   .chartTop { margin-bottom:6px; }
-  .chartAxis { display:flex; justify-content:space-between; margin-top:6px; }
+  /* svg 를 감싸 툴팁을 퍼센트 좌표로 그 위에 겹칠 기준을 만든다 */
+  .chartArea { position:relative; }
+  /* x=10 + i*stepX (viewBox 900 기준) 를 퍼센트로 바꿔 올려놓는 점별 라벨 자리.
+     같은 폭 늘어남을 겪는 svg 와 나란히 있어야 라벨이 데이터 점과 어긋나지 않는다. */
+  .chartLabels { position:relative; height:14px; margin-top:6px; }
+  .chartLabelPt { position:absolute; top:0; white-space:nowrap; }
+  .chartTooltip { position:absolute; top:0; z-index:2; pointer-events:none;
+                  background:#fff; border:1px solid #d6d2d0; border-radius:6px;
+                  box-shadow:0 2px 8px rgba(0,0,0,.12); padding:8px 10px;
+                  font-size:12px; line-height:1.5; color:#201e1d; white-space:nowrap;
+                  font-family:'IBM Plex Sans KR','Archivo',system-ui,sans-serif; }
+  .chartTooltip .ttDate { font-weight:600; margin-bottom:2px; }
+  .chartTooltip .ttRow { display:flex; justify-content:space-between; gap:14px; }
+  .chartTooltip .ttN { font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace; }
+  .tblHead { font-family:var(--font-heading); font-size:16px; margin:28px 0 8px; color:#201e1d; }
+  td.paths { color:#4d4a48; }
+  td.paths .ttN { font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace; }
   /* .row 와 svg 의 display 지정이 [hidden] 기본값을 이겨버리므로 !important 로 되돌린다 */
   [hidden] { display: none !important; }
 </style>
@@ -55,16 +71,26 @@
   <p class="msg" id="msg"></p>
   <div id="chartWrap" hidden>
     <div class="chartTop"><span class="chartLabel" id="chartMax"></span></div>
-    <svg id="chart" viewBox="0 0 900 220" preserveAspectRatio="none"></svg>
-    <div class="chartAxis">
-      <span class="chartLabel" id="chartStart"></span>
-      <span class="chartLabel" id="chartEnd"></span>
+    <div class="chartArea" id="chartArea">
+      <svg id="chart" viewBox="0 0 900 220" preserveAspectRatio="none"></svg>
+      <div class="chartTooltip" id="chartTooltip" hidden></div>
     </div>
+    <div class="chartLabels" id="chartLabels"></div>
   </div>
-  <table id="table" hidden>
-    <thead><tr><th>경로</th><th class="n">조회수</th></tr></thead>
-    <tbody></tbody>
-  </table>
+  <div id="pathSection" hidden>
+    <h2 class="tblHead">경로별</h2>
+    <table id="table">
+      <thead><tr><th>경로</th><th class="n">조회수</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+  <div id="dateSection" hidden>
+    <h2 class="tblHead">날짜별</h2>
+    <table id="dateTable">
+      <thead><tr><th>날짜</th><th class="n">조회수</th><th>경로</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
 </div>
 
 <script>
@@ -94,11 +120,124 @@
     return out;
   }
 
-  function paintChart(daily, days) {
+  // rows(day, path, n) 를 day 기준으로 묶어 { '2026-08-25': [{path,n}, ...] } 로
+  // 만든다. 경로별 배열은 n 내림차순 — 워커가 이미 그 순서로 주지만(day, n DESC),
+  // 여기서도 한 번 더 정렬해 이 함수만 보고도 순서를 믿을 수 있게 한다.
+  function dayPaths(rows) {
+    var byDay = {};
+    rows.forEach(function (r) {
+      (byDay[r.day] = byDay[r.day] || []).push({ path: r.path, n: r.n });
+    });
+    Object.keys(byDay).forEach(function (d) {
+      byDay[d].sort(function (a, b) { return b.n - a.n; });
+    });
+    return byDay;
+  }
+
+  // 폭이 좁으면 15일 간격 라벨도 겹친다(90일 뷰를 320px 에서 보면 라벨 7개가
+  // ~270px 안에 들어가야 한다). 겹칠 것 같으면 글자를 줄이는 대신 간격을 넓혀
+  // 라벨 수를 줄인다 — 90 → 30일 처럼.
+  function pickLabelInterval(containerWidth, n) {
+    var MIN_SLOT = 48; // MM-DD 라벨 하나가 안 겹치는 데 필요한 대략의 최소 폭(px)
+    var interval = 15;
+    while (interval < n) {
+      var count = Math.floor((n - 1) / interval) + 1;
+      if (containerWidth / count >= MIN_SLOT) return interval;
+      interval *= 2;
+    }
+    return interval;
+  }
+
+  // interval 간격의 인덱스에 마지막 날(n-1)을 항상 포함해 돌려준다.
+  function labelIndices(n, interval) {
+    var idx = [];
+    for (var i = 0; i < n; i += interval) idx.push(i);
+    if (idx[idx.length - 1] !== n - 1) idx.push(n - 1);
+    return idx;
+  }
+
+  // 라벨은 polyline 과 같은 x = 10 + i*stepX (viewBox 900 기준) 를 퍼센트로 바꿔
+  // 그린다. svg 가 preserveAspectRatio="none" 로 가로만 늘어나므로, 고정 px 가
+  // 아니라 이 퍼센트라야 데이터 점과 계속 나란히 맞는다.
+  function paintLabels(filled, stepX) {
+    var wrap = $('chartLabels');
+    wrap.innerHTML = '';
+    var n = filled.length;
+    if (n < 2) return;
+    var width = $('chartArea').getBoundingClientRect().width || 0;
+    var interval = pickLabelInterval(width, n);
+    labelIndices(n, interval).forEach(function (i) {
+      var span = document.createElement('span');
+      span.className = 'chartLabel chartLabelPt';
+      span.textContent = filled[i].day.slice(5); // MM-DD — 전체 YYYY-MM-DD 는 툴팁에
+      var percent = (10 + i * stepX) / 900 * 100;
+      span.style.left = percent + '%';
+      // 양 끝 라벨은 가운데 정렬하면 컨테이너 밖으로 삐져나가므로 안쪽으로만 붙인다
+      span.style.transform = i === 0 ? 'translateX(0)' : (i === n - 1 ? 'translateX(-100%)' : 'translateX(-50%)');
+      wrap.appendChild(span);
+    });
+  }
+
+  var chartState = null; // 현재 그려진 차트의 좌표·데이터 — 호버 시 다시 계산하지 않고 여기서 읽는다
+
+  function hideTooltip() {
+    $('chartTooltip').toggleAttribute('hidden', true);
+    var g = $('chartGuideLine'), d = $('chartGuideDot');
+    if (g) g.toggleAttribute('hidden', true);
+    if (d) d.toggleAttribute('hidden', true);
+  }
+
+  function showTooltipAt(i) {
+    if (!chartState) return;
+    var st = chartState;
+    var pt = st.filled[i];
+    var x = 10 + i * st.stepX;
+    var y = 200 - (st.max ? (pt.n / st.max) * 180 : 0);
+
+    var g = $('chartGuideLine'), d = $('chartGuideDot');
+    g.setAttribute('x1', x); g.setAttribute('x2', x);
+    g.toggleAttribute('hidden', false);
+    d.setAttribute('cx', x); d.setAttribute('cy', y);
+    d.toggleAttribute('hidden', false);
+
+    var paths = st.dayPaths[pt.day] || [];
+    var html = '<div class="ttDate">' + pt.day + '</div>' +
+               '<div class="ttRow"><span>합계</span><span class="ttN">' + pt.n + '</span></div>';
+    html += paths.length
+      ? paths.map(function (p) {
+          return '<div class="ttRow"><span>' + p.path + '</span><span class="ttN">' + p.n + '</span></div>';
+        }).join('')
+      : '<div class="ttRow"><span>방문 없음</span></div>';
+
+    var tip = $('chartTooltip');
+    tip.innerHTML = html;
+    var percent = x / 900 * 100;
+    tip.style.left = percent + '%';
+    tip.style.transform = percent < 15 ? 'translateX(0)' : (percent > 85 ? 'translateX(-100%)' : 'translateX(-50%)');
+    tip.toggleAttribute('hidden', false);
+  }
+
+  // 커서 x(화면 px) → viewBox 900 단위 → polyline 이 쓴 것과 같은 공식(10 + i*stepX)의
+  // 역산. svg 가 가로로 늘어나 있어 화면 px 를 그대로 viewBox 좌표로 쓸 수 없다.
+  function indexFromEvent(e) {
+    if (!chartState) return null;
+    var rect = $('chart').getBoundingClientRect();
+    if (!rect.width) return null;
+    var fx = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+    var vx = fx * 900;
+    var st = chartState;
+    var i = st.stepX ? Math.round((vx - 10) / st.stepX) : 0;
+    return Math.max(0, Math.min(st.filled.length - 1, i));
+  }
+
+  function paintChart(daily, days, byDay) {
     var svg = $('chart');
     var wrap = $('chartWrap');
+    hideTooltip();
     if (!daily.length) {
       svg.innerHTML = ''; // 숨긴 뒤에도 이전 렌더의 polyline 이 안 남도록 먼저 지운다
+      $('chartLabels').innerHTML = '';
+      chartState = null;
       wrap.toggleAttribute('hidden', true);
       return;
     }
@@ -109,11 +248,18 @@
       var y = 200 - (max ? (d.n / max) * 180 : 0);
       return (10 + i * stepX).toFixed(1) + ',' + y.toFixed(1);
     }).join(' ');
-    svg.innerHTML = '<polyline fill="none" stroke="#c22a10" stroke-width="2" points="' + pts + '"></polyline>';
+    // 안내선·점은 처음엔 숨긴 채로 같이 그려 넣는다 — 호버 때마다 innerHTML 을
+    // 다시 쓰면 그때마다 리스너를 새로 달아야 하니, svg 엘리먼트 자체는 그대로 두고
+    // 속성만 갱신한다.
+    svg.innerHTML =
+      '<polyline fill="none" stroke="#c22a10" stroke-width="2" points="' + pts + '"></polyline>' +
+      '<line id="chartGuideLine" y1="10" y2="210" stroke="#c9c5c3" stroke-width="1" hidden></line>' +
+      '<circle id="chartGuideDot" r="4" fill="#c22a10" hidden></circle>';
     $('chartMax').textContent = '최고 ' + max;
-    $('chartStart').textContent = filled[0].day;
-    $('chartEnd').textContent = filled[filled.length - 1].day;
+    // 라벨 폭 측정에 실제 렌더 폭이 필요하므로 먼저 보이게 한 다음 그린다
     wrap.toggleAttribute('hidden', false);
+    chartState = { filled: filled, stepX: stepX, max: max, dayPaths: byDay };
+    paintLabels(filled, stepX);
   }
 
   function paintTable(byPath) {
@@ -128,7 +274,29 @@
       td2.textContent = r.n;
       tr.appendChild(td1); tr.appendChild(td2); body.appendChild(tr);
     });
-    $('table').toggleAttribute('hidden', false);
+    $('pathSection').toggleAttribute('hidden', false);
+  }
+
+  // 날짜별 표 — 방문이 있던 날만, 최신 날짜가 먼저 오도록 내림차순.
+  function paintDateTable(byDay) {
+    var body = $('dateTable').querySelector('tbody');
+    body.innerHTML = '';
+    Object.keys(byDay).sort().reverse().forEach(function (day) {
+      var paths = byDay[day];
+      var total = paths.reduce(function (s, p) { return s + p.n; }, 0);
+      var tr = document.createElement('tr');
+      var tdDay = document.createElement('td');
+      tdDay.textContent = day;
+      var tdN = document.createElement('td');
+      tdN.className = 'n';
+      tdN.textContent = total;
+      var tdPaths = document.createElement('td');
+      tdPaths.className = 'paths';
+      tdPaths.textContent = paths.map(function (p) { return p.path + ' ' + p.n; }).join(' · ');
+      tr.appendChild(tdDay); tr.appendChild(tdN); tr.appendChild(tdPaths);
+      body.appendChild(tr);
+    });
+    $('dateSection').toggleAttribute('hidden', false);
   }
 
   function load() {
@@ -151,7 +319,12 @@
         }
         return res.json();
       })
-      .then(function (b) { paintChart(b.daily, b.days); paintTable(b.byPath); })
+      .then(function (b) {
+        var byDay = dayPaths(b.rows || []);
+        paintChart(b.daily, b.days, byDay);
+        paintTable(b.byPath);
+        paintDateTable(byDay);
+      })
       .catch(function (err) {
         // status 가 없는 실패는 응답을 아예 못 받은 것 — 네트워크 문제이거나(Worker 가
         // D1 오류로 CORS 헤더 없는 1101 페이지를 냈을 때 포함) CORS 자체가 막힌 경우다.
@@ -161,10 +334,30 @@
           ? err.message
           : '서버에 연결하지 못했습니다. 잠시 후 다시 시도하세요.';
         $('msg').textContent = msg;
-        $('chartWrap').toggleAttribute('hidden', true); $('table').toggleAttribute('hidden', true);
+        chartState = null;
+        $('chartWrap').toggleAttribute('hidden', true);
+        $('pathSection').toggleAttribute('hidden', true);
+        $('dateSection').toggleAttribute('hidden', true);
         if (!key()) { $('keyRow').toggleAttribute('hidden', false); $('ctrlRow').toggleAttribute('hidden', true); }
       });
   }
+
+  // 데스크톱 호버만 다룬다 — 터치는 호버가 없으니 흉내내지 않는다(날짜별 표가
+  // 그 역할을 대신한다). pointerType 으로 걸러 터치 탭이 툴팁을 띄우거나,
+  // 화면에 붙은 채 안 사라지는 상태를 막는다.
+  var svgEl = $('chart');
+  svgEl.addEventListener('pointermove', function (e) {
+    if (e.pointerType === 'touch') return;
+    var i = indexFromEvent(e);
+    if (i !== null) showTooltipAt(i);
+  });
+  svgEl.addEventListener('pointerleave', function (e) {
+    if (e.pointerType === 'touch') return;
+    hideTooltip();
+  });
+  svgEl.addEventListener('pointerdown', function (e) {
+    if (e.pointerType === 'touch') hideTooltip();
+  });
 
   $('save').addEventListener('click', function () {
     var v = $('key').value.trim();
