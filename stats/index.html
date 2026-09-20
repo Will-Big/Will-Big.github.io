@@ -45,7 +45,9 @@
   .chartTooltip .ttRow { display:flex; justify-content:space-between; gap:14px; }
   .chartTooltip .ttN { font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace; }
   .tblHead { font-family:var(--font-heading); font-size:16px; margin:28px 0 8px; color:#201e1d; }
-  td.paths { color:#4d4a48; }
+  /* 시각이 붙어 칸이 길어졌다. 320px 에서 표 밖으로 삐져나가지 않게 어디서든 끊는다. */
+  td.paths { color:#4d4a48; overflow-wrap:anywhere; }
+  .note { color:#6b6664; font-size:13px; margin:0 0 8px; }
   td.paths .ttN { font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace; }
   /* .row 와 svg 의 display 지정이 [hidden] 기본값을 이겨버리므로 !important 로 되돌린다 */
   [hidden] { display: none !important; }
@@ -54,7 +56,7 @@
 <body>
 <div class="wrap">
   <h1>방문 통계</h1>
-  <p class="sub">경로와 날짜만 셉니다. IP·브라우저·유입 경로는 저장하지 않습니다.</p>
+  <p class="sub">경로와 방문 시각만 셉니다. IP·브라우저·유입 경로는 저장하지 않습니다.</p>
 
   <div class="row" id="keyRow" hidden>
     <input id="key" type="password" placeholder="통계 열쇠" autocomplete="off">
@@ -86,8 +88,9 @@
   </div>
   <div id="dateSection" hidden>
     <h2 class="tblHead">날짜별</h2>
+    <p class="note" id="truncated" hidden>방문이 많아 목록은 최근 20,000건만 보입니다. 위 숫자에는 전부 반영돼 있습니다.</p>
     <table id="dateTable">
-      <thead><tr><th>날짜</th><th class="n">조회수</th><th>경로</th></tr></thead>
+      <thead><tr><th>날짜</th><th class="n">조회수</th><th>방문</th></tr></thead>
       <tbody></tbody>
     </table>
   </div>
@@ -104,6 +107,24 @@
   // Worker 와 같은 방식(KST, UTC+9)으로 날짜를 잘라야 클라이언트의 로컬 시간대가
   // 날짜 경계를 어긋나게 하지 않는다.
   function kstDay(ms) { return new Date(ms + 9 * 3600 * 1000).toISOString().slice(0, 10); }
+
+  // 워커의 kstTime 과 같은 기준이다.
+  function kstTime(ms) { return new Date(ms + 9 * 3600 * 1000).toISOString().slice(11, 16); }
+
+  // 한 칸에 보이는 방문의 최대 개수. 넘으면 '…+N' 으로 끊는다 — 이 수를 넘기는
+  // 날이면 표보다 다른 게 문제라서, 눌러서 펼치는 동작은 두지 않는다.
+  var MAX_VISITS_SHOWN = 20;
+
+  // visits(ts, path) 를 KST 날짜로 묶는다 → { '2026-09-20': [{time:'14:23', path:'/'}] }
+  // 서버가 ts 오름차순으로 주므로 각 날짜의 배열도 시각 오름차순이다.
+  function dayVisits(visits) {
+    var byDay = {};
+    visits.forEach(function (v) {
+      var day = kstDay(v.ts);
+      (byDay[day] = byDay[day] || []).push({ time: kstTime(v.ts), path: v.path });
+    });
+    return byDay;
+  }
 
   // daily 는 GROUP BY day 라 방문이 없던 날은 행 자체가 없다. 그 상태로 좌표를
   // 등간격으로 찍으면 뜨문뜨문한 날짜가 연속된 날처럼 보인다 — 응답의 days(서버가
@@ -296,7 +317,9 @@
   }
 
   // 날짜별 표 — 방문이 있던 날만, 최신 날짜가 먼저 오도록 내림차순.
-  function paintDateTable(byDay) {
+  // 시각을 아는 날(visits 에 쌓인 전환 후)은 시각순으로, 모르는 날(hits 에 남은
+  // 전환 전)은 예전처럼 경로별 합계로 쓴다. 조회수 칸은 어느 쪽이든 rows 에서 온다.
+  function paintDateTable(byDay, visitsByDay) {
     var body = $('dateTable').querySelector('tbody');
     body.innerHTML = '';
     Object.keys(byDay).sort().reverse().forEach(function (day) {
@@ -308,10 +331,19 @@
       var tdN = document.createElement('td');
       tdN.className = 'n';
       tdN.textContent = total;
-      var tdPaths = document.createElement('td');
-      tdPaths.className = 'paths';
-      tdPaths.textContent = paths.map(function (p) { return p.path + ' ' + p.n; }).join(' · ');
-      tr.appendChild(tdDay); tr.appendChild(tdN); tr.appendChild(tdPaths);
+      var tdVisits = document.createElement('td');
+      tdVisits.className = 'paths';
+      var v = visitsByDay[day];
+      if (v && v.length) {
+        var shown = v.slice(0, MAX_VISITS_SHOWN).map(function (x) {
+          return x.time + ' ' + x.path;
+        });
+        if (v.length > MAX_VISITS_SHOWN) shown.push('…+' + (v.length - MAX_VISITS_SHOWN));
+        tdVisits.textContent = shown.join(' · ');
+      } else {
+        tdVisits.textContent = paths.map(function (p) { return p.path + ' ' + p.n; }).join(' · ');
+      }
+      tr.appendChild(tdDay); tr.appendChild(tdN); tr.appendChild(tdVisits);
       body.appendChild(tr);
     });
     $('dateSection').toggleAttribute('hidden', false);
@@ -339,9 +371,11 @@
       })
       .then(function (b) {
         var byDay = dayPaths(b.rows || []);
+        var visitsByDay = dayVisits(b.visits || []);
         paintChart(b.daily, b.days, byDay);
         paintTable(b.byPath);
-        paintDateTable(byDay);
+        paintDateTable(byDay, visitsByDay);
+        $('truncated').toggleAttribute('hidden', !b.visitsTruncated);
       })
       .catch(function (err) {
         // status 가 없는 실패는 응답을 아예 못 받은 것 — 네트워크 문제이거나(Worker 가
@@ -356,6 +390,7 @@
         $('chartWrap').toggleAttribute('hidden', true);
         $('pathSection').toggleAttribute('hidden', true);
         $('dateSection').toggleAttribute('hidden', true);
+        $('truncated').toggleAttribute('hidden', true);
         if (!key()) { $('keyRow').toggleAttribute('hidden', false); $('ctrlRow').toggleAttribute('hidden', true); }
       });
   }
