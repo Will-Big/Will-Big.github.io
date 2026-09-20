@@ -23,6 +23,8 @@
   table { width:100%; border-collapse:collapse; font-size:14px; }
   th, td { text-align:left; padding:10px 8px; border-bottom:1px solid #e5e1df; }
   td.n, th.n { text-align:right; font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace; }
+  /* 방문 칸이 길어져도 날짜 칸이 표 자동 레이아웃에 밀려 줄바꿈되지 않게 고정한다 */
+  #dateTable td:first-child, #dateTable th:first-child { white-space:nowrap; }
   .msg { color:#c22a10; font-size:14px; }
   svg { width:100%; height:220px; display:block; }
   /* preserveAspectRatio="none" 인 SVG 안의 <text> 는 좁은 화면에서 가로로 늘어나 보인다.
@@ -47,7 +49,7 @@
   .tblHead { font-family:var(--font-heading); font-size:16px; margin:28px 0 8px; color:#201e1d; }
   /* 시각이 붙어 칸이 길어졌다. 320px 에서 표 밖으로 삐져나가지 않게 어디서든 끊는다. */
   td.paths { color:#4d4a48; overflow-wrap:anywhere; }
-  .note { color:#6b6664; font-size:13px; margin:0 0 8px; }
+  .note { color:#6b6664; font-size:12px; margin:0 0 8px; }
   td.paths .ttN { font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace; }
   /* .row 와 svg 의 display 지정이 [hidden] 기본값을 이겨버리므로 !important 로 되돌린다 */
   [hidden] { display: none !important; }
@@ -322,6 +324,8 @@
   function paintDateTable(byDay, visitsByDay) {
     var body = $('dateTable').querySelector('tbody');
     body.innerHTML = '';
+    // byDay 는 rows 에서 나온 날짜만 갖는다 — 서버가 visits 를 보내기 전에 이미 rows 로
+    // 접어 넣으므로 visits 에만 있고 rows 에는 없는 날짜는 없다고 보장된다.
     Object.keys(byDay).sort().reverse().forEach(function (day) {
       var paths = byDay[day];
       var total = paths.reduce(function (s, p) { return s + p.n; }, 0);
@@ -339,6 +343,10 @@
           return x.time + ' ' + x.path;
         });
         if (v.length > MAX_VISITS_SHOWN) shown.push('…+' + (v.length - MAX_VISITS_SHOWN));
+        // total(조회수, rows 기준)이 목록 길이보다 클 수 있다 — 전환일이면 옛 hits 방문이
+        // 시각 없이 섞여 있고, 잘린 날이면 20,000건 밖으로 밀려난 방문이 있어서다. 두
+        // 경우 다 시각을 댈 수 없으니 원인을 밝히지 않고 개수 차이만 적는다.
+        if (total > v.length) shown.push('그 밖에 ' + (total - v.length) + '건');
         tdVisits.textContent = shown.join(' · ');
       } else {
         tdVisits.textContent = paths.map(function (p) { return p.path + ' ' + p.n; }).join(' · ');
