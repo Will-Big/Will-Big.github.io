@@ -54,7 +54,7 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
         <div style="border-top:2px solid var(--color-text);margin-top:16px;padding-top:14px;font-size:14px;line-height:1.9;color:rgba(32,30,29,.8)">
           <div><span style="color:rgba(32,30,29,.5);display:inline-block;width:76px">기간</span>2023.08.07 – 08.25 (3주)</div>
           <div><span style="color:rgba(32,30,29,.5);display:inline-block;width:76px">팀</span>7명 (프로그래밍 3 · 아트 2 · 기획 2)</div>
-          <div><span style="color:rgba(32,30,29,.5);display:inline-block;width:76px">내 몫</span>게임 엔진 · 게임 플레이</div>
+          <div><span style="color:rgba(32,30,29,.5);display:inline-block;width:76px">담당 업무</span>게임 엔진 · 게임 플레이</div>
         </div>
         <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:16px">
           <span style="border:1px solid rgba(32,30,29,.3);font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;padding:3px 8px">C++17</span>
@@ -159,7 +159,7 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
     <!-- f1 -->
     <div id="f1" style="border:1px solid rgba(32,30,29,.22);border-top:4px solid var(--color-accent);background:#fff;padding:36px 44px 40px;scroll-margin-top:86px">
       <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px">
-        <span style="background:var(--color-accent);color:#fff;font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;padding:4px 8px;letter-spacing:.08em">내가 한 일 · 설계 및 구현</span>
+        <span style="background:var(--color-accent);color:#fff;font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;padding:4px 8px;letter-spacing:.08em">담당 업무 · 설계 및 구현</span>
         <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;color:rgba(32,30,29,.5);letter-spacing:.1em">GAMEPLAY</span>
       </div>
       <h3 style="margin:0 0 18px;font-size:28px;font-weight:700;letter-spacing:-.02em">능력을 탈부착하는 카드 설계</h3>
@@ -173,7 +173,7 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
           <p style="margin:0;font-size:14.5px;line-height:1.6;font-weight:500">조작 카드가 수치·대상·주도력·횟수까지 변경하므로, 카드 한 장의 능력이 <strong>런타임에 계속 달라짐</strong></p>
         </div>
         <div style="padding:16px 0 18px 20px">
-          <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;color:var(--color-accent);letter-spacing:.1em;margin-bottom:6px">무엇이 나아졌나</div>
+          <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;color:var(--color-accent);letter-spacing:.1em;margin-bottom:6px">개선 결과</div>
           <p style="margin:0;font-size:14.5px;line-height:1.6;font-weight:500">카드마다 클래스를 만들지 않고 <strong style="color:var(--color-accent)">부품 조합만으로 새 카드</strong>를 정의. 짧은 기간에도 카드 종류를 계속 늘릴 수 있었음</p>
         </div>
       </div>
@@ -218,7 +218,7 @@ case DefaultPlayCard::PlayerCard::다리걸기:
             <div style="padding:11px 0"><code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11.5px;color:var(--color-accent)">CardFuncComponent</code> — 드로우·교체처럼 수치로 표현되지 않는 동작</div>
           </div>
           <div style="border-left:2px solid var(--color-accent);padding:2px 0 2px 16px;margin-top:18px">
-            <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.1em;color:var(--color-accent);margin-bottom:6px">막혔던 지점</div>
+            <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.1em;color:var(--color-accent);margin-bottom:6px">구현 중 문제와 해결</div>
             <p style="margin:0;font-size:13.5px;line-height:1.7;color:rgba(32,30,29,.75)">조작 카드가 값을 변경한 뒤 <strong>턴이 끝나면 원래 값으로 복구</strong>되어야 하는데, 여러 카드의 효과가 겹치면 원본 값을 추적할 수 없었습니다. 부품마다 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11.5px">SetOriginValue / ResetToOriginValue</code> 구현을 강제해, 복구 책임을 부품 자신에게 두는 방식으로 정리했습니다.</p>
           </div>
         </div>
@@ -228,7 +228,7 @@ case DefaultPlayCard::PlayerCard::다리걸기:
     <!-- f2 -->
     <div id="f2" style="border:1px solid rgba(32,30,29,.22);border-top:none;background:#fff;padding:36px 44px 40px;scroll-margin-top:86px">
       <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px">
-        <span style="background:var(--color-accent);color:#fff;font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;padding:4px 8px;letter-spacing:.08em">내가 한 일 · 설계 및 구현</span>
+        <span style="background:var(--color-accent);color:#fff;font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;padding:4px 8px;letter-spacing:.08em">담당 업무 · 설계 및 구현</span>
         <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;color:rgba(32,30,29,.5);letter-spacing:.1em">GAMEPLAY</span>
       </div>
       <h3 style="margin:0 0 18px;font-size:28px;font-weight:700;letter-spacing:-.02em">하나의 상태 머신으로 동작하는 전투 씬</h3>
@@ -242,7 +242,7 @@ case DefaultPlayCard::PlayerCard::다리걸기:
           <p style="margin:0;font-size:14.5px;line-height:1.6;font-weight:500">턴제에서는 현재 진행 상황 자체가 규칙이 됨. 조건문으로 흩어 두면 연출과 입력 잠금이 서로 얽힘</p>
         </div>
         <div style="padding:16px 0 18px 20px">
-          <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;color:var(--color-accent);letter-spacing:.1em;margin-bottom:6px">무엇이 나아졌나</div>
+          <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;color:var(--color-accent);letter-spacing:.1em;margin-bottom:6px">개선 결과</div>
           <p style="margin:0;font-size:14.5px;line-height:1.6;font-weight:500">단계를 하나 <strong style="color:var(--color-accent)">추가하는 것만으로</strong> 새 연출과 규칙을 도입. 문제의 원인도 단계 단위로 좁혀짐</p>
         </div>
       </div>
@@ -308,7 +308,7 @@ switch (m_Progress) { <span style="color:rgb(138,133,128)">/* DrawFateCards() ·
           <div style="display:grid;grid-template-columns:1.25fr 1fr;gap:36px;margin-top:22px;align-items:start">
             <p style="margin:0;font-size:14px;line-height:1.75;color:rgba(32,30,29,.78)">각 단계는 완료 조건을 만족해야 다음으로 넘어갑니다. 단계를 이렇게 나눠 둔 덕분에 뒤늦게 추가된 규칙도 <strong>기존 코드를 수정하지 않고</strong> 들어올 수 있었습니다. 주도력이 0 이하로 내려가면 즉시 발동되는 <b>‘찰나’</b>, 10을 넘으면 다음 턴으로 넘어가는 <b>‘이월’</b>이 그 예입니다.</p>
             <div style="border-left:2px solid var(--color-accent);padding:2px 0 2px 16px">
-              <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.1em;color:var(--color-accent);margin-bottom:6px">막혔던 지점</div>
+              <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.1em;color:var(--color-accent);margin-bottom:6px">구현 중 문제와 해결</div>
               <p style="margin:0;font-size:13.5px;line-height:1.7;color:rgba(32,30,29,.75)">상태 개수가 늘어나면서 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11.5px">BattleScene</code> 한 파일이 계속 비대해졌습니다. 상태를 <strong>enum과 switch가 아니라 클래스 단위로 분리했다면</strong> 각 상태가 진입과 종료를 스스로 책임질 수 있었을 것입니다.</p>
             </div>
           </div>

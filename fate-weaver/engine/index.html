@@ -51,7 +51,7 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
     <div style="padding:34px 0 0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.12fr);gap:48px;align-items:start">
       <div style="border-left:2px solid var(--color-accent);padding:4px 0 4px 20px">
         <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.14em;color:var(--color-accent);margin-bottom:12px">설계 목표</div>
-        <div style="font-size:29px;line-height:1.35;font-weight:700;letter-spacing:-.02em;text-wrap:pretty">필요한 주기만 돌고,<br>참조 없이도 말이 통하게</div>
+        <div style="font-size:29px;line-height:1.35;font-weight:700;letter-spacing:-.02em;text-wrap:pretty">필요한 실행 주기만 호출하고,<br>직접 참조 없이 이벤트로 통신</div>
       </div>
       <div style="font-size:15px;line-height:1.9;color:rgba(32,30,29,.82);text-wrap:pretty">
         <p style="margin:0 0 14px">Unity 를 참고해 <b>다형성과 템플릿으로 컴포넌트를 관리하는 컨테이너</b>를 만들고자 했습니다. 모든 라이프사이클 함수를 강제로 호출하는 대신, 컴포넌트가 <b>필요한 주기만 골라 참여</b>하는 구조를 목표로 삼았습니다.</p>
@@ -325,7 +325,7 @@ public:
       <div id="event-compare" style="display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr) minmax(0,1.2fr);gap:20px;padding:14px 0;border-bottom:1px solid rgba(32,30,29,.14);scroll-margin-top:86px">
         <span style="font-weight:600;color:var(--color-accent)">이벤트 시스템<span style="display:block;margin-top:8px;font-weight:400;font-size:13px;line-height:1.6;color:rgba(32,30,29,.75)"><a href="../events/" style="color:inherit;border-bottom:1px solid rgba(32,30,29,.45)" target="_blank" rel="noopener">🔗 이벤트 구현 비교 자세히 보기</a></span></span>
         <span style="color:rgba(32,30,29,.75);line-height:1.7"><code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px">std::any</code> 는 유연했지만 수신측이 <b>정확한 타입을 알고 캐스팅해야</b> 했습니다. 식별자가 문자열이라 오타를 컴파일러가 잡지 못했고, 이벤트 클래스 상속 및 사용이 강제되어 사용법이 복잡했습니다.</span>
-        <span style="color:rgba(32,30,29,.75);line-height:1.7"><b>컴파일 타임에 오류를 검출하는 설계</b>의 필요성을 절감했습니다. 이후 엔진에서 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px">struct</code> 자체를 이벤트 ID 이자 파라미터로 쓰는 방식으로 바꿨습니다.</span>
+        <span style="color:rgba(32,30,29,.75);line-height:1.7"><b>컴파일 시점에 오류를 검출할 수 있는 설계</b>가 필요하다고 판단했습니다. 이후 엔진에서 <code style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:12px">struct</code> 자체를 이벤트 ID 이자 파라미터로 쓰는 방식으로 바꿨습니다.</span>
       </div>
 
       <div style="display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr) minmax(0,1.2fr);gap:20px;padding:14px 0;border-bottom:1px solid rgba(32,30,29,.14)">

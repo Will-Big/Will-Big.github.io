@@ -54,7 +54,7 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
         <div style="border-top:2px solid var(--color-text);margin-top:16px;padding-top:14px;font-size:14px;line-height:1.9;color:rgba(32,30,29,.8)">
           <div><span style="color:rgba(32,30,29,.5);display:inline-block;width:76px">기간</span>2026.04 – 2026.06 (2개월)</div>
           <div><span style="color:rgba(32,30,29,.5);display:inline-block;width:76px">인원</span>1명</div>
-          <div><span style="color:rgba(32,30,29,.5);display:inline-block;width:76px">내 몫</span>전부 (생성 알고리즘 · 게임 플레이)</div>
+          <div><span style="color:rgba(32,30,29,.5);display:inline-block;width:76px">담당 업무</span>전부 (생성 알고리즘 · 게임 플레이)</div>
         </div>
         <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:16px">
           <span style="border:1px solid rgba(32,30,29,.3);font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;padding:3px 8px">Unreal Engine 5</span>
@@ -74,7 +74,7 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
     <div data-toc="하이라이트" style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:11px;letter-spacing:.12em;color:var(--color-accent);padding-bottom:10px">하이라이트</div>
     <div style="border-top:2px solid var(--color-text);border-bottom:2px solid var(--color-text);display:grid;grid-template-columns:1fr 1fr;gap:0 40px">
       <a href="#pipeline" style="display:flex;gap:14px;padding:15px 0;color:var(--color-text);text-decoration:none;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;color:var(--color-accent);padding-top:4px;flex:none">기능</span><span style="font-size:15px;line-height:1.6;font-weight:500">🔗 출구를 맞춰 방을 이어 붙이는 생성 절차</span></a>
-      <a href="#case-1" style="display:flex;gap:14px;padding:15px 0;color:var(--color-text);text-decoration:none;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;color:var(--color-accent);padding-top:4px;flex:none">사례 1</span><span style="font-size:15px;line-height:1.6;font-weight:500">🔗 동작보다 이해를 택한 결단</span></a>
+      <a href="#case-1" style="display:flex;gap:14px;padding:15px 0;color:var(--color-text);text-decoration:none;border-bottom:1px solid rgba(32,30,29,.14)"><span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;color:var(--color-accent);padding-top:4px;flex:none">사례 1</span><span style="font-size:15px;line-height:1.6;font-weight:500">🔗 구조 이해를 위한 프로토타입 재설계</span></a>
       <a href="#case-2" style="display:flex;gap:14px;padding:15px 0;color:var(--color-text);text-decoration:none"><span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;color:var(--color-accent);padding-top:4px;flex:none">사례 2</span><span style="font-size:15px;line-height:1.6;font-weight:500">🔗 한 클래스에서 여섯 책임으로의 분리</span></a>
       <a href="#case-3" style="display:flex;gap:14px;padding:15px 0;color:var(--color-text);text-decoration:none"><span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;color:var(--color-accent);padding-top:4px;flex:none">사례 3</span><span style="font-size:15px;line-height:1.6;font-weight:500">🔗 드로우 콜을 66에서 2로 줄인 ISM</span></a>
     </div>
@@ -242,11 +242,11 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
         <span style="background:var(--color-accent);color:#fff;font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;padding:4px 8px;letter-spacing:.08em">사례 1</span>
         <span style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;color:rgba(32,30,29,.5);letter-spacing:.1em">AI 활용</span>
       </div>
-      <h3 style="margin:0 0 10px;font-size:28px;font-weight:700;letter-spacing:-.02em">동작보다 이해를 택한 결단</h3>
+      <h3 style="margin:0 0 10px;font-size:28px;font-weight:700;letter-spacing:-.02em">구조 이해를 위한 프로토타입 재설계</h3>
       <p style="margin:0 0 24px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7)">동작하던 프로토타입을 접고 설명할 수 있는 구조로 다시 시작한 과정입니다.</p>
 
       <p style="margin:0;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">첫 프로토타입에서는 배치 알고리즘을 제가 짜지 않고 받아 쓰는 쪽을 택했습니다. 그리드 배치와 Separation Steering, Delaunay 삼각분할, 최소 신장 트리를 엮은 구성이었고 결과도 나왔습니다. 문제는 그 위에 기능을 얹을수록 알고리즘 쪽을 따라가지 못했다는 점입니다. <strong>오류가 나면 메시지를 그대로 넘기고 고쳐 받은 것을 다시 돌리는 사이클에 들어갔고, 어떤 부분이 왜 그렇게 동작하는지 스스로 설명하지 못했습니다.</strong></p>
-      <p style="margin:14px 0 0;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">동작하던 프로젝트를 접고, 앞 절의 출구 규칙으로 처음부터 다시 설계했습니다. 다만 모든 것을 직접 이해하려 들지는 않았고, 알고리즘 자체는 역할만 알고 넘어가되 그것을 감싸는 구조는 제가 설계한다는 선을 먼저 그었습니다. 그 선 덕분에 복잡도를 고르는 기준이 &ldquo;더 정교한 것&rdquo;에서 &ldquo;제가 바꿀 수 있는 것&rdquo;으로 바뀌었습니다.</p>
+      <p style="margin:14px 0 0;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">동작하던 프로젝트를 접고, 앞 절의 출구 규칙으로 처음부터 다시 설계했습니다. 다만 모든 것을 직접 이해하려 들지는 않았고, 알고리즘 자체는 역할을 파악하는 수준으로 활용하되, 이를 사용하는 구조는 직접 설계하기로 했습니다. 이렇게 이해와 설계의 범위를 정하면서 구조를 선택하는 기준이 &ldquo;더 정교한 것&rdquo;에서 &ldquo;제가 바꿀 수 있는 것&rdquo;으로 바뀌었습니다.</p>
 
       <h4 style="margin:34px 0 18px;font-size:19px;font-weight:600;letter-spacing:-.01em">이후 지킨 네 가지</h4>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;background:rgba(32,30,29,.2);border:2px solid var(--color-text)">
@@ -274,7 +274,7 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
 
       <div style="border-left:2px solid var(--color-accent);padding:2px 0 2px 16px;margin-top:24px">
         <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.1em;color:var(--color-accent);margin-bottom:6px">얻은 기준</div>
-        <p style="margin:0;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">당장 굴러가는 결과보다 끝까지 설명할 수 있는 구조를 택했으며, 이해하지 않고 넘어갈 범위는 미리 정해 두어야 그 선택이 방치가 되지 않는다는 것을 얻었습니다.</p>
+        <p style="margin:0;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">동작하는 결과물보다 제가 설명할 수 있는 구조를 우선했습니다. 세부 동작까지 이해하지 않고 활용할 부분도 미리 정해, 검토 범위를 분명히 했습니다.</p>
       </div>
     </div>
 
@@ -287,7 +287,7 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
       <h3 style="margin:0 0 10px;font-size:28px;font-weight:700;letter-spacing:-.02em">한 클래스에서 여섯 책임으로의 분리</h3>
       <p style="margin:0 0 24px;font-size:15px;line-height:1.75;color:rgba(32,30,29,.7)">기능이 아니라 구조를 점검할 때라고 보고, 세 종류의 군더더기를 각각 다른 방법으로 정리한 과정입니다.</p>
 
-      <p style="margin:0 0 24px;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">이 프로젝트의 C++는 합성 우선과 단일 책임을 따릅니다. 비대해진 클래스는 컴포넌트로 나누고 소유 액터는 조각을 조립하고 신호를 중계하기만 하는 얇은 층으로 두었으며, 좋은 구조인지는 <strong>한 곳을 고칠 때 다른 곳이 흔들리지 않는가</strong>로 판단했습니다. 그 기준으로 되짚었을 때 흔들리는 자리는 세 군데였습니다.</p>
+      <p style="margin:0 0 24px;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">이 프로젝트의 C++는 합성 우선과 단일 책임을 따릅니다. 비대해진 클래스는 컴포넌트로 나누고 소유 액터는 컴포넌트 구성과 신호 중계만 담당하도록 했으며, 좋은 구조인지는 <strong>한 기능을 수정할 때 다른 기능에 영향을 주는가</strong>로 판단했습니다. 이 기준으로 검토해 세 가지 문제를 확인했습니다.</p>
 
       <h4 style="margin:0 0 10px;font-size:19px;font-weight:600;letter-spacing:-.01em">한 클래스가 들고 있던 몬스터의 여섯 책임</h4>
       <p style="margin:0 0 18px;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">처음의 몬스터는 한 클래스가 탐지·공격·연출·사망·피격·체력을 전부 직접 들고 있었습니다. 동작은 했지만 공격 타이밍 하나를 손보려 해도 사망·연출 코드 사이를 헤집어야 했고, 같은 기능이 필요한 플레이어에 가져다 쓸 방법도 없었습니다.</p>
@@ -344,8 +344,8 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
         </div>
       </div>
 
-      <h4 style="margin:38px 0 10px;font-size:19px;font-weight:600;letter-spacing:-.01em">약속만 공유하는 상호작용 대상</h4>
-      <p style="margin:0 0 18px;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">문·상자·코인은 서로 다른 물건이지만 &ldquo;닿으면 반응한다&rdquo;는 약속은 같습니다. 생성기와 플레이어가 상대를 무엇인지 묻지 않고 약속만 보고 신호를 보내도록, 약속을 잘게 나눠 필요한 것만 갖게 했습니다.</p>
+      <h4 style="margin:38px 0 10px;font-size:19px;font-weight:600;letter-spacing:-.01em">공통 인터페이스를 구현하는 상호작용 대상</h4>
+      <p style="margin:0 0 18px;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">문·상자·코인은 서로 다른 오브젝트지만 접촉에 반응하는 공통 기능이 있습니다. 생성기와 플레이어가 구체적인 오브젝트 타입에 의존하지 않고 호출할 수 있도록, 인터페이스를 기능별로 나눠 각 대상에 필요한 것만 구현하도록 했습니다.</p>
 
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;background:rgba(32,30,29,.2);border:2px solid var(--color-text)">
         <div style="background:#fff;padding:18px 20px 22px">
@@ -367,7 +367,7 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
           <div style="font-size:12.5px;line-height:1.7;color:rgba(32,30,29,.7);border-top:1px solid rgba(32,30,29,.15);padding-top:8px">AAbyssMonsterBase · AAbyssGenCharacter</div>
         </div>
       </div>
-      <p style="margin:14px 0 0;font-size:13px;line-height:1.7;color:rgba(32,30,29,.65)">상자와 코인은 상호작용과 바닥에서 띄우기 둘 다 필요하므로 두 약속을 함께 가지고, 함정은 띄우기만 가져갑니다.</p>
+      <p style="margin:14px 0 0;font-size:13px;line-height:1.7;color:rgba(32,30,29,.65)">상자와 코인은 상호작용과 바닥에서 띄우기 기능이 모두 필요하므로 두 인터페이스를 구현하고, 함정은 바닥에서 띄우기 인터페이스만 구현합니다.</p>
 
       <div style="border-left:2px solid var(--color-accent);padding:2px 0 2px 16px;margin-top:26px">
         <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.1em;color:var(--color-accent);margin-bottom:6px">얻은 기준</div>
@@ -408,7 +408,7 @@ a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
 
       <div style="border-left:2px solid var(--color-accent);padding:2px 0 2px 16px;margin-top:26px">
         <div style="font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;font-size:10px;letter-spacing:.1em;color:var(--color-accent);margin-bottom:6px">얻은 기준</div>
-        <p style="margin:0;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">원인을 추측으로 지목하지 않고 변수를 하나씩 바꿔 현상을 격리했으며, 방금 넣은 것을 먼저 의심하되 비교로 무죄가 확인되고 나서야 다음 후보로 넘어갔습니다.</p>
+        <p style="margin:0;font-size:15.5px;line-height:1.85;color:rgba(32,30,29,.85)">원인을 추측으로 지목하지 않고 변수를 하나씩 바꿔 현상을 격리했으며, 최근 적용한 변경 사항부터 비교하고, 해당 변경이 원인이 아님을 확인한 뒤 다음 후보를 검토했습니다.</p>
       </div>
     </div>
 
