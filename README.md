@@ -18,7 +18,7 @@ Game Client / Engine Programmer
 | [/tictoc-guardians](https://will-big.github.io/tictoc-guardians) | TicToc Guardians | [TicToc-Guardians](https://github.com/Will-Big/TicToc-Guardians) |
 | [/fate-weaver](https://will-big.github.io/fate-weaver) | Fate Weaver | [fate-weaver](https://github.com/Will-Big/fate-weaver) |
 | [/my-doll-story](https://will-big.github.io/my-doll-story) | My Doll Story | [STOVE 스토어](https://store.onstove.com/ko/games/2398) |
-| [/rogue-deck](https://will-big.github.io/rogue-deck) | Rogue-deck | [rogue-deck](https://github.com/Will-Big/rogue-deck) |
+| [/rogue-deck](https://will-big.github.io/rogue-deck) | Rogue-deck | [네이버 MYBOX](https://naver.me/FRoHls2H) |
 | [/abyssgen](https://will-big.github.io/abyssgen) | AbyssGen | [AbyssGen](https://github.com/Will-Big/AbyssGen) |
 
 ## Contact
